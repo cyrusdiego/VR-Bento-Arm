@@ -6,18 +6,21 @@ public class UpperArmRotate : MonoBehaviour
 {
     public float robotUpperArmSliderValue = 0.0f;
     public Transform RobotUpperArm = null;
+    public Transform pivotPoint = null;
     public float upperArmTurnRate = 0.2f;
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        //RobotUpperArm.rotation = Quaternion.AngleAxis(10 * robotUpperArmSliderValue * upperArmTurnRate, pivotPoint.position);
+        //Debug.Log(pivotPoint.position);
         RobotUpperArm.Rotate(0, robotUpperArmSliderValue * upperArmTurnRate, 0, Space.Self);
+
         if (Input.GetMouseButtonUp(0)) // the "0" is refering to a button mapping
         {
             //resets the sliders back to 0 when you lift up on the mouse click down.
