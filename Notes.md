@@ -6,4 +6,4 @@
 *May 7* 
 - imported bento arm into Unity 
 - Created simple rotation script
-    - I have a general idea on how to implement rotation of the joints: involves creating *parent empty GameObject* and position that parent and use it as the means to rotate the limb
+    - For limb? (idk the terminology lol) wrap in empty game object and rotate that game object 
