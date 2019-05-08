@@ -22,4 +22,10 @@
 - W/D == forward/backward
 - A/D == left/right
 - Up/Down Arrows == up/down
-- Left/Right Arrows == y-axis rotation 
+
+**Camera Rotation**
+- Use Left/Right Arrows
+HOLD:
+    - X == rotate about x-axis
+    - Y == rotate about y-axis
+    - Z == rotate about z-axis

@@ -5,10 +5,10 @@ using UnityEngine;
 public class CameraMovementScript : MonoBehaviour
 {
     public Transform cameraTransform = null;
-    private int cameraSpeed = 100;
+    private int cameraSpeed = 500;
     private float cameraRotationSpeed = 1.0f;
     private float yKeyPressTime, xKeyPressTime, zKeyPressTime, wKeyPressTime, aKeyPressTime, sKeyPressTime, dKeyPressTime, upKeyPressTime, downKeyPressTime, leftKeyPressTime, rightKeyPressTime;
-    private float minTime = 0.2f;
+    private float minTime = 0.01f;
     private bool xbool, ybool, zbool;
     // Start is called before the first frame update
     void Start()
