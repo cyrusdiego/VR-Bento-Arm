@@ -6,12 +6,15 @@ public class RotationScript : MonoBehaviour
 {
     public float robotShoulderSliderValue = 0.0f;
     public float robotElbowSliderValue = 0.0f;
+    public float robotWristSliderValue = 0.0f;
 
     public Transform Shoulder = null;
-    public Transform Elbow = null; 
+    public Transform Elbow = null;
+    public Transform Wrist = null;
 
     public float shoulderTurnRate = -0.2f;
     public float elbowTurnRate = -0.2f;
+    public float wristTurnRate = -0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -41,11 +44,14 @@ public class RotationScript : MonoBehaviour
 
         Elbow.Rotate(0, 0, Mathf.Floor(robotElbowSliderValue * elbowTurnRate), Space.Self);
 
+        Wrist.Rotate(0, 0, Mathf.Floor(robotWristSliderValue * wristTurnRate), Space.Self);
+
         if (Input.GetMouseButtonUp(0)) // the "0" is refering to a button mapping
         {
             //resets the sliders back to 0 when you lift up on the mouse click down.
             robotShoulderSliderValue = 0;
             robotElbowSliderValue = 0;
+            robotWristSliderValue = 0;
      
         }
     }
@@ -54,6 +60,8 @@ public class RotationScript : MonoBehaviour
         //creates the slider and sets it 25 pixels in x, 80 in y, 100 wide and 30 tall.
         robotShoulderSliderValue = GUI.HorizontalSlider(new Rect(25, 80, 100, 30), robotShoulderSliderValue, -10.0f, 10.0f);
         robotElbowSliderValue = GUI.HorizontalSlider(new Rect(25, 120, 100, 30), robotElbowSliderValue, -10.0f, 10.0f);
+        robotWristSliderValue = GUI.HorizontalSlider(new Rect(25, 160, 100, 30), robotWristSliderValue, -10.0f, 10.0f);
+
 
     }
 }
