@@ -254,6 +254,16 @@ public class CameraMovementScript : MonoBehaviour
 
     }
 
+    private void resetRot()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            cameraTransform.eulerAngles = new Vector3(0,0,0);
+            
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -261,6 +271,7 @@ public class CameraMovementScript : MonoBehaviour
         leftright();
         updown();
         XYZbuttondown();
+        resetRot();
 
         if (ybool)
         {
