@@ -32,3 +32,10 @@ HOLD:
     - Z == rotate about z-axis
 
 - Next step/goal: increase accuracy for the rotational axes of the arm 
+- learned: found a script to set pivot easily but it still manual maybe i can alter it to specify where?? but also, can go to solidworks or blender to set pivot point there and re import into unity and that would work. 
+    - also learned that you can create menu items in the editor... may be useful when setting up with the emg stuff later on to interface with another software 
+    - quick google search yielded this: [link](https://answers.unity.com/questions/973452/does-unity-allow-interfacing-with-external-program.html)
+
+3D modelling notes:
+- for the shoulder rotation, is the circular plate connected to the stand supposed to rotate too??? 
+- may be better if the 3D objects are split into smaller models?? so there's more rotating pieces 

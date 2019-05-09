@@ -16,6 +16,7 @@ public class RotationScript : MonoBehaviour
     public float elbowTurnRate = -0.2f;
     public float wristTurnRate = -0.2f;
 
+    public GameObject[] shells = new GameObject[3];
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +62,15 @@ public class RotationScript : MonoBehaviour
         robotShoulderSliderValue = GUI.HorizontalSlider(new Rect(25, 80, 100, 30), robotShoulderSliderValue, -10.0f, 10.0f);
         robotElbowSliderValue = GUI.HorizontalSlider(new Rect(25, 120, 100, 30), robotElbowSliderValue, -10.0f, 10.0f);
         robotWristSliderValue = GUI.HorizontalSlider(new Rect(25, 160, 100, 30), robotWristSliderValue, -10.0f, 10.0f);
-
+       
+        // shows/hides arm shells in game 
+        if(GUI.Button(new Rect(10, 10, 50, 50), "Shells"))
+        {
+            foreach(GameObject shell in shells)
+            {
+                shell.SetActive(!shell.activeSelf);
+            }
+        }
 
     }
 }

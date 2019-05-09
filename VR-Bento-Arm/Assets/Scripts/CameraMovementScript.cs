@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class CameraMovementScript : MonoBehaviour
 {
+    // init of variables 
     public Transform cameraTransform = null;
+
     private int cameraSpeed = 500;
     private float cameraRotationSpeed = 1.0f;
-    private float yKeyPressTime, xKeyPressTime, zKeyPressTime, wKeyPressTime, aKeyPressTime, sKeyPressTime, dKeyPressTime, upKeyPressTime, downKeyPressTime, leftKeyPressTime, rightKeyPressTime;
     private float minTime = 0.01f;
+
+    // variables for key press times 
+    // storing each seperate key press time allows for simultaneous movement in all axes 
+    private float yKeyPressTime, xKeyPressTime, zKeyPressTime, wKeyPressTime, 
+        aKeyPressTime, sKeyPressTime, dKeyPressTime, upKeyPressTime, 
+        downKeyPressTime, leftKeyPressTime, rightKeyPressTime;
+    
+    // bools to determine what camera rotation is happening 
     private bool xbool, ybool, zbool;
+
     // Start is called before the first frame update
     void Start()
     {
         cameraTransform.position = new Vector3(-185, 125, -605); // arbitrary, this vector gives side profile of arm 
     }
 
+    // move forward / back (along z axis) 
     void forwardback()
     {
         if (Input.GetKeyDown(KeyCode.W))
@@ -43,6 +54,7 @@ public class CameraMovementScript : MonoBehaviour
         }
     }
 
+    // move left / right (along x axis)
     void leftright()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -70,6 +82,7 @@ public class CameraMovementScript : MonoBehaviour
         }
     }
 
+    // move up and down (along y axis)
     void updown()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -84,6 +97,7 @@ public class CameraMovementScript : MonoBehaviour
                 cameraTransform.Translate(new Vector3(0, cameraSpeed * Time.deltaTime, 0));
             }
         }
+
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             downKeyPressTime = Time.timeSinceLevelLoad;
@@ -98,6 +112,7 @@ public class CameraMovementScript : MonoBehaviour
         }
     }
 
+    // rotate about y axis 
     void rotateY()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -112,6 +127,7 @@ public class CameraMovementScript : MonoBehaviour
                 cameraTransform.Rotate(0, cameraRotationSpeed, 0, Space.Self);
             }
         }
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             leftKeyPressTime = Time.timeSinceLevelLoad;
@@ -125,48 +141,38 @@ public class CameraMovementScript : MonoBehaviour
             }
         }
     }
+
+    // rotate about x axis 
     void rotateX()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            xKeyPressTime = Time.timeSinceLevelLoad;
-            xbool = true;
+            rightKeyPressTime = Time.timeSinceLevelLoad;
+
         }
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            if (Time.timeSinceLevelLoad - xKeyPressTime > minTime)
+            if (Time.timeSinceLevelLoad - rightKeyPressTime > minTime)
             {
-                if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    rightKeyPressTime = Time.timeSinceLevelLoad;
-
-                }
-                if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    if (Time.timeSinceLevelLoad - rightKeyPressTime > minTime)
-                    {
-                        cameraTransform.Rotate(cameraRotationSpeed, 0, 0, Space.Self);
-                    }
-                }
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    leftKeyPressTime = Time.timeSinceLevelLoad;
-
-                }
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    if (Time.timeSinceLevelLoad - leftKeyPressTime > minTime)
-                    {
-                        cameraTransform.Rotate(-cameraRotationSpeed, 0, 0, Space.Self);
-                    }
-                }
+                cameraTransform.Rotate(cameraRotationSpeed, 0, 0, Space.Self);
             }
         }
-            
-            
-        
 
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            leftKeyPressTime = Time.timeSinceLevelLoad;
+
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            if (Time.timeSinceLevelLoad - leftKeyPressTime > minTime)
+            {
+                cameraTransform.Rotate(-cameraRotationSpeed, 0, 0, Space.Self);
+            }
+        }
     }
+
+    // rotate about z axis 
     void rotateZ()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -196,19 +202,21 @@ public class CameraMovementScript : MonoBehaviour
 
 
     }
+
+    // Checks if any of XYZ buttons are held down to rotate the camera with respect to XYZ axis 
     private void XYZbuttondown()
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
             zKeyPressTime = Time.timeSinceLevelLoad;
         }
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))  // is "Z" pressed?
         {
             if (Time.timeSinceLevelLoad - zKeyPressTime > minTime)
             {
                 zbool = true;
             }
-        } else
+        } else // if not, reset bool
         {
             zbool = false;
         }
@@ -245,6 +253,7 @@ public class CameraMovementScript : MonoBehaviour
         }
 
     }
+
     // Update is called once per frame
     void Update()
     {
