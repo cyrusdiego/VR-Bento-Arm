@@ -181,12 +181,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &175486031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 8006b6d976a1c1b42bc4169c5b334d71,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942876316}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &175486032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8006b6d976a1c1b42bc4169c5b334d71,
     type: 3}
   m_PrefabInstance: {fileID: 1942876316}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &175486033
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175486031}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &332799164
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 332799165}
+  - component: {fileID: 332799166}
   m_Layer: 0
   m_Name: Wrist_Flexion
   m_TagString: Untagged
@@ -219,6 +242,22 @@ Transform:
   m_Father: {fileID: 2022955288}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &332799166
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332799164}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &336584037 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: ec859f204c9d42644820dd773932af8c,
@@ -231,6 +270,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1928510491}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &336584039
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336584037}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &364194011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -304,6 +359,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 723522362}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &374718071
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374718069}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &385461960
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 385461961}
+  - component: {fileID: 385461962}
   m_Layer: 0
   m_Name: Open_Hand
   m_TagString: Untagged
@@ -335,6 +407,22 @@ Transform:
   m_Father: {fileID: 332799165}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &385461962
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385461960}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &497360261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,6 +493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 512725451}
+  - component: {fileID: 512725452}
   m_Layer: 0
   m_Name: Elbow_Rotation
   m_TagString: Untagged
@@ -429,6 +518,22 @@ Transform:
   m_Father: {fileID: 1303981227}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &512725452
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512725450}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &609670931 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 689673af803ef9a47ae69eb2027179f6,
@@ -441,6 +546,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1863540002}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &609670933
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609670931}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &610755722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -515,7 +636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2fb774b9fda84af49bba9f29e2c2f203, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2fb774b9fda84af49bba9f29e2c2f203, type: 3}
       propertyPath: m_LocalPosition.x
@@ -576,6 +697,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 748036038}
+  - component: {fileID: 748036039}
   m_Layer: 0
   m_Name: Forearm
   m_TagString: Untagged
@@ -598,12 +720,50 @@ Transform:
   m_Father: {fileID: 1064835910}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &748036039
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748036037}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &834968795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: a6f771eab5b84914a98c25399afdbc49,
+    type: 3}
+  m_PrefabInstance: {fileID: 910246525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &834968796 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a6f771eab5b84914a98c25399afdbc49,
     type: 3}
   m_PrefabInstance: {fileID: 910246525}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &834968797
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834968795}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &849537093
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,6 +773,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 849537094}
+  - component: {fileID: 849537095}
   m_Layer: 0
   m_Name: ArmMount
   m_TagString: Untagged
@@ -635,12 +796,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &849537095
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849537093}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &900621770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 4ed6005edcaa782428ae68f8558bb508,
+    type: 3}
+  m_PrefabInstance: {fileID: 1249911226}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &900621771 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4ed6005edcaa782428ae68f8558bb508,
     type: 3}
   m_PrefabInstance: {fileID: 1249911226}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &900621772
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900621770}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &910246525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -717,6 +916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1064835910}
+  - component: {fileID: 1064835911}
   m_Layer: 0
   m_Name: Shoulder_Rotation
   m_TagString: Untagged
@@ -740,6 +940,22 @@ Transform:
   m_Father: {fileID: 1538198063}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1064835911
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064835909}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1088852259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -801,12 +1017,34 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 4b2389682ec0f804db147e603e61dcd3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f74f5b1b01535df4ab2b351fc10f3c73, type: 3}
+--- !u!1 &1094832718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 0add889f9f2a7a840960d8ce3e6683a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 364194011}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1094832719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0add889f9f2a7a840960d8ce3e6683a2,
     type: 3}
   m_PrefabInstance: {fileID: 364194011}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &1094832720
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094832718}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1249911226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -982,12 +1220,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1643679973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 327d4e95d9b301847810e3e00fee0b0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 497360261}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1643679974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 327d4e95d9b301847810e3e00fee0b0b,
     type: 3}
   m_PrefabInstance: {fileID: 497360261}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &1643679975
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643679973}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1787191947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,12 +1428,12 @@ MonoBehaviour:
   - {fileID: 336584037}
   - {fileID: 609670931}
   - {fileID: 374718069}
-  Transforms:
-  - {fileID: 1064835910}
-  - {fileID: 512725451}
-  - {fileID: 2022955288}
-  - {fileID: 332799165}
-  - {fileID: 385461961}
+  rigidBodies:
+  - {fileID: 1064835911}
+  - {fileID: 512725452}
+  - {fileID: 2022955289}
+  - {fileID: 332799166}
+  - {fileID: 385461962}
   turnRate: 0.2
 --- !u!4 &1869929532
 Transform:
@@ -1320,6 +1580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2022955288}
+  - component: {fileID: 2022955289}
   m_Layer: 0
   m_Name: Forearm_Rotation
   m_TagString: Untagged
@@ -1344,9 +1605,47 @@ Transform:
   m_Father: {fileID: 512725451}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &2022955289
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022955287}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &2084686521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: a4bb5ca1fa05771429ccb36ea701b5c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 610755722}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2084686522 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a4bb5ca1fa05771429ccb36ea701b5c2,
     type: 3}
   m_PrefabInstance: {fileID: 610755722}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &2084686523
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084686521}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

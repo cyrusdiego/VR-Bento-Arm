@@ -39,3 +39,9 @@ HOLD:
 3D modelling notes:
 - for the shoulder rotation, is the circular plate connected to the stand supposed to rotate too??? 
 - may be better if the 3D objects are split into smaller models?? so there's more rotating pieces 
+
+**May 10**
+- i have proper pivot points now
+- now moving into more realistic physics by changing everything to rigidbody instead of using transform 
+- i need to know actual mass of objects and the amount of torque required for the parts of the arm to rotate 
+    - also need to put in restrictions for movement 

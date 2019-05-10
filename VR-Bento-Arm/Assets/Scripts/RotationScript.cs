@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class RotationScript : MonoBehaviour
 {
-    private Dictionary<string, Transform> robotTransforms = new Dictionary<string, Transform>();
+    private Dictionary<string, Rigidbody> robotRigidBody = new Dictionary<string, Rigidbody>();
     public GameObject[] shells = new GameObject[3];
-    public Transform[] Transforms = new Transform[5];
-    private string[] transformNames = { "Shoulder", "Elbow", "Forearm Rotation", "Wrist Flexion", "Open Hand" };
+    public Rigidbody[] rigidBodies = new Rigidbody[5];
+    private string[] rigidBodyNames = { "Shoulder", "Elbow", "Forearm Rotation", "Wrist Flexion", "Open Hand" };
     public float turnRate = 0.2f;
     private float sliderValue = 0.0f;
     private string mode;
@@ -16,36 +16,44 @@ public class RotationScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mode = transformNames[modeitr++];
+        mode = rigidBodyNames[modeitr++];
         int i = 0;
-        foreach (Transform transform in Transforms)
+        foreach (Rigidbody rigidbody in rigidBodies)
         {
-            robotTransforms.Add(transformNames[i], transform);
+            robotRigidBody.Add(rigidBodyNames[i], rigidbody);
             i++;
         }
     }
-    // Update is called once per frame
-    void Update()
+
+    private void rotateShoulder()
     {
-        
-        switch(modeitr % 5)
+        robotRigidBody[mode].AddTorque(0, sliderValue * turnRate, 0);
+        Debug.Log(robotRigidBody[mode]);
+        Debug.Log(robotRigidBody[mode].angularVelocity);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+
+        switch (modeitr % 5)
         {
             case 0:
-                robotTransforms[mode].Rotate(0, Mathf.Floor(sliderValue * turnRate), 0, Space.Self); 
                 break;
             case 1:
-                robotTransforms[mode].Rotate(0, Mathf.Floor(sliderValue * turnRate), 0, Space.Self);
+                rotateShoulder();
+                //robotTransforms[mode].Rotate(0, Mathf.Floor(sliderValue * turnRate), 0, Space.Self);
                 break;
-            case 2:
-                robotTransforms[mode].Rotate(0, 0, Mathf.Floor(sliderValue * turnRate), Space.Self);
-                break;
-            case 3:
-                robotTransforms[mode].Rotate(Mathf.Floor(sliderValue * turnRate), 0, 0, Space.Self);
-                break;
-            case 4:
-                robotTransforms[mode].Rotate(0, 0, Mathf.Floor(sliderValue * turnRate), Space.Self);
-                break;
-        
+            //case 2:
+            //    robotTransforms[mode].Rotate(0, 0, Mathf.Floor(sliderValue * turnRate), Space.Self);
+            //    break;
+            //case 3:
+            //    robotTransforms[mode].Rotate(Mathf.Floor(sliderValue * turnRate), 0, 0, Space.Self);
+            //    break;
+            //case 4:
+            //    robotTransforms[mode].Rotate(0, 0, Mathf.Floor(sliderValue * turnRate), Space.Self);
+            //    break;
+
         }
     }
 
@@ -61,7 +69,7 @@ public class RotationScript : MonoBehaviour
 
         if (GUI.Button(new Rect(10, 50, 150, 20), mode))
         {
-            mode = transformNames[modeitr++ % 5];
+            mode = rigidBodyNames[modeitr++ % 5];
         }
 
         sliderValue = GUI.HorizontalSlider(new Rect(10, 75, 100, 30), sliderValue, -10.0f, 10.0f);
