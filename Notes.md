@@ -45,3 +45,15 @@ HOLD:
 - now moving into more realistic physics by changing everything to rigidbody instead of using transform 
 - i need to know actual mass of objects and the amount of torque required for the parts of the arm to rotate 
     - also need to put in restrictions for movement 
+
+- need to figure out/ ask how they want movement to be based on:
+    - do i have to make a script that models the servo motor as close as possible?
+        - i think so lol 
+    - so we move the arm in one rotation (using slider for now) then the script (motor) will apply apporpriate torque to maximum velocity 
+
+FOR NEXT DAY:
+    - rank / organize requirements into doc
+    - read hackernews lol
+    - get constraints in oml
+    - have arm move proerly using motor
+    - mention PID controller modelling vs joint motor in unity 
