@@ -17,45 +17,72 @@ public class RotationScript : MonoBehaviour
     void Start()
     {
         mode = rigidBodyNames[modeitr++];
+        
         int i = 0;
         foreach (Rigidbody rigidbody in rigidBodies)
         {
             robotRigidBody.Add(rigidBodyNames[i], rigidbody);
             i++;
         }
+        setKinematic();
     }
 
-    private void rotateShoulder()
+    private void setAngularVelocity()
     {
-        robotRigidBody[mode].AddTorque(0, sliderValue * turnRate, 0);
-        Debug.Log(robotRigidBody[mode]);
-        Debug.Log(robotRigidBody[mode].angularVelocity);
+        foreach (string name in rigidBodyNames)
+        {
+            robotRigidBody[name].angularVelocity = Vector3.zero;
+        }
+
+    }
+    private void setKinematic()
+    {
+        for(int i = modeitr % 5; i < 5; i++)
+        {
+            robotRigidBody[rigidBodyNames[i]].isKinematic = true;
+        }
+        robotRigidBody[mode].isKinematic = false;
+    }
+
+    private void rotateX()
+    {
+        robotRigidBody[mode].AddRelativeTorque(sliderValue * turnRate, 0, 0);
+    }
+    private void rotateY()
+    {
+        robotRigidBody[mode].AddRelativeTorque(0, sliderValue * turnRate, 0);
+    }
+    private void rotateZ()
+    {
+        robotRigidBody[mode].AddRelativeTorque(0, 0, sliderValue * turnRate);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
+      
         switch (modeitr % 5)
         {
             case 0:
+                rotateY();
                 break;
             case 1:
-                rotateShoulder();
-                //robotTransforms[mode].Rotate(0, Mathf.Floor(sliderValue * turnRate), 0, Space.Self);
+                rotateY();
                 break;
-            //case 2:
-            //    robotTransforms[mode].Rotate(0, 0, Mathf.Floor(sliderValue * turnRate), Space.Self);
-            //    break;
-            //case 3:
-            //    robotTransforms[mode].Rotate(Mathf.Floor(sliderValue * turnRate), 0, 0, Space.Self);
-            //    break;
-            //case 4:
-            //    robotTransforms[mode].Rotate(0, 0, Mathf.Floor(sliderValue * turnRate), Space.Self);
-            //    break;
+            case 2:
+                rotateZ();
+                break;
+            case 3:
+                rotateX();
+                break;
+            case 4:
+                rotateZ();
+                break;
 
         }
     }
+
+    
 
     void OnGUI()
     {
@@ -66,17 +93,21 @@ public class RotationScript : MonoBehaviour
                 shell.SetActive(!shell.activeSelf);
             }
         }
-
-        if (GUI.Button(new Rect(10, 50, 150, 20), mode))
-        {
-            mode = rigidBodyNames[modeitr++ % 5];
-        }
-
         sliderValue = GUI.HorizontalSlider(new Rect(10, 75, 100, 30), sliderValue, -10.0f, 10.0f);
 
         if (Input.GetMouseButtonUp(0)) // the "0" is refering to a button mapping
         {
             sliderValue = 0;
+
         }
+        if (GUI.Button(new Rect(10, 50, 150, 20), mode))
+        {
+            
+            mode = rigidBodyNames[modeitr++ % 5];
+            setKinematic();
+            setAngularVelocity();
+        }
+
+
     }
 }
