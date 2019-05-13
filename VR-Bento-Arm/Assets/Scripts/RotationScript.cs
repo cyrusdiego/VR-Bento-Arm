@@ -56,8 +56,6 @@ public class RotationScript : MonoBehaviour
     {
         joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
         joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-        //motor = joint.motor;
     }
 
     // stops the movement of all the joints in between modes 
@@ -80,50 +78,17 @@ public class RotationScript : MonoBehaviour
         robotRigidBody[mode].isKinematic = false;
     }
 
-    /*
-     * Rotates the rigid body specified by mode about a specific axes  
-     */ 
-
-    //private void rotateX()
-    //{
-    //    robotRigidBody[mode].AddRelativeTorque(sliderValue * turnRate, 0, 0);
-    //}
-    //private void rotateY()
-    //{
-    //    robotRigidBody[mode].AddRelativeTorque(0, sliderValue * turnRate, 0);
-    //}
-    //private void rotateZ()
-    //{
-    //    robotRigidBody[mode].AddRelativeTorque(0, 0, sliderValue * turnRate);
-    //}
-
     // Update is called once per frame
     void FixedUpdate()
     {
-        // rotates the rigid body about specific axes based on the mode 
-        //switch (modeitr % 5)
-        //{
-        //    case 0:
-        //        rotateY();
-        //        break;
-        //    case 1:
-        //        rotateY();
-        //        break;
-        //    case 2:
-        //        rotateZ();
-        //        break;
-        //    case 3:
-        //        rotateX();
-        //        break;
-        //    case 4:
-        //        rotateZ();
-        //        break;
-
-        //}
+        if (mode == "Elbow")
+        {
+            joint.connectedAnchor = new Vector3(-130.2f, 125.1f, 0f);
+            //robotRigidBody[mode].gameObject.transform.localPosition = new Vector3(-29,-4.32f,0);
+        }
+        
         if (sliderValue == 0)
         {
-            //motor.force = 0;
-            //motor.targetVelocity = 0;
 
             joint.targetAngularVelocity = Vector3.zero;
             motor.maximumForce = 0;
@@ -134,13 +99,9 @@ public class RotationScript : MonoBehaviour
         }
         else if(sliderValue > 0)
         {
-            //motor.force = torque_velocityVals[mode].Item1;
-            //motor.targetVelocity = torque_velocityVals[mode].Item2;
+
             joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2, 0, 0);
-            //joint.targetRotation = Quaternion.Euler(new Vector3(90,0,0));
 
-
-           
             motor.maximumForce = torque_velocityVals[mode].Item1;
             motor.positionSpring = 1.0f;
             motor.positionDamper = 10000;
@@ -149,22 +110,18 @@ public class RotationScript : MonoBehaviour
         } else
         {
             joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2 * -1, 0, 0);
-            //joint.targetRotation = Quaternion.Euler(new Vector3(90,0,0));
-
-
-
             motor.maximumForce = torque_velocityVals[mode].Item1;
             motor.positionSpring = 1.0f;
             motor.positionDamper = 10000;
             joint.angularXDrive = motor;
         }
-
-        //joint.motor = motor;
-        //joint.useMotor = true;
-
-
+        Debug.Log(robotRigidBody[mode].gameObject.transform.localPosition);
     }
-
+    private void setRotationAxis()
+    {
+        joint.axis = Vector3.forward; 
+        joint.secondaryAxis = Vector3.up;
+    }
     // Creates buttons and slider 
     void OnGUI()
     {
@@ -191,9 +148,12 @@ public class RotationScript : MonoBehaviour
         if (GUI.Button(new Rect(10, 50, 150, 20), mode))
         {
             mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
+
             setJointMotor();
             setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
             setAngularVelocity();  // resets the angular velocity of all the joints to ensure it stops moving 
+            setRotationAxis();
+
         }
 
 

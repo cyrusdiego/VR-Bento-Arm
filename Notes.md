@@ -60,9 +60,12 @@ FOR NEXT DAY:
 
 **May 13**
 TODO for today:
-    - watch about hinge and motor 
-    - Start constraints and read Rory's email regarding constrains and the motor functionality 
-
+    - Comment code (DONE)
+    - watch about hinge and motor (DONE)
+    - organize requirements for project (DONE)
+    - Start constraints and read Rory's email regarding constrains and the motor functionality (WORK in PROGRESS)
+    - be able to hide extras and add the colours for table (DONE)
+    
 - PID C# scripts in downloads folder in case [link](http://www.technologicalutopia.com/servo.htm)
 
 - Figured out how to use motor / joints to create motor like controlls 
