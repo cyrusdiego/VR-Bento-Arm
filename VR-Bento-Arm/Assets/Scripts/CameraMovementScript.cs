@@ -1,4 +1,22 @@
-﻿using System.Collections;
+﻿/* BLINC LAB VR-BENTO-ARM Project
+ * CameraMovementScript.cs 
+ * Created by: Cyrus Diego May 8, 2019 
+ * 
+ * Controls camera movement of the virtual environment using the keyboard:
+ * 
+ * Camera Movement
+ *   - W/D == forward/backward
+ *   - A/D == left/right
+ *   - Up/Down Arrows == up/down
+ * 
+ * *Camera Rotation*
+ * Use Left/Right Arrows
+ * HOLD:
+ *   - X == rotate about x-axis
+ *   - Y == rotate about y-axis
+ *   - Z == rotate about z-axis
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -273,6 +291,7 @@ public class CameraMovementScript : MonoBehaviour
         XYZbuttondown();
         resetRot();
 
+        // If a certain letter key is held down, the camera will rotate about that axis 
         if (ybool)
         {
             rotateY();

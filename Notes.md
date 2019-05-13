@@ -57,3 +57,13 @@ FOR NEXT DAY:
     - get constraints in oml
     - have arm move proerly using motor
     - mention PID controller modelling vs joint motor in unity 
+
+**May 13**
+TODO for today:
+    - watch about hinge and motor 
+    - Start constraints and read Rory's email regarding constrains and the motor functionality 
+
+- PID C# scripts in downloads folder in case [link](http://www.technologicalutopia.com/servo.htm)
+
+- Figured out how to use motor / joints to create motor like controlls 
+    - for joints, will need to use configurable joints to have the joints retain the displacement even when switdching between modes 
