@@ -70,3 +70,13 @@ TODO for today:
 
 - Figured out how to use motor / joints to create motor like controlls 
     - for joints, will need to use configurable joints to have the joints retain the displacement even when switdching between modes 
+
+- got elbow and shoulder motor scripts but i think i need to have specific paramaters like rotational axis save in a text file. 
+
+TODO for next couple days?? / plan: 
+    - finish basic rotation of the arm using the motor / joint scripting 
+    - create a json file for the information 
+    - look into interfacing with brachiOplexus 
+    - i think i may be getting confused / not prioritziing correct thing so this will come up in meeting 
+
+- i think in the future i need to evaluate the memory allocation i do, i use a quite a bit of "new" : **C# and unity has automatic garbage collection** 

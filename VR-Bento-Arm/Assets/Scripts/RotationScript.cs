@@ -81,12 +81,8 @@ public class RotationScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (mode == "Elbow")
-        {
-            joint.connectedAnchor = new Vector3(-130.2f, 125.1f, 0f);
-            //robotRigidBody[mode].gameObject.transform.localPosition = new Vector3(-29,-4.32f,0);
-        }
-        
+        setRotationAxis();
+
         if (sliderValue == 0)
         {
 
@@ -115,12 +111,41 @@ public class RotationScript : MonoBehaviour
             motor.positionDamper = 10000;
             joint.angularXDrive = motor;
         }
-        Debug.Log(robotRigidBody[mode].gameObject.transform.localPosition);
     }
     private void setRotationAxis()
     {
-        joint.axis = Vector3.forward; 
-        joint.secondaryAxis = Vector3.up;
+        switch (modeitr % 5)
+        {
+            case 0: // open hand 
+                joint.axis = Vector3.up;
+                joint.connectedAnchor = new Vector3(-409.5f, 122.7f, 0);
+                break;
+            case 1: // shoulder 
+                joint.axis = Vector3.up;
+                joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
+                break;
+            case 2:// elbow 
+                joint.axis = Vector3.forward;
+                joint.secondaryAxis = Vector3.up;
+                joint.connectedAnchor = new Vector3(-130.2f, 125.1f, 0f);
+                break;
+            case 3:// forearm 
+                joint.axis = Vector3.right;
+                joint.secondaryAxis = Vector3.up;
+                joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
+                break;
+            case 4:// wrist 
+                joint.axis = Vector3.forward;
+                joint.secondaryAxis = Vector3.up;
+                joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
+                break;
+        }
+        if (mode == "Elbow")
+        {
+            joint.axis = Vector3.forward;
+            joint.secondaryAxis = Vector3.up;
+        }
+         
     }
     // Creates buttons and slider 
     void OnGUI()
@@ -152,7 +177,6 @@ public class RotationScript : MonoBehaviour
             setJointMotor();
             setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
             setAngularVelocity();  // resets the angular velocity of all the joints to ensure it stops moving 
-            setRotationAxis();
 
         }
 
