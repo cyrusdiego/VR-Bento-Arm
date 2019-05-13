@@ -27,8 +27,8 @@ public class RotationScript : MonoBehaviour
     private string mode;
     private int modeitr = 0;
 
-    private HingeJoint joint = null;
-    private JointMotor motor;
+    private ConfigurableJoint joint = null;
+    private JointDrive motor;
 
     // Start is called before the first frame update
     void Start()
@@ -50,13 +50,14 @@ public class RotationScript : MonoBehaviour
         }
         setKinematic();
         setJointMotor();
-        Debug.Log(joint);
     }
 
     private void setJointMotor()
     {
-        joint = robotRigidBody[mode].gameObject.GetComponent<HingeJoint>();
-        motor = joint.motor;
+        joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
+        joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+        //motor = joint.motor;
     }
 
     // stops the movement of all the joints in between modes 
@@ -83,18 +84,18 @@ public class RotationScript : MonoBehaviour
      * Rotates the rigid body specified by mode about a specific axes  
      */ 
 
-    private void rotateX()
-    {
-        robotRigidBody[mode].AddRelativeTorque(sliderValue * turnRate, 0, 0);
-    }
-    private void rotateY()
-    {
-        robotRigidBody[mode].AddRelativeTorque(0, sliderValue * turnRate, 0);
-    }
-    private void rotateZ()
-    {
-        robotRigidBody[mode].AddRelativeTorque(0, 0, sliderValue * turnRate);
-    }
+    //private void rotateX()
+    //{
+    //    robotRigidBody[mode].AddRelativeTorque(sliderValue * turnRate, 0, 0);
+    //}
+    //private void rotateY()
+    //{
+    //    robotRigidBody[mode].AddRelativeTorque(0, sliderValue * turnRate, 0);
+    //}
+    //private void rotateZ()
+    //{
+    //    robotRigidBody[mode].AddRelativeTorque(0, 0, sliderValue * turnRate);
+    //}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -119,18 +120,49 @@ public class RotationScript : MonoBehaviour
         //        break;
 
         //}
-        if(sliderValue == 0)
+        if (sliderValue == 0)
         {
-            motor.force = 0;
-            motor.targetVelocity = 0;
+            //motor.force = 0;
+            //motor.targetVelocity = 0;
+
+            joint.targetAngularVelocity = Vector3.zero;
+            motor.maximumForce = 0;
+            joint.xDrive = motor;
+            joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+
+        }
+        else if(sliderValue > 0)
+        {
+            //motor.force = torque_velocityVals[mode].Item1;
+            //motor.targetVelocity = torque_velocityVals[mode].Item2;
+            joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2, 0, 0);
+            //joint.targetRotation = Quaternion.Euler(new Vector3(90,0,0));
+
+
+           
+            motor.maximumForce = torque_velocityVals[mode].Item1;
+            motor.positionSpring = 1.0f;
+            motor.positionDamper = 10000;
+            joint.angularXDrive = motor;
+
         } else
         {
-            motor.force = torque_velocityVals[mode].Item1;
-            motor.targetVelocity = torque_velocityVals[mode].Item2;
+            joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2 * -1, 0, 0);
+            //joint.targetRotation = Quaternion.Euler(new Vector3(90,0,0));
+
+
+
+            motor.maximumForce = torque_velocityVals[mode].Item1;
+            motor.positionSpring = 1.0f;
+            motor.positionDamper = 10000;
+            joint.angularXDrive = motor;
         }
 
-        joint.motor = motor;
-        joint.useMotor = true;
+        //joint.motor = motor;
+        //joint.useMotor = true;
+
+
     }
 
     // Creates buttons and slider 
