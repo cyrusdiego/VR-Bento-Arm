@@ -80,3 +80,9 @@ TODO for next couple days?? / plan:
     - i think i may be getting confused / not prioritziing correct thing so this will come up in meeting 
 
 - i think in the future i need to evaluate the memory allocation i do, i use a quite a bit of "new" : **C# and unity has automatic garbage collection** 
+
+**May 14**
+TODO for today:
+    - Continue with the motor functionality and constraints, i think this should be done by today 
+    - read into software interfacing, sockets, and network programming 
+        - maybe try making your own C# classes to learn 

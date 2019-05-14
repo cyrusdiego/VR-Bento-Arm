@@ -15,12 +15,15 @@
  *   - X == rotate about x-axis
  *   - Y == rotate about y-axis
  *   - Z == rotate about z-axis
+ * 
+ * C == Resets camera ROTATIONS 
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class CameraMovementScript : MonoBehaviour
+public class KeyboardScript : MonoBehaviour
 {
     // init of variables 
     public Transform cameraTransform = null;
@@ -282,6 +285,17 @@ public class CameraMovementScript : MonoBehaviour
 
     }
 
+    private void resetScene()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(currentSceneName);
+        }
+
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -290,6 +304,7 @@ public class CameraMovementScript : MonoBehaviour
         updown();
         XYZbuttondown();
         resetRot();
+        resetScene();
 
         // If a certain letter key is held down, the camera will rotate about that axis 
         if (ybool)

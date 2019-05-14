@@ -29,6 +29,9 @@ public class RotationScript : MonoBehaviour
 
     private ConfigurableJoint joint = null;
     private JointDrive motor;
+    private SoftJointLimit temp1,temp2;
+
+    private float angle;
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +53,57 @@ public class RotationScript : MonoBehaviour
         }
         setKinematic();
         setJointMotor();
+        setJointLimits();
+    }
+    static void ClearConsole()
+    {
+        var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
+
+        var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+
+        clearMethod.Invoke(null, null);
+    }
+    private void setJointLimits()
+    {
+        ClearConsole();
+        if(mode == "Shoulder")
+        {
+            angle = joint.transform.eulerAngles.y;
+            angle = (angle > 180) ? angle - 360 : angle;
+            Debug.Log("Y Euler Angle: " + angle);
+            Debug.Log("Before: ");
+            Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
+            Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
+
+            if (angle > 0)
+            {
+                Debug.Log("Y Euler Angle is greater than 0");
+                temp2.limit = joint.highAngularXLimit.limit + joint.transform.eulerAngles.y;
+                joint.highAngularXLimit = temp2;
+                temp1.limit = joint.lowAngularXLimit.limit + joint.transform.eulerAngles.y;
+                joint.lowAngularXLimit = temp1;
+            }
+            else if (angle < 0)
+            {
+                Debug.Log("Y Euler Angle is less than 0");
+                temp2.limit = joint.highAngularXLimit.limit + angle;
+                joint.highAngularXLimit = temp2;
+                temp1.limit = joint.lowAngularXLimit.limit + angle;
+                joint.lowAngularXLimit = temp1;
+            }
+            Debug.Log("After: ");
+            Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
+            Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
+
+        }
+
     }
 
     private void setJointMotor()
     {
         joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
+        joint.connectedAnchor = new Vector3(-101.2f, 125.1f, 0);
+
         //joint.targetRotation = Quaternion.Euler(new Vector3(90, 0, 0));
     }
 
@@ -86,7 +135,7 @@ public class RotationScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+       
         if (sliderValue == 0)
         {
             joint.targetAngularVelocity = Vector3.zero;
@@ -122,7 +171,9 @@ public class RotationScript : MonoBehaviour
                 break;
             case 1: // shoulder 
                 joint.axis = Vector3.up;
+                joint.secondaryAxis = Vector3.forward;
                 joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
+
                 break;
             case 2:// elbow 
                 joint.axis = Vector3.forward;
@@ -174,6 +225,8 @@ public class RotationScript : MonoBehaviour
             setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
             setAngularVelocity();  // resets the angular velocity of all the joints to ensure it stops moving 
             setRotationAxis();
+            setJointLimits();
+
 
         }
 
