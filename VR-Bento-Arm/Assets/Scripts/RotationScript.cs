@@ -126,7 +126,10 @@ public class RotationScript : MonoBehaviour
     {
         return (Quaternion.FromToRotation(joint1.axis, joint1.gameObject.transform.rotation.eulerAngles));
     }
-
+    void stopRotation(int msg)
+    {
+        sliderValue = 0;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

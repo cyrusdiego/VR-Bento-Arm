@@ -83,6 +83,11 @@ TODO for next couple days?? / plan:
 
 **May 14**
 TODO for today:
-    - Continue with the motor functionality and constraints, i think this should be done by today 
+    - Continue with the motor functionality and constraints, i think this should be done by today (ANGULAR Constraints are done, basic level but rigid body collision will take a bit longer)
     - read into software interfacing, sockets, and network programming 
         - maybe try making your own C# classes to learn 
+
+QUESTIONS: 
+    - for the collisions with itself, are trigger events sufficient to just stop the torque applied? 
+
+- currently the arm can interact with objects BUT it doesnt interact well with itself, it needs angular restriction 
