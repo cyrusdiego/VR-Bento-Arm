@@ -31,7 +31,7 @@ public class RotationScript : MonoBehaviour
     private JointDrive motor;
     private SoftJointLimit temp1,temp2;
 
-    private float angle;
+    private float deltaAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +53,7 @@ public class RotationScript : MonoBehaviour
         }
         setKinematic();
         setJointMotor();
-        setJointLimits();
+        setJointLimits(1);
     }
     static void ClearConsole()
     {
@@ -63,39 +63,65 @@ public class RotationScript : MonoBehaviour
 
         clearMethod.Invoke(null, null);
     }
-    private void setJointLimits()
+    private void setJointLimits(int num)
     {
         ClearConsole();
-        if(mode == "Shoulder")
-        {
-            angle = joint.transform.eulerAngles.y;
-            angle = (angle > 180) ? angle - 360 : angle;
-            Debug.Log("Y Euler Angle: " + angle);
-            Debug.Log("Before: ");
-            Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
-            Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
+        Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(-5000, 0, 0), Color.blue, 100000);
+        Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(0, 0,5000), Color.red, 100000);
+        Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(0, 0, -5000), Color.red, 100000);
 
-            if (angle > 0)
-            {
-                Debug.Log("Y Euler Angle is greater than 0");
-                temp2.limit = joint.highAngularXLimit.limit + joint.transform.eulerAngles.y;
-                joint.highAngularXLimit = temp2;
-                temp1.limit = joint.lowAngularXLimit.limit + joint.transform.eulerAngles.y;
+
+        switch (num)
+        {
+            case 1:
+
+                deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
+                //Debug.Log("deltaAngle BEFORE: " + deltaAngle);
+                deltaAngle = (deltaAngle > 180) ? Mathf.FloorToInt(deltaAngle - 360) : Mathf.FloorToInt(deltaAngle);  // https://answers.unity.com/questions/554743/how-to-calculate-transformlocaleuleranglesx-as-neg.html
+                //Debug.Log("deltaAngle AFTER: " + deltaAngle);
+                //Debug.Log("Before: ");
+                //Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
+                //Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
+                temp1.limit = -90 - deltaAngle;
                 joint.lowAngularXLimit = temp1;
-            }
-            else if (angle < 0)
-            {
-                Debug.Log("Y Euler Angle is less than 0");
-                temp2.limit = joint.highAngularXLimit.limit + angle;
+                temp2.limit = 90 - deltaAngle;
                 joint.highAngularXLimit = temp2;
-                temp1.limit = joint.lowAngularXLimit.limit + angle;
-                joint.lowAngularXLimit = temp1;
-            }
-            Debug.Log("After: ");
-            Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
-            Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
+
+
+
+
+                //if (deltaAngle > 0)
+                //{
+                //    Debug.Log("deltaAngle > 0");
+                //    temp2.limit = 90 - deltaAngle;
+                //    joint.highAngularXLimit = temp2;
+                //    temp1.limit = -90 - deltaAngle;
+                //    joint.lowAngularXLimit = temp1;
+                //}
+                //else if (deltaAngle < 0)
+                //{
+                //    Debug.Log("deltaAngle < 0");
+
+                //    temp2.limit = 90 - deltaAngle;
+                //    joint.highAngularXLimit = temp2;
+                //    temp1.limit = -90 - deltaAngle;
+                //    joint.lowAngularXLimit = temp1;
+                //}
+                //Debug.Log("After: ");
+                //Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
+                //Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
+                Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(robotRigidBody["Open Hand"].gameObject.transform.position.x, 0, robotRigidBody["Open Hand"].gameObject.transform.position.z) * 5000, Color.green, 10000);
+
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
 
         }
+        
+
+  
 
     }
 
@@ -170,10 +196,11 @@ public class RotationScript : MonoBehaviour
                 joint.connectedAnchor = new Vector3(-409.5f, 122.7f, 0);
                 break;
             case 1: // shoulder 
-                joint.axis = Vector3.up;
+
+                joint.axis = Vector3.down;
                 joint.secondaryAxis = Vector3.forward;
                 joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
-
+                setJointLimits(1);
                 break;
             case 2:// elbow 
                 joint.axis = Vector3.forward;
@@ -225,7 +252,6 @@ public class RotationScript : MonoBehaviour
             setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
             setAngularVelocity();  // resets the angular velocity of all the joints to ensure it stops moving 
             setRotationAxis();
-            setJointLimits();
 
 
         }
