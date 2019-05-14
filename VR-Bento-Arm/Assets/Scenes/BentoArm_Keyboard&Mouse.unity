@@ -1862,7 +1862,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1869929532}
-  - component: {fileID: 1869929533}
+  - component: {fileID: 1869929531}
   m_Layer: 0
   m_Name: Rotations
   m_TagString: Untagged
@@ -1870,21 +1870,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1869929532
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869929530}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -348.94714, y: -17.602188, z: -36.98307}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1393807140}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1869929533
+--- !u!114 &1869929531
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1909,12 +1895,12 @@ MonoBehaviour:
   - 9.9
   - 9.9
   shells:
-  - {fileID: 336584037}
   - {fileID: 609670931}
   - {fileID: 374718069}
-  - {fileID: 2057111379}
+  - {fileID: 336584037}
   - {fileID: 1793680480}
   - {fileID: 2067997897}
+  - {fileID: 2057111379}
   rigidBodies:
   - {fileID: 1064835911}
   - {fileID: 512725452}
@@ -1922,6 +1908,26 @@ MonoBehaviour:
   - {fileID: 332799166}
   - {fileID: 385461962}
   turnRate: 0.2
+  angleLimits:
+  - 90
+  - 90
+  - 90
+  - 360
+  - 90
+--- !u!4 &1869929532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869929530}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -348.94714, y: -17.602188, z: -36.98307}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1393807140}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1928510491
 PrefabInstance:
   m_ObjectHideFlags: 0

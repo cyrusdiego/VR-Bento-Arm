@@ -29,9 +29,10 @@ public class RotationScript : MonoBehaviour
 
     private ConfigurableJoint joint = null;
     private JointDrive motor;
-    private SoftJointLimit temp1,temp2;
+    private SoftJointLimit tempAngle1,tempAngle2;
 
     private float deltaAngle;
+    public float[] angleLimits = new float[5];
 
     // Start is called before the first frame update
     void Start()
@@ -74,44 +75,12 @@ public class RotationScript : MonoBehaviour
         switch (num)
         {
             case 1:
-
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
-                //Debug.Log("deltaAngle BEFORE: " + deltaAngle);
                 deltaAngle = (deltaAngle > 180) ? Mathf.FloorToInt(deltaAngle - 360) : Mathf.FloorToInt(deltaAngle);  // https://answers.unity.com/questions/554743/how-to-calculate-transformlocaleuleranglesx-as-neg.html
-                //Debug.Log("deltaAngle AFTER: " + deltaAngle);
-                //Debug.Log("Before: ");
-                //Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
-                //Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
-                temp1.limit = -90 - deltaAngle;
-                joint.lowAngularXLimit = temp1;
-                temp2.limit = 90 - deltaAngle;
-                joint.highAngularXLimit = temp2;
-
-
-
-
-                //if (deltaAngle > 0)
-                //{
-                //    Debug.Log("deltaAngle > 0");
-                //    temp2.limit = 90 - deltaAngle;
-                //    joint.highAngularXLimit = temp2;
-                //    temp1.limit = -90 - deltaAngle;
-                //    joint.lowAngularXLimit = temp1;
-                //}
-                //else if (deltaAngle < 0)
-                //{
-                //    Debug.Log("deltaAngle < 0");
-
-                //    temp2.limit = 90 - deltaAngle;
-                //    joint.highAngularXLimit = temp2;
-                //    temp1.limit = -90 - deltaAngle;
-                //    joint.lowAngularXLimit = temp1;
-                //}
-                //Debug.Log("After: ");
-                //Debug.Log("lower limit: " + joint.lowAngularXLimit.limit);
-                //Debug.Log("upper limit: " + joint.highAngularXLimit.limit);
-                Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(robotRigidBody["Open Hand"].gameObject.transform.position.x, 0, robotRigidBody["Open Hand"].gameObject.transform.position.z) * 5000, Color.green, 10000);
-
+                tempAngle1.limit = -90 - deltaAngle;
+                joint.lowAngularXLimit = tempAngle1;
+                tempAngle2.limit = 90 - deltaAngle;
+                joint.highAngularXLimit = tempAngle2;
                 break;
             case 2:
                 break;
@@ -194,32 +163,48 @@ public class RotationScript : MonoBehaviour
             case 0: // open hand 
                 joint.axis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-409.5f, 122.7f, 0);
+            
+                deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
+
                 break;
             case 1: // shoulder 
-
                 joint.axis = Vector3.down;
                 joint.secondaryAxis = Vector3.forward;
                 joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
-                setJointLimits(1);
+
+                deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
+
+
                 break;
             case 2:// elbow 
-                joint.axis = Vector3.forward;
+                joint.axis = Vector3.back;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-130.2f, 125.1f, 0f);
+
+                deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.z);
+    
                 break;
             case 3:// forearm 
                 joint.axis = Vector3.right;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
+                deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.x);
+
                 break;
             case 4:// wrist 
-                joint.axis = Vector3.forward;
+                joint.axis = Vector3.back;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
+                deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.z);
+
                 break;
         }
 
-         
+        deltaAngle = (deltaAngle > 180) ? Mathf.FloorToInt(deltaAngle - 360) : Mathf.FloorToInt(deltaAngle);  // https://answers.unity.com/questions/554743/how-to-calculate-transformlocaleuleranglesx-as-neg.html
+        tempAngle1.limit = -angleLimits[modeitr % 5] - deltaAngle;
+        joint.lowAngularXLimit = tempAngle1;
+        tempAngle2.limit = angleLimits[modeitr % 5] - deltaAngle;
+        joint.highAngularXLimit = tempAngle2;
     }
     // Creates buttons and slider 
     void OnGUI()
