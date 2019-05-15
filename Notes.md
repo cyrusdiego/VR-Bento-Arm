@@ -91,3 +91,12 @@ QUESTIONS:
     - for the collisions with itself, are trigger events sufficient to just stop the torque applied? 
 
 - currently the arm can interact with objects BUT it doesnt interact well with itself, it needs angular restriction 
+
+**May 15**
+EVENTS today:
+    - 3D printing training 
+    - meeting with quinn, riley, and ahmed 
+TODO: 
+    - Read about networking, Sockets, and C# programming 
+        - I'll need to know how brachiOplexus was made
+        - is is UWP of WPF? 
