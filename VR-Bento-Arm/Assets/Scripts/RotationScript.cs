@@ -34,68 +34,31 @@ public class RotationScript : MonoBehaviour
     private float deltaAngle;
     public float[] angleLimits = new float[5];
 
+    private bool collided = false;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         mode = rigidBodyNames[modeitr++];  // sets the first mode 
 
         // convert to rad / s
-        for(int j = 0; j < 5; j++)
-        {
+        for(int j = 0; j < 5; j++) {
             velocityVals[j] *= (Mathf.PI / 30);
         }
 
         int i = 0;
-        foreach (Rigidbody rigidbody in rigidBodies)// adds to the dictionaries for easy lookup 
-        {
+        foreach (Rigidbody rigidbody in rigidBodies) {// adds to the dictionaries for easy lookup 
             robotRigidBody.Add(rigidBodyNames[i], rigidbody);  
             torque_velocityVals.Add(rigidBodyNames[i], new Tuple<float, float>(torqueVals[i], velocityVals[i]));
             i++;
         }
         setKinematic();
         setJointMotor();
-        setJointLimits(1);
-    }
-    static void ClearConsole()
-    {
-        var logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
-
-        var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-
-        clearMethod.Invoke(null, null);
-    }
-    private void setJointLimits(int num)
-    {
-        ClearConsole();
-        Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(-5000, 0, 0), Color.blue, 100000);
-        Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(0, 0,5000), Color.red, 100000);
-        Debug.DrawLine(new Vector3(-101.2f, 0, 0), new Vector3(0, 0, -5000), Color.red, 100000);
-
-
-        switch (num)
-        {
-            case 1:
-                deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
-                deltaAngle = (deltaAngle > 180) ? Mathf.FloorToInt(deltaAngle - 360) : Mathf.FloorToInt(deltaAngle);  // https://answers.unity.com/questions/554743/how-to-calculate-transformlocaleuleranglesx-as-neg.html
-                tempAngle1.limit = -90 - deltaAngle;
-                joint.lowAngularXLimit = tempAngle1;
-                tempAngle2.limit = 90 - deltaAngle;
-                joint.highAngularXLimit = tempAngle2;
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-
-        }
-        
-
-  
-
     }
 
-    private void setJointMotor()
-    {
+    public void Stop(bool msg){
+        collided = msg;
+    }
+
+    private void setJointMotor() {
         joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
         joint.connectedAnchor = new Vector3(-101.2f, 125.1f, 0);
 
@@ -103,61 +66,47 @@ public class RotationScript : MonoBehaviour
     }
 
     // stops the movement of all the joints in between modes 
-    private void setAngularVelocity()
-    {
-        foreach (string name in rigidBodyNames)
-        {
+    private void setAngularVelocity() {
+        foreach (string name in rigidBodyNames) {
             robotRigidBody[name].angularVelocity = Vector3.zero;
         }
 
     }
 
     // Ensures the current joint being rotated is not a kinematic object and the rest are 
-    private void setKinematic()
-    {
-        for(int i = modeitr % 5; i < 5; i++)
-        {
+    private void setKinematic() {
+        for(int i = modeitr % 5; i < 5; i++) {
             robotRigidBody[rigidBodyNames[i]].isKinematic = true;
         }
         robotRigidBody[mode].isKinematic = false;
     }
 
-    private  Quaternion getJointRotation(ConfigurableJoint joint1)
-    {
-        return (Quaternion.FromToRotation(joint1.axis, joint1.gameObject.transform.rotation.eulerAngles));
-    }
-    void stopRotation(int msg)
-    {
-        sliderValue = 0;
-    }
+
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
        
-        if (sliderValue == 0)
-        {
+        if (sliderValue == 0 || collided){
             joint.targetAngularVelocity = Vector3.zero;
             motor.maximumForce = 0;
             joint.xDrive = motor;
             joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            return;
 
-        } else if(sliderValue > 0)
-        {
-
+        } else if(sliderValue > 0) {
             joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2, 0, 0);
             motor.maximumForce = torque_velocityVals[mode].Item1;
             motor.positionSpring = 1.0f;
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
 
-        } else
-        {
+        } else {
             joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2 * -1, 0, 0);
             motor.maximumForce = torque_velocityVals[mode].Item1;
             motor.positionSpring = 1.0f;
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
         }
+        
     }
     private void setRotationAxis()
     {
