@@ -23,7 +23,7 @@ public class RotationScript : MonoBehaviour
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
     public float turnRate = 0.2f;
-    private float sliderValue = 0.0f;
+    private float sliderValue = 0.0f, currentSliderValue;
     private string mode;
     private int modeitr = 0;
 
@@ -54,7 +54,7 @@ public class RotationScript : MonoBehaviour
         setJointMotor();
     }
 
-    public void Stop(bool msg){
+    public void collisionDetection(bool msg){
         collided = msg;
     }
 
@@ -62,7 +62,6 @@ public class RotationScript : MonoBehaviour
         joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
         joint.connectedAnchor = new Vector3(-101.2f, 125.1f, 0);
 
-        //joint.targetRotation = Quaternion.Euler(new Vector3(90, 0, 0));
     }
 
     // stops the movement of all the joints in between modes 
@@ -81,16 +80,57 @@ public class RotationScript : MonoBehaviour
         robotRigidBody[mode].isKinematic = false;
     }
 
-
     // Update is called once per frame
     void FixedUpdate() {
-       
-        if (sliderValue == 0 || collided){
+        if(!collided){
+            rotateArm();
+        } else {
+            restrictRotation();
+        }
+    }
+
+    private void restrictRotation() {
+        if(currentSliderValue > 0) {
+            if (sliderValue >= 0) {
+                joint.targetAngularVelocity = Vector3.zero;
+                motor.maximumForce = 0;
+                joint.xDrive = motor;
+                joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+            } else if(sliderValue < 0) {
+                joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2 * -1, 0, 0);
+                motor.maximumForce = torque_velocityVals[mode].Item1;
+                motor.positionSpring = 1.0f;
+                motor.positionDamper = 1000;
+                joint.angularXDrive = motor;
+
+            }
+        } else {
+            if (sliderValue <= 0){
+                joint.targetAngularVelocity = Vector3.zero;
+                motor.maximumForce = 0;
+                joint.xDrive = motor;
+                joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+            } else if(sliderValue > 0) {
+                joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2, 0, 0);
+                motor.maximumForce = torque_velocityVals[mode].Item1;
+                motor.positionSpring = 1.0f;
+                motor.positionDamper = 1000;
+                joint.angularXDrive = motor;
+
+            } 
+        }
+    }
+
+    private void rotateArm() {
+                    currentSliderValue = sliderValue;
+
+        if (sliderValue == 0){
             joint.targetAngularVelocity = Vector3.zero;
             motor.maximumForce = 0;
             joint.xDrive = motor;
             joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            return;
 
         } else if(sliderValue > 0) {
             joint.targetAngularVelocity = new Vector3(torque_velocityVals[mode].Item2, 0, 0);
@@ -106,49 +146,42 @@ public class RotationScript : MonoBehaviour
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
         }
-        
     }
-    private void setRotationAxis()
-    {
-        switch (modeitr % 5)
-        {
+
+    private void setRotationAxis() {
+        switch (modeitr % 5) {
             case 0: // open hand 
                 joint.axis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-409.5f, 122.7f, 0);
-            
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
-
                 break;
+
             case 1: // shoulder 
                 joint.axis = Vector3.down;
                 joint.secondaryAxis = Vector3.forward;
                 joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
-
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
-
-
                 break;
+
             case 2:// elbow 
                 joint.axis = Vector3.back;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-130.2f, 125.1f, 0f);
-
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.z);
-    
                 break;
+
             case 3:// forearm 
                 joint.axis = Vector3.right;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.x);
-
                 break;
+
             case 4:// wrist 
                 joint.axis = Vector3.back;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.z);
-
                 break;
         }
 
@@ -158,14 +191,12 @@ public class RotationScript : MonoBehaviour
         tempAngle2.limit = angleLimits[modeitr % 5] - deltaAngle;
         joint.highAngularXLimit = tempAngle2;
     }
+
     // Creates buttons and slider 
-    void OnGUI()
-    {
+    void OnGUI() {
         // Hides arm-shells, 8020 stand, Table, and Desktop-Workspace
-        if (GUI.Button(new Rect(10, 25, 100, 20), "Hide"))
-        {
-            foreach (GameObject shell in shells)
-            {
+        if (GUI.Button(new Rect(10, 25, 100, 20), "Hide")) {
+            foreach (GameObject shell in shells) {
                 shell.SetActive(!shell.activeSelf);
             }
         }
@@ -174,25 +205,19 @@ public class RotationScript : MonoBehaviour
         sliderValue = GUI.HorizontalSlider(new Rect(10, 75, 100, 30), sliderValue, -10.0f, 10.0f);
 
         // resets the slider when mouse is released 
-        if (Input.GetMouseButtonUp(0)) // the "0" is refering to a button mapping
-        {
+        // the "0" is refering to a button mapping
+        if (Input.GetMouseButtonUp(0)) { 
             sliderValue = 0;
 
         }
 
         // button to alternate between joints / freedom of movements 
-        if (GUI.Button(new Rect(10, 50, 150, 20), mode))
-        {
+        if (GUI.Button(new Rect(10, 50, 150, 20), mode)) {
             mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
-
             setJointMotor();
             setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
             setAngularVelocity();  // resets the angular velocity of all the joints to ensure it stops moving 
             setRotationAxis();
-
-
         }
-
-
     }
 }

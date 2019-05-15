@@ -13,15 +13,11 @@ public class WristArmShell : MonoBehaviour
         gameObject.transform.eulerAngles = WristArmShellTransform.eulerAngles;
     }
     
-    void OnTriggerEnter(Collider other)
-    {
-        Rotations.SendMessage("Stop",true);
-                Debug.Log(other.gameObject);
-
+    void OnTriggerEnter(Collider other) {
+        Rotations.SendMessage("collisionDetection",true);
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        Rotations.SendMessage("Stop", false);
+    void OnTriggerExit(Collider other) {
+        Rotations.SendMessage("collisionDetection", false);
     }
 }

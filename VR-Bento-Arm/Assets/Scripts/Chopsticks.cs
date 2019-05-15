@@ -8,10 +8,6 @@ public class Chopsticks : MonoBehaviour
     public Transform ChopStick2Transform = null;
     public GameObject Rotations = null;
 
-    // Start is called before the first frame update
-    void Start() {
-    }
-
     // Update is called once per frame
     void FixedUpdate() {
         gameObject.transform.GetChild(0).gameObject.transform.position = ChopStick1Transform.position;

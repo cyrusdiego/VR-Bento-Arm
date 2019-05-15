@@ -100,3 +100,5 @@ TODO:
     - Read about networking, Sockets, and C# programming 
         - I'll need to know how brachiOplexus was made
         - is is UWP of WPF? 
+FOR TMRW:
+    - figured out a way to use joints and mesh colliders BUT unity only allows for convex mesh colliders not concave so i need a work around 

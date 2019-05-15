@@ -8,19 +8,16 @@ public class UpperArmShell : MonoBehaviour
     public GameObject Rotations = null;
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         gameObject.transform.position = UpperArmShellTransform.position;
         gameObject.transform.eulerAngles = UpperArmShellTransform.eulerAngles;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        Rotations.SendMessage("Stop",true);
+    void OnTriggerEnter(Collider other) {
+        Rotations.SendMessage("collisionDetection",true);
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        Rotations.SendMessage("Stop", false);
+    void OnTriggerExit(Collider other) {
+        Rotations.SendMessage("collisionDetection", false);
     }
 }
