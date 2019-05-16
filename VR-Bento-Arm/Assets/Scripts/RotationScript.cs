@@ -22,7 +22,6 @@ public class RotationScript : MonoBehaviour
     public GameObject[] shells = new GameObject[6];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
-    public float turnRate = 0.2f;
     private float sliderValue = 0.0f, currentSliderValue;
     private string mode;
     private int modeitr = 0;

@@ -108,8 +108,10 @@ FOR TMRW:
 - added some box colliders to the main part of the arm 
     - I need to create the scripts for each section of the arm to stop when they collide with one another 
 
+- FOR BOX COLLIDERS TO WORK: have parent or itself have rigid body, turn on isTrigger and use the trigget event method 
+
 TODO for TMRW:
-    - Finish scripting the box colliders 
+    - Finish scripting the box colliders (DONE TODAY)
     - Thoroughly test the edge cases for the collisions 
     - edit the sizes or add any more box colliders or remove if necessary 
-    - Start doing the arm shells 
+    - Create box colliders for the stand and desk and the arm shells
