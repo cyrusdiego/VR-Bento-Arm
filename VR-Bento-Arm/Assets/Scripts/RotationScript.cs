@@ -51,6 +51,7 @@ public class RotationScript : MonoBehaviour
         }
         setKinematic();
         setJointMotor();
+        setRotationAxis();
     }
 
     public void collisionDetection(bool msg){

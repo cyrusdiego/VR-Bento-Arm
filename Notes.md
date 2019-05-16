@@ -1,7 +1,5 @@
 # Project Notes 
 
-## Sites Used:
-
 ## General Progress
 **May 7**
 - imported bento arm into Unity 
@@ -112,6 +110,12 @@ FOR TMRW:
 
 TODO for TMRW:
     - Finish scripting the box colliders (DONE TODAY)
-    - Thoroughly test the edge cases for the collisions 
-    - edit the sizes or add any more box colliders or remove if necessary 
-    - Create box colliders for the stand and desk and the arm shells
+    - Thoroughly test the edge cases for the collisions (NOT DONE, Look below)
+    - edit the sizes or add any more box colliders or remove if necessary (I think i just need to add more the for the stand, but the arm should be good? )
+    - Create box colliders for the desk and the arm shells (I NEED THE ANGULAR SECTION FOR THE STAND)
+    - have more realistic angular restrictions like the motors 
+
+EDGE CASES:
+    - rotating one part of arm to collide works BUT, for example rotate the rist to hit the forearm, you can no longer rotate the shoulder properly
+        - one collision will restrict all forms of rotation 
+        - so need to have an if statement or something to check what mode should be restricted 
