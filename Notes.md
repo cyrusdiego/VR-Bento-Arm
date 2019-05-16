@@ -102,3 +102,14 @@ TODO:
         - is is UWP of WPF? 
 FOR TMRW:
     - figured out a way to use joints and mesh colliders BUT unity only allows for convex mesh colliders not concave so i need a work around 
+
+
+**May 16**
+- added some box colliders to the main part of the arm 
+    - I need to create the scripts for each section of the arm to stop when they collide with one another 
+
+TODO for TMRW:
+    - Finish scripting the box colliders 
+    - Thoroughly test the edge cases for the collisions 
+    - edit the sizes or add any more box colliders or remove if necessary 
+    - Start doing the arm shells 
