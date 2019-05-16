@@ -55,6 +55,7 @@ public class RotationScript : MonoBehaviour
     }
 
     public void collisionDetection(bool msg){
+        Debug.Log("yo");
         collided = msg;
     }
 

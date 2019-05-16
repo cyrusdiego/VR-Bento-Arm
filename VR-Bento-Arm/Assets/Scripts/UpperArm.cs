@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WristArmShell : MonoBehaviour
+public class UpperArm: MonoBehaviour
 {
-    public Transform WristArmShellTransform = null;
+    public Transform UpperArmShellTransform = null;
     public GameObject Rotations = null;
 
     // Update is called once per frame
     void FixedUpdate() {
-        gameObject.transform.position = WristArmShellTransform.position;
-        gameObject.transform.eulerAngles = WristArmShellTransform.eulerAngles;
+        gameObject.transform.position = UpperArmShellTransform.position;
+        gameObject.transform.eulerAngles = UpperArmShellTransform.eulerAngles;
     }
-    
+
     void OnTriggerEnter(Collider other) {
         Rotations.SendMessage("collisionDetection",true);
     }

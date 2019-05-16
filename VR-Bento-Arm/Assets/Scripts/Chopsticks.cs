@@ -6,7 +6,6 @@ public class Chopsticks : MonoBehaviour
 {
     public Transform ChopStick1Transform = null;
     public Transform ChopStick2Transform = null;
-    public GameObject Rotations = null;
 
     // Update is called once per frame
     void FixedUpdate() {
@@ -17,4 +16,5 @@ public class Chopsticks : MonoBehaviour
         gameObject.transform.GetChild(1).gameObject.transform.eulerAngles = ChopStick2Transform.eulerAngles;
         
     }
+
 }

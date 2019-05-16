@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForeArmShell : MonoBehaviour
+public class ForeArm : MonoBehaviour
 {
     public Transform ForeArmShellTransform = null;
     public GameObject Rotations = null;
