@@ -125,4 +125,8 @@ TODO:
     - Test and fix edge cases 
     - Create box collider for the table and desktop 
     - fix angular restrictions for motors
+    - Comment all files with consistent style 
+
+RESULTS:
+    - keyboard is now working with the H,J,K,L buttons (this will make it easier to do button mapping for the VR controllers)
     

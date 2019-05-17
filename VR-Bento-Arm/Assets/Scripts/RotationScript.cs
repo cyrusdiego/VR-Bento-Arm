@@ -3,6 +3,10 @@
  * Created by: Cyrus Diego May 7, 2019 
  * 
  * Controls rotation of the virtual bento arm using the keyboard 
+ * Joint Rotation
+ *   - K/L == Clockwise / Counter - Clockwise rotation 
+ * - H == hides armShells, Table, Desktop Workspace, and 8020 Stand 
+ * - J == switches joint rotation mode
  */
 
 using System;
@@ -12,17 +16,19 @@ using UnityEngine;
 
 public class RotationScript : MonoBehaviour
 {
-    // Name : rigidbody and Name : torque and velocity storage 
+    // Name : rigidbody storage
     private Dictionary<string, Rigidbody> robotRigidBody = 
             new Dictionary<string, Rigidbody>();
-
+    // Name : torque and velocity storage 
     private Dictionary<string, Tuple<float, float>> torque_velocityVals = 
             new Dictionary<string, Tuple<float, float>>();
+    // Name : collision bool storage
+    private Dictionary<string, bool> jointCollision = 
+            new Dictionary<string, bool>();
 
     // Rotation modes and motor properties 
     private string[] rigidBodyNames = { "Shoulder", "Elbow", "Forearm Rotation", 
             "Wrist Flexion", "Open Hand" };
-
     public float[] torqueVals = { 1.319f, 2.436f, 0.733f, 0.611f, 0.977f };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
@@ -44,7 +50,7 @@ public class RotationScript : MonoBehaviour
     public float[] angleLimits = new float[5];
 
     // Checks if arm has collided with itself or another collider / rigid body 
-    private bool collided = false;
+    private bool collided;
 
     // Keyboard button presses 
     private float pressTime, minTime = 0.01f;
@@ -65,30 +71,60 @@ public class RotationScript : MonoBehaviour
         // adds to the dictionaries for easy lookup 
         int i = 0;
         foreach (Rigidbody rigidbody in rigidBodies) {
+            // Maps name to rigid body 
             robotRigidBody.Add(rigidBodyNames[i], rigidbody);  
+
+            // Maps name to max torque / velocity 
             torque_velocityVals.Add(rigidBodyNames[i], 
                     new Tuple<float, float>(torqueVals[i], velocityVals[i]));
+
+            // Maps name to collision detection bool
+            jointCollision.Add(rigidBodyNames[i], false);
+
             i++;
-        }
+        } 
 
         // Sets initial settings 
         setKinematic();
         setJointMotor();
         setRotationAxis();
+        collided = jointCollision[mode];
     }
 
     /*
         @brief: called once per frame
     */
     void FixedUpdate() {
+        Debug.Log("mode: " + mode + " jointCollision[mode]: " + jointCollision[mode] + " collided: " + collided);
+        collided = jointCollision[mode];
+        checkKeyPress();
+        //Debug.Log(collided);
         // Checks if the arm has collided with a box collider 
         if(!collided){
             rotateArm();
         } else {
             restrictRotation();
         }
+        
     }
 
+    /*
+        @brief: H will hide arm shells, 8020 stand, table, and desktop workspace 
+    */
+    private void checkKeyPress(){
+        if(Input.GetKeyDown(KeyCode.H)){
+            foreach (GameObject shell in shells) {
+                shell.SetActive(!shell.activeSelf);
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.J)){
+            mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
+            setJointMotor();
+            setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
+            setRotationAxis();
+        }
+    }
     /*
         @brief: called by bounding box gameObjects and will set collided to TRUE
         when the box colliders collide with one another 
@@ -96,7 +132,7 @@ public class RotationScript : MonoBehaviour
         @param: TRUE if box collider collides with another box collider 
     */
     public void collisionDetection(bool msg) {
-        collided = msg;
+        jointCollision[mode] = msg;
     }
 
     /*
