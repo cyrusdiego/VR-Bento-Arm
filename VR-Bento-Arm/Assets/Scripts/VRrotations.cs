@@ -13,8 +13,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
-public class RotationScript : MonoBehaviour
+public class VRrotations : MonoBehaviour
 {
     // Name : rigidbody storage
     private Dictionary<string, Rigidbody> robotRigidBody = 
@@ -96,7 +97,6 @@ public class RotationScript : MonoBehaviour
         @brief: called once per frame
     */
     void FixedUpdate() {
-        
         checkKeyPress();
         // Checks if the arm has collided with a box collider 
         if(!jointCollision[mode]){
@@ -162,15 +162,17 @@ public class RotationScript : MonoBehaviour
 
         @param: the letter being pressed down 
     */
-    private bool checkHold(KeyCode letter) {
-        if(Input.GetKeyDown(letter)){
+    private bool checkHold(string button) {
+        if(Input.GetAxis(button) > 0){
             pressTime = Time.timeSinceLevelLoad;
+                            return true;
+
         } 
-        if(Input.GetKey(letter)){
-            if(Time.timeSinceLevelLoad - pressTime > minTime){
-                return true;
-            }
-        }
+        // if(Input.GetKey(button)){
+        //     if(Time.timeSinceLevelLoad - pressTime > minTime){
+        //         return true;
+        //     }
+        // }
         return false;
     }
 
@@ -202,13 +204,7 @@ public class RotationScript : MonoBehaviour
         one direction when it has collided with another box collider 
     */
     private void restrictRotation() {
-        if(checkHold(KeyCode.L)){
-            if(currentNumValues[mode] < 0) {
-                keyPress(1);
-            } else {
-                keyPress(0);
-            }
-        } else if(checkHold(KeyCode.K)) {
+        if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")) {
             if(currentNumValues[mode] > 0){
                 keyPress(-1);
             } else {
@@ -223,11 +219,12 @@ public class RotationScript : MonoBehaviour
         @brief: rotates the joint with specified torque and maximum velocity 
     */
     private void rotateArm() {
-        if(checkHold(KeyCode.L)){
-            keyPress(1);
-            currentNumValues[mode] = 1;
-        }
-        if(checkHold(KeyCode.K)){
+        // if(checkHold("SELECT_TRIGGER_PRESS_LEFT")){
+        //     keyPress(1);
+        //     currentNumValues[mode] = 1;
+        // }
+        if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
+            Debug.Log("got inside if checkhold");
             keyPress(-1);
             currentNumValues[mode] = -1;
         }

@@ -294,8 +294,40 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_1
-    descriptiveName: 
+    m_Name: SELECT_TRIGGER_PRESS_LEFT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 14
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: SELECT_TRIGGER_PRESS_RIGHT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 15
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: THUMBSTICK_HORIZONTAL_LEFT
+    descriptiveName: Acer Headset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -310,40 +342,8 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_2
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 1
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_3
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 2
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_4
-    descriptiveName: 
+    m_Name: THUMBSTICK_HORIZONTAL_RIGHT
+    descriptiveName: Acer Headset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -358,8 +358,24 @@ InputManager:
     axis: 3
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_5
-    descriptiveName: 
+    m_Name: THUMBSTICK_VERTICAL_LEFT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: THUMBSTICK_VERTICAL_RIGHT
+    descriptiveName: Acer Headset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -374,8 +390,8 @@ InputManager:
     axis: 4
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_6
-    descriptiveName: 
+    m_Name: TOUCHPAD_HORIZONTAL_LEFT
+    descriptiveName: Acer Headset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -387,11 +403,11 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 5
+    axis: 16
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_7
-    descriptiveName: 
+    m_Name: TOUCHPAD_HORIZONTAL_RIGHT
+    descriptiveName: Acer Headset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -403,11 +419,11 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 6
+    axis: 18
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_8
-    descriptiveName: 
+    m_Name: TOUCHPAD_VERTICAL_LEFT
+    descriptiveName: Acer Headset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -419,10 +435,186 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 7
+    axis: 17
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_9
+    m_Name: TOUCHPAD_VERTICAL_RIGHT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 19
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: GRIP_BUTTON_PRESS_LEFT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 4
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: GRIP_BUTTON_PRESS_RIGHT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 5
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: GRIP_BUTTON_SQUEEZE_LEFT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 10
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: GRIP_BUTTON_SQUEEZE_RIGHT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 11
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: MENU_BUTTON_LEFT
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 6
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 14
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: MENU_BUTTON_RIGHT
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 7
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: TOUCHPAD_TOUCH_LEFT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 18
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: TOUCHPAD_TOUCH_RIGHT
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: TOUCHPAD_PRESS_LEFT
+    descriptiveName: Acer Headset
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 16
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: TOUCHPAD_PRESS_RIGHT
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 17
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.001
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: SELECT_TRIGGER_SQUEEZE_LEFT
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -438,7 +630,7 @@ InputManager:
     axis: 8
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_10
+    m_Name: SELECT_TRIGGER_SQUEEZE_RIGHT
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -454,11 +646,11 @@ InputManager:
     axis: 9
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_11
+    m_Name: THUMBSTICK_PRESS_LEFT
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: 
+    positiveButton: joystick button 8
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -466,15 +658,15 @@ InputManager:
     sensitivity: 1
     snap: 0
     invert: 0
-    type: 2
-    axis: 10
+    type: 0
+    axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: AXIS_12
+    m_Name: THUMBSTICK_PRESS_RIGHT
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: 
+    positiveButton: joystick button 9
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -482,200 +674,8 @@ InputManager:
     sensitivity: 1
     snap: 0
     invert: 0
-    type: 2
-    axis: 11
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_13
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 12
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_14
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 13
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_15
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 14
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_16
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 15
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_17
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 16
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_18
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 17
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_19
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 18
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_20
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 19
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_21
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 20
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_22
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 21
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_23
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 22
-    joyNum: 0
-  - serializedVersion: 3
-    m_Name: AXIS_24
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.001
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 23
+    type: 0
+    axis: 0
     joyNum: 0
   - serializedVersion: 3
     m_Name: AXIS_25

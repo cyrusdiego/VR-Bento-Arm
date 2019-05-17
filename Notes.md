@@ -129,4 +129,5 @@ TODO:
 
 RESULTS:
     - keyboard is now working with the H,J,K,L buttons (this will make it easier to do button mapping for the VR controllers)
-    
+    - started doing acer headset stuff:
+        - theres a bit of delay so cannot use start() for init or use a delay?
