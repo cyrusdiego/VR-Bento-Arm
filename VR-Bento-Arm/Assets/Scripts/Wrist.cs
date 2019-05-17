@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class Wrist: MonoBehaviour
 {
     public Transform WristArmShellTransform = null;
     public GameObject Rotations = null;
+    private Tuple<string,bool> msg;
 
     // Update is called once per frame
     void FixedUpdate() {
@@ -14,10 +16,12 @@ public class Wrist: MonoBehaviour
     }
     
     void OnTriggerEnter(Collider other) {
-        Rotations.SendMessage("collisionDetection",true);
+        msg = new Tuple<string,bool>("Forearm Rotation", true);
+        Rotations.SendMessage("collisionDetection", msg);
     }
 
     void OnTriggerExit(Collider other) {
-        Rotations.SendMessage("collisionDetection", false);
+        msg = new Tuple<string,bool>("Forearm Rotation", false);
+        Rotations.SendMessage("collisionDetection", msg);
     }
 }

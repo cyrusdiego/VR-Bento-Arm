@@ -25,6 +25,8 @@ public class RotationScript : MonoBehaviour
     // Name : collision bool storage
     private Dictionary<string, bool> jointCollision = 
             new Dictionary<string, bool>();
+    private Dictionary<string,int> currentNumValues = 
+            new Dictionary<string,int>();
 
     // Rotation modes and motor properties 
     private string[] rigidBodyNames = { "Shoulder", "Elbow", "Forearm Rotation", 
@@ -36,7 +38,7 @@ public class RotationScript : MonoBehaviour
     public GameObject[] shells = new GameObject[6];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
-    private float sliderValue = 0.0f, currentNumValue;
+    private float sliderValue = 0.0f;
     private string mode;
     private int modeitr = 0;
 
@@ -48,9 +50,6 @@ public class RotationScript : MonoBehaviour
     // Used for Angular Limits 
     private float deltaAngle;
     public float[] angleLimits = new float[5];
-
-    // Checks if arm has collided with itself or another collider / rigid body 
-    private bool collided;
 
     // Keyboard button presses 
     private float pressTime, minTime = 0.01f;
@@ -81,6 +80,9 @@ public class RotationScript : MonoBehaviour
             // Maps name to collision detection bool
             jointCollision.Add(rigidBodyNames[i], false);
 
+            // Maps name to current rotation direction 
+            currentNumValues.Add(rigidBodyNames[i],0);
+
             i++;
         } 
 
@@ -88,19 +90,15 @@ public class RotationScript : MonoBehaviour
         setKinematic();
         setJointMotor();
         setRotationAxis();
-        collided = jointCollision[mode];
     }
 
     /*
         @brief: called once per frame
     */
     void FixedUpdate() {
-        Debug.Log("mode: " + mode + " jointCollision[mode]: " + jointCollision[mode] + " collided: " + collided);
-        collided = jointCollision[mode];
         checkKeyPress();
-        //Debug.Log(collided);
         // Checks if the arm has collided with a box collider 
-        if(!collided){
+        if(!jointCollision[mode]){
             rotateArm();
         } else {
             restrictRotation();
@@ -125,14 +123,16 @@ public class RotationScript : MonoBehaviour
             setRotationAxis();
         }
     }
+
     /*
         @brief: called by bounding box gameObjects and will set collided to TRUE
         when the box colliders collide with one another 
 
-        @param: TRUE if box collider collides with another box collider 
+        @param: Tuple holding the mode and if that segment of the arm is 
+        colliding with another box collider
     */
-    public void collisionDetection(bool msg) {
-        jointCollision[mode] = msg;
+    public void collisionDetection(Tuple<string,bool> msg) {
+        jointCollision[msg.Item1] = msg.Item2;
     }
 
     /*
@@ -202,13 +202,13 @@ public class RotationScript : MonoBehaviour
     */
     private void restrictRotation() {
         if(checkHold(KeyCode.L)){
-            if(currentNumValue < 0) {
+            if(currentNumValues[mode] < 0) {
                 keyPress(1);
             } else {
                 keyPress(0);
             }
         } else if(checkHold(KeyCode.K)) {
-            if(currentNumValue > 0){
+            if(currentNumValues[mode] > 0){
                 keyPress(-1);
             } else {
                 keyPress(0);
@@ -224,15 +224,15 @@ public class RotationScript : MonoBehaviour
     private void rotateArm() {
         if(checkHold(KeyCode.L)){
             keyPress(1);
-            currentNumValue = 1;
+            currentNumValues[mode] = 1;
         }
         if(checkHold(KeyCode.K)){
             keyPress(-1);
-            currentNumValue = -1;
+            currentNumValues[mode] = -1;
         }
         if(Input.anyKey == false){
             keyPress(0);
-            currentNumValue = 0;
+            currentNumValues[mode] = 0;
         }
     }
 
