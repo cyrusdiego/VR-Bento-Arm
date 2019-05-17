@@ -119,3 +119,10 @@ EDGE CASES:
     - rotating one part of arm to collide works BUT, for example rotate the rist to hit the forearm, you can no longer rotate the shoulder properly
         - one collision will restrict all forms of rotation 
         - so need to have an if statement or something to check what mode should be restricted 
+
+**May 17**
+TODO:
+    - Test and fix edge cases 
+    - Create box collider for the table and desktop 
+    - fix angular restrictions for motors
+    
