@@ -30,7 +30,7 @@ public class RotationScript : MonoBehaviour
     public GameObject[] shells = new GameObject[6];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
-    private float sliderValue = 0.0f, currentSliderValue;
+    private float sliderValue = 0.0f, currentNumValue;
     private string mode;
     private int modeitr = 0;
 
@@ -46,6 +46,8 @@ public class RotationScript : MonoBehaviour
     // Checks if arm has collided with itself or another collider / rigid body 
     private bool collided = false;
 
+    // Keyboard button presses 
+    private float pressTime, minTime = 0.01f;
 
     /*
         @brief: Called before first frame. Initializes and fills
@@ -119,42 +121,73 @@ public class RotationScript : MonoBehaviour
     }
 
     /*
+        @brief: checks if a keyboard key is being held 
+
+        @param: the letter being pressed down 
+    */
+    private bool checkHold(KeyCode letter) {
+        if(Input.GetKeyDown(letter)){
+            pressTime = Time.timeSinceLevelLoad;
+        } 
+        if(Input.GetKey(letter)){
+            if(Time.timeSinceLevelLoad - pressTime > minTime){
+                return true;
+            }
+        }
+
+        return false;
+    }
+    /*
         @brief: similar to rotateArm(), will only allow the arm to rotate in 
         one direction when it has collided with another box collider 
     */
     private void restrictRotation() {
-        if(currentSliderValue > 0) {
-            if (sliderValue >= 0) {
-                joint.targetAngularVelocity = Vector3.zero;
-                motor.maximumForce = 0;
-                joint.xDrive = motor;
-                joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        if(Input.anyKey == false){
+                keyPress(0);
+        }
 
-            } else if(sliderValue < 0) {
-                joint.targetAngularVelocity = 
-                        new Vector3(torque_velocityVals[mode].Item2 * -1, 0, 0);
-                motor.maximumForce = torque_velocityVals[mode].Item1;
-                motor.positionSpring = 1.0f;
-                motor.positionDamper = 1000;
-                joint.angularXDrive = motor;
+        if(currentNumValue > 0) {
 
+            if(checkHold(KeyCode.L)){
+                keyPress(0);
             }
+            if(checkHold(KeyCode.K)){
+                keyPress(-1);
+            }
+
         } else {
-            if (sliderValue <= 0){
-                joint.targetAngularVelocity = Vector3.zero;
-                motor.maximumForce = 0;
-                joint.xDrive = motor;
-                joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+ 
+            if(checkHold(KeyCode.L)){
+                keyPress(1);
+            }
+            if(checkHold(KeyCode.K)){
+                keyPress(0);
+            }
+        }
+    }
 
-            } else if(sliderValue > 0) {
-                joint.targetAngularVelocity =
-                         new Vector3(torque_velocityVals[mode].Item2, 0, 0);
-                motor.maximumForce = torque_velocityVals[mode].Item1;
-                motor.positionSpring = 1.0f;
-                motor.positionDamper = 1000;
-                joint.angularXDrive = motor;
+    /*
+        @brief: specifies joint rotation properties depending on key press 
+        (or lack thereof) 
 
-            } 
+        @param: num specifies what direction the joint rotates  
+    */
+    private void keyPress(int num) {
+        joint.targetAngularVelocity = 
+                    new Vector3(torque_velocityVals[mode].Item2 * num, 0, 0);
+        motor.maximumForce = torque_velocityVals[mode].Item1 * Mathf.Abs(num);
+        currentNumValue = num;
+
+        if(num != 0){
+            // These need to be modified, doesnt accurately depict servo motors 
+            motor.positionSpring = 1.0f;
+            motor.positionDamper = 1000;
+
+            joint.angularXDrive = motor;
+
+        } else {
+            joint.xDrive = motor;
+            joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
     }
 
@@ -162,30 +195,14 @@ public class RotationScript : MonoBehaviour
         @brief: rotates the joint with specified torque and maximum velocity 
     */
     private void rotateArm() {
-        // stores current value, used in restrictRotation()
-        currentSliderValue = sliderValue;
-
-        if (sliderValue == 0){
-            joint.targetAngularVelocity = Vector3.zero;
-            motor.maximumForce = 0;
-            joint.xDrive = motor;
-            joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
-        } else if(sliderValue > 0) {
-            joint.targetAngularVelocity = 
-                    new Vector3(torque_velocityVals[mode].Item2, 0, 0);
-            motor.maximumForce = torque_velocityVals[mode].Item1;
-            motor.positionSpring = 1.0f;
-            motor.positionDamper = 1000;
-            joint.angularXDrive = motor;
-
-        } else {
-            joint.targetAngularVelocity = 
-                    new Vector3(torque_velocityVals[mode].Item2 * -1, 0, 0);
-            motor.maximumForce = torque_velocityVals[mode].Item1;
-            motor.positionSpring = 1.0f;
-            motor.positionDamper = 1000;
-            joint.angularXDrive = motor;
+        if(checkHold(KeyCode.L)){
+                keyPress(1);
+        }
+        if(checkHold(KeyCode.K)){
+            keyPress(-1);
+        }
+        if(Input.anyKey == false){
+            keyPress(0);
         }
     }
 
@@ -248,15 +265,6 @@ public class RotationScript : MonoBehaviour
             foreach (GameObject shell in shells) {
                 shell.SetActive(!shell.activeSelf);
             }
-        }
-
-        // creates slider to move the arm 
-        sliderValue = GUI.HorizontalSlider(new Rect(10, 75, 100, 30), sliderValue, -10.0f, 10.0f);
-
-        // resets the slider when mouse is released 
-        // the "0" is refering to a button mapping
-        if (Input.GetMouseButtonUp(0)) { 
-            sliderValue = 0;
         }
 
         // button to alternate between joints / freedom of movements 
