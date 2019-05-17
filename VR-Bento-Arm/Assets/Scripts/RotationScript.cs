@@ -38,7 +38,7 @@ public class RotationScript : MonoBehaviour
     public GameObject[] shells = new GameObject[6];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
-    private float sliderValue = 0.0f;
+    // specifies which joint will be rotating 
     private string mode;
     private int modeitr = 0;
 
