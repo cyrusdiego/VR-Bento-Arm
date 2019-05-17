@@ -78,6 +78,18 @@ public class RotationScript : MonoBehaviour
     }
 
     /*
+        @brief: called once per frame
+    */
+    void FixedUpdate() {
+        // Checks if the arm has collided with a box collider 
+        if(!collided){
+            rotateArm();
+        } else {
+            restrictRotation();
+        }
+    }
+
+    /*
         @brief: called by bounding box gameObjects and will set collided to TRUE
         when the box colliders collide with one another 
 
@@ -109,18 +121,6 @@ public class RotationScript : MonoBehaviour
     }
 
     /*
-        @brief: called once per frame
-    */
-    void FixedUpdate() {
-        // Checks if the arm has collided with a box collider 
-        if(!collided){
-            rotateArm();
-        } else {
-            restrictRotation();
-        }
-    }
-
-    /*
         @brief: checks if a keyboard key is being held 
 
         @param: the letter being pressed down 
@@ -134,36 +134,7 @@ public class RotationScript : MonoBehaviour
                 return true;
             }
         }
-
         return false;
-    }
-    /*
-        @brief: similar to rotateArm(), will only allow the arm to rotate in 
-        one direction when it has collided with another box collider 
-    */
-    private void restrictRotation() {
-        if(Input.anyKey == false){
-                keyPress(0);
-        }
-
-        if(currentNumValue > 0) {
-
-            if(checkHold(KeyCode.L)){
-                keyPress(0);
-            }
-            if(checkHold(KeyCode.K)){
-                keyPress(-1);
-            }
-
-        } else {
- 
-            if(checkHold(KeyCode.L)){
-                keyPress(1);
-            }
-            if(checkHold(KeyCode.K)){
-                keyPress(0);
-            }
-        }
     }
 
     /*
@@ -176,13 +147,11 @@ public class RotationScript : MonoBehaviour
         joint.targetAngularVelocity = 
                     new Vector3(torque_velocityVals[mode].Item2 * num, 0, 0);
         motor.maximumForce = torque_velocityVals[mode].Item1 * Mathf.Abs(num);
-        currentNumValue = num;
 
         if(num != 0){
             // These need to be modified, doesnt accurately depict servo motors 
             motor.positionSpring = 1.0f;
             motor.positionDamper = 1000;
-
             joint.angularXDrive = motor;
 
         } else {
@@ -192,17 +161,42 @@ public class RotationScript : MonoBehaviour
     }
 
     /*
+        @brief: similar to rotateArm(), will only allow the arm to rotate in 
+        one direction when it has collided with another box collider 
+    */
+    private void restrictRotation() {
+        if(checkHold(KeyCode.L)){
+            if(currentNumValue < 0) {
+                keyPress(1);
+            } else {
+                keyPress(0);
+            }
+        } else if(checkHold(KeyCode.K)) {
+            if(currentNumValue > 0){
+                keyPress(-1);
+            } else {
+                keyPress(0);
+            }
+        } else if(Input.anyKey == false) {
+            keyPress(0);
+        } 
+    }
+
+    /*
         @brief: rotates the joint with specified torque and maximum velocity 
     */
     private void rotateArm() {
         if(checkHold(KeyCode.L)){
-                keyPress(1);
+            keyPress(1);
+            currentNumValue = 1;
         }
         if(checkHold(KeyCode.K)){
             keyPress(-1);
+            currentNumValue = -1;
         }
         if(Input.anyKey == false){
             keyPress(0);
+            currentNumValue = 0;
         }
     }
 
