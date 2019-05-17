@@ -122,12 +122,16 @@ EDGE CASES:
 
 **May 17**
 TODO:
-    - Test and fix edge cases 
-    - Create box collider for the table and desktop 
-    - fix angular restrictions for motors
-    - Comment all files with consistent style 
+    - Test and fix edge cases (I think it is done, double check)
+    - Create box collider for the table and desktop (DONE)
+    - fix angular restrictions for motors (did not get to do)
+    - Comment all files with consistent style (didnt do all the files but i did it for RotationScript)
 
 RESULTS:
     - keyboard is now working with the H,J,K,L buttons (this will make it easier to do button mapping for the VR controllers)
     - started doing acer headset stuff:
         - theres a bit of delay so cannot use start() for init or use a delay?
+    - vr controller input is good just need to map what each button needs to do
+
+TODO for NEXT DAY:
+    - create script that sets up input manager

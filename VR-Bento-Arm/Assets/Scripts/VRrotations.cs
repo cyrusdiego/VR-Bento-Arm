@@ -2,11 +2,7 @@
  * RotationScript.cs 
  * Created by: Cyrus Diego May 7, 2019 
  * 
- * Controls rotation of the virtual bento arm using the keyboard 
- * Joint Rotation
- *   - K/L == Clockwise / Counter - Clockwise rotation 
- * - H == hides armShells, Table, Desktop Workspace, and 8020 Stand 
- * - J == switches joint rotation mode
+ * Controls rotation of the virtual bento arm using the Acer Headset Controllers
  */
 
 using System;
@@ -97,6 +93,7 @@ public class VRrotations : MonoBehaviour
         @brief: called once per frame
     */
     void FixedUpdate() {
+        Debug.Log(jointCollision[mode]);
         checkKeyPress();
         // Checks if the arm has collided with a box collider 
         if(!jointCollision[mode]){
@@ -111,17 +108,17 @@ public class VRrotations : MonoBehaviour
         @brief: H will hide arm shells, 8020 stand, table, and desktop workspace 
     */
     private void checkKeyPress(){
-        if(Input.GetKeyDown(KeyCode.H)){
-            foreach (GameObject shell in shells) {
-                shell.SetActive(!shell.activeSelf);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.J)){
+        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_RIGHT")){
             mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
             setJointMotor();
             setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
             setRotationAxis();
+        }
+
+        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_LEFT")){
+            foreach (GameObject shell in shells) {
+                shell.SetActive(!shell.activeSelf);
+            }
         }
     }
 
@@ -158,21 +155,26 @@ public class VRrotations : MonoBehaviour
     }
 
     /*
-        @brief: checks if a keyboard key is being held 
+        @brief: checks if a button is being held / squeezed
 
-        @param: the letter being pressed down 
+        @param: the button being squeezed 
     */
     private bool checkHold(string button) {
         if(Input.GetAxis(button) > 0){
-            pressTime = Time.timeSinceLevelLoad;
-                            return true;
-
+            return true;
         } 
-        // if(Input.GetKey(button)){
-        //     if(Time.timeSinceLevelLoad - pressTime > minTime){
-        //         return true;
-        //     }
-        // }
+        return false;
+    }
+
+    /*
+        @brief: checks if a controller button is pressed 
+
+        @param: the button being pressed down 
+    */
+    private bool checkPress(string button) {
+        if(Input.GetButtonDown(button)){
+            return true;
+        } 
         return false;
     }
 
@@ -195,7 +197,7 @@ public class VRrotations : MonoBehaviour
 
         } else {
             joint.xDrive = motor;
-            joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            //joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
     }
 
@@ -204,34 +206,44 @@ public class VRrotations : MonoBehaviour
         one direction when it has collided with another box collider 
     */
     private void restrictRotation() {
-        if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")) {
-            if(currentNumValues[mode] > 0){
-                keyPress(-1);
+        if(checkHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
+            if(currentNumValues[mode] < 0) {
+                keyPress(1);
+                return;
             } else {
                 keyPress(0);
+                return;
             }
-        } else if(Input.anyKey == false) {
-            keyPress(0);
+        } else if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")) {
+            if(currentNumValues[mode] > 0){
+                keyPress(-1);
+                return;
+            } else {
+                keyPress(0);
+                return;
+            }
         } 
+
+        keyPress(0);
+        
     }
 
     /*
         @brief: rotates the joint with specified torque and maximum velocity 
     */
     private void rotateArm() {
-        // if(checkHold("SELECT_TRIGGER_PRESS_LEFT")){
-        //     keyPress(1);
-        //     currentNumValues[mode] = 1;
-        // }
-        if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
-            Debug.Log("got inside if checkhold");
+        if(checkHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
+            keyPress(1);
+            currentNumValues[mode] = 1;
+            return;
+        } else if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
             keyPress(-1);
             currentNumValues[mode] = -1;
+            return;
         }
-        if(Input.anyKey == false){
-            keyPress(0);
-            currentNumValues[mode] = 0;
-        }
+        keyPress(0);
+        currentNumValues[mode] = 0;
+        
     }
 
     /*
