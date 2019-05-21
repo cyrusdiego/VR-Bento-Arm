@@ -79,13 +79,12 @@ public class VRrotations : MonoBehaviour
 
             // Maps name to current rotation direction 
             currentNumValues.Add(rigidBodyNames[i],0);
-            jointCollision.Add(rigidBodyNames[i], false);
             i++;
         } 
-        // foreach(string name in jointCollisionNames){
-        //     // Maps name to collision detection bool
-        //     jointCollision.Add(name, false);
-        // }
+        foreach(string name in jointCollisionNames){
+            // Maps name to collision detection bool
+            jointCollision.Add(name, false);
+        }
 
         // Sets initial settings 
         setKinematic();
@@ -108,26 +107,26 @@ public class VRrotations : MonoBehaviour
     }
 
     private bool checkCollision(){
-        // if(mode != "Open Hand"){
+        if(mode != "Open Hand"){
             if(jointCollision[mode]){
                     return true;
             } else {
                 if(jointCollision[jointCollisionNames[modeitr % 5]]){
                     return true;
                 }
-                // if(modeitr % 5 == 4){
-                //     if(jointCollision[jointCollisionNames[5]]){
-                //         return true;
-                //     }
-                // }
-                // return false;
-                }
+                    if(modeitr % 5 == 4){
+                        if(jointCollision[jointCollisionNames[5]]){
+                            return true;
+                        }
+                    }
+                return false;
+            }
         
-        // } else {
-        //         if(jointCollision[jointCollisionNames[5]]){
-        //             return true;
-        //         }
-        //     }
+        } else {
+                if(jointCollision[jointCollisionNames[5]]){
+                    return true;
+                }
+            }
             return false;
         }
  
