@@ -134,10 +134,21 @@ RESULTS:
     - vr controller input is good just need to map what each button needs to do
 
 TODO for NEXT DAY:
-    - create script that sets up input manager
+    - create script that sets up input manager (not really needed rn with the acer)
 
 **May 21**
 TODO:
     - VR controller mapping and accurate movement / rotation of arm (DONE, i think, keep testing i suppose but i think its good)
     - camera movement using controller 
     - Arm shell bounding boxes (to both scenes) (DONE for vr controllers, i dont think i need it for keyboard)
+RESULTS:
+    - vr controllers mapped to rotate arm joints and have good box collider approx's 
+    - basic camera movement in vr is done but prolly want something else maybe??
+
+QUESTIONS FOR MEETING:
+    - I have the basic VR controller buttons mapped and the arm will rotate appropriatley. Also I have basic camera movement (kinda bad though)
+    - is this what we want for right now? or would it be better to have something like this? [link](https://www.youtube.com/watch?v=atoUeEPLVqQ) ?? 
+        - that is nothing like the current implentation 
+        - for the VR project we arent trying to do IK right? its more mechanical control of each motor using various inputs?
+    - if we are correct, in terms of the "next step" would it be using the VR controller rotation / location to control the arm? similar to use the MYO arm band, 
+    it can switch between modes and rotations / flexions of the controller will move the arm? 

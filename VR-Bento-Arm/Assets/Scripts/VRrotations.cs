@@ -96,13 +96,16 @@ public class VRrotations : MonoBehaviour
         @brief: called once per frame
     */
     void FixedUpdate() {
+        Debug.Log(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y);
+
         checkKeyPress();
         // Checks if the arm has collided with a box collider 
-        if(checkCollision()){
-            restrictRotation();
-        } else {
-            rotateArm();
-        }
+        // if(checkCollision()){
+        //     restrictRotation();
+        // } else {
+        //     rotateArm();
+        // }
+        rotateArm();
     }
 
     private bool checkCollision(){
@@ -255,17 +258,29 @@ public class VRrotations : MonoBehaviour
         @brief: rotates the joint with specified torque and maximum velocity 
     */
     private void rotateArm() {
-        if(checkHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
-            keyPress(1);
-            currentNumValues[mode] = 1;
-            return;
-        } else if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
-            keyPress(-1);
-            currentNumValues[mode] = -1;
+        if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
+            keyPress(0);
             return;
         }
-        keyPress(0);
-        currentNumValues[mode] = 0;
+        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 90){
+            keyPress(1);
+            return;
+        } else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 360){
+            keyPress(-1);
+            return;
+        }
+
+        // if(checkHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
+        //     keyPress(1);
+        //     currentNumValues[mode] = 1;
+        //     return;
+        // } else if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
+        //     keyPress(-1);
+        //     currentNumValues[mode] = -1;
+        //     return;
+        // }
+        // keyPress(0);
+        // currentNumValues[mode] = 0;
         
     }
 
