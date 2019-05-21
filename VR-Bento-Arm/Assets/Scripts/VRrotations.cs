@@ -35,7 +35,7 @@ public class VRrotations : MonoBehaviour
 
     // Drag and Drop in Inspector 
     public GameObject[] shells = new GameObject[10];
-    public GameObject[] armBoxes = new GameObject[3];
+    public GameObject[] armBoxes = new GameObject[4];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
     // specifies which joint will be rotating 
@@ -50,9 +50,6 @@ public class VRrotations : MonoBehaviour
     // Used for Angular Limits 
     private float deltaAngle;
     public float[] angleLimits = new float[5];
-
-    // Keyboard button presses 
-    private float pressTime, minTime = 0.01f;
 
     /*
         @brief: Called before first frame. Initializes and fills
@@ -79,12 +76,14 @@ public class VRrotations : MonoBehaviour
 
             // Maps name to current rotation direction 
             currentNumValues.Add(rigidBodyNames[i],0);
+            jointCollision.Add(rigidBodyNames[i], false);
+
             i++;
         } 
-        foreach(string name in jointCollisionNames){
-            // Maps name to collision detection bool
-            jointCollision.Add(name, false);
-        }
+        // foreach(string name in jointCollisionNames){
+        //     // Maps name to collision detection bool
+        //     jointCollision.Add(name, false);
+        // }
 
         // Sets initial settings 
         setKinematic();
@@ -107,28 +106,12 @@ public class VRrotations : MonoBehaviour
     }
 
     private bool checkCollision(){
-        if(mode != "Open Hand"){
-            if(jointCollision[mode]){
-                    return true;
-            } else {
-                if(jointCollision[jointCollisionNames[modeitr % 5]]){
-                    return true;
-                }
-                    if(modeitr % 5 == 4){
-                        if(jointCollision[jointCollisionNames[5]]){
-                            return true;
-                        }
-                    }
-                return false;
-            }
-        
+        if(jointCollision[mode]){
+            return true;
         } else {
-                if(jointCollision[jointCollisionNames[5]]){
-                    return true;
-                }
-            }
             return false;
         }
+    }
  
     
 
@@ -171,6 +154,8 @@ public class VRrotations : MonoBehaviour
     */
     public void collisionDetection(Tuple<string,bool> msg) {
         jointCollision[msg.Item1] = msg.Item2;
+        jointCollision[mode] = msg.Item2;
+        Debug.Log("collision detected: " + msg.Item1 + " " + msg.Item2);
     }
 
     /*
