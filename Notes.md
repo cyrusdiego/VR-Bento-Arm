@@ -138,6 +138,6 @@ TODO for NEXT DAY:
 
 **May 21**
 TODO:
-    - VR controller mapping and accurate movement / rotation of arm 
+    - VR controller mapping and accurate movement / rotation of arm (DONE, i think, keep testing i suppose but i think its good)
     - camera movement using controller 
-    - Arm shell bounding boxes (to both scenes)
+    - Arm shell bounding boxes (to both scenes) (DONE for vr controllers, i dont think i need it for keyboard)
