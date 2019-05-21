@@ -28,6 +28,8 @@ public class VRrotations : MonoBehaviour
     // Rotation modes and motor properties 
     private string[] rigidBodyNames = { "Shoulder", "Elbow", "Forearm Rotation", 
             "Wrist Flexion", "Open Hand" };
+    private string[] jointCollisionNames = {"Shoulder", "Elbow", "Forearm Rotation", 
+            "Wrist Flexion", "Open Hand", "Left Hand" };
     public float[] torqueVals = { 1.319f, 2.436f, 0.733f, 0.611f, 0.977f };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
@@ -77,6 +79,7 @@ public class VRrotations : MonoBehaviour
 
             // Maps name to collision detection bool
             jointCollision.Add(rigidBodyNames[i], false);
+            jointCollision.Add("Left Chopstick", false); // manually added 
 
             // Maps name to current rotation direction 
             currentNumValues.Add(rigidBodyNames[i],0);
@@ -97,16 +100,28 @@ public class VRrotations : MonoBehaviour
     void FixedUpdate() {
         checkKeyPress();
         // Checks if the arm has collided with a box collider 
-        if(!jointCollision[mode]){
-            rotateArm();
-        } else {
+        if(checkCollision()){
             restrictRotation();
+        } else {
+            rotateArm();
         }
-        
+    }
+
+    private bool checkCollision(){
+        if(jointCollision[mode]){
+            return true;
+        } else {
+            for(int i = jointCollisionNames ; i < 6; i++){
+                if(jointCollision[jointCollisionNames[i]]){
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     private void setBoxColliders() {
-        if(shells[0].activeSelf){
+        if(shells[4].activeSelf){
             foreach(GameObject boxes in armBoxes){
                 boxes.SetActive(false);
             }
@@ -120,7 +135,7 @@ public class VRrotations : MonoBehaviour
         @brief: H will hide arm shells, 8020 stand, table, and desktop workspace 
     */
     private void checkKeyPress() {
-        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_RIGHT")){
+        if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT")){
             mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
             setJointMotor();
             setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
@@ -173,7 +188,7 @@ public class VRrotations : MonoBehaviour
         @param: the button being squeezed 
     */
     private bool checkHold(string button) {
-        if(Input.GetAxis(button) > 0){
+        if(Input.GetAxis(button) > 0.1){
             return true;
         } 
         return false;
@@ -236,9 +251,7 @@ public class VRrotations : MonoBehaviour
                 return;
             }
         } 
-
         keyPress(0);
-        
     }
 
     /*

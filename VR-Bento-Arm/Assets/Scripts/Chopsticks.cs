@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Chopsticks : MonoBehaviour
 {
@@ -13,8 +14,7 @@ public class Chopsticks : MonoBehaviour
         gameObject.transform.GetChild(1).gameObject.transform.position = ChopStick2Transform.position;
 
         gameObject.transform.GetChild(0).gameObject.transform.eulerAngles = ChopStick1Transform.eulerAngles;
-        gameObject.transform.GetChild(1).gameObject.transform.eulerAngles = ChopStick2Transform.eulerAngles;
-        
+        gameObject.transform.GetChild(1).gameObject.transform.eulerAngles = ChopStick2Transform.eulerAngles;   
     }
-
+  
 }
