@@ -40,7 +40,7 @@ public class VRrotations : MonoBehaviour
 
     // specifies which joint will be rotating 
     private string mode;
-    private int modeitr = 0;
+    private int modeitr = 0, jointitr = 0;
 
     // sets properties for the configurable joints 
     private ConfigurableJoint joint = null;
@@ -79,13 +79,13 @@ public class VRrotations : MonoBehaviour
 
             // Maps name to current rotation direction 
             currentNumValues.Add(rigidBodyNames[i],0);
-
+            jointCollision.Add(rigidBodyNames[i], false);
             i++;
         } 
-        foreach(string name in jointCollisionNames){
-            // Maps name to collision detection bool
-            jointCollision.Add(name, false);
-        }
+        // foreach(string name in jointCollisionNames){
+        //     // Maps name to collision detection bool
+        //     jointCollision.Add(name, false);
+        // }
 
         // Sets initial settings 
         setKinematic();
@@ -108,34 +108,33 @@ public class VRrotations : MonoBehaviour
     }
 
     private bool checkCollision(){
-        if(mode != "Open Hand"){
+        // if(mode != "Open Hand"){
             if(jointCollision[mode]){
                     return true;
             } else {
-                for(int i = modeitr % 5 ; i < 5; i++){
-                    if(jointCollision[jointCollisionNames[i]]){
-                        return true;
-                    }
-                } 
-                if(modeitr % 5 == 4){
-                    if(jointCollision[jointCollisionNames[5]]){
-                        return true;
-                    }
-                }
-                return false;
-                }
-        } else {
-                if(jointCollision[jointCollisionNames[5]]){
+                if(jointCollision[jointCollisionNames[modeitr % 5]]){
                     return true;
                 }
-            }
+                // if(modeitr % 5 == 4){
+                //     if(jointCollision[jointCollisionNames[5]]){
+                //         return true;
+                //     }
+                // }
+                // return false;
+                }
+        
+        // } else {
+        //         if(jointCollision[jointCollisionNames[5]]){
+        //             return true;
+        //         }
+        //     }
             return false;
         }
  
     
 
     private void setBoxColliders() {
-        if(shells[4].activeSelf){
+        if(shells[0].activeSelf){
             foreach(GameObject boxes in armBoxes){
                 boxes.SetActive(false);
             }
