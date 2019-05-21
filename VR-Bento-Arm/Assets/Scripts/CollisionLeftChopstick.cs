@@ -9,12 +9,12 @@ public class CollisionLeftChopstick : MonoBehaviour
     public GameObject Rotations = null;
 
     void OnTriggerEnter(Collider other) {
-        msg = new Tuple<string,bool>("Left Chopstick", true);
+        msg = new Tuple<string,bool>("Left Hand", true);
         Rotations.SendMessage("collisionDetection", msg);
     }
 
     void OnTriggerExit(Collider other) {
-        msg = new Tuple<string,bool>("Left Chopstick", false);
+        msg = new Tuple<string,bool>("Left Hand", false);
         Rotations.SendMessage("collisionDetection", msg);
     }
 }

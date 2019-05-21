@@ -29,7 +29,7 @@ public class VRrotations : MonoBehaviour
     private string[] rigidBodyNames = { "Shoulder", "Elbow", "Forearm Rotation", 
             "Wrist Flexion", "Open Hand" };
     private string[] jointCollisionNames = {"Shoulder", "Elbow", "Forearm Rotation", 
-            "Wrist Flexion", "Open Hand", "Left Hand" };
+            "Wrist Flexion", "Left Hand", "Right Hand"};
     public float[] torqueVals = { 1.319f, 2.436f, 0.733f, 0.611f, 0.977f };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
@@ -77,15 +77,15 @@ public class VRrotations : MonoBehaviour
             torque_velocityVals.Add(rigidBodyNames[i], 
                     new Tuple<float, float>(torqueVals[i], velocityVals[i]));
 
-            // Maps name to collision detection bool
-            jointCollision.Add(rigidBodyNames[i], false);
-            jointCollision.Add("Left Chopstick", false); // manually added 
-
             // Maps name to current rotation direction 
             currentNumValues.Add(rigidBodyNames[i],0);
 
             i++;
         } 
+        foreach(string name in jointCollisionNames){
+            // Maps name to collision detection bool
+            jointCollision.Add(name, false);
+        }
 
         // Sets initial settings 
         setKinematic();
@@ -108,17 +108,31 @@ public class VRrotations : MonoBehaviour
     }
 
     private bool checkCollision(){
-        if(jointCollision[mode]){
-            return true;
+        if(mode != "Open Hand"){
+            if(jointCollision[mode]){
+                    return true;
+            } else {
+                for(int i = modeitr % 5 ; i < 5; i++){
+                    if(jointCollision[jointCollisionNames[i]]){
+                        return true;
+                    }
+                } 
+                if(modeitr % 5 == 4){
+                    if(jointCollision[jointCollisionNames[5]]){
+                        return true;
+                    }
+                }
+                return false;
+                }
         } else {
-            for(int i = jointCollisionNames ; i < 6; i++){
-                if(jointCollision[jointCollisionNames[i]]){
+                if(jointCollision[jointCollisionNames[5]]){
                     return true;
                 }
             }
             return false;
         }
-    }
+ 
+    
 
     private void setBoxColliders() {
         if(shells[4].activeSelf){
@@ -331,8 +345,7 @@ public class VRrotations : MonoBehaviour
             foreach (GameObject shell in shells) {
                 shell.SetActive(!shell.activeSelf);
             }
-                        setBoxColliders();
-
+            setBoxColliders();
         }
 
         // button to alternate between joints / freedom of movements 
