@@ -135,3 +135,9 @@ RESULTS:
 
 TODO for NEXT DAY:
     - create script that sets up input manager
+
+**May 21**
+TODO:
+    - VR controller mapping and accurate movement / rotation of arm 
+    - camera movement using controller 
+    - Arm shell bounding boxes (to both scenes)

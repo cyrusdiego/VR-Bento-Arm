@@ -32,7 +32,8 @@ public class VRrotations : MonoBehaviour
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
     // Drag and Drop in Inspector 
-    public GameObject[] shells = new GameObject[6];
+    public GameObject[] shells = new GameObject[10];
+    public GameObject[] armBoxes = new GameObject[3];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
     // specifies which joint will be rotating 
@@ -87,13 +88,13 @@ public class VRrotations : MonoBehaviour
         setKinematic();
         setJointMotor();
         setRotationAxis();
+        setBoxColliders();
     }
 
     /*
         @brief: called once per frame
     */
     void FixedUpdate() {
-        Debug.Log(jointCollision[mode]);
         checkKeyPress();
         // Checks if the arm has collided with a box collider 
         if(!jointCollision[mode]){
@@ -104,10 +105,21 @@ public class VRrotations : MonoBehaviour
         
     }
 
+    private void setBoxColliders() {
+        if(shells[0].activeSelf){
+            foreach(GameObject boxes in armBoxes){
+                boxes.SetActive(false);
+            }
+        } else if(!shells[0].activeSelf){
+            foreach(GameObject boxes in armBoxes){
+                boxes.SetActive(true);
+            }
+        }
+    }
     /*
         @brief: H will hide arm shells, 8020 stand, table, and desktop workspace 
     */
-    private void checkKeyPress(){
+    private void checkKeyPress() {
         if(Input.GetButtonDown("GRIP_BUTTON_PRESS_RIGHT")){
             mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
             setJointMotor();
@@ -119,6 +131,7 @@ public class VRrotations : MonoBehaviour
             foreach (GameObject shell in shells) {
                 shell.SetActive(!shell.activeSelf);
             }
+            setBoxColliders();
         }
     }
 
@@ -305,6 +318,8 @@ public class VRrotations : MonoBehaviour
             foreach (GameObject shell in shells) {
                 shell.SetActive(!shell.activeSelf);
             }
+                        setBoxColliders();
+
         }
 
         // button to alternate between joints / freedom of movements 
