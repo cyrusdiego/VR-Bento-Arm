@@ -152,3 +152,10 @@ QUESTIONS FOR MEETING:
         - for the VR project we arent trying to do IK right? its more mechanical control of each motor using various inputs?
     - if we are correct, in terms of the "next step" would it be using the VR controller rotation / location to control the arm? similar to use the MYO arm band, 
     it can switch between modes and rotations / flexions of the controller will move the arm? 
+
+**May 22** 
+TODO:
+    - VR controller rotation / movement to control arm? 
+    - better angular rotation control 
+    - Maybe better camera movement? or teleport?? ask in meeting 
+    

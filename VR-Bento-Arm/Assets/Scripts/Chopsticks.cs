@@ -9,7 +9,8 @@ public class Chopsticks : MonoBehaviour
     public Transform ChopStick2Transform = null;
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void FixedUpdate() 
+    {
         gameObject.transform.GetChild(0).gameObject.transform.position = ChopStick1Transform.position;
         gameObject.transform.GetChild(1).gameObject.transform.position = ChopStick2Transform.position;
 

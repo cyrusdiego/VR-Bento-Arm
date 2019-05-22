@@ -1,8 +1,9 @@
-﻿/* BLINC LAB VR-BENTO-ARM Project
- * RotationScript.cs 
- * Created by: Cyrus Diego May 7, 2019 
- * 
- * Controls rotation of the virtual bento arm using the Acer Headset Controllers
+﻿/* 
+    BLINC LAB VR-BENTO-ARM Project
+    RotationScript.cs 
+    Created by: Cyrus Diego May 7, 2019 
+
+    Controls rotation of the virtual bento arm using the Acer Headset Controllers
  */
 
 using System;
@@ -13,19 +14,19 @@ using UnityEngine.XR;
 
 public class VRrotations : MonoBehaviour
 {
-    // Name : rigidbody storage
+    // Name : rigidbody storage.
     private Dictionary<string, Rigidbody> robotRigidBody = 
             new Dictionary<string, Rigidbody>();
-    // Name : torque and velocity storage 
-    private Dictionary<string, Tuple<float, float>> torque_velocityVals = 
+    // Name : torque and velocity storage.
+    private Dictionary<string, Tuple<float, float>> torqueVelocityVals = 
             new Dictionary<string, Tuple<float, float>>();
-    // Name : collision bool storage
+    // Name : collision bool storage.
     private Dictionary<string, bool> jointCollision = 
             new Dictionary<string, bool>();
     private Dictionary<string,int> currentNumValues = 
             new Dictionary<string,int>();
 
-    // Rotation modes and motor properties 
+    // Rotation modes and motor properties. 
     private string[] rigidBodyNames = { "Shoulder", "Elbow", "Forearm Rotation", 
             "Wrist Flexion", "Open Hand" };
     private string[] jointCollisionNames = {"Shoulder", "Elbow", "Forearm Rotation", 
@@ -33,21 +34,21 @@ public class VRrotations : MonoBehaviour
     public float[] torqueVals = { 1.319f, 2.436f, 0.733f, 0.611f, 0.977f };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
-    // Drag and Drop in Inspector 
+    // Drag and Drop in Inspector. 
     public GameObject[] shells = new GameObject[10];
     public GameObject[] armBoxes = new GameObject[4];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
-    // specifies which joint will be rotating 
+    // Specifies which joint will be rotating. 
     private string mode;
-    private int modeitr = 0, jointitr = 0;
+    private int modeItr = 0;
 
-    // sets properties for the configurable joints 
+    // Sets properties for the configurable joints. 
     private ConfigurableJoint joint = null;
     private JointDrive motor;
     private SoftJointLimit tempAngle1,tempAngle2;
 
-    // Used for Angular Limits 
+    // Used for Angular Limits. 
     private float deltaAngle;
     public float[] angleLimits = new float[5];
 
@@ -55,26 +56,29 @@ public class VRrotations : MonoBehaviour
         @brief: Called before first frame. Initializes and fills
         data structures and properties 
     */
-    void Start() {
-        // sets the first mode
-        mode = rigidBodyNames[modeitr++];  
+    void Start() 
+    {
+        // Sets the first mode.
+        mode = rigidBodyNames[modeItr++];  
 
-        // convert to rad / s
-        for(int j = 0; j < velocityVals.Length; j++) {
+        // Convert to rad/s.
+        for(int j = 0; j < velocityVals.Length; j++) 
+        {
             velocityVals[j] *= (Mathf.PI / 30);
         }
 
-        // adds to the dictionaries for easy lookup 
+        // Adds to the dictionaries for easy lookup.
         int i = 0;
-        foreach (Rigidbody rigidbody in rigidBodies) {
-            // Maps name to rigid body 
+        foreach (Rigidbody rigidbody in rigidBodies) 
+        {
+            // Maps name to rigid body. 
             robotRigidBody.Add(rigidBodyNames[i], rigidbody);  
 
-            // Maps name to max torque / velocity 
-            torque_velocityVals.Add(rigidBodyNames[i], 
+            // Maps name to max torque / velocity. 
+            torqueVelocityVals.Add(rigidBodyNames[i], 
                     new Tuple<float, float>(torqueVals[i], velocityVals[i]));
 
-            // Maps name to current rotation direction 
+            // Maps name to current rotation direction. 
             currentNumValues.Add(rigidBodyNames[i],0);
             jointCollision.Add(rigidBodyNames[i], false);
 
@@ -85,122 +89,144 @@ public class VRrotations : MonoBehaviour
         //     jointCollision.Add(name, false);
         // }
 
-        // Sets initial settings 
-        setKinematic();
-        setJointMotor();
-        setRotationAxis();
-        setBoxColliders();
+        // Sets initial settings. 
+        SetKinematic();
+        SetJointMotor();
+        SetRotationAxis();
+        SetBoxColliders();
     }
 
     /*
-        @brief: called once per frame
+        @brief: called once per frame.
     */
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         Debug.Log(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y);
 
-        checkKeyPress();
+        CheckKeyPress();
         // Checks if the arm has collided with a box collider 
-        // if(checkCollision()){
-        //     restrictRotation();
+        // if(CheckCollision()){
+        //     RestrictRotation();
         // } else {
-        //     rotateArm();
+        //     RotateArm();
         // }
-        rotateArm();
+        RotateArm();
     }
 
-    private bool checkCollision(){
-        if(jointCollision[mode]){
+    private bool CheckCollision()
+    {
+        if(jointCollision[mode])
+        {
             return true;
-        } else {
+        } 
+        else 
+        {
             return false;
         }
     }
  
     
 
-    private void setBoxColliders() {
-        if(shells[0].activeSelf){
-            foreach(GameObject boxes in armBoxes){
+    private void SetBoxColliders() 
+    {
+        if(shells[0].activeSelf)
+        {
+            foreach(GameObject boxes in armBoxes)
+            {
                 boxes.SetActive(false);
             }
-        } else if(!shells[0].activeSelf){
-            foreach(GameObject boxes in armBoxes){
+        } else if(!shells[0].activeSelf)
+        {
+            foreach(GameObject boxes in armBoxes)
+            {
                 boxes.SetActive(true);
             }
         }
     }
     /*
-        @brief: H will hide arm shells, 8020 stand, table, and desktop workspace 
+        @brief:  
     */
-    private void checkKeyPress() {
-        if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT")){
-            mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
-            setJointMotor();
-            setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
-            setRotationAxis();
+    private void CheckKeyPress() 
+    {
+        if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
+        {
+            mode = rigidBodyNames[modeItr++ % 5]; 
+            SetJointMotor();
+            SetKinematic();  
+            SetRotationAxis();
         }
 
-        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_LEFT")){
-            foreach (GameObject shell in shells) {
+        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_LEFT"))
+        {
+            foreach (GameObject shell in shells)
+            {
                 shell.SetActive(!shell.activeSelf);
             }
-            setBoxColliders();
+            SetBoxColliders();
         }
     }
 
     /*
         @brief: called by bounding box gameObjects and will set collided to TRUE
-        when the box colliders collide with one another 
+        when the box colliders collide with one another. 
 
         @param: Tuple holding the mode and if that segment of the arm is 
-        colliding with another box collider
+        colliding with another box collider.
     */
-    public void collisionDetection(Tuple<string,bool> msg) {
+    public void CollisionDetection(Tuple<string,bool> msg) 
+    {
         jointCollision[msg.Item1] = msg.Item2;
         jointCollision[mode] = msg.Item2;
         Debug.Log("collision detected: " + msg.Item1 + " " + msg.Item2);
     }
 
     /*
-        @brief: changes the joint being rotated 
+        @brief: changes the joint being rotated. 
     */
-    private void setJointMotor() {
+    private void SetJointMotor() 
+    {
         joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
     }
 
     /*
         @brief: sets the "isKinematic" property to false for the current joint
-        and sets it false for the other joints 
+        and sets it false for the other joints. 
 
         If isKinematic is enabled, Forces, collisions or joints 
-        will not affect the rigidbody anymore (Unity API)
+        will not affect the rigidbody anymore (Unity API).
     */
-    private void setKinematic() {
-        for(int i = modeitr % 5; i < 5; i++) {
+    private void SetKinematic() 
+    {
+        for(int i = modeItr % 5; i < 5; i++) 
+        {
             robotRigidBody[rigidBodyNames[i]].isKinematic = true;
         }
         robotRigidBody[mode].isKinematic = false;
     }
 
     /*
-        @brief: checks if a button is being held / squeezed
+        @brief: checks if a button is being held / squeezed.
 
-        @param: the button being squeezed 
+        @param: the button being squeezed. 
     */
-    private bool checkHold(string button) {
-        if(Input.GetAxis(button) > 0.1){
+    private bool CheckHold(string button)
+    {
+        if(Input.GetAxis(button) > 0.1)
+        {
             return true;
         } 
         return false;
     }
 
     /*
-        @brief: checks if a controller button is pressed 
+        @brief: checks if a controller button is pressed. 
 
-        @param: the button being pressed down 
+        @param: the button being pressed down. 
     */
-    private bool checkPress(string button) {
-        if(Input.GetButtonDown(button)){
+    private bool CheckPress(string button) 
+    {
+        if(Input.GetButtonDown(button))
+        {
             return true;
         } 
         return false;
@@ -208,115 +234,137 @@ public class VRrotations : MonoBehaviour
 
     /*
         @brief: specifies joint rotation properties depending on key press 
-        (or lack thereof) 
+        (or lack thereof). 
 
-        @param: num specifies what direction the joint rotates  
+        @param: num specifies what direction the joint rotates.  
     */
-    private void keyPress(int num) {
+    private void KeyPress(int num) 
+    {
         joint.targetAngularVelocity = 
-                    new Vector3(torque_velocityVals[mode].Item2 * num, 0, 0);
-        motor.maximumForce = torque_velocityVals[mode].Item1 * Mathf.Abs(num);
+                    new Vector3(torqueVelocityVals[mode].Item2 * num, 0, 0);
+        motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
 
-        if(num != 0){
-            // These need to be modified, doesnt accurately depict servo motors 
+        if(num != 0)
+        {
+            // These need to be modified, doesnt accurately depict servo motors. 
             motor.positionSpring = 1.0f;
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
 
-        } else {
+        } 
+        else 
+        {
             joint.xDrive = motor;
             //joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
     }
 
     /*
-        @brief: similar to rotateArm(), will only allow the arm to rotate in 
-        one direction when it has collided with another box collider 
+        @brief: similar to RotateArm(), will only allow the arm to rotate in 
+        one direction when it has collided with another box collider. 
     */
-    private void restrictRotation() {
-        if(checkHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
-            if(currentNumValues[mode] < 0) {
-                keyPress(1);
+    private void RestrictRotation() 
+    {
+        if(CheckHold("SELECT_TRIGGER_SQUEEZE_LEFT"))
+        {
+            if(currentNumValues[mode] < 0) 
+            {
+                KeyPress(1);
                 return;
-            } else {
-                keyPress(0);
+            } 
+            else 
+            {
+                KeyPress(0);
                 return;
             }
-        } else if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")) {
-            if(currentNumValues[mode] > 0){
-                keyPress(-1);
+        }
+        else if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
+        {
+            if(currentNumValues[mode] > 0)
+            {
+                KeyPress(-1);
                 return;
-            } else {
-                keyPress(0);
+            } 
+            else 
+            {
+                KeyPress(0);
                 return;
             }
         } 
-        keyPress(0);
+        KeyPress(0);
     }
 
     /*
-        @brief: rotates the joint with specified torque and maximum velocity 
+        @brief: rotates the joint with specified torque and maximum velocity. 
     */
-    private void rotateArm() {
-        if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
-            keyPress(0);
+    private void RotateArm() 
+    {
+        if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
+        {
+            KeyPress(0);
             return;
         }
-        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 90){
-            keyPress(1);
+        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 90)
+        {
+            KeyPress(1);
             return;
-        } else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 360){
-            keyPress(-1);
+        } 
+        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 360)
+        {
+            KeyPress(-1);
             return;
         }
 
-        // if(checkHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
-        //     keyPress(1);
+        // if(CheckHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
+        //     KeyPress(1);
         //     currentNumValues[mode] = 1;
         //     return;
-        // } else if(checkHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
-        //     keyPress(-1);
+        // } else if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
+        //     KeyPress(-1);
         //     currentNumValues[mode] = -1;
         //     return;
         // }
-        // keyPress(0);
+        // KeyPress(0);
         // currentNumValues[mode] = 0;
         
     }
 
     /*
-        @brief: sets the rotational axis depending on the joint
+        @brief: sets the rotational axis depending on the joint.
     */
-    private void setRotationAxis() {
-        switch (modeitr % 5) {
-            case 0: // open hand 
+    private void SetRotationAxis() 
+    {
+        switch (modeItr % 5) 
+        {
+            // Open hand 
+            case 0: 
                 joint.axis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-409.5f, 122.7f, 0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
                 break;
-
-            case 1: // shoulder 
+            // Shoulder 
+            case 1: 
                 joint.axis = Vector3.down;
                 joint.secondaryAxis = Vector3.forward;
                 joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
                 break;
-
-            case 2:// elbow 
+            // Elbow
+            case 2: 
                 joint.axis = Vector3.back;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-130.2f, 125.1f, 0f);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.z);
                 break;
-
-            case 3:// forearm 
+            // Forearm 
+            case 3:
                 joint.axis = Vector3.right;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.x);
                 break;
-
-            case 4:// wrist 
+            // Wrist 
+            case 4:
                 joint.axis = Vector3.back;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
@@ -324,34 +372,38 @@ public class VRrotations : MonoBehaviour
                 break;
         }
 
-        // Adjusts the angular limit with the current euler angle 
+        // Adjusts the angular limit with the current euler angle. 
         deltaAngle = (deltaAngle > 180) ? Mathf.FloorToInt(deltaAngle - 360) : Mathf.FloorToInt(deltaAngle);  // https://answers.unity.com/questions/554743/how-to-calculate-transformlocaleuleranglesx-as-neg.html
-        tempAngle1.limit = -angleLimits[modeitr % 5] - deltaAngle;
+        tempAngle1.limit = -angleLimits[modeItr % 5] - deltaAngle;
         joint.lowAngularXLimit = tempAngle1;
-        tempAngle2.limit = angleLimits[modeitr % 5] - deltaAngle;
+        tempAngle2.limit = angleLimits[modeItr % 5] - deltaAngle;
         joint.highAngularXLimit = tempAngle2;
     }
 
 
     /*
         @brief: draws the buttons and slider to change modes, hides extras, 
-        and rotates joints 
+        and rotates joints.
     */
-    void OnGUI() {
-        // Hides arm-shells, 8020 stand, Table, and Desktop-Workspace
-        if (GUI.Button(new Rect(10, 25, 100, 20), "Hide")) {
-            foreach (GameObject shell in shells) {
+    void OnGUI() 
+    {
+        // Hides arm-shells, 8020 stand, Table, and Desktop-Workspace.
+        if (GUI.Button(new Rect(10, 25, 100, 20), "Hide")) 
+        {
+            foreach (GameObject shell in shells) 
+            {
                 shell.SetActive(!shell.activeSelf);
             }
-            setBoxColliders();
+            SetBoxColliders();
         }
 
-        // button to alternate between joints / freedom of movements 
-        if (GUI.Button(new Rect(10, 50, 150, 20), mode)) {
-            mode = rigidBodyNames[modeitr++ % 5];  // changes the mode 
-            setJointMotor();
-            setKinematic();  // cycles through the rigid - bodies to set "isKinematic" property 
-            setRotationAxis();
+        // Button to alternate between joints / freedom of movements. 
+        if (GUI.Button(new Rect(10, 50, 150, 20), mode)) 
+        {
+            mode = rigidBodyNames[modeItr++ % 5];  
+            SetJointMotor();
+            SetKinematic();  
+            SetRotationAxis();
         }
     }
 }

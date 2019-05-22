@@ -10,17 +10,20 @@ public class Wrist: MonoBehaviour
     private Tuple<string,bool> msg;
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void FixedUpdate() 
+    {
         gameObject.transform.position = WristArmShellTransform.position;
         gameObject.transform.eulerAngles = WristArmShellTransform.eulerAngles;
     }
     
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other) 
+    {
         msg = new Tuple<string,bool>("Forearm Rotation", true);
         Rotations.SendMessage("collisionDetection", msg);
     }
 
-    void OnTriggerExit(Collider other) {
+    void OnTriggerExit(Collider other) 
+    {
         msg = new Tuple<string,bool>("Forearm Rotation", false);
         Rotations.SendMessage("collisionDetection", msg);
     }

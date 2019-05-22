@@ -10,17 +10,20 @@ public class UpperArm: MonoBehaviour
     private Tuple<string,bool> msg;
     
     // Update is called once per frame
-    void FixedUpdate() {
+    void FixedUpdate() 
+    {
         gameObject.transform.position = UpperArmShellTransform.position;
         gameObject.transform.eulerAngles = UpperArmShellTransform.eulerAngles;
     }
 
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other) 
+    {
         msg = new Tuple<string,bool>("Shoulder", true);
         Rotations.SendMessage("collisionDetection",msg);
     }
 
-    void OnTriggerExit(Collider other) {
+    void OnTriggerExit(Collider other) 
+    {
         msg = new Tuple<string,bool>("Shoulder", false);
         Rotations.SendMessage("collisionDetection", msg);
     }
