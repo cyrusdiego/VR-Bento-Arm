@@ -101,16 +101,16 @@ public class VRrotations : MonoBehaviour
     */
     void FixedUpdate()
     {
-        Debug.Log(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y);
-
         CheckKeyPress();
-        // Checks if the arm has collided with a box collider 
-        // if(CheckCollision()){
-        //     RestrictRotation();
-        // } else {
-        //     RotateArm();
-        // }
-        RotateArm();
+        //Checks if the arm has collided with a box collider 
+        if(CheckCollision())
+        {
+            RestrictRotation();
+        } 
+        else 
+        {
+            RotateArm();
+        }
     }
 
     private bool CheckCollision()
@@ -148,13 +148,13 @@ public class VRrotations : MonoBehaviour
     */
     private void CheckKeyPress() 
     {
-        if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
-        {
-            mode = rigidBodyNames[modeItr++ % 5]; 
-            SetJointMotor();
-            SetKinematic();  
-            SetRotationAxis();
-        }
+        // if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
+        // {
+        //     mode = rigidBodyNames[modeItr++ % 5]; 
+        //     SetJointMotor();
+        //     SetKinematic();  
+        //     SetRotationAxis();
+        // }
 
         if(Input.GetButtonDown("GRIP_BUTTON_PRESS_LEFT"))
         {
@@ -255,7 +255,6 @@ public class VRrotations : MonoBehaviour
         else 
         {
             joint.xDrive = motor;
-            //joint.targetRotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
     }
 
@@ -265,9 +264,29 @@ public class VRrotations : MonoBehaviour
     */
     private void RestrictRotation() 
     {
-        if(CheckHold("SELECT_TRIGGER_SQUEEZE_LEFT"))
+        Debug.Log("//////BEGIN//////////");
+        Debug.Log("in Restricted mode, mode == " + mode);
+        foreach(var thing in jointCollision){
+            Debug.Log(thing);
+        }
+        Debug.Log("/////////END////////////");
+        if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
         {
-            if(currentNumValues[mode] < 0) 
+            KeyPress(0);
+            currentNumValues[mode] = 0;
+            if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
+            {
+                mode = rigidBodyNames[modeItr++ % 5]; 
+                SetJointMotor();
+                SetKinematic();  
+                SetRotationAxis();
+            }
+            return;
+        }
+        Debug.Log(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y);
+        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 90)
+        {
+            if(currentNumValues[mode] <= 0) 
             {
                 KeyPress(1);
                 return;
@@ -277,10 +296,10 @@ public class VRrotations : MonoBehaviour
                 KeyPress(0);
                 return;
             }
-        }
-        else if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
+        } 
+        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 360)
         {
-            if(currentNumValues[mode] > 0)
+            if(currentNumValues[mode] >= 0)
             {
                 KeyPress(-1);
                 return;
@@ -290,8 +309,35 @@ public class VRrotations : MonoBehaviour
                 KeyPress(0);
                 return;
             }
-        } 
-        KeyPress(0);
+        }
+        
+        // if(CheckHold("SELECT_TRIGGER_SQUEEZE_LEFT"))
+        // {
+        //     if(currentNumValues[mode] < 0) 
+        //     {
+        //         KeyPress(1);
+        //         return;
+        //     } 
+        //     else 
+        //     {
+        //         KeyPress(0);
+        //         return;
+        //     }
+        // }
+        // else if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
+        // {
+        //     if(currentNumValues[mode] > 0)
+        //     {
+        //         KeyPress(-1);
+        //         return;
+        //     } 
+        //     else 
+        //     {
+        //         KeyPress(0);
+        //         return;
+        //     }
+        // } 
+        // KeyPress(0);
     }
 
     /*
@@ -302,16 +348,26 @@ public class VRrotations : MonoBehaviour
         if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
         {
             KeyPress(0);
+            currentNumValues[mode] = 0;
+            if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
+            {
+                mode = rigidBodyNames[modeItr++ % 5]; 
+                SetJointMotor();
+                SetKinematic();  
+                SetRotationAxis();
+            }
             return;
         }
         if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 90)
         {
             KeyPress(1);
+            currentNumValues[mode] = 1;
             return;
         } 
         else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 360)
         {
             KeyPress(-1);
+            currentNumValues[mode] = -1;
             return;
         }
 

@@ -19,12 +19,12 @@ public class UpperArm: MonoBehaviour
     void OnTriggerEnter(Collider other) 
     {
         msg = new Tuple<string,bool>("Shoulder", true);
-        Rotations.SendMessage("collisionDetection",msg);
+        Rotations.SendMessage("CollisionDetection",msg);
     }
 
     void OnTriggerExit(Collider other) 
     {
         msg = new Tuple<string,bool>("Shoulder", false);
-        Rotations.SendMessage("collisionDetection", msg);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 }

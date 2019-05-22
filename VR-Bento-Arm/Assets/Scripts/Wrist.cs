@@ -19,12 +19,12 @@ public class Wrist: MonoBehaviour
     void OnTriggerEnter(Collider other) 
     {
         msg = new Tuple<string,bool>("Forearm Rotation", true);
-        Rotations.SendMessage("collisionDetection", msg);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 
     void OnTriggerExit(Collider other) 
     {
         msg = new Tuple<string,bool>("Forearm Rotation", false);
-        Rotations.SendMessage("collisionDetection", msg);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 }

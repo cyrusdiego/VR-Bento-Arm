@@ -11,12 +11,12 @@ public class CollisionLeftChopstick : MonoBehaviour
     void OnTriggerEnter(Collider other) 
     {
         msg = new Tuple<string,bool>("Wrist Flexion", true);
-        Rotations.SendMessage("collisionDetection", msg);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 
     void OnTriggerExit(Collider other) 
     {
         msg = new Tuple<string,bool>("Wrist Flexion", false);
-        Rotations.SendMessage("collisionDetection", msg);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 }

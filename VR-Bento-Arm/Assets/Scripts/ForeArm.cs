@@ -19,12 +19,12 @@ public class ForeArm : MonoBehaviour
     void OnTriggerEnter(Collider other) 
     {
         msg = new Tuple<string, bool>("Elbow", true);
-        Rotations.SendMessage("collisionDetection",msg);
+        Rotations.SendMessage("CollisionDetection",msg);
     }
 
     void OnTriggerExit(Collider other) 
     {
         msg = new Tuple<string, bool>("Elbow", false);
-        Rotations.SendMessage("collisionDetection", msg);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 }
