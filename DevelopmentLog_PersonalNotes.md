@@ -170,5 +170,8 @@ MEETING with RORY:
 
 **May 23**
 TODO:
-    - Collision Detection Algorithm
+    - Collision Detection Algorithm 
     - increase accuracy / realism of the rotation of arm: rotating controller will rotate arm at same rate (apply torque)     
+RESOURCES:
+    - retrieve index of element in array[link](https://docs.microsoft.com/en-us/dotnet/api/system.array.indexof?view=netframework-4.8)
+    - clear console through code[link](https://answers.unity.com/questions/578393/clear-console-through-code-in-development-build.html)
