@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.UI;
 
 public class VRrotations : MonoBehaviour
 {
@@ -50,6 +51,10 @@ public class VRrotations : MonoBehaviour
     // Used for Angular Limits. 
     private float deltaAngle;
     public float[] angleLimits = new float[5];
+
+    // Canvas GUI for VR Headset 
+    public Canvas cavasObject = null;
+    public Text textObject = null;
     #endregion
     
     /*
@@ -99,6 +104,7 @@ public class VRrotations : MonoBehaviour
     void FixedUpdate()
     {
         CheckKeyPress();
+        textObject.text = mode; 
         //Checks if the arm has collided with a box collider 
         if(CheckCollision())
         {
@@ -136,16 +142,6 @@ public class VRrotations : MonoBehaviour
         }
     }
 
- IEnumerator ClearConsole()
- {
-     // wait until console visible
-     while(!Debug.developerConsoleVisible)
-     {
-         yield return null;
-     }
-     yield return null; // this is required to wait for an additional frame, without this clearing doesn't work (at least for me)
-     Debug.ClearDeveloperConsole();
- }
     #region SetX
     private void SetBoxColliders() 
     {
@@ -241,7 +237,7 @@ public class VRrotations : MonoBehaviour
 #endregion
 
     #region CheckX
-private bool CheckCollision()
+    private bool CheckCollision()
     {
         if(jointCollision[mode])
         {
@@ -328,11 +324,11 @@ private bool CheckCollision()
 
         // jointCollision[msg.Item1] = msg.Item2;
         // jointCollision[mode] = msg.Item2;
-        ClearConsole();
-        Debug.Log("collision detected: " + msg.Item1 + " " + msg.Item2);
-        foreach(var thing in jointCollision){
-            Debug.Log(thing);
-        }
+        // ClearConsole();
+        // Debug.Log("collision detected: " + msg.Item1 + " " + msg.Item2);
+        // foreach(var thing in jointCollision){
+        //     Debug.Log(thing);
+        // }
         // Debug.Break();
     }
 
@@ -482,5 +478,14 @@ private bool CheckCollision()
         
     }
 #endregion
-
+    IEnumerator ClearConsole()
+    {
+        // wait until console visible
+        while(!Debug.developerConsoleVisible)
+        {
+            yield return null;
+        }
+        yield return null; // this is required to wait for an additional frame, without this clearing doesn't work (at least for me)
+        Debug.ClearDeveloperConsole();
+    }
 }
