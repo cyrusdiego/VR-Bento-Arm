@@ -170,4 +170,5 @@ MEETING with RORY:
 
 **May 23**
 TODO:
-    - Collision Detection Algorithm     
+    - Collision Detection Algorithm
+    - increase accuracy / realism of the rotation of arm: rotating controller will rotate arm at same rate (apply torque)     
