@@ -171,7 +171,11 @@ MEETING with RORY:
 **May 23**
 TODO:
     - Collision Detection Algorithm 
-    - increase accuracy / realism of the rotation of arm: rotating controller will rotate arm at same rate (apply torque)     
+    - increase accuracy / realism of the rotation of arm: rotating controller will rotate arm at same rate (apply torque)  
+- currently, sometimes the box colliders do not work. I do not thing it is my algorithm but the physics engine not being able to "catch up" with the movements of the arm
+    - looking into raycasting to detect it, might work better than box colliders?
+
 RESOURCES:
     - retrieve index of element in array[link](https://docs.microsoft.com/en-us/dotnet/api/system.array.indexof?view=netframework-4.8)
     - clear console through code[link](https://answers.unity.com/questions/578393/clear-console-through-code-in-development-build.html)
+    - `out` keyword in C#[link](https://answers.unity.com/questions/257054/what-is-the-use-of-out-in-variable-fields-example.html)

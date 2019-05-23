@@ -108,6 +108,10 @@ public class VRrotations : MonoBehaviour
         //Checks if the arm has collided with a box collider 
         if(CheckCollision())
         {
+            Debug.Log("INSIDE RESTRICT ROTATION");
+            foreach(var thing in jointCollision){
+                Debug.Log(thing);
+            }
             RestrictRotation();
         } 
         else 
@@ -141,7 +145,18 @@ public class VRrotations : MonoBehaviour
             SetRotationAxis();
         }
     }
-
+   
+    
+    IEnumerator ClearConsole()
+    {
+        // wait until console visible
+        while(!Debug.developerConsoleVisible)
+        {
+            yield return null;
+        }
+        yield return null; // this is required to wait for an additional frame, without this clearing doesn't work (at least for me)
+        Debug.ClearDeveloperConsole();
+    }
     #region SetX
     private void SetBoxColliders() 
     {
@@ -324,7 +339,8 @@ public class VRrotations : MonoBehaviour
 
         // jointCollision[msg.Item1] = msg.Item2;
         // jointCollision[mode] = msg.Item2;
-        // ClearConsole();
+        ClearConsole();
+
         // Debug.Log("collision detected: " + msg.Item1 + " " + msg.Item2);
         // foreach(var thing in jointCollision){
         //     Debug.Log(thing);
@@ -340,9 +356,9 @@ public class VRrotations : MonoBehaviour
     */
     private void KeyPress(int num) 
     {
-        joint.targetAngularVelocity = 
-                    new Vector3(torqueVelocityVals[mode].Item2 * num, 0, 0);
-        motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
+        // joint.targetAngularVelocity = 
+        //             new Vector3(torqueVelocityVals[mode].Item2 * num, 0, 0);
+        // motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
 
         if(num != 0)
         {
@@ -350,11 +366,22 @@ public class VRrotations : MonoBehaviour
             motor.positionSpring = 1.0f;
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
+            joint.targetAngularVelocity = 
+                    new Vector3(torqueVelocityVals[mode].Item2 * num, 0, 0);
+            motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
 
         } 
         else 
         {
+            joint.targetAngularVelocity = 
+                    new Vector3(0, 0, 0);
+            motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
             joint.xDrive = motor;
+        }
+
+        if(mode == "Elbow")
+        {
+            Debug.Log(joint + " " + joint.targetAngularVelocity + " " + joint.xDrive + " " + motor.maximumForce);
         }
     }
 
@@ -377,7 +404,7 @@ public class VRrotations : MonoBehaviour
             }
             return;
         }
-        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 90)
+        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 90)
         {
             if(currentNumValues[mode] <= 0) 
             {
@@ -390,7 +417,7 @@ public class VRrotations : MonoBehaviour
                 return;
             }
         } 
-        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 360)
+        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
         {
             if(currentNumValues[mode] >= 0)
             {
@@ -451,13 +478,13 @@ public class VRrotations : MonoBehaviour
             }
             return;
         }
-        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 90)
+        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 90)
         {
             KeyPress(1);
             currentNumValues[mode] = 1;
             return;
         } 
-        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.y < 360)
+        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
         {
             KeyPress(-1);
             currentNumValues[mode] = -1;
@@ -478,14 +505,5 @@ public class VRrotations : MonoBehaviour
         
     }
 #endregion
-    IEnumerator ClearConsole()
-    {
-        // wait until console visible
-        while(!Debug.developerConsoleVisible)
-        {
-            yield return null;
-        }
-        yield return null; // this is required to wait for an additional frame, without this clearing doesn't work (at least for me)
-        Debug.ClearDeveloperConsole();
-    }
+ 
 }
