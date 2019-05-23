@@ -158,4 +158,16 @@ TODO:
     - VR controller rotation / movement to control arm? 
     - better angular rotation control 
     - Maybe better camera movement? or teleport?? ask in meeting 
-    
+RESULTS:
+    - I ended up just reading about UDP / TCP/IP programming to familiarize 
+    - Meeting with Riley/Quinn resulted in a few outcomes to work on in the next week:
+        - fix collision detection algorithm 
+        - placement of camera 
+        - cup / sphere in scene 
+MEETING with RORY:
+    - Learned about BrachiOplexus, Development Logs, and discussed uses for the project 
+    - OUTCOME: need to be better with my Dev Log for this project (citing websites i used for resources in this document)
+
+**May 23**
+TODO:
+    - Collision Detection Algorithm     
