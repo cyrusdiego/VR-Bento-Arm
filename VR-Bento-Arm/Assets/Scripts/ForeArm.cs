@@ -16,13 +16,13 @@ public class ForeArm : MonoBehaviour
         gameObject.transform.eulerAngles = ForeArmShellTransform.eulerAngles;
     }
 
-    void OnTriggerEnter(Collider other) 
+    void OnCollisionEnterr(Collision collision) 
     {
         msg = new Tuple<string, bool>("Elbow", true);
         Rotations.SendMessage("CollisionDetection",msg);
     }
 
-    void OnTriggerExit(Collider other) 
+    void OnCollisionExit(Collision collision) 
     {
         msg = new Tuple<string, bool>("Elbow", false);
         Rotations.SendMessage("CollisionDetection", msg);

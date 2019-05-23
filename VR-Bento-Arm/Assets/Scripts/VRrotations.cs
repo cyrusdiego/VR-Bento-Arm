@@ -108,10 +108,10 @@ public class VRrotations : MonoBehaviour
         //Checks if the arm has collided with a box collider 
         if(CheckCollision())
         {
-            Debug.Log("INSIDE RESTRICT ROTATION");
-            foreach(var thing in jointCollision){
-                Debug.Log(thing);
-            }
+            // Debug.Log("INSIDE RESTRICT ROTATION");
+            // foreach(var thing in jointCollision){
+            //     Debug.Log(thing);
+            // }
             RestrictRotation();
         } 
         else 
@@ -327,9 +327,11 @@ public class VRrotations : MonoBehaviour
     */
     public void CollisionDetection(Tuple<string,bool> msg) 
     {
-
+        ClearConsole();
+        Debug.Log("msg: " + msg);
         if(Array.IndexOf(rigidBodyNames, mode) > Array.IndexOf(rigidBodyNames, msg.Item1))
         {
+            Debug.Log("index of mode is greater than index of msg");
             jointCollision[mode] = msg.Item2;
         } 
         else
@@ -367,7 +369,7 @@ public class VRrotations : MonoBehaviour
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
             joint.targetAngularVelocity = 
-                    new Vector3(torqueVelocityVals[mode].Item2 * num, 0, 0);
+                    new Vector3(torqueVelocityVals[mode].Item2 * num * 0.5f, 0, 0);
             motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
 
         } 
@@ -378,11 +380,16 @@ public class VRrotations : MonoBehaviour
             motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
             joint.xDrive = motor;
         }
+        Debug.Log("target angular velocity: " + joint.targetAngularVelocity);
+        Debug.Log("maximum force: " + motor.maximumForce);
+        // if(CheckCollision()){
+        // Debug.Break();
 
-        if(mode == "Elbow")
-        {
-            Debug.Log(joint + " " + joint.targetAngularVelocity + " " + joint.xDrive + " " + motor.maximumForce);
-        }
+        // }
+        // if(mode == "Elbow")
+        // {
+        //     Debug.Log(joint + " " + joint.targetAngularVelocity + " " + joint.xDrive + " " + motor.maximumForce);
+        // }
     }
 
     /*
@@ -391,6 +398,8 @@ public class VRrotations : MonoBehaviour
     */
     private void RestrictRotation() 
     {
+        Debug.Log("current num val: " + currentNumValues[mode]);
+        Debug.Log("controller angle" + InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z);
         if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
         {
             KeyPress(0);

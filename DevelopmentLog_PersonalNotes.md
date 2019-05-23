@@ -174,8 +174,10 @@ TODO:
     - increase accuracy / realism of the rotation of arm: rotating controller will rotate arm at same rate (apply torque)  
 - currently, sometimes the box colliders do not work. I do not thing it is my algorithm but the physics engine not being able to "catch up" with the movements of the arm
     - looking into raycasting to detect it, might work better than box colliders?
-
+- REMEMBER: box colliders need a parent (or self) rigid body to work (non kinematic) and use continuous dynamic 
 RESOURCES:
     - retrieve index of element in array[link](https://docs.microsoft.com/en-us/dotnet/api/system.array.indexof?view=netframework-4.8)
     - clear console through code[link](https://answers.unity.com/questions/578393/clear-console-through-code-in-development-build.html)
     - `out` keyword in C#[link](https://answers.unity.com/questions/257054/what-is-the-use-of-out-in-variable-fields-example.html)
+    - collisions [link](https://gamedev.stackexchange.com/questions/151670/unity-how-to-detect-collision-occuring-on-child-object-from-a-parent-script)
+    - raycasting for collision detection (possible solution but im not sure )[link](http://wiki.unity3d.com/index.php?title=DontGoThroughThings)
