@@ -16,9 +16,21 @@ public class UpperArm: MonoBehaviour
         gameObject.transform.eulerAngles = UpperArmShellTransform.eulerAngles;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("hit something");
+        msg = new Tuple<string,bool>("Shoulder", true);
+        Rotations.SendMessage("CollisionDetection",msg);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        msg = new Tuple<string,bool>("Shoulder", false);
+        Rotations.SendMessage("CollisionDetection", msg);
+    }
+
     void OnCollisionEnter(Collision collision) 
     {
-        Debug.Log("collided");
         msg = new Tuple<string,bool>("Shoulder", true);
         Rotations.SendMessage("CollisionDetection",msg);
     }

@@ -181,3 +181,24 @@ RESOURCES:
     - `out` keyword in C#[link](https://answers.unity.com/questions/257054/what-is-the-use-of-out-in-variable-fields-example.html)
     - collisions [link](https://gamedev.stackexchange.com/questions/151670/unity-how-to-detect-collision-occuring-on-child-object-from-a-parent-script)
     - raycasting for collision detection (possible solution but im not sure )[link](http://wiki.unity3d.com/index.php?title=DontGoThroughThings)
+
+**May 24**
+TODO:
+    - Collision Detection Algorithm 
+
+Physics Engine Adjustments:
+    - changes Time -> Fixed Time Step, originally 0.02 changed to 0.001, 0.0002 made the game too slow. 
+    - enabled adaptive force 
+- Note that Continuous Dynamic collision detection has a high toll and usually can be solved with raycasting 
+    - Changed all the rigid bodies to discrete 
+
+- Above physics engine adjustments didnt do anything
+- 2nd test: add rigidbody (is kinematic true) and use trigger
+    - have parent with rigidbody: is Kinematic, discrete then have children with trigger 
+    - trigger is having a "collision" detected but no actual physical impact, only a notification
+    - set fixed time step back to 0.02
+- 3rd test: find angle they collide and set that as the new angular restriction
+    - the angles are sending over properly BUT they are not setting correctly
+
+RESOURCES:
+    - physics engine limitations / adjustments[link](https://gamedev.stackexchange.com/questions/99180/unity-rigidbody-gets-pushed-through-collider-by-another-rigidbody)

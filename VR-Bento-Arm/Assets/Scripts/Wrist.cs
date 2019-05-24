@@ -16,6 +16,19 @@ public class Wrist: MonoBehaviour
         gameObject.transform.eulerAngles = WristArmShellTransform.eulerAngles;
     }
     
+    void OnTriggerEnter(Collider other)
+    {
+        msg = new Tuple<string,bool>("Forearm Rotation", true);
+        Rotations.SendMessage("CollisionDetection", msg);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        msg = new Tuple<string,bool>("Forearm Rotation", false);
+        Rotations.SendMessage("CollisionDetection", msg);
+    }
+
+
     void OnCollisionEnter(Collision collision) 
     {
         msg = new Tuple<string,bool>("Forearm Rotation", true);
