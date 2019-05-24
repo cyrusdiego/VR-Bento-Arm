@@ -18,7 +18,6 @@ public class UpperArm: MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hit something");
         msg = new Tuple<string,bool>("Shoulder", true);
         Rotations.SendMessage("CollisionDetection",msg);
     }

@@ -46,7 +46,7 @@ public class VRrotations : MonoBehaviour
     // Sets properties for the configurable joints. 
     private ConfigurableJoint joint = null;
     private JointDrive motor;
-    private SoftJointLimit tempAngle1,tempAngle2, prevAngle1, prevAngle2;
+    private SoftJointLimit tempAngle1,tempAngle2;
 
     // Used for Angular Limits. 
     private float deltaAngle;
@@ -57,6 +57,7 @@ public class VRrotations : MonoBehaviour
     public Text textObject = null;
     #endregion
     
+    #region MonoAPI
     /*
         @brief: Called before first frame. Initializes and fills
         data structures and properties 
@@ -153,6 +154,9 @@ public class VRrotations : MonoBehaviour
         yield return null; // this is required to wait for an additional frame, without this clearing doesn't work (at least for me)
         Debug.ClearDeveloperConsole();
     }
+
+    #endregion
+    
     #region SetX
     private void SetBoxColliders() 
     {
@@ -335,37 +339,7 @@ public class VRrotations : MonoBehaviour
         {
             jointCollision[msg.Item1] = msg.Item2;
         } 
-
-        // jointCollision[msg.Item1] = msg.Item2;
-        // jointCollision[mode] = msg.Item2;
-        // ClearConsole();
-
-        // Debug.Log("collision detected: " + msg.Item1 + " " + msg.Item2);
-        // foreach(var thing in jointCollision){
-        //     Debug.Log(thing);
-        // }
-        // Debug.Break();
     }
-
-    // public void AngularRestriction(Vector3 angle)
-    // {
-    //     Debug.Log("got inside");
-    //     Debug.Log("angle.z == " + angle.z);
-    //     if(currentNumValues[mode] == 1)
-    //     {
-    //         prevAngle1.limit = angle.z;
-    //         joint.highAngularXLimit = prevAngle1;
-    //     }
-    //     else if(currentNumValues[mode] == -1)
-    //     {
-    //         prevAngle1.limit = angle.z;
-    //         prevAngle2.limit = 90;
-    //         joint.lowAngularXLimit = prevAngle1;
-    //         joint.highAngularXLimit = prevAngle2;
-            
-    //     }
-    //     Debug.Log("angular limits: low = " + joint.lowAngularXLimit.limit + " high = " + joint.highAngularXLimit.limit);
-    // }
 
     /*
         @brief: specifies joint rotation properties depending on key press 
@@ -399,15 +373,6 @@ public class VRrotations : MonoBehaviour
                 robotRigidBody[name].angularVelocity = Vector3.zero;
             }
         }
-       
-        // if(CheckCollision()){
-        // Debug.Break();
-
-        // }
-        // if(mode == "Elbow")
-        // {
-        //     Debug.Log(joint + " " + joint.targetAngularVelocity + " " + joint.xDrive + " " + motor.maximumForce);
-        // }
     }
 
     /*
@@ -457,34 +422,6 @@ public class VRrotations : MonoBehaviour
                 return;
             }
         }
-        
-        // if(CheckHold("SELECT_TRIGGER_SQUEEZE_LEFT"))
-        // {
-        //     if(currentNumValues[mode] < 0) 
-        //     {
-        //         KeyPress(1);
-        //         return;
-        //     } 
-        //     else 
-        //     {
-        //         KeyPress(0);
-        //         return;
-        //     }
-        // }
-        // else if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
-        // {
-        //     if(currentNumValues[mode] > 0)
-        //     {
-        //         KeyPress(-1);
-        //         return;
-        //     } 
-        //     else 
-        //     {
-        //         KeyPress(0);
-        //         return;
-        //     }
-        // } 
-        // KeyPress(0);
     }
 
     /*
@@ -517,19 +454,6 @@ public class VRrotations : MonoBehaviour
             currentNumValues[mode] = -1;
             return;
         }
-
-        // if(CheckHold("SELECT_TRIGGER_SQUEEZE_LEFT")){
-        //     KeyPress(1);
-        //     currentNumValues[mode] = 1;
-        //     return;
-        // } else if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT")){
-        //     KeyPress(-1);
-        //     currentNumValues[mode] = -1;
-        //     return;
-        // }
-        // KeyPress(0);
-        // currentNumValues[mode] = 0;
-        
     }
 #endregion
  

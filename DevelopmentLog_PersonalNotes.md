@@ -185,7 +185,7 @@ RESOURCES:
 **May 24**
 TODO:
     - Collision Detection Algorithm 
-
+- 1st test: 
 Physics Engine Adjustments:
     - changes Time -> Fixed Time Step, originally 0.02 changed to 0.001, 0.0002 made the game too slow. 
     - enabled adaptive force 
@@ -199,6 +199,8 @@ Physics Engine Adjustments:
     - set fixed time step back to 0.02
 - 3rd test: find angle they collide and set that as the new angular restriction
     - the angles are sending over properly BUT they are not setting correctly
+    - difficult to deal with and isnt the most ideal solution imo
+4th test: switch to collisions instead of triggers and when they hit each other either apply equal forces to cancel torque or try to fix position and shut off the applied torque 
 
 RESOURCES:
     - physics engine limitations / adjustments[link](https://gamedev.stackexchange.com/questions/99180/unity-rigidbody-gets-pushed-through-collider-by-another-rigidbody)
