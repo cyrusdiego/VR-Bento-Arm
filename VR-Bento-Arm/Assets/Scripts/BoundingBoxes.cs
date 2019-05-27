@@ -30,7 +30,6 @@ public class BoundingBoxes : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            mode++;
             if(mode % 2 == 0)
             {
                 foreach (GameObject armbox in armBoxes)
@@ -38,7 +37,7 @@ public class BoundingBoxes : MonoBehaviour
                     Component[] components = armbox.GetComponents(typeof(BoxCollider));
                     foreach (BoxCollider box in components)
                     {
-                        box.enabled = !box.enabled;
+                        box.enabled = true;
                     }
                 }
             }
@@ -49,6 +48,8 @@ public class BoundingBoxes : MonoBehaviour
                     armshell.SetActive(!armshell.activeSelf);
                 }
             }
+            
+            mode++;
         }
     }       
 

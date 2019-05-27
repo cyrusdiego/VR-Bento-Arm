@@ -234,3 +234,8 @@ RESOURCES:
     - Explains Rigidbodys in Unity [link](http://digitalopus.ca/site/using-rigid-bodies-in-unity-everything-that-is-not-in-the-manual/)
     - Unity Resources [link](http://digitalopus.ca/site/links-to-some-interesting-game-resources-and-information/)
     - 2 colliders one rigidbody [link](https://answers.unity.com/questions/64740/2-colliders-on-1-gameobject.html)
+
+OUTCOME: 
+    - Seems to work fine now (may 27 2:00pm "seems to work perfectly now")
+    - solution: rigid body at parent and setting continuous dynamic for better collision detection
+    - put box colliders in model gameobjects instead of seperate entity 
