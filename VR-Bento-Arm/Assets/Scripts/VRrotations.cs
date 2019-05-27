@@ -93,12 +93,15 @@ public class VRrotations : MonoBehaviour
         SetKinematic();
         SetJointMotor();
         SetRotationAxis();
+
+        // Reset Camera to neutral Positon (seated experience)
+        // InputTracking.Recenter(); 
     }
 
     
-    // /*
-    //     @brief: called once per frame.
-    // */
+    /*
+        @brief: called once per frame.
+    */
     void FixedUpdate()
     {
         textObject.text = mode; 

@@ -210,7 +210,7 @@ RESOURCES:
 
 **May 27** 
 TODO: 
-    - Collision Detection Algorithm 
+    - Collision Detection Algorithm (DONE)
 TRIALS:
     - Rigidbody: Continuous OR interpolated 
     - Might re-design the rotation method i have set slightly. Instead of using the joint "motor" im just gonna use the rigidbody.AddTorque(x,y,z) method 
@@ -234,6 +234,8 @@ RESOURCES:
     - Explains Rigidbodys in Unity [link](http://digitalopus.ca/site/using-rigid-bodies-in-unity-everything-that-is-not-in-the-manual/)
     - Unity Resources [link](http://digitalopus.ca/site/links-to-some-interesting-game-resources-and-information/)
     - 2 colliders one rigidbody [link](https://answers.unity.com/questions/64740/2-colliders-on-1-gameobject.html)
+    - trigger vs colliders [link](https://bladecast.pro/unity-tutorial/fix-my-collision-complete-guide-collision-trigger-detection-unity)
+    - UDP Services [link](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/using-udp-services)
 
 OUTCOME: 
     - Seems to work fine now (may 27 2:00pm "seems to work perfectly now")
