@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 192492689}
   - component: {fileID: 192492691}
   - component: {fileID: 192492690}
+  - component: {fileID: 192492692}
   m_Layer: 0
   m_Name: Shoulder_Rotation
   m_TagString: Untagged
@@ -545,14 +546,27 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192492688}
   serializedVersion: 2
-  m_Mass: 0.5
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &192492692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192492688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c39fc89205cd04cb18a13733103841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotations: {fileID: 799490506}
 --- !u!1 &215142046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +1015,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325894603}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 35, y: 35, z: 41}
@@ -1379,6 +1393,7 @@ GameObject:
   - component: {fileID: 600509666}
   - component: {fileID: 600509668}
   - component: {fileID: 600509667}
+  - component: {fileID: 600509669}
   m_Layer: 0
   m_Name: Elbow_Rotation
   m_TagString: Untagged
@@ -1514,6 +1529,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &600509669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600509665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b21db24f0ec6254fa4d6d7d01ff8d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotations: {fileID: 799490506}
 --- !u!1 &632581760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,7 +1883,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723190341}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 35
@@ -1868,7 +1896,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723190341}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 100, y: 72, z: 88}
@@ -2101,7 +2129,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813122516}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 65, z: 55}
@@ -2247,7 +2275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c39fc89205cd04cb18a13733103841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpperArmShellTransform: {fileID: 723190339}
   Rotations: {fileID: 799490506}
 --- !u!4 &924565248
 Transform:
@@ -2351,6 +2378,7 @@ GameObject:
   - component: {fileID: 951933277}
   - component: {fileID: 951933279}
   - component: {fileID: 951933278}
+  - component: {fileID: 951933280}
   m_Layer: 0
   m_Name: Wrist_Flexion
   m_TagString: Untagged
@@ -2485,6 +2513,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &951933280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951933276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a430918f110698143a2908f9d05bf434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotations: {fileID: 799490506}
 --- !u!1 &1022805968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +2961,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242755865}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 18, y: 70, z: 60}
@@ -2933,7 +2974,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242755865}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 115, y: 79, z: 80}
@@ -2967,7 +3008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b21db24f0ec6254fa4d6d7d01ff8d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForeArmShellTransform: {fileID: 1242755864}
   Rotations: {fileID: 799490506}
 --- !u!4 &1275750525
 Transform:
@@ -3071,7 +3111,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297099136}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 80, y: 33.53, z: 80}
@@ -3084,7 +3124,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297099136}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 65.1, y: 45, z: 46}
@@ -3097,7 +3137,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297099136}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 27.7, y: 60.5, z: 25.4}
@@ -3253,6 +3293,7 @@ GameObject:
   - component: {fileID: 1407143169}
   - component: {fileID: 1407143171}
   - component: {fileID: 1407143170}
+  - component: {fileID: 1407143172}
   m_Layer: 0
   m_Name: Forearm_Rotation
   m_TagString: Untagged
@@ -3388,6 +3429,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1407143172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407143168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c992fb69b7870c04b8bcb52d27f69919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotations: {fileID: 799490506}
 --- !u!1 &1412911204
 GameObject:
   m_ObjectHideFlags: 0
@@ -3560,7 +3614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c992fb69b7870c04b8bcb52d27f69919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WristArmShellTransform: {fileID: 813122514}
   Rotations: {fileID: 799490506}
 --- !u!4 &1475610819
 Transform:
@@ -3810,6 +3863,7 @@ GameObject:
   - component: {fileID: 1569028117}
   - component: {fileID: 1569028115}
   - component: {fileID: 1569028116}
+  - component: {fileID: 1569028118}
   m_Layer: 0
   m_Name: Open_Hand
   m_TagString: Untagged
@@ -3943,6 +3997,19 @@ Transform:
   m_Father: {fileID: 951933277}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569028118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569028114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b50b983c8471774492486e306e87619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotations: {fileID: 799490506}
 --- !u!1 &1599309830
 GameObject:
   m_ObjectHideFlags: 0
@@ -4435,7 +4502,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809574630}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 30, y: 28.5, z: 3}
@@ -4448,7 +4515,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809574630}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 30, y: 28.5, z: 3}
@@ -4461,7 +4528,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809574630}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 7, y: 34, z: 56}
@@ -4474,7 +4541,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809574630}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 35, y: 52, z: 35.75}
@@ -4487,7 +4554,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809574630}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 71, y: 30, z: 25.4}
@@ -4797,7 +4864,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965177381}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 50, y: 75, z: 75}
@@ -4810,7 +4877,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965177381}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 79.5, y: 43, z: 40}
@@ -5038,9 +5105,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!4 &2127307033
 Transform:

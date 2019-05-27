@@ -219,9 +219,10 @@ TRIALS:
         - changing the axis in configurable joint ((1,0,0) -> (0,1,0)) will not affect Vector3 for torque, if you want to rotated it about y axis, you still use the y / 2nd value not x 
         - placing the box colliders as components of the arm would help with the physics engine from not being dumb (b/c i used transform.position with a rigidbody essentially which is a no no)
     - placing multiple colliders in one gameobject will NOT collide with itself BUT will collide with outside gameobjects (parented AND not-parented)
+    - Possible solution: make each model a rigid body + configurable joint and have a parent wrapper still, this will allow for each thing to have continuous dynamic collision detection
 
 GAMEPLAN 1: 
-    1) move rigidbodies to the bento arm model as components 
+    1) move box colliders to the bento arm model as components 
         a) collision == continuous 
         b) change collision code 
     2) Re-format the rotations of the arm (w/o box colliders) -> change it in the script (lower priority as the current method works fine, just need to "stop" the rotation completely)

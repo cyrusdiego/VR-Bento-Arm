@@ -35,8 +35,6 @@ public class VRrotations : MonoBehaviour
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
     // Drag and Drop in Inspector. 
-    // public GameObject[] shells = new GameObject[10];
-    // public GameObject[] armBoxes = new GameObject[4];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
     // Specifies which joint will be rotating. 
@@ -95,16 +93,14 @@ public class VRrotations : MonoBehaviour
         SetKinematic();
         SetJointMotor();
         SetRotationAxis();
-        // SetBoxColliders();
     }
 
     
-    /*
-        @brief: called once per frame.
-    */
+    // /*
+    //     @brief: called once per frame.
+    // */
     void FixedUpdate()
     {
-        CheckKeyPress();
         textObject.text = mode; 
         //Checks if the arm has collided with a box collider 
         if(CheckCollision())
@@ -158,22 +154,6 @@ public class VRrotations : MonoBehaviour
     #endregion
     
     #region Set
-    // private void SetBoxColliders() 
-    // {
-    //     if(shells[0].activeSelf)
-    //     {
-    //         foreach(GameObject boxes in armBoxes)
-    //         {
-    //             boxes.SetActive(false);
-    //         }
-    //     } else if(!shells[0].activeSelf)
-    //     {
-    //         foreach(GameObject boxes in armBoxes)
-    //         {
-    //             boxes.SetActive(true);
-    //         }
-    //     }
-    // }
 
     /*
         @brief: changes the joint being rotated. 
@@ -199,8 +179,10 @@ public class VRrotations : MonoBehaviour
         for(int i = modeItr % 5; i < 5; i++) 
         {
             robotRigidBody[rigidBodyNames[i]].isKinematic = true;
+            robotRigidBody[rigidBodyNames[i]].collisionDetectionMode = CollisionDetectionMode.Discrete;
         }
         robotRigidBody[mode].isKinematic = false;
+        robotRigidBody[mode].collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
      /*
@@ -267,29 +249,6 @@ public class VRrotations : MonoBehaviour
             return false;
         }
     }
-    
-    /*
-        @brief:  
-    */
-    private void CheckKeyPress() 
-    {
-        // if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
-        // {
-        //     mode = rigidBodyNames[modeItr++ % 5]; 
-        //     SetJointMotor();
-        //     SetKinematic();  
-        //     SetRotationAxis();
-        // }
-
-        // if(Input.GetButtonDown("GRIP_BUTTON_PRESS_LEFT"))
-        // {
-        //     foreach (GameObject shell in shells)
-        //     {
-        //         shell.SetActive(!shell.activeSelf);
-        //     }
-        //     SetBoxColliders();
-        // }
-    }
 
     /*
         @brief: checks if a button is being held / squeezed.
@@ -331,7 +290,7 @@ public class VRrotations : MonoBehaviour
     */
     public void CollisionDetection(Tuple<string,bool> msg) 
     {
-        if(Array.IndexOf(rigidBodyNames, mode) > Array.IndexOf(rigidBodyNames, msg.Item1))
+        if(Array.IndexOf(rigidBodyNames, mode) < Array.IndexOf(rigidBodyNames, msg.Item1))
         {
             jointCollision[mode] = msg.Item2;
         } 
@@ -355,14 +314,12 @@ public class VRrotations : MonoBehaviour
 
         if(num != 0)
         {
-            joint.targetAngularVelocity = new Vector3(torqueVelocityVals[mode].Item2 * num * 0.5f, 0, 0);
+            joint.targetAngularVelocity = new Vector3(torqueVelocityVals[mode].Item2 * num , 0, 0);
             motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
             // These need to be modified, doesnt accurately depict servo motors. 
             motor.positionSpring = 1.0f;
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
-            
-
         } 
         else 
         {
