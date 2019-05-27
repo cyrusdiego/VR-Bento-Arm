@@ -35,8 +35,8 @@ public class VRrotations : MonoBehaviour
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
     // Drag and Drop in Inspector. 
-    public GameObject[] shells = new GameObject[10];
-    public GameObject[] armBoxes = new GameObject[4];
+    // public GameObject[] shells = new GameObject[10];
+    // public GameObject[] armBoxes = new GameObject[4];
     public Rigidbody[] rigidBodies = new Rigidbody[5];
 
     // Specifies which joint will be rotating. 
@@ -95,7 +95,7 @@ public class VRrotations : MonoBehaviour
         SetKinematic();
         SetJointMotor();
         SetRotationAxis();
-        SetBoxColliders();
+        // SetBoxColliders();
     }
 
     
@@ -124,14 +124,14 @@ public class VRrotations : MonoBehaviour
     void OnGUI() 
     {
         // Hides arm-shells, 8020 stand, Table, and Desktop-Workspace.
-        if (GUI.Button(new Rect(10, 25, 100, 20), "Hide")) 
-        {
-            foreach (GameObject shell in shells) 
-            {
-                shell.SetActive(!shell.activeSelf);
-            }
-            SetBoxColliders();
-        }
+        // if (GUI.Button(new Rect(10, 25, 100, 20), "Hide")) 
+        // {
+        //     foreach (GameObject shell in shells) 
+        //     {
+        //         shell.SetActive(!shell.activeSelf);
+        //     }
+        //     SetBoxColliders();
+        // }
 
         // Button to alternate between joints / freedom of movements. 
         if (GUI.Button(new Rect(10, 50, 150, 20), mode)) 
@@ -157,32 +157,32 @@ public class VRrotations : MonoBehaviour
 
     #endregion
     
-    #region SetX
-    private void SetBoxColliders() 
-    {
-        if(shells[0].activeSelf)
-        {
-            foreach(GameObject boxes in armBoxes)
-            {
-                boxes.SetActive(false);
-            }
-        } else if(!shells[0].activeSelf)
-        {
-            foreach(GameObject boxes in armBoxes)
-            {
-                boxes.SetActive(true);
-            }
-        }
-    }
+    #region Set
+    // private void SetBoxColliders() 
+    // {
+    //     if(shells[0].activeSelf)
+    //     {
+    //         foreach(GameObject boxes in armBoxes)
+    //         {
+    //             boxes.SetActive(false);
+    //         }
+    //     } else if(!shells[0].activeSelf)
+    //     {
+    //         foreach(GameObject boxes in armBoxes)
+    //         {
+    //             boxes.SetActive(true);
+    //         }
+    //     }
+    // }
 
     /*
         @brief: changes the joint being rotated. 
     */
     private void SetJointMotor() 
     {
-        if(joint){
-                    joint.targetAngularVelocity = Vector3.zero;
-
+        if(joint)
+        {
+            joint.targetAngularVelocity = Vector3.zero;
         }
         joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
     }
@@ -255,7 +255,7 @@ public class VRrotations : MonoBehaviour
     }
 #endregion
 
-    #region CheckX
+    #region Check
     private bool CheckCollision()
     {
         if(jointCollision[mode])
@@ -281,14 +281,14 @@ public class VRrotations : MonoBehaviour
         //     SetRotationAxis();
         // }
 
-        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_LEFT"))
-        {
-            foreach (GameObject shell in shells)
-            {
-                shell.SetActive(!shell.activeSelf);
-            }
-            SetBoxColliders();
-        }
+        // if(Input.GetButtonDown("GRIP_BUTTON_PRESS_LEFT"))
+        // {
+        //     foreach (GameObject shell in shells)
+        //     {
+        //         shell.SetActive(!shell.activeSelf);
+        //     }
+        //     SetBoxColliders();
+        // }
     }
 
     /*

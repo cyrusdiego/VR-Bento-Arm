@@ -204,3 +204,32 @@ Physics Engine Adjustments:
 
 RESOURCES:
     - physics engine limitations / adjustments[link](https://gamedev.stackexchange.com/questions/99180/unity-rigidbody-gets-pushed-through-collider-by-another-rigidbody)
+    - collider affects hinge joints [link](https://forum.unity.com/threads/collider-affects-hinge-joint.156502/)
+    - rigidbody and colliders [link](https://forum.unity.com/threads/rigidbody-collider-root-or-each-gameobject.269904/)
+    - parenting and collisions [link](https://gamedev.stackexchange.com/questions/151670/unity-how-to-detect-collision-occuring-on-child-object-from-a-parent-script)
+
+**May 27** 
+TODO: 
+    - Collision Detection Algorithm 
+TRIALS:
+    - Rigidbody: Continuous OR interpolated 
+    - Might re-design the rotation method i have set slightly. Instead of using the joint "motor" im just gonna use the rigidbody.AddTorque(x,y,z) method 
+        - Placing configurable joints at the specific axes will set the rotational axis. using `rigidbody.AddTorque(float x, float y, float z)` will add a torque at that axis 
+        - then using `rb.AngularVelocity = Vector3.zero` will stop the rigidbody from rotating (must be in fixed update, or else the momentum of the rb will continue rotation) 
+        - changing the axis in configurable joint ((1,0,0) -> (0,1,0)) will not affect Vector3 for torque, if you want to rotated it about y axis, you still use the y / 2nd value not x 
+        - placing the box colliders as components of the arm would help with the physics engine from not being dumb (b/c i used transform.position with a rigidbody essentially which is a no no)
+    - placing multiple colliders in one gameobject will NOT collide with itself BUT will collide with outside gameobjects (parented AND not-parented)
+
+GAMEPLAN 1: 
+    1) move rigidbodies to the bento arm model as components 
+        a) collision == continuous 
+        b) change collision code 
+    2) Re-format the rotations of the arm (w/o box colliders) -> change it in the script (lower priority as the current method works fine, just need to "stop" the rotation completely)
+        a) configurable joints are already placed in correct points in the rigidbodies
+        b) change the script to use above methods instead 
+
+RESOURCES:
+    - objects going through colliders [link](https://gamedev.stackexchange.com/questions/115449/ball-passing-through-box-collider)
+    - Explains Rigidbodys in Unity [link](http://digitalopus.ca/site/using-rigid-bodies-in-unity-everything-that-is-not-in-the-manual/)
+    - Unity Resources [link](http://digitalopus.ca/site/links-to-some-interesting-game-resources-and-information/)
+    - 2 colliders one rigidbody [link](https://answers.unity.com/questions/64740/2-colliders-on-1-gameobject.html)
