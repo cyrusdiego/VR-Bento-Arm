@@ -170,4 +170,94 @@ MEETING with RORY:
 
 **May 23**
 TODO:
-    - Collision Detection Algorithm     
+    - Collision Detection Algorithm 
+    - increase accuracy / realism of the rotation of arm: rotating controller will rotate arm at same rate (apply torque)  
+- currently, sometimes the box colliders do not work. I do not thing it is my algorithm but the physics engine not being able to "catch up" with the movements of the arm
+    - looking into raycasting to detect it, might work better than box colliders?
+- REMEMBER: box colliders need a parent (or self) rigid body to work (non kinematic) and use continuous dynamic 
+RESOURCES:
+    - retrieve index of element in array[link](https://docs.microsoft.com/en-us/dotnet/api/system.array.indexof?view=netframework-4.8)
+    - clear console through code[link](https://answers.unity.com/questions/578393/clear-console-through-code-in-development-build.html)
+    - `out` keyword in C#[link](https://answers.unity.com/questions/257054/what-is-the-use-of-out-in-variable-fields-example.html)
+    - collisions [link](https://gamedev.stackexchange.com/questions/151670/unity-how-to-detect-collision-occuring-on-child-object-from-a-parent-script)
+    - raycasting for collision detection (possible solution but im not sure )[link](http://wiki.unity3d.com/index.php?title=DontGoThroughThings)
+
+**May 24**
+TODO:
+    - Collision Detection Algorithm 
+- 1st test: 
+Physics Engine Adjustments:
+    - changes Time -> Fixed Time Step, originally 0.02 changed to 0.001, 0.0002 made the game too slow. 
+    - enabled adaptive force 
+- Note that Continuous Dynamic collision detection has a high toll and usually can be solved with raycasting 
+    - Changed all the rigid bodies to discrete 
+
+- Above physics engine adjustments didnt do anything
+- 2nd test: add rigidbody (is kinematic true) and use trigger
+    - have parent with rigidbody: is Kinematic, discrete then have children with trigger 
+    - trigger is having a "collision" detected but no actual physical impact, only a notification
+    - set fixed time step back to 0.02
+- 3rd test: find angle they collide and set that as the new angular restriction
+    - the angles are sending over properly BUT they are not setting correctly
+    - difficult to deal with and isnt the most ideal solution imo
+4th test: switch to collisions instead of triggers and when they hit each other either apply equal forces to cancel torque or try to fix position and shut off the applied torque 
+
+RESOURCES:
+    - physics engine limitations / adjustments[link](https://gamedev.stackexchange.com/questions/99180/unity-rigidbody-gets-pushed-through-collider-by-another-rigidbody)
+    - collider affects hinge joints [link](https://forum.unity.com/threads/collider-affects-hinge-joint.156502/)
+    - rigidbody and colliders [link](https://forum.unity.com/threads/rigidbody-collider-root-or-each-gameobject.269904/)
+    - parenting and collisions [link](https://gamedev.stackexchange.com/questions/151670/unity-how-to-detect-collision-occuring-on-child-object-from-a-parent-script)
+
+**May 27** 
+TODO: 
+    - Collision Detection Algorithm (DONE)
+TRIALS:
+    - Rigidbody: Continuous OR interpolated 
+    - Might re-design the rotation method i have set slightly. Instead of using the joint "motor" im just gonna use the rigidbody.AddTorque(x,y,z) method 
+        - Placing configurable joints at the specific axes will set the rotational axis. using `rigidbody.AddTorque(float x, float y, float z)` will add a torque at that axis 
+        - then using `rb.AngularVelocity = Vector3.zero` will stop the rigidbody from rotating (must be in fixed update, or else the momentum of the rb will continue rotation) 
+        - changing the axis in configurable joint ((1,0,0) -> (0,1,0)) will not affect Vector3 for torque, if you want to rotated it about y axis, you still use the y / 2nd value not x 
+        - placing the box colliders as components of the arm would help with the physics engine from not being dumb (b/c i used transform.position with a rigidbody essentially which is a no no)
+    - placing multiple colliders in one gameobject will NOT collide with itself BUT will collide with outside gameobjects (parented AND not-parented)
+    - Possible solution: make each model a rigid body + configurable joint and have a parent wrapper still, this will allow for each thing to have continuous dynamic collision detection
+
+GAMEPLAN 1: 
+    1) move box colliders to the bento arm model as components 
+        a) collision == continuous 
+        b) change collision code 
+    2) Re-format the rotations of the arm (w/o box colliders) -> change it in the script (lower priority as the current method works fine, just need to "stop" the rotation completely)
+        a) configurable joints are already placed in correct points in the rigidbodies
+        b) change the script to use above methods instead 
+
+RESOURCES:
+    - objects going through colliders [link](https://gamedev.stackexchange.com/questions/115449/ball-passing-through-box-collider)
+    - Explains Rigidbodys in Unity [link](http://digitalopus.ca/site/using-rigid-bodies-in-unity-everything-that-is-not-in-the-manual/)
+    - Unity Resources [link](http://digitalopus.ca/site/links-to-some-interesting-game-resources-and-information/)
+    - 2 colliders one rigidbody [link](https://answers.unity.com/questions/64740/2-colliders-on-1-gameobject.html)
+    - trigger vs colliders [link](https://bladecast.pro/unity-tutorial/fix-my-collision-complete-guide-collision-trigger-detection-unity)
+    - UDP Services [link](https://docs.microsoft.com/en-us/dotnet/framework/network-programming/using-udp-services)
+
+OUTCOME: 
+    - Seems to work fine now (may 27 2:00pm "seems to work perfectly now")
+    - solution: rigid body at parent and setting continuous dynamic for better collision detection
+    - put box colliders in model gameobjects instead of seperate entity 
+
+**May 28** 
+TODO: 
+    - Testing of arm 
+    - Create Flowchart for VRrotations 
+    - Debugging further 
+    - Double Check mapping for controllers omg 
+    
+- Removing all Rigidbodies and configurable joints from each rotation 
+    - changing the array to Gameobjects instead of rigidbodies 
+    - Adding rigidbody and configurable joints on the spot and set kinematic and collision detection 
+        - got this working but doesnt fix the problem can keep it the way it is or revert doesnt really matter 
+    - going to try using collision instead of trigger 
+
+SOLUTION TO COLLISION DETECTION:
+    - mixture of issues
+        1) my controller mapping was slightly wrong (angular detection and whichever method was wrong)
+        2) collision detection needed to be more percise 
+RESOURCES
+    - collision [link](https://forum.unity.com/threads/weapon-passing-through-colliders.418840/)

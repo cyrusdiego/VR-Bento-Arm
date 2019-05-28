@@ -8,13 +8,31 @@ public class CollisionLeftChopstick : MonoBehaviour
     private Tuple<string,bool> msg;
     public GameObject Rotations = null;
 
-    void OnTriggerEnter(Collider other) 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag != "test"){
+            msg = new Tuple<string,bool>("Wrist Flexion", true);
+            Rotations.SendMessage("CollisionDetection", msg);
+        }
+        
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.tag != "test"){
+            msg = new Tuple<string,bool>("Wrist Flexion", false);
+            Rotations.SendMessage("CollisionDetection", msg);
+        }
+        
+    }
+
+    void OnCollisionEnter(Collision collision) 
     {
         msg = new Tuple<string,bool>("Wrist Flexion", true);
         Rotations.SendMessage("CollisionDetection", msg);
     }
 
-    void OnTriggerExit(Collider other) 
+    void OnCollisionExit(Collision collision) 
     {
         msg = new Tuple<string,bool>("Wrist Flexion", false);
         Rotations.SendMessage("CollisionDetection", msg);
