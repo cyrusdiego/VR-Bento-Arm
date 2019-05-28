@@ -102,8 +102,9 @@ public class VRrotations : MonoBehaviour
     {
         textObject.text = mode; 
         //Checks if the arm has collided with a box collider 
-        if(CheckCollision())
+        if(jointCollision[mode])
         {
+
             RestrictRotation();
         } 
         else 
@@ -271,17 +272,6 @@ public class VRrotations : MonoBehaviour
 #endregion
 
     #region Check
-    private bool CheckCollision()
-    {
-        if(jointCollision[mode])
-        {
-            return true;
-        } 
-        else 
-        {
-            return false;
-        }
-    }
 
     /*
         @brief: checks if a button is being held / squeezed.
@@ -310,6 +300,9 @@ public class VRrotations : MonoBehaviour
         } 
         return false;
     }
+
+    
+
 #endregion
 
     #region Rotations
@@ -341,10 +334,6 @@ public class VRrotations : MonoBehaviour
     */
     private void KeyPress(int num) 
     {
-        // joint.targetAngularVelocity = 
-        //             new Vector3(torqueVelocityVals[mode].Item2 * num, 0, 0);
-        // motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
-
         if(num != 0)
         {
             joint.targetAngularVelocity = new Vector3(torqueVelocityVals[mode].Item2 * num , 0, 0);
@@ -377,7 +366,6 @@ public class VRrotations : MonoBehaviour
         if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
         {
             KeyPress(0);
-            currentNumValues[mode] = 0;
             if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
             {
                 mode = robotPartNames[modeItr++ % 5]; 
@@ -386,26 +374,28 @@ public class VRrotations : MonoBehaviour
             }
             return;
         }
-        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 90)
+
+        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 180)
         {
-            if(currentNumValues[mode] <= 0) 
-            {
-                KeyPress(1);
-                return;
-            } 
-            else 
+            print("twisting to the left");
+            if(currentNumValues[mode] > 0) 
             {
                 KeyPress(0);
                 return;
             }
+            else 
+            {
+                KeyPress(1);
+                return;
+            }
         } 
-        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
+        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z >= 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
         {
-            if(currentNumValues[mode] >= 0)
+            if(currentNumValues[mode] > 0) 
             {
                 KeyPress(-1);
                 return;
-            } 
+            }
             else 
             {
                 KeyPress(0);
@@ -422,23 +412,21 @@ public class VRrotations : MonoBehaviour
         if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
         {
             KeyPress(0);
-            currentNumValues[mode] = 0;
             if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
             {
-                Debug.Log("PRessed trigger and touchpad");
                 mode = robotPartNames[modeItr++ % 5]; 
                 SetRigidBody();  
                 SetRotationAxis();
             }
             return;
         }
-        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 90)
+        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 180)
         {
             KeyPress(1);
             currentNumValues[mode] = 1;
             return;
         } 
-        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
+        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z >= 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
         {
             KeyPress(-1);
             currentNumValues[mode] = -1;

@@ -247,7 +247,10 @@ TODO:
     - Testing of arm 
     - Create Flowchart for VRrotations 
     - Debugging further 
+    - Double Check mapping for controllers omg 
     
 - Removing all Rigidbodies and configurable joints from each rotation 
     - changing the array to Gameobjects instead of rigidbodies 
     - Adding rigidbody and configurable joints on the spot and set kinematic and collision detection 
+        - got this working but doesnt fix the problem can keep it the way it is or revert doesnt really matter 
+    - going to try using collision instead of trigger 
