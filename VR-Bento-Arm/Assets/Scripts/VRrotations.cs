@@ -329,7 +329,8 @@ public class VRrotations : MonoBehaviour
             joint.targetAngularVelocity = Vector3.zero;
             motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
             joint.xDrive = motor;
-            foreach (string name in rigidBodyNames) {
+            foreach (string name in rigidBodyNames) 
+            {
                 robotRigidBody[name].angularVelocity = Vector3.zero;
             }
         }

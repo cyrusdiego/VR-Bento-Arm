@@ -241,3 +241,9 @@ OUTCOME:
     - Seems to work fine now (may 27 2:00pm "seems to work perfectly now")
     - solution: rigid body at parent and setting continuous dynamic for better collision detection
     - put box colliders in model gameobjects instead of seperate entity 
+
+**May28** 
+TODO: 
+    - Testing of arm 
+    - Debugging further 
+    
