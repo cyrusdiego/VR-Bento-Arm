@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class VRrotations : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class VRrotations : MonoBehaviour
     // Canvas GUI for VR Headset 
     public Canvas cavasObject = null;
     public Text textObject = null;
+
     #endregion
     
     #region MonoAPI
@@ -101,6 +103,11 @@ public class VRrotations : MonoBehaviour
     void FixedUpdate()
     {
         textObject.text = mode; 
+
+        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_RIGHT")){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         //Checks if the arm has collided with a box collider 
         if(jointCollision[mode])
         {
@@ -111,6 +118,7 @@ public class VRrotations : MonoBehaviour
         {
             RotateArm();
         }
+        
     }
 
     /*
@@ -119,16 +127,6 @@ public class VRrotations : MonoBehaviour
     */
     void OnGUI() 
     {
-        // Hides arm-shells, 8020 stand, Table, and Desktop-Workspace.
-        // if (GUI.Button(new Rect(10, 25, 100, 20), "Hide")) 
-        // {
-        //     foreach (GameObject shell in shells) 
-        //     {
-        //         shell.SetActive(!shell.activeSelf);
-        //     }
-        //     SetBoxColliders();
-        // }
-
         // Button to alternate between joints / freedom of movements. 
         if (GUI.Button(new Rect(10, 50, 150, 20), mode)) 
         {
@@ -316,13 +314,9 @@ public class VRrotations : MonoBehaviour
     */
     public void CollisionDetection(Tuple<string,bool> msg) 
     {
-        if(Array.IndexOf(robotPartNames, mode) < Array.IndexOf(robotPartNames, msg.Item1))
+        if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
         {
             jointCollision[mode] = msg.Item2;
-        } 
-        else
-        {
-            jointCollision[msg.Item1] = msg.Item2;
         } 
     }
 
@@ -334,6 +328,7 @@ public class VRrotations : MonoBehaviour
     */
     private void KeyPress(int num) 
     {
+        joint = robotGameObject[mode].GetComponent<ConfigurableJoint>();
         if(num != 0)
         {
             joint.targetAngularVelocity = new Vector3(torqueVelocityVals[mode].Item2 * num , 0, 0);
@@ -377,7 +372,6 @@ public class VRrotations : MonoBehaviour
 
         if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 180)
         {
-            print("twisting to the left");
             if(currentNumValues[mode] > 0) 
             {
                 KeyPress(0);
@@ -391,14 +385,14 @@ public class VRrotations : MonoBehaviour
         } 
         else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z >= 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
         {
-            if(currentNumValues[mode] > 0) 
+            if(currentNumValues[mode] < 0) 
             {
-                KeyPress(-1);
+                KeyPress(0);
                 return;
             }
             else 
             {
-                KeyPress(0);
+                KeyPress(-1);
                 return;
             }
         }

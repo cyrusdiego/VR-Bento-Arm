@@ -242,7 +242,7 @@ OUTCOME:
     - solution: rigid body at parent and setting continuous dynamic for better collision detection
     - put box colliders in model gameobjects instead of seperate entity 
 
-**May28** 
+**May 28** 
 TODO: 
     - Testing of arm 
     - Create Flowchart for VRrotations 
@@ -254,3 +254,10 @@ TODO:
     - Adding rigidbody and configurable joints on the spot and set kinematic and collision detection 
         - got this working but doesnt fix the problem can keep it the way it is or revert doesnt really matter 
     - going to try using collision instead of trigger 
+
+SOLUTION TO COLLISION DETECTION:
+    - mixture of issues
+        1) my controller mapping was slightly wrong (angular detection and whichever method was wrong)
+        2) collision detection needed to be more percise 
+RESOURCES
+    - collision [link](https://forum.unity.com/threads/weapon-passing-through-colliders.418840/)
