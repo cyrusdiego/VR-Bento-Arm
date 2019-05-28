@@ -17,8 +17,8 @@ public class VRrotations : MonoBehaviour
 {
     #region Variables
     // Name : rigidbody storage.
-    private Dictionary<string, Rigidbody> robotRigidBody = 
-            new Dictionary<string, Rigidbody>();
+    private Dictionary<string, GameObject> robotGameObject = 
+            new Dictionary<string, GameObject>();
     // Name : torque and velocity storage.
     private Dictionary<string, Tuple<float, float>> torqueVelocityVals = 
             new Dictionary<string, Tuple<float, float>>();
@@ -29,13 +29,13 @@ public class VRrotations : MonoBehaviour
             new Dictionary<string,int>();
 
     // Rotation modes and motor properties. 
-    private string[] rigidBodyNames = { "Shoulder", "Elbow", "Forearm Rotation", 
+    private string[] robotPartNames = { "Shoulder", "Elbow", "Forearm Rotation", 
             "Wrist Flexion", "Open Hand" };
     public float[] torqueVals = { 1.319f, 2.436f, 0.733f, 0.611f, 0.977f };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
     // Drag and Drop in Inspector. 
-    public Rigidbody[] rigidBodies = new Rigidbody[5];
+    public GameObject[] gameObjects = new GameObject[5];
 
     // Specifies which joint will be rotating. 
     private string mode;
@@ -63,7 +63,7 @@ public class VRrotations : MonoBehaviour
     void Start() 
     {
         // Sets the first mode.
-        mode = rigidBodyNames[modeItr++];  
+        mode = robotPartNames[modeItr++];  
 
         // Convert to rad/s.
         for(int j = 0; j < velocityVals.Length; j++) 
@@ -73,29 +73,25 @@ public class VRrotations : MonoBehaviour
 
         // Adds to the dictionaries for easy lookup.
         int i = 0;
-        foreach (Rigidbody rigidbody in rigidBodies) 
+        foreach (GameObject gameobject in gameObjects) 
         {
             // Maps name to rigid body. 
-            robotRigidBody.Add(rigidBodyNames[i], rigidbody);  
+            robotGameObject.Add(robotPartNames[i], gameobject);  
 
             // Maps name to max torque / velocity. 
-            torqueVelocityVals.Add(rigidBodyNames[i], 
+            torqueVelocityVals.Add(robotPartNames[i], 
                     new Tuple<float, float>(torqueVals[i], velocityVals[i]));
 
             // Maps name to current rotation direction. 
-            currentNumValues.Add(rigidBodyNames[i],0);
-            jointCollision.Add(rigidBodyNames[i], false);
+            currentNumValues.Add(robotPartNames[i],0);
+            jointCollision.Add(robotPartNames[i], false);
 
             i++;
         } 
 
         // Sets initial settings. 
-        SetKinematic();
-        SetJointMotor();
+        SetRigidBody();
         SetRotationAxis();
-
-        // Reset Camera to neutral Positon (seated experience)
-        // InputTracking.Recenter(); 
     }
 
     
@@ -135,9 +131,8 @@ public class VRrotations : MonoBehaviour
         // Button to alternate between joints / freedom of movements. 
         if (GUI.Button(new Rect(10, 50, 150, 20), mode)) 
         {
-            mode = rigidBodyNames[modeItr++ % 5];  
-            SetJointMotor();
-            SetKinematic();  
+            mode = robotPartNames[modeItr++ % 5];  
+            SetRigidBody();  
             SetRotationAxis();
         }
     }
@@ -158,16 +153,37 @@ public class VRrotations : MonoBehaviour
     
     #region Set
 
-    /*
-        @brief: changes the joint being rotated. 
-    */
-    private void SetJointMotor() 
+    private void SetConfigurableJoint(ref ConfigurableJoint cj)
     {
-        if(joint)
+        cj.anchor = Vector3.zero;
+        
+        cj.xMotion = ConfigurableJointMotion.Locked;
+        cj.yMotion = ConfigurableJointMotion.Locked;
+        cj.zMotion = ConfigurableJointMotion.Locked;
+        cj.autoConfigureConnectedAnchor = true;
+        switch(modeItr % 5)
         {
-            joint.targetAngularVelocity = Vector3.zero;
+            // Open hand 
+            case 0: 
+                cj.connectedAnchor = new Vector3(-409,125,0);
+                break;
+            // Shoulder 
+            case 1: 
+                cj.connectedAnchor = new Vector3(-101, 130,0);
+                break;
+            // Elbow
+            case 2: 
+                cj.connectedAnchor = new Vector3(-130, 125,0);
+                break;
+            // Forearm 
+            case 3:
+                cj.connectedAnchor = new Vector3(-325,122,0);
+                break;
+            // Wrist 
+            case 4:
+                cj.connectedAnchor = new Vector3(-325,122,-21);
+                break;
         }
-        joint = robotRigidBody[mode].gameObject.GetComponent<ConfigurableJoint>();
     }
 
     /*
@@ -177,15 +193,29 @@ public class VRrotations : MonoBehaviour
         If isKinematic is enabled, Forces, collisions or joints 
         will not affect the rigidbody anymore (Unity API).
     */
-    private void SetKinematic() 
+    private void SetRigidBody() 
     {
-        for(int i = modeItr % 5; i < 5; i++) 
+        foreach(String name in robotPartNames)
         {
-            robotRigidBody[rigidBodyNames[i]].isKinematic = true;
-            robotRigidBody[rigidBodyNames[i]].collisionDetectionMode = CollisionDetectionMode.Discrete;
+            GameObject temp = robotGameObject[name];
+            Destroy(temp.GetComponent<ConfigurableJoint>());
+            Destroy(temp.GetComponent<Rigidbody>());
         }
-        robotRigidBody[mode].isKinematic = false;
-        robotRigidBody[mode].collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+        GameObject obj = robotGameObject[mode];
+        obj.AddComponent<Rigidbody>(); 
+        obj.AddComponent<ConfigurableJoint>();
+
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        rb.useGravity = false; 
+        rb.isKinematic = false; 
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+        ConfigurableJoint cj = obj.GetComponent<ConfigurableJoint>();
+        cj.targetAngularVelocity = Vector3.zero;
+        SetConfigurableJoint(ref cj);
+        joint = cj;
+        
     }
 
      /*
@@ -293,7 +323,7 @@ public class VRrotations : MonoBehaviour
     */
     public void CollisionDetection(Tuple<string,bool> msg) 
     {
-        if(Array.IndexOf(rigidBodyNames, mode) < Array.IndexOf(rigidBodyNames, msg.Item1))
+        if(Array.IndexOf(robotPartNames, mode) < Array.IndexOf(robotPartNames, msg.Item1))
         {
             jointCollision[mode] = msg.Item2;
         } 
@@ -329,10 +359,10 @@ public class VRrotations : MonoBehaviour
             joint.targetAngularVelocity = Vector3.zero;
             motor.maximumForce = torqueVelocityVals[mode].Item1 * Mathf.Abs(num);
             joint.xDrive = motor;
-            foreach (string name in rigidBodyNames) 
-            {
-                robotRigidBody[name].angularVelocity = Vector3.zero;
-            }
+
+            Rigidbody rb = robotGameObject[mode].GetComponent<Rigidbody>();
+            rb.angularVelocity = Vector3.zero;
+    
         }
     }
 
@@ -350,9 +380,8 @@ public class VRrotations : MonoBehaviour
             currentNumValues[mode] = 0;
             if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
             {
-                mode = rigidBodyNames[modeItr++ % 5]; 
-                SetJointMotor();
-                SetKinematic();  
+                mode = robotPartNames[modeItr++ % 5]; 
+                SetRigidBody();  
                 SetRotationAxis();
             }
             return;
@@ -396,9 +425,9 @@ public class VRrotations : MonoBehaviour
             currentNumValues[mode] = 0;
             if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
             {
-                mode = rigidBodyNames[modeItr++ % 5]; 
-                SetJointMotor();
-                SetKinematic();  
+                Debug.Log("PRessed trigger and touchpad");
+                mode = robotPartNames[modeItr++ % 5]; 
+                SetRigidBody();  
                 SetRotationAxis();
             }
             return;

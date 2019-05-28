@@ -245,5 +245,9 @@ OUTCOME:
 **May28** 
 TODO: 
     - Testing of arm 
+    - Create Flowchart for VRrotations 
     - Debugging further 
     
+- Removing all Rigidbodies and configurable joints from each rotation 
+    - changing the array to Gameobjects instead of rigidbodies 
+    - Adding rigidbody and configurable joints on the spot and set kinematic and collision detection 
