@@ -55,9 +55,12 @@ public class VRrotations : MonoBehaviour
     public Canvas cavasObject = null;
     public Text textObject = null;
 
+    private bool collisionChange = true;
+
     #endregion
     
     #region MonoAPI
+
     /*
         @brief: Called before first frame. Initializes and fills
         data structures and properties 
@@ -89,7 +92,7 @@ public class VRrotations : MonoBehaviour
             jointCollision.Add(robotPartNames[i], false);
 
             i++;
-        } 
+        }
 
         // Sets initial settings. 
         SetRigidBody();
@@ -103,55 +106,35 @@ public class VRrotations : MonoBehaviour
     void FixedUpdate()
     {
         textObject.text = mode; 
-
-        if(Input.GetButtonDown("GRIP_BUTTON_PRESS_RIGHT")){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
-        //Checks if the arm has collided with a box collider 
-        if(jointCollision[mode])
+        if(!CheckTrigger())
         {
-
-            RestrictRotation();
-        } 
-        else 
-        {
-            RotateArm();
+            //Checks if the arm has collided with a box collider 
+            if(jointCollision[mode])
+            {
+                // print("rotation restricted");
+                // foreach(string name in robotPartNames){
+                //     if(jointCollision[name]){
+                //         print("the joint colliding with something is: " + name);
+                //     }
+                // }
+                RestrictRotation();
+            } 
+            else 
+            {
+                RotateArm();
+            }
         }
-        
-    }
-
-    /*
-        @brief: draws the buttons and slider to change modes, hides extras, 
-        and rotates joints.
-    */
-    void OnGUI() 
-    {
-        // Button to alternate between joints / freedom of movements. 
-        if (GUI.Button(new Rect(10, 50, 150, 20), mode)) 
-        {
-            mode = robotPartNames[modeItr++ % 5];  
-            SetRigidBody();  
-            SetRotationAxis();
-        }
-    }
-   
-    
-    IEnumerator ClearConsole()
-    {
-        // wait until console visible
-        while(!Debug.developerConsoleVisible)
-        {
-            yield return null;
-        }
-        yield return null; // this is required to wait for an additional frame, without this clearing doesn't work (at least for me)
-        Debug.ClearDeveloperConsole();
     }
 
     #endregion
     
     #region Set
 
+    /*
+        @brief: sets the configurable joint settings for the current rotational mode. 
+
+        @param: pass by ref of configurable joint of the current parent object.
+    */
     private void SetConfigurableJoint(ref ConfigurableJoint cj)
     {
         cj.anchor = Vector3.zero;
@@ -160,6 +143,7 @@ public class VRrotations : MonoBehaviour
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
         cj.autoConfigureConnectedAnchor = true;
+
         switch(modeItr % 5)
         {
             // Open hand 
@@ -186,14 +170,17 @@ public class VRrotations : MonoBehaviour
     }
 
     /*
-        @brief: sets the "isKinematic" property to false for the current joint
-        and sets it false for the other joints. 
+        @brief: removes rigid bodies and configurable joints from all parent objects and 
+        only adds the compoonents to current parent object. Also sets specific properties for 
+        the components. 
 
         If isKinematic is enabled, Forces, collisions or joints 
         will not affect the rigidbody anymore (Unity API).
     */
     private void SetRigidBody() 
     {
+        // Remove components. 
+        print("removing rigid bodies and configjoints");
         foreach(String name in robotPartNames)
         {
             GameObject temp = robotGameObject[name];
@@ -201,10 +188,12 @@ public class VRrotations : MonoBehaviour
             Destroy(temp.GetComponent<Rigidbody>());
         }
 
+        // Add components.
         GameObject obj = robotGameObject[mode];
         obj.AddComponent<Rigidbody>(); 
         obj.AddComponent<ConfigurableJoint>();
 
+        // Set properties. 
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.useGravity = false; 
         rb.isKinematic = false; 
@@ -213,8 +202,9 @@ public class VRrotations : MonoBehaviour
         ConfigurableJoint cj = obj.GetComponent<ConfigurableJoint>();
         cj.targetAngularVelocity = Vector3.zero;
         SetConfigurableJoint(ref cj);
-        joint = cj;
-        
+
+        // Sets joint to the configurable joint of current parent object. 
+        joint = robotGameObject[mode].GetComponent<ConfigurableJoint>();
     }
 
      /*
@@ -299,7 +289,28 @@ public class VRrotations : MonoBehaviour
         return false;
     }
 
-    
+    /*
+        @brief: checks if the robot arm needs to be stopped and if the mode needs to cycle
+    */
+    private bool CheckTrigger()
+    {
+        if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
+        {
+            KeyPress(0);
+            if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
+            {
+                print("switching modes");
+                mode = robotPartNames[modeItr++ % 5]; 
+                SetRigidBody();  
+                SetRotationAxis();
+            }
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
 
 #endregion
 
@@ -314,10 +325,20 @@ public class VRrotations : MonoBehaviour
     */
     public void CollisionDetection(Tuple<string,bool> msg) 
     {
+        // print("in collision detection");
+        // foreach(string name in robotPartNames){
+        //     print(name + " " + jointCollision[name]);
+        // }
+        // if(msg.Item1 == "Shoulder")
+        // {
+        //     print("msg.item1 is shoulder, msg.item2 is: " + msg.Item2 + " mode is: " + mode);
+        // }
+        print("msg contents: " + msg.Item1 + " " + msg.Item2 + " current mode " + mode );
         if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
         {
             jointCollision[mode] = msg.Item2;
         } 
+        
     }
 
     /*
@@ -356,20 +377,6 @@ public class VRrotations : MonoBehaviour
     */
     private void RestrictRotation() 
     {
-        // Debug.Log("current num val: " + currentNumValues[mode]);
-        // Debug.Log("controller angle" + InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z);
-        if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
-        {
-            KeyPress(0);
-            if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
-            {
-                mode = robotPartNames[modeItr++ % 5]; 
-                SetRigidBody();  
-                SetRotationAxis();
-            }
-            return;
-        }
-
         if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 180)
         {
             if(currentNumValues[mode] > 0) 
@@ -403,17 +410,7 @@ public class VRrotations : MonoBehaviour
     */
     private void RotateArm() 
     {
-        if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
-        {
-            KeyPress(0);
-            if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
-            {
-                mode = robotPartNames[modeItr++ % 5]; 
-                SetRigidBody();  
-                SetRotationAxis();
-            }
-            return;
-        }
+
         if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 180)
         {
             KeyPress(1);
@@ -427,6 +424,7 @@ public class VRrotations : MonoBehaviour
             return;
         }
     }
+
 #endregion
  
 }

@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/* 
+    BLINC LAB VR-BENTO-ARM Project
+    CollisionLeftChopsticks.cs
+    Created by: Cyrus Diego May 21, 2019 
+
+    Sends message to controller script if it has collided with something
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -7,34 +14,23 @@ public class CollisionLeftChopstick : MonoBehaviour
 {
     private Tuple<string,bool> msg;
     public GameObject Rotations = null;
-
+    private bool collidedOnce = false;
     void OnTriggerEnter(Collider other)
-    {
-        if(other.tag != "test"){
+    {   
+        if(!collidedOnce)
+        {
             msg = new Tuple<string,bool>("Wrist Flexion", true);
             Rotations.SendMessage("CollisionDetection", msg);
+            collidedOnce = true;
         }
         
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(other.tag != "test"){
-            msg = new Tuple<string,bool>("Wrist Flexion", false);
-            Rotations.SendMessage("CollisionDetection", msg);
-        }
-        
-    }
 
-    void OnCollisionEnter(Collision collision) 
-    {
-        msg = new Tuple<string,bool>("Wrist Flexion", true);
-        Rotations.SendMessage("CollisionDetection", msg);
-    }
-
-    void OnCollisionExit(Collision collision) 
-    {
         msg = new Tuple<string,bool>("Wrist Flexion", false);
         Rotations.SendMessage("CollisionDetection", msg);
+        collidedOnce = false;
     }
 }

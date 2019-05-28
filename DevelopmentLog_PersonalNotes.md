@@ -261,3 +261,11 @@ SOLUTION TO COLLISION DETECTION:
         2) collision detection needed to be more percise 
 RESOURCES
     - collision [link](https://forum.unity.com/threads/weapon-passing-through-colliders.418840/)
+
+CURRENTLY:
+    - RIGHT Controller:
+        - Trigger (Hold) stops rotation of the arm 
+        - Tilting Left / Right will rotate the arm accordingly 
+        - Trigger (Hold) + Touchpad (Press) cycles rotational mode
+        - Grip (Press) will toggle between arm shells vs bare bento arm 
+    - when it cycles open hand to shoulder, it carries over the collision in open hand to shoulder 
