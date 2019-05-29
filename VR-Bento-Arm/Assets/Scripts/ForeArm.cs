@@ -26,4 +26,8 @@ public class ForeArm : MonoBehaviour
         msg = new Tuple<string, bool>("Elbow", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
+    void OnCollisionEnter(Collision other)
+    {
+        print("forearm collided with" + other);
+    }
 }

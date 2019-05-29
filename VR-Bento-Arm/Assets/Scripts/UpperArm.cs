@@ -17,7 +17,9 @@ public class UpperArm: MonoBehaviour
     private Tuple<string,bool> msg;
 
     void OnTriggerEnter(Collider other)
-    {        if(other.tag == "test")
+    {   
+        print("collided!!!!!!!!!");
+        if(other.tag == "test")
         {
             return;
         }
@@ -39,5 +41,10 @@ public class UpperArm: MonoBehaviour
         msg = new Tuple<string,bool>("Shoulder", false);
         Rotations.SendMessage("CollisionDetection", msg);
         }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        print("upper collided with" + other);
     }
 }

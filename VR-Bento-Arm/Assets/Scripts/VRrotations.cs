@@ -102,7 +102,8 @@ public class VRrotations : MonoBehaviour
     */
     void FixedUpdate()
     {
-        textObject.text = mode; 
+        textObject.text = mode;
+        print(robotGameObject[mode].GetComponent<Rigidbody>().angularVelocity); 
         if(!CheckTrigger())
         {
             //Checks if the arm has collided with a box collider 
@@ -133,6 +134,8 @@ public class VRrotations : MonoBehaviour
         cj.xMotion = ConfigurableJointMotion.Locked;
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
+        cj.angularYMotion = ConfigurableJointMotion.Locked;
+        cj.angularZMotion = ConfigurableJointMotion.Locked;
         cj.autoConfigureConnectedAnchor = true;
 
         switch(modeItr % 5)
@@ -188,6 +191,8 @@ public class VRrotations : MonoBehaviour
         rb.useGravity = false; 
         rb.isKinematic = false; 
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.inertiaTensorRotation = Quaternion.identity;
+        rb.constraints = RigidbodyConstraints.FreezePosition ;
 
         ConfigurableJoint cj = obj.GetComponent<ConfigurableJoint>();
         cj.targetAngularVelocity = Vector3.zero;
@@ -212,7 +217,7 @@ public class VRrotations : MonoBehaviour
                 break;
             // Shoulder 
             case 1: 
-                joint.axis = Vector3.down;
+                joint.axis = Vector3.up;
                 joint.secondaryAxis = Vector3.forward;
                 joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
@@ -340,6 +345,9 @@ public class VRrotations : MonoBehaviour
             motor.positionSpring = 1.0f;
             motor.positionDamper = 1000;
             joint.angularXDrive = motor;
+
+            motor.maximumForce = 0;
+            joint.angularYZDrive = motor;
         } 
         else 
         {

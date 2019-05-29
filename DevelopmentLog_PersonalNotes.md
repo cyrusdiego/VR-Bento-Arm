@@ -288,3 +288,21 @@ PROJECT NAME:
     - (VIPER) VIrtual Prosthesis systEm simulatoR   
 
 - fixed box collider for elbow rotation
+
+- COLLISION NOTES: 
+[link](https://www.youtube.com/watch?v=RxG7YYEdmVE) colliders vs triggers 
+- colliders: what physics engine uses for physics interactions and event calling 
+- triggers: only event calling 
+
+`OnCollisionEnter()` is only called when both objects have colliders attached (box collider) and at least one has rigidbody (non kinematic)
+- trigger doesnt do physics interaction ie) no "bumping" no moving/dragging objects ONLY send messages to scripts 
+
+- REASON FOR RIGIDBODY CYCLING: if i have rigidbodies on each segment "on" at each time, it will not move. instead i only have a rigidbody for the segments that MOVE at that point in time I will need to change this 
+eventually to enable movement at all times  `isKinematic` prevents object from moved / oushed / rotated by other objects (will still interact with other objects tho)
+    - two `isKinematic` objects will not push / move objects with each other 
+
+- Colliders can be added to an object without a Rigidbody component to create floors, walls and other motionless elements of a scene. These are referred to as static colliders.
+- Colliders on an object that does have a Rigidbody are known as dynamic colliders. Static colliders can interact with dynamic colliders but since they don’t have a Rigidbody, they will not move in response to collisions.
+- colliders affects torque / force applied to objects [link](https://answers.unity.com/questions/250233/rigidbody-behaves-differently-when-i-add-a-collide.html)
+
+- configurable joints [link](https://forum.unity.com/threads/configurable-joints-in-depth-documentation-tutorial-for-dummies.389152/)
