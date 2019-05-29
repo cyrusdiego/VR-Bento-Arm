@@ -1,5 +1,5 @@
 ﻿/* 
-    BLINC LAB VR-BENTO-ARM Project
+    BLINC LAB VIPER PROJECT 
     CollisionLeftChopsticks.cs
     Created by: Cyrus Diego May 21, 2019 
 
@@ -28,5 +28,11 @@ public class CollisionLeftChopstick : MonoBehaviour
 
         msg = new Tuple<string,bool>("Wrist Flexion", false);
         Rotations.SendMessage("CollisionDetection", msg);
+    }
+
+
+    void OnCollisionEnter(Collision other)
+    {
+        print("leftchopstick collided with " + other);
     }
 }

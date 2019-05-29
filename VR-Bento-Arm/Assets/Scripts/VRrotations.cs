@@ -1,5 +1,5 @@
 ﻿/* 
-    BLINC LAB VR-BENTO-ARM Project
+    BLINC LAB VIPER Project 
     RotationScript.cs 
     Created by: Cyrus Diego May 7, 2019 
 
@@ -314,7 +314,6 @@ public class VRrotations : MonoBehaviour
     */
     public void CollisionDetection(Tuple<string,bool> msg) 
     {
-
         if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
         {
             if(mode != "Shoulder" || msg.Item1 != "Open Hand")

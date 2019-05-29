@@ -1,5 +1,5 @@
 # Project Notes 
-
+**V**irtual **P**rosthesis Syst**E**ms Simulato**R** (VIPER) 
 ## General Progress
 **May 7**
 - imported bento arm into Unity 
@@ -269,3 +269,22 @@ CURRENTLY:
         - Trigger (Hold) + Touchpad (Press) cycles rotational mode
         - Grip (Press) will toggle between arm shells vs bare bento arm 
     - when it cycles open hand to shoulder, it carries over the collision in open hand to shoulder 
+
+**May 29**
+- Fixed the weird cycling problem but in the weiredest solution
+    - What i think was happening, during the transition from hand to shoulder, the hand still tries to send a signal of a collision but the mode changes and it tries to stop
+    shoulder rotation even though the shoulder isnt actually doing it. 
+    - So to solve it: 2 things
+        1) add tags to the bento arm so that in the shoulder rotation, if it hits itself (impossible but it does it here for some reason) it wont send a msg
+        2) the jointCollision dictionary will only update if the mode isnt shoulder OR the msg isnt from open hand 
+            - so this prevents messages when its is both shoulder mode AND the message is from open hand 
+- PHYSICS:
+    - i think the scale of the world is in mm so i had to convert 9.81 to 981
+
+- BUG:
+    - end effectors will go thru itself 
+
+PROJECT NAME:
+    - (VIPER) VIrtual Prosthesis systEm simulatoR   
+
+- fixed box collider for elbow rotation

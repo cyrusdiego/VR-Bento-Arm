@@ -1,5 +1,5 @@
 ﻿/* 
-    BLINC LAB VR-BENTO-ARM Project
+    BLINC LAB VIPER Project 
     BoundingBoxes.cs
     Created by: Cyrus Diego May 27, 2019 
 

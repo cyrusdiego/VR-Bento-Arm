@@ -1,5 +1,5 @@
 ﻿/* 
-    BLINC LAB VR-BENTO-ARM Project
+    BLINC LAB VIPER PROJECT 
     CollisionRightChopsticks.cs
     Created by: Cyrus Diego May 21, 2019 
 
@@ -17,13 +17,20 @@ public class CollisionRightChopstick : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        print("Hello");
         msg = new Tuple<string, bool>("Open Hand", true);
         Rotations.SendMessage("CollisionDetection",msg);
     }
 
     void OnTriggerExit(Collider other)
     {
+        
         msg = new Tuple<string, bool>("Open Hand", false);
         Rotations.SendMessage("CollisionDetection", msg);
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        print("right chopstick collided with" + other);
     }
 }

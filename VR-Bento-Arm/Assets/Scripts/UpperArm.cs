@@ -1,5 +1,5 @@
 ﻿/* 
-    BLINC LAB VR-BENTO-ARM Project
+    BLINC LAB VIPER PROJECT 
     UpperArm.cs
     Created by: Cyrus Diego May 21, 2019 
 
@@ -17,7 +17,10 @@ public class UpperArm: MonoBehaviour
     private Tuple<string,bool> msg;
 
     void OnTriggerEnter(Collider other)
-    {
+    {        if(other.tag == "test")
+        {
+            return;
+        }
         if(other.tag != "BentoArm")
         {
             msg = new Tuple<string,bool>("Shoulder", true);
@@ -27,7 +30,10 @@ public class UpperArm: MonoBehaviour
     }
 
     void OnTriggerExit(Collider other)
-    {
+    {        if(other.tag == "test")
+        {
+            return;
+        }
         if(other.tag != "BentoArm")
         {
         msg = new Tuple<string,bool>("Shoulder", false);
