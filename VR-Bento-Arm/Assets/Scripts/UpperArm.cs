@@ -15,15 +15,16 @@ public class UpperArm: MonoBehaviour
     // public Transform UpperArmShellTransform = null;
     public GameObject Rotations = null;
     private Tuple<string,bool> msg;
-    private bool collidedOnce = false;
 
     void OnTriggerEnter(Collider other)
     {
-        if(!collidedOnce)
+        print("shoulder collided");
+        print("/////////////////////////////////////////////");
+        print("collider info::: " + other.gameObject);
+        Debug.Break();
+        if(other.attachedRigidbody)
         {
-            print("shoulder collided");
-            print("/////////////////////////////////////////////");
-            Debug.Break();
+            print("there is a rigid body attached!!");
             msg = new Tuple<string,bool>("Shoulder", true);
             Rotations.SendMessage("CollisionDetection",msg);
         }
@@ -33,6 +34,5 @@ public class UpperArm: MonoBehaviour
     {
         msg = new Tuple<string,bool>("Shoulder", false);
         Rotations.SendMessage("CollisionDetection", msg);
-        collidedOnce = false;
     }
 }

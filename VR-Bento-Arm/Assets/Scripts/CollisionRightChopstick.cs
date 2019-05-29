@@ -14,22 +14,16 @@ public class CollisionRightChopstick : MonoBehaviour
 {
     public GameObject Rotations = null;
     private Tuple<string,bool> msg;
-    private bool collidedOnce = false;
 
     void OnTriggerEnter(Collider other)
     {
-        if(!collidedOnce)
-        {
-            msg = new Tuple<string, bool>("Open Hand", true);
-            Rotations.SendMessage("CollisionDetection",msg);
-        }
-        
+        msg = new Tuple<string, bool>("Open Hand", true);
+        Rotations.SendMessage("CollisionDetection",msg);
     }
 
     void OnTriggerExit(Collider other)
     {
         msg = new Tuple<string, bool>("Open Hand", false);
         Rotations.SendMessage("CollisionDetection", msg);
-        collidedOnce = false;
     }
 }
