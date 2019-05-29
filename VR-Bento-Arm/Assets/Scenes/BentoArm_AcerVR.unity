@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 192492692}
   m_Layer: 0
   m_Name: Shoulder_Rotation
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 215142048}
   m_Layer: 0
   m_Name: RightChopstick2
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -616,7 +616,7 @@ GameObject:
   - component: {fileID: 319138923}
   m_Layer: 0
   m_Name: RightChopstick1
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -805,12 +805,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 402159973}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &402159977 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400002, guid: a6f771eab5b84914a98c25399afdbc49,
-    type: 3}
-  m_PrefabInstance: {fileID: 402159973}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &431674364
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,7 +817,7 @@ GameObject:
   - component: {fileID: 431674366}
   m_Layer: 0
   m_Name: Triangle
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -899,7 +893,7 @@ GameObject:
   - component: {fileID: 600509669}
   m_Layer: 0
   m_Name: Elbow_Rotation
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -990,7 +984,7 @@ GameObject:
   - component: {fileID: 659789366}
   m_Layer: 0
   m_Name: WristConnection2
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1034,7 +1028,7 @@ GameObject:
   - component: {fileID: 714677537}
   m_Layer: 0
   m_Name: RightChopstick3
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1158,7 +1152,7 @@ SphereCollider:
   m_GameObject: {fileID: 723190341}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 35
   m_Center: {x: -97, y: 132, z: 2}
@@ -1171,7 +1165,7 @@ BoxCollider:
   m_GameObject: {fileID: 723190341}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 100, y: 72, z: 88}
   m_Center: {x: -101.2, y: 210, z: 0}
@@ -1187,7 +1181,7 @@ GameObject:
   - component: {fileID: 786584860}
   m_Layer: 0
   m_Name: MotorBox1
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1532,7 +1526,7 @@ GameObject:
   - component: {fileID: 951933280}
   m_Layer: 0
   m_Name: Wrist_Flexion
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1549,7 +1543,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1637885243}
-  - {fileID: 1569028117}
   m_Father: {fileID: 1407143169}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1578,7 +1571,7 @@ GameObject:
   - component: {fileID: 1022805970}
   m_Layer: 0
   m_Name: LeftChopstick2
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2139,6 +2132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 892003f46c3a6bf41b156d114294ed85, type: 3}
+      propertyPath: m_Name
+      value: Table
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 892003f46c3a6bf41b156d114294ed85, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.901855
@@ -2232,7 +2229,7 @@ GameObject:
   - component: {fileID: 1407143172}
   m_Layer: 0
   m_Name: Forearm_Rotation
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2279,7 +2276,7 @@ GameObject:
   - component: {fileID: 1427356635}
   m_Layer: 0
   m_Name: LeftChopstickTip
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2329,7 +2326,7 @@ GameObject:
   - component: {fileID: 1495500286}
   m_Layer: 0
   m_Name: WristConnection3
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2373,7 +2370,7 @@ GameObject:
   - component: {fileID: 1501911062}
   m_Layer: 0
   m_Name: LeftChopstick1
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2417,7 +2414,7 @@ GameObject:
   - component: {fileID: 1526744318}
   m_Layer: 0
   m_Name: CircularDisk1
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2461,7 +2458,7 @@ GameObject:
   - component: {fileID: 1537607376}
   m_Layer: 0
   m_Name: RightChopstickTip
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2505,7 +2502,7 @@ GameObject:
   - component: {fileID: 1560458285}
   m_Layer: 0
   m_Name: WristConnection1
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2584,7 +2581,7 @@ GameObject:
   - component: {fileID: 1569028118}
   m_Layer: 0
   m_Name: Open_Hand
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2597,12 +2594,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569028114}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -84.29999, y: 2.8300018, z: 21.463402}
+  m_LocalPosition: {x: -409.5, y: 125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 402159974}
-  m_Father: {fileID: 951933277}
-  m_RootOrder: 1
+  m_Father: {fileID: 1637885243}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1569028118
 MonoBehaviour:
@@ -2911,12 +2908,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1637885242}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1637885244 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400002, guid: 0add889f9f2a7a840960d8ce3e6683a2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1637885242}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1809574628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3070,7 +3061,7 @@ GameObject:
   - component: {fileID: 1839297362}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3091,8 +3082,8 @@ Transform:
   - {fileID: 1537607375}
   - {fileID: 714677536}
   - {fileID: 431674365}
-  m_Father: {fileID: 402159977}
-  m_RootOrder: 0
+  m_Father: {fileID: 402159974}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957239511
 GameObject:
@@ -3103,10 +3094,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1957239512}
-  - component: {fileID: 1957239514}
   m_Layer: 0
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: BentoArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3130,22 +3120,9 @@ Transform:
   - {fileID: 1560458284}
   - {fileID: 659789365}
   - {fileID: 1495500285}
-  m_Father: {fileID: 1637885244}
-  m_RootOrder: 0
+  m_Father: {fileID: 1637885243}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1957239514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957239511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a430918f110698143a2908f9d05bf434, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rotations: {fileID: 799490506}
 --- !u!1 &1960688286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: f74f5b1b01535df4ab2b351fc10f3c73,

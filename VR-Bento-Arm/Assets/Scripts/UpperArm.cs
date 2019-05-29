@@ -18,21 +18,20 @@ public class UpperArm: MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("shoulder collided");
-        print("/////////////////////////////////////////////");
-        print("collider info::: " + other.gameObject);
-        Debug.Break();
-        if(other.attachedRigidbody)
+        if(other.tag != "BentoArm")
         {
-            print("there is a rigid body attached!!");
             msg = new Tuple<string,bool>("Shoulder", true);
             Rotations.SendMessage("CollisionDetection",msg);
         }
+
     }
 
     void OnTriggerExit(Collider other)
     {
+        if(other.tag != "BentoArm")
+        {
         msg = new Tuple<string,bool>("Shoulder", false);
         Rotations.SendMessage("CollisionDetection", msg);
+        }
     }
 }

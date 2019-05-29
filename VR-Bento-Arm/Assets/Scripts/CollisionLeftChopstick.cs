@@ -14,15 +14,12 @@ public class CollisionLeftChopstick : MonoBehaviour
 {
     private Tuple<string,bool> msg;
     public GameObject Rotations = null;
-    private bool collidedOnce = false;
+
     void OnTriggerEnter(Collider other)
     {   
-        if(!collidedOnce)
-        {
-            msg = new Tuple<string,bool>("Wrist Flexion", true);
-            Rotations.SendMessage("CollisionDetection", msg);
-            collidedOnce = true;
-        }
+        msg = new Tuple<string,bool>("Wrist Flexion", true);
+        Rotations.SendMessage("CollisionDetection", msg);
+
         
     }
 
@@ -31,6 +28,5 @@ public class CollisionLeftChopstick : MonoBehaviour
 
         msg = new Tuple<string,bool>("Wrist Flexion", false);
         Rotations.SendMessage("CollisionDetection", msg);
-        collidedOnce = false;
     }
 }

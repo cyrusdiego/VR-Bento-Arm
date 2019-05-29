@@ -55,9 +55,6 @@ public class VRrotations : MonoBehaviour
     public Canvas cavasObject = null;
     public Text textObject = null;
 
-    private bool collisionChange = true;
-    private bool cycle = false;
-
     #endregion
     
     #region MonoAPI
@@ -91,7 +88,6 @@ public class VRrotations : MonoBehaviour
             // Maps name to current rotation direction. 
             currentNumValues.Add(robotPartNames[i],0);
             jointCollision.Add(robotPartNames[i], false);
-
             i++;
         }
 
@@ -112,12 +108,6 @@ public class VRrotations : MonoBehaviour
             //Checks if the arm has collided with a box collider 
             if(jointCollision[mode])
             {
-                // print("rotation restricted");
-                // foreach(string name in robotPartNames){
-                //     if(jointCollision[name]){
-                //         print("the joint colliding with something is: " + name);
-                //     }
-                // }
                 RestrictRotation();
             } 
             else 
@@ -192,9 +182,7 @@ public class VRrotations : MonoBehaviour
         GameObject obj = robotGameObject[mode];
         obj.AddComponent<Rigidbody>(); 
         obj.AddComponent<ConfigurableJoint>();
-        print("all game objects rigidbodies removed and current mode has one");
-        print("does current mode have rigidbody?? " + mode + " " + robotGameObject[mode].GetComponent<Rigidbody>());
-        print("does open hand have rigidbody?? " + robotGameObject["Open Hand"].GetComponent<Rigidbody>());
+
         // Set properties. 
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.useGravity = false; 
@@ -326,47 +314,14 @@ public class VRrotations : MonoBehaviour
     */
     public void CollisionDetection(Tuple<string,bool> msg) 
     {
-        // print("in collision detection");
-        // foreach(string name in robotPartNames){
-        //     print(name + " " + jointCollision[name]);
-        // }
-        // if(msg.Item1 == "Shoulder")
-        // {
-        //     print("msg.item1 is shoulder, msg.item2 is: " + msg.Item2 + " mode is: " + mode);
-        // }
-        Dictionary<string,bool> jointCollisionTemp = new Dictionary<string, bool>();
-        print("msg contents: " + msg.Item1 + " " + msg.Item2 + " current mode " + mode );
 
-        // if(mode == "Shoulder" && cycle)
-        // {
-        //     print("got in here");
-        //     jointCollision = jointCollisionTemp;
-        //     // cycle = false;
-        //     return;
-        // }
         if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
         {
-            if(mode == "Shoulder")
+            if(mode != "Shoulder" || msg.Item1 != "Open Hand")
             {
-                print("mode is shoulder and msg item 2 is " + msg.Item2);
+                jointCollision[mode] = msg.Item2;
             }
-            jointCollision[mode] = msg.Item2;
-        } 
-        else 
-        {
-            return;
         }
-        // if(mode == "Open Hand")
-        // {
-        //     jointCollisionTemp = jointCollision;
-        //     print("stored temp dictionary");
-        //     foreach(string name in robotPartNames)
-        //     {
-        //         print("name: " + name + " state: " + jointCollisionTemp[name]);
-        //     }
-        //     cycle = true;
-        // }
-        
     }
 
     /*

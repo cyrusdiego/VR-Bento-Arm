@@ -14,21 +14,16 @@ public class ForeArm : MonoBehaviour
 {
     public GameObject Rotations = null;
     private Tuple<string,bool> msg;
-    private bool collidedOnce = false;
 
     void OnTriggerEnter(Collider other)
     {
-        if(!collidedOnce)
-        {
-            msg = new Tuple<string, bool>("Elbow", true);
-            Rotations.SendMessage("CollisionDetection",msg);
-        }
+        msg = new Tuple<string, bool>("Elbow", true);
+        Rotations.SendMessage("CollisionDetection",msg);
     }
 
     void OnTriggerExit(Collider other)
     {
         msg = new Tuple<string, bool>("Elbow", false);
         Rotations.SendMessage("CollisionDetection", msg);
-        collidedOnce = true;
     }
 }
