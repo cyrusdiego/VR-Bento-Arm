@@ -221,6 +221,15 @@ public class VRrotations : MonoBehaviour
             leftRB.constraints = RigidbodyConstraints.FreezeAll;
             leftRB.useGravity = false;
             leftRB.isKinematic = false;
+            leftRB.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+        else 
+        {
+            Rigidbody leftRB = leftEndEffector.GetComponent<Rigidbody>();
+            leftRB.constraints = RigidbodyConstraints.None;
+            leftRB.useGravity = false;
+            leftRB.isKinematic = true;
+            leftRB.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         }
     }
 
@@ -343,11 +352,12 @@ public class VRrotations : MonoBehaviour
     {
         if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
         {
-            if(mode != "Shoulder" || msg.Item1 != "Open Hand")
-            {
-                jointCollision[mode] = msg.Item2;
-            }
+            print("msg recieved: ");
+            print("msg.Item1 == " + msg.Item1 + " msg.Item2 == " + msg.Item2);
+            jointCollision[mode] = msg.Item2;
         }
+
+        // Enables the end effectors to detect collision with itself.
         if(msg.Item1 == "Wrist Flexion" && mode == "Open Hand")
         {
             jointCollision[mode] = msg.Item2;

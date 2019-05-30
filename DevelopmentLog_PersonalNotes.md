@@ -320,3 +320,8 @@ rigidbody with isKinematic on.
 - cannot make everything colliders!
 
 - in Open Hand mode, set "Left" game object to `!isKinematic` with all constraints frozen, then the msg will be caught and use that msg to stop rotation
+
+PROBLEMS:
+    - when it cycles it stops working properly
+
+- set gravity to 981 b/c current units are in mm

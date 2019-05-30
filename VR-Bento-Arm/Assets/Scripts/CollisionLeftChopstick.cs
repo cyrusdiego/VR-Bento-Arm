@@ -30,10 +30,19 @@ public class CollisionLeftChopstick : MonoBehaviour
 
 
     void OnCollisionEnter(Collision other)
-    {
+    {        
+        if(other.gameObject.tag != "test")
+        {
+            print("stopping motion from left chopstick");
+            msg = new Tuple<string,bool>("Wrist Flexion", true);
+            Rotations.SendMessage("CollisionDetection", msg);
+        }
+        else 
+        {
+            print("collided with cylinder");
+        }
         print("leftchopstick collided  ");
-        msg = new Tuple<string,bool>("Wrist Flexion", true);
-        Rotations.SendMessage("CollisionDetection", msg);
+       
     }
 
     void OnCollisionExit(Collision other)

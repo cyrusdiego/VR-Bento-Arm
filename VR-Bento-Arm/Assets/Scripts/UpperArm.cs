@@ -19,6 +19,8 @@ public class UpperArm: MonoBehaviour
     void OnTriggerEnter(Collider other)
     {   
         print("upper arm triggered");
+        print("the collider was " + other.gameObject.transform.parent.gameObject);
+        print("tag was " + other.tag);
         if(other.tag == "test")
         {
             return;
