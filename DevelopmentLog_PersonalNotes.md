@@ -331,5 +331,6 @@ RESOURCES:
     - For new Unity users: Use the Edit -> Projects Settings -> Physics to identify which layers can interact with which other layer. For example you can still have a ray-cast target, without picking up player body collisions. Also great to define play areas but permit shooting. [link](https://forum.unity.com/threads/item-pick-up-colliders-question.520291/)
     - collider infor[link](https://gamedev.stackexchange.com/questions/99180/unity-rigidbody-gets-pushed-through-collider-by-another-rigidbody?rq=1)
     - grippers [link](https://answers.unity.com/questions/214900/grip-a-rigidbody-up-with-friction-is-this-possible.html)
+    - grippers pt 2 [link](https://forum.unity.com/threads/need-advice-suggestions-how-best-to-grab-a-rigidbody.41038/)
 
 - having trouble picking up objects currently, objects tend to go thru the left chopstick for some reasone 
