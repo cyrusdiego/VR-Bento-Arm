@@ -17,15 +17,13 @@ public class CollisionLeftChopstick : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   
+        print("left chopstick triggered");
         msg = new Tuple<string,bool>("Wrist Flexion", true);
         Rotations.SendMessage("CollisionDetection", msg);
-
-        
     }
 
     void OnTriggerExit(Collider other)
     {
-
         msg = new Tuple<string,bool>("Wrist Flexion", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
@@ -33,6 +31,14 @@ public class CollisionLeftChopstick : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        print("leftchopstick collided with " + other);
+        print("leftchopstick collided  ");
+        msg = new Tuple<string,bool>("Wrist Flexion", true);
+        Rotations.SendMessage("CollisionDetection", msg);
+    }
+
+    void OnCollisionExit(Collision other)
+    {
+        msg = new Tuple<string,bool>("Wrist Flexion", false);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 }

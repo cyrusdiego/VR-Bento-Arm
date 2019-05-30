@@ -17,6 +17,7 @@ public class ForeArm : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        print("trigger in forearm");
         msg = new Tuple<string, bool>("Elbow", true);
         Rotations.SendMessage("CollisionDetection",msg);
     }
@@ -26,8 +27,17 @@ public class ForeArm : MonoBehaviour
         msg = new Tuple<string, bool>("Elbow", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
+    
     void OnCollisionEnter(Collision other)
     {
         print("forearm collided with" + other);
+        msg = new Tuple<string, bool>("Elbow", true);
+        Rotations.SendMessage("CollisionDetection",msg);
+    }
+
+    void OnCollisionExit(Collision other)
+    {
+        msg = new Tuple<string, bool>("Elbow", false);
+        Rotations.SendMessage("CollisionDetection",msg);
     }
 }

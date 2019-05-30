@@ -55,6 +55,9 @@ public class VRrotations : MonoBehaviour
     public Canvas cavasObject = null;
     public Text textObject = null;
 
+    // Left end effector game object
+    public GameObject leftEndEffector = null;
+
     #endregion
     
     #region MonoAPI
@@ -103,7 +106,6 @@ public class VRrotations : MonoBehaviour
     void FixedUpdate()
     {
         textObject.text = mode;
-        print(robotGameObject[mode].GetComponent<Rigidbody>().angularVelocity); 
         if(!CheckTrigger())
         {
             //Checks if the arm has collided with a box collider 
@@ -182,24 +184,44 @@ public class VRrotations : MonoBehaviour
         }
 
         // Add components.
-        GameObject obj = robotGameObject[mode];
-        obj.AddComponent<Rigidbody>(); 
-        obj.AddComponent<ConfigurableJoint>();
+        GameObject parent = robotGameObject[mode];
+        GameObject child = robotGameObject[robotPartNames[modeItr % 5]];
+
+        // Do not change the order of this 
+        child.AddComponent<Rigidbody>();  
+        parent.AddComponent<Rigidbody>(); 
+        parent.AddComponent<ConfigurableJoint>();
 
         // Set properties. 
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
-        rb.useGravity = false; 
-        rb.isKinematic = false; 
-        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        rb.inertiaTensorRotation = Quaternion.identity;
-        rb.constraints = RigidbodyConstraints.FreezePosition ;
+        Rigidbody rbParent = parent.GetComponent<Rigidbody>();
+        Rigidbody rbChild = child.GetComponent<Rigidbody>();
 
-        ConfigurableJoint cj = obj.GetComponent<ConfigurableJoint>();
+        rbParent.useGravity = false; 
+        rbParent.isKinematic = false; 
+        rbParent.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rbParent.inertiaTensorRotation = Quaternion.identity;
+        rbParent.constraints = RigidbodyConstraints.FreezePosition;
+
+        rbChild.useGravity = false;
+        rbChild.isKinematic = true;
+        rbChild.constraints = RigidbodyConstraints.FreezePosition;
+        rbChild.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+
+        ConfigurableJoint cj = parent.GetComponent<ConfigurableJoint>();
         cj.targetAngularVelocity = Vector3.zero;
         SetConfigurableJoint(ref cj);
 
         // Sets joint to the configurable joint of current parent object. 
         joint = robotGameObject[mode].GetComponent<ConfigurableJoint>();
+        if(mode == "Open Hand")
+        {
+            Destroy(child.GetComponent<Rigidbody>());
+            Rigidbody leftRB = leftEndEffector.GetComponent<Rigidbody>();
+
+            leftRB.constraints = RigidbodyConstraints.FreezeAll;
+            leftRB.useGravity = false;
+            leftRB.isKinematic = false;
+        }
     }
 
      /*
@@ -217,7 +239,7 @@ public class VRrotations : MonoBehaviour
                 break;
             // Shoulder 
             case 1: 
-                joint.axis = Vector3.up;
+                joint.axis = Vector3.down;
                 joint.secondaryAxis = Vector3.forward;
                 joint.connectedAnchor = new Vector3(-101.2f,125.1f,0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
@@ -325,6 +347,10 @@ public class VRrotations : MonoBehaviour
             {
                 jointCollision[mode] = msg.Item2;
             }
+        }
+        if(msg.Item1 == "Wrist Flexion" && mode == "Open Hand")
+        {
+            jointCollision[mode] = msg.Item2;
         }
     }
 

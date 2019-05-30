@@ -18,18 +18,25 @@ public class Wrist: MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(!collidedOnce)
-        {
-            msg = new Tuple<string,bool>("Forearm Rotation", true);
-            Rotations.SendMessage("CollisionDetection", msg);
-        }
-        
+        msg = new Tuple<string,bool>("Forearm Rotation", true);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 
     void OnTriggerExit(Collider other)
     {
         msg = new Tuple<string,bool>("Forearm Rotation", false);
         Rotations.SendMessage("CollisionDetection", msg);
-        collidedOnce = true;
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        msg = new Tuple<string,bool>("Forearm Rotation", true);
+        Rotations.SendMessage("CollisionDetection", msg);
+    }
+
+    void OnCollisionExit(Collision other)
+    {
+        msg = new Tuple<string,bool>("Forearm Rotation", false);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 }

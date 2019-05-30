@@ -306,3 +306,17 @@ eventually to enable movement at all times  `isKinematic` prevents object from m
 - colliders affects torque / force applied to objects [link](https://answers.unity.com/questions/250233/rigidbody-behaves-differently-when-i-add-a-collide.html)
 
 - configurable joints [link](https://forum.unity.com/threads/configurable-joints-in-depth-documentation-tutorial-for-dummies.389152/)
+
+**May 30** 
+TODO
+     - colliders and rotations 
+- problem yesterday was that when u add box colliders (with multiple parenting) the mass distributes instead of a point. so adding a torque and such become difficult. to circumvent, the children must have 
+rigidbody with isKinematic on. 
+    - so limititation is that the box colliders will need to be a trigger. 
+    - but outside interaction can still happen b/c only one needs to have a non kinematic rigidbody 
+- so it seems the last week or so was a little useless b/c by having right combination of rigidbody (kinematic or not) plus position and rotation constraints, the arm will stop rotating anyways
+    - jokes, i still need my scripts b/c of the isKinematic setting, colliders wont actually "feel" the collisions so i need to use triggers. but outside objects w/o a position restriction will! 
+
+- cannot make everything colliders!
+
+- in Open Hand mode, set "Left" game object to `!isKinematic` with all constraints frozen, then the msg will be caught and use that msg to stop rotation

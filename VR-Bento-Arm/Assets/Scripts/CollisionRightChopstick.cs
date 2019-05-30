@@ -17,7 +17,7 @@ public class CollisionRightChopstick : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("Hello");
+        print("right chopstick triggered");
         msg = new Tuple<string, bool>("Open Hand", true);
         Rotations.SendMessage("CollisionDetection",msg);
     }
@@ -32,5 +32,13 @@ public class CollisionRightChopstick : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         print("right chopstick collided with" + other);
+        msg = new Tuple<string, bool>("Open Hand", true);
+        Rotations.SendMessage("CollisionDetection",msg);
+    }
+
+    void OnCollisionExit(Collision other)
+    {
+        msg = new Tuple<string, bool>("Open Hand", false);
+        Rotations.SendMessage("CollisionDetection", msg);
     }
 }

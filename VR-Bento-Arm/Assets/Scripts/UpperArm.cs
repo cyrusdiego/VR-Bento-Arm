@@ -18,7 +18,7 @@ public class UpperArm: MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   
-        print("collided!!!!!!!!!");
+        print("upper arm triggered");
         if(other.tag == "test")
         {
             return;
@@ -32,7 +32,8 @@ public class UpperArm: MonoBehaviour
     }
 
     void OnTriggerExit(Collider other)
-    {        if(other.tag == "test")
+    {        
+        if(other.tag == "test")
         {
             return;
         }
@@ -46,5 +47,26 @@ public class UpperArm: MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         print("upper collided with" + other);
+
+        if(other.gameObject.tag != "BentoArm")
+        {
+            msg = new Tuple<string,bool>("Shoulder", true);
+            Rotations.SendMessage("CollisionDetection",msg);
+        }
+    }
+
+    /// <summary>
+    /// OnCollisionExit is called when this collider/rigidbody has
+    /// stopped touching another rigidbody/collider.
+    /// </summary>
+    /// <param name="other">The Collision data associated with this collision.</param>
+    void OnCollisionExit(Collision other)
+    {
+
+        if(other.gameObject.tag != "BentoArm")
+        {
+            msg = new Tuple<string,bool>("Shoulder", true);
+            Rotations.SendMessage("CollisionDetection",msg);
+        }
     }
 }
