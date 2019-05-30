@@ -14,39 +14,54 @@ public class CollisionLeftChopstick : MonoBehaviour
 {
     private Tuple<string,bool> msg;
     public GameObject Rotations = null;
+    private List<Collision> collisionObjs = new List<Collision>();
+    private List<Collider> colliderObjs = new List<Collider>();
 
     void OnTriggerEnter(Collider other)
-    {   
-        print("left chopstick triggered");
-        msg = new Tuple<string,bool>("Wrist Flexion", true);
-        Rotations.SendMessage("CollisionDetection", msg);
+    {
+        if(colliderObjs.Contains(other))
+        {
+            return;
+        }   
+        else 
+        {
+            if(other.gameObject.tag != "test")
+            {
+                msg = new Tuple<string,bool>("Wrist Flexion", true);
+                Rotations.SendMessage("CollisionDetection", msg);
+            }
+            colliderObjs.Add(other);
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
+        colliderObjs.Remove(other);
         msg = new Tuple<string,bool>("Wrist Flexion", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
 
-
     void OnCollisionEnter(Collision other)
-    {        
-        if(other.gameObject.tag != "test")
+    {     
+
+        if(collisionObjs.Contains(other))
         {
-            print("stopping motion from left chopstick");
-            msg = new Tuple<string,bool>("Wrist Flexion", true);
-            Rotations.SendMessage("CollisionDetection", msg);
-        }
+            return;
+        }   
         else 
         {
-            print("collided with cylinder");
+            if(other.gameObject.tag != "test")
+            {
+                msg = new Tuple<string,bool>("Wrist Flexion", true);
+                Rotations.SendMessage("CollisionDetection", msg);
+            }
+            collisionObjs.Add(other);
         }
-        print("leftchopstick collided  ");
-       
     }
 
     void OnCollisionExit(Collision other)
     {
+        collisionObjs.Remove(other);
         msg = new Tuple<string,bool>("Wrist Flexion", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }

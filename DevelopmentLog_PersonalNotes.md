@@ -322,6 +322,14 @@ rigidbody with isKinematic on.
 - in Open Hand mode, set "Left" game object to `!isKinematic` with all constraints frozen, then the msg will be caught and use that msg to stop rotation
 
 PROBLEMS:
-    - when it cycles it stops working properly
+    - when it cycles it stops working properly (fixed)
 
 - set gravity to 981 b/c current units are in mm
+- added collided lists to each part to keep track of what is currently colliding with it 
+
+RESOURCES:
+    - For new Unity users: Use the Edit -> Projects Settings -> Physics to identify which layers can interact with which other layer. For example you can still have a ray-cast target, without picking up player body collisions. Also great to define play areas but permit shooting. [link](https://forum.unity.com/threads/item-pick-up-colliders-question.520291/)
+    - collider infor[link](https://gamedev.stackexchange.com/questions/99180/unity-rigidbody-gets-pushed-through-collider-by-another-rigidbody?rq=1)
+    - grippers [link](https://answers.unity.com/questions/214900/grip-a-rigidbody-up-with-friction-is-this-possible.html)
+
+- having trouble picking up objects currently, objects tend to go thru the left chopstick for some reasone 

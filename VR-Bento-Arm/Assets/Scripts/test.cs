@@ -4,23 +4,38 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    private Rigidbody rb = null;
-
+    private List<Collision> collisionObjs = new List<Collision>();
+    private int count = 0;
+    public GameObject hand = null;
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody>();
+
     }
 
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddRelativeTorque(0,500,0);
+        foreach(Collision collisionobj in collisionObjs)
+        {
+            if(collisionObjs.ToString() == "Left" || collisionObjs.ToString() == "Right")
+            {
+                count++;
+            }
+        }
+        if(count % 2 == 0 && count != 0)
+        {
+            gameObject.transform.position = hand.transform.position;
+            gameObject.transform.rotation = hand.transform.rotation;
+        }
     }
     
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("collision");
+        if(!collisionObjs.Contains(other))
+        {
+            collisionObjs.Add(other);
+        }
     }
     
 }

@@ -14,29 +14,28 @@ public class Wrist: MonoBehaviour
 {
     public GameObject Rotations = null;
     private Tuple<string,bool> msg;
-    private bool collidedOnce = false;
+    private List<Collider> collidedObjs  = new List<Collider>();
 
     void OnTriggerEnter(Collider other)
     {
-        msg = new Tuple<string,bool>("Forearm Rotation", true);
-        Rotations.SendMessage("CollisionDetection", msg);
+        if(collidedObjs.Contains(other))
+        {
+            return;
+        }
+        else 
+        {
+            msg = new Tuple<string,bool>("Forearm Rotation", true);
+            Rotations.SendMessage("CollisionDetection", msg);
+            collidedObjs.Add(other);
+        }
+        
     }
 
     void OnTriggerExit(Collider other)
     {
+        collidedObjs.Remove(other);
         msg = new Tuple<string,bool>("Forearm Rotation", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
 
-    void OnCollisionEnter(Collision other)
-    {
-        msg = new Tuple<string,bool>("Forearm Rotation", true);
-        Rotations.SendMessage("CollisionDetection", msg);
-    }
-
-    void OnCollisionExit(Collision other)
-    {
-        msg = new Tuple<string,bool>("Forearm Rotation", false);
-        Rotations.SendMessage("CollisionDetection", msg);
-    }
 }

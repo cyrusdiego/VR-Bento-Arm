@@ -242,7 +242,7 @@ public class VRrotations : MonoBehaviour
         {
             // Open hand 
             case 0: 
-                joint.axis = Vector3.up;
+                joint.axis = Vector3.down;
                 joint.connectedAnchor = new Vector3(-409.5f, 122.7f, 0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.y);
                 break;
@@ -352,8 +352,6 @@ public class VRrotations : MonoBehaviour
     {
         if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
         {
-            print("msg recieved: ");
-            print("msg.Item1 == " + msg.Item1 + " msg.Item2 == " + msg.Item2);
             jointCollision[mode] = msg.Item2;
         }
 

@@ -18,8 +18,6 @@ public class ForeArm : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("trigger in forearm");
-
         if(collidedObjs.Contains(other))
         {
             return;
@@ -38,15 +36,11 @@ public class ForeArm : MonoBehaviour
             }
             collidedObjs.Add(other);
         }
-        
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(collidedObjs.Contains(other))
-        {
-            collidedObjs.Remove(other);
-        }
+        collidedObjs.Remove(other);
         if(other.tag == "Stand")
         {
             msg = new Tuple<string, bool>("Shoulder", false);
@@ -58,17 +52,4 @@ public class ForeArm : MonoBehaviour
             Rotations.SendMessage("CollisionDetection",msg);
         }
     }
-    
-    // void OnCollisionEnter(Collision other)
-    // {
-    //     print("forearm collided with" + other);
-    //     msg = new Tuple<string, bool>("Elbow", true);
-    //     Rotations.SendMessage("CollisionDetection",msg);
-    // }
-
-    // void OnCollisionExit(Collision other)
-    // {
-    //     msg = new Tuple<string, bool>("Elbow", false);
-    //     Rotations.SendMessage("CollisionDetection",msg);
-    // }
 }

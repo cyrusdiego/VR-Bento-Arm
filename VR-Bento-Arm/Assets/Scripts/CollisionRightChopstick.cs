@@ -14,30 +14,51 @@ public class CollisionRightChopstick : MonoBehaviour
 {
     public GameObject Rotations = null;
     private Tuple<string,bool> msg;
+    private List<Collision> collisionObjs = new List<Collision>();
+    private List<Collider> colliderObjs = new List<Collider>();
 
     void OnTriggerEnter(Collider other)
     {
-        print("right chopstick triggered");
-        msg = new Tuple<string, bool>("Open Hand", true);
-        Rotations.SendMessage("CollisionDetection",msg);
+        if(colliderObjs.Contains(other))
+        {
+            return;
+        }   
+        else 
+        {
+            msg = new Tuple<string, bool>("Open Hand", true);
+            Rotations.SendMessage("CollisionDetection",msg);
+            colliderObjs.Add(other);
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        
+        colliderObjs.Remove(other);
         msg = new Tuple<string, bool>("Open Hand", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
 
     void OnCollisionEnter(Collision other)
     {
-        print("right chopstick collided with" + other);
-        msg = new Tuple<string, bool>("Open Hand", true);
-        Rotations.SendMessage("CollisionDetection",msg);
+        if(collisionObjs.Contains(other))
+        {
+            return;
+        }   
+        else 
+        {
+            if(other.gameObject.tag != "test")
+            {
+                msg = new Tuple<string, bool>("Open Hand", true);
+                Rotations.SendMessage("CollisionDetection",msg);
+            }
+            collisionObjs.Add(other);
+        }
+       
     }
 
     void OnCollisionExit(Collision other)
     {
+        collisionObjs.Remove(other);
         msg = new Tuple<string, bool>("Open Hand", false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
