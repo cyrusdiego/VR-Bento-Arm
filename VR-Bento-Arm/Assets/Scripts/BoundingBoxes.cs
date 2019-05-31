@@ -15,7 +15,7 @@ public class BoundingBoxes : MonoBehaviour
     public GameObject[] armBoxes = new GameObject[3];
     public GameObject[] armShells = new GameObject[5];
     public GameObject rotations = null;
-    private int mode = 0, counter = 0;
+    private int mode = 0;
 
     /*
         @brief: Called before first frame. Turns of box colliders for the 

@@ -4,38 +4,20 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    private List<Collision> collisionObjs = new List<Collision>();
-    private int count = 0;
-    public GameObject hand = null;
+    public GameObject parent = null;
     void Start()
     {
-
+        gameObject.transform.parent = parent.transform;
     }
 
-
-    // Update is called once per frame
     void FixedUpdate()
     {
-        foreach(Collision collisionobj in collisionObjs)
-        {
-            if(collisionObjs.ToString() == "Left" || collisionObjs.ToString() == "Right")
-            {
-                count++;
-            }
-        }
-        if(count % 2 == 0 && count != 0)
-        {
-            gameObject.transform.position = hand.transform.position;
-            gameObject.transform.rotation = hand.transform.rotation;
-        }
+        
     }
     
     void OnCollisionEnter(Collision other)
     {
-        if(!collisionObjs.Contains(other))
-        {
-            collisionObjs.Add(other);
-        }
+
     }
     
 }

@@ -334,3 +334,11 @@ RESOURCES:
     - grippers pt 2 [link](https://forum.unity.com/threads/need-advice-suggestions-how-best-to-grab-a-rigidbody.41038/)
 
 - having trouble picking up objects currently, objects tend to go thru the left chopstick for some reasone 
+
+**May 31**
+TODO:
+    - Grippers, grab an object 
+    - Debug for no shells! 
+    - Seperate VRRotations script to the individual scripts to allow for multiple movement of joints at the same time 
+- got basic grabbing, need to clean up. 
+- rotations are very buggy at times, soemtimes they lock up. i think i need to split up the rotation script now or monday !!
