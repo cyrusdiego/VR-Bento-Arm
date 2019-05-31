@@ -6,6 +6,7 @@ using System;
 public class Chopsticks : MonoBehaviour
 {
     public GameObject interactable = null;
+    private Transform interactableOriginal = null;
     private bool leftBool, rightBool;
 
     void OnTriggerEnter(Collider other)
@@ -13,6 +14,7 @@ public class Chopsticks : MonoBehaviour
         if(other.gameObject.tag == "Interactable")
         {
             interactable = other.gameObject;
+            interactableOriginal = interactable.transform;
         }
     }
     void OnTriggerExit(Collider other)
@@ -34,18 +36,18 @@ public class Chopsticks : MonoBehaviour
     {
         if(leftBool && rightBool && interactable)
         {
-            print("attatching");
+            print("attached");
             interactable.transform.parent = gameObject.transform;
             interactable.GetComponent<Rigidbody>().isKinematic = true;
         }
-        else
+        else if(!leftBool || !rightBool)
         {
-            //print("left bool : " + leftBool + " right bool : " + rightBool);
-            // if(interactable)
-            // {
-            //     interactable.transform.parent = interactable.transform;
-            //     interactable.GetComponent<Rigidbody>().isKinematic = false;
-            // }
+            if(interactable)
+            {
+                print("detatching");
+                interactable.transform.parent = interactableOriginal;
+                interactable.GetComponent<Rigidbody>().isKinematic = false;
+            }
         }
     }
 

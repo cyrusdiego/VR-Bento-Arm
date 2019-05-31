@@ -341,6 +341,19 @@ public class VRrotations : MonoBehaviour
 
     #region Rotations
 
+    public void GrabbedObject(bool msg)
+    {
+        jointCollision[mode] = msg;
+        if(msg)
+        {
+            currentNumValues[mode] = -1;
+        }
+        else
+        {
+            currentNumValues[mode] = 1;
+        }
+    }
+
     /*
         @brief: called by bounding box gameObjects and will set collided to TRUE
         when the box colliders collide with one another. 
