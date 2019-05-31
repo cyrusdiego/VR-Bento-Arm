@@ -97,6 +97,8 @@ public class VRrotations : MonoBehaviour
         // Sets initial settings. 
         SetRigidBody();
         SetRotationAxis();
+
+        InputTracking.Recenter();
     }
 
     
@@ -297,7 +299,7 @@ public class VRrotations : MonoBehaviour
         if(Input.GetAxis(button) > 0.1)
         {
             return true;
-        } 
+        }
         return false;
     }
 
@@ -320,15 +322,11 @@ public class VRrotations : MonoBehaviour
     */
     private bool CheckTrigger()
     {
-        if(CheckHold("SELECT_TRIGGER_SQUEEZE_RIGHT"))
+        if(CheckPress("SELECT_TRIGGER_PRESS_RIGHT"))
         {
-            KeyPress(0);
-            if(Input.GetButtonDown("TOUCHPAD_PRESS_RIGHT"))
-            {
-                mode = robotPartNames[modeItr++ % 5]; 
-                SetRigidBody();  
-                SetRotationAxis();
-            }
+            mode = robotPartNames[modeItr++ % 5]; 
+            SetRigidBody();  
+            SetRotationAxis();
             return true;
         }
         else 
@@ -414,7 +412,7 @@ public class VRrotations : MonoBehaviour
     */
     private void RestrictRotation() 
     {
-        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 180)
+        if(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") >= 0.9)
         {
             if(currentNumValues[mode] > 0) 
             {
@@ -427,7 +425,7 @@ public class VRrotations : MonoBehaviour
                 return;
             }
         } 
-        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z >= 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
+        else if (Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") <= -0.9)
         {
             if(currentNumValues[mode] < 0) 
             {
@@ -440,6 +438,10 @@ public class VRrotations : MonoBehaviour
                 return;
             }
         }
+        else
+        {
+            KeyPress(0);
+        }
     }
 
     /*
@@ -447,18 +449,21 @@ public class VRrotations : MonoBehaviour
     */
     private void RotateArm() 
     {
-
-        if(InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z > 0 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 180)
+        if(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") >= 0.9)
         {
             KeyPress(1);
             currentNumValues[mode] = 1;
             return;
         } 
-        else if (InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z >= 180 && InputTracking.GetLocalRotation(XRNode.RightHand).eulerAngles.z < 360)
+        else if (Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") <= -0.9)
         {
             KeyPress(-1);
             currentNumValues[mode] = -1;
             return;
+        }
+        else 
+        {
+            KeyPress(0);
         }
     }
 

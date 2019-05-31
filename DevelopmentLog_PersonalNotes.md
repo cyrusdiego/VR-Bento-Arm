@@ -342,3 +342,6 @@ TODO:
     - Seperate VRRotations script to the individual scripts to allow for multiple movement of joints at the same time 
 - got basic grabbing, need to clean up. 
 - rotations are very buggy at times, soemtimes they lock up. i think i need to split up the rotation script now or monday !!
+
+- got object interaction but will require further testing maybe like 80% confident rn
+- DO NOT HAVE WMR APP RUNNING WHILE RUNNING UNITY!!!

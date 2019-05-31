@@ -5,7 +5,7 @@ using UnityEngine;
 public class RightChopStick : MonoBehaviour
 {
     protected bool rightBool = false;
-    public GameObject grabber = null;
+    public Chopsticks grabber = null;
     public GameObject rotations = null;
     public GameObject RightChopStickParent = null;
     private Vector3 currentAngle;
@@ -17,8 +17,11 @@ public class RightChopStick : MonoBehaviour
         {
             rightBool = true;
             currentAngle = RightChopStickParent.transform.localEulerAngles;
-            grabber.SendMessage("RightBool",rightBool);
-            rotations.SendMessage("GrabbedObject",true);
+            grabber.gameObject.SendMessage("RightBool",rightBool);
+            if(grabber.GetComponent<Chopsticks>().interactable)
+            {
+                rotations.SendMessage("GrabbedObject",true);
+            }
             objectDetected = true;
         }
     }
@@ -28,7 +31,7 @@ public class RightChopStick : MonoBehaviour
         if(RightChopStickParent.transform.localEulerAngles.y != currentAngle.y && objectDetected)
         {
             rightBool = false;
-            grabber.SendMessage("RightBool",rightBool);
+            grabber.gameObject.SendMessage("RightBool",rightBool);
             rotations.SendMessage("GrabbedObject", false);
         }
     }

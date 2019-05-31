@@ -36,7 +36,6 @@ public class Chopsticks : MonoBehaviour
     {
         if(leftBool && rightBool && interactable)
         {
-            print("attached");
             interactable.transform.parent = gameObject.transform;
             interactable.GetComponent<Rigidbody>().isKinematic = true;
         }
@@ -44,7 +43,6 @@ public class Chopsticks : MonoBehaviour
         {
             if(interactable)
             {
-                print("detatching");
                 interactable.transform.parent = interactableOriginal;
                 interactable.GetComponent<Rigidbody>().isKinematic = false;
             }

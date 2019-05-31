@@ -29,6 +29,7 @@ public class CollisionLeftChopstick : MonoBehaviour
         {
             if(other.gameObject.tag != "Interactable")
             {
+                print("stopping rotation b/c of object: " + other.gameObject);
                 msg = new Tuple<string,bool>("Wrist Flexion", true);
                 Rotations.SendMessage("CollisionDetection", msg);
             }

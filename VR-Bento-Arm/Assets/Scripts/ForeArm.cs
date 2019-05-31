@@ -31,8 +31,12 @@ public class ForeArm : MonoBehaviour
             }
             else
             {
-                msg = new Tuple<string, bool>("Elbow", true);
-                Rotations.SendMessage("CollisionDetection",msg);
+                if(other.tag != "Interactable")
+                {
+                    print("got an object " + other.gameObject);
+                    msg = new Tuple<string, bool>("Elbow", true);
+                    Rotations.SendMessage("CollisionDetection",msg);
+                }
             }
             collidedObjs.Add(other);
         }
@@ -48,8 +52,11 @@ public class ForeArm : MonoBehaviour
         }
         else
         {
-            msg = new Tuple<string, bool>("Elbow", false);
-            Rotations.SendMessage("CollisionDetection",msg);
+            if(other.tag != "Interactable")
+            {
+                msg = new Tuple<string, bool>("Elbow", false);
+                Rotations.SendMessage("CollisionDetection",msg);
+            }
         }
     }
 }
