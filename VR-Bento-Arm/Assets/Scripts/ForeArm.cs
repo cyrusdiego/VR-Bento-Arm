@@ -33,7 +33,6 @@ public class ForeArm : MonoBehaviour
             {
                 if(other.tag != "Interactable")
                 {
-                    print("got an object " + other.gameObject);
                     msg = new Tuple<string, bool>("Elbow", true);
                     Rotations.SendMessage("CollisionDetection",msg);
                 }

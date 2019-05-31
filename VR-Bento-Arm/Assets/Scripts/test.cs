@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        print("got a collision right");
-        
-    }
-
-    void OnCollisionExit(Collision other)
-    {
-
-    }
-    
+        print("got a trigger with " + other.gameObject);
+    }    
 }

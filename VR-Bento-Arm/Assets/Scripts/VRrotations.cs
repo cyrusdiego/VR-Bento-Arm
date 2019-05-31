@@ -257,7 +257,7 @@ public class VRrotations : MonoBehaviour
                 break;
             // Elbow
             case 2: 
-                joint.axis = Vector3.back;
+                joint.axis = Vector3.forward;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-130.2f, 125.1f, 0f);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.z);
