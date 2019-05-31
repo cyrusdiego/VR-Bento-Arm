@@ -340,11 +340,11 @@ GameObject:
   - component: {fileID: 215142048}
   m_Layer: 0
   m_Name: RightChopstick2
-  m_TagString: Gripper
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &215142047
 Transform:
   m_ObjectHideFlags: 0
@@ -528,6 +528,7 @@ GameObject:
   - component: {fileID: 291197568}
   - component: {fileID: 291197569}
   - component: {fileID: 291197570}
+  - component: {fileID: 291197571}
   m_Layer: 0
   m_Name: GripperTrigger
   m_TagString: Untagged
@@ -590,6 +591,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &291197571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291197566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fed3b91ff79ed49bc7a444fd495509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: {fileID: 0}
 --- !u!1 &310720278
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,11 +704,11 @@ GameObject:
   - component: {fileID: 319138923}
   m_Layer: 0
   m_Name: RightChopstick1
-  m_TagString: Gripper
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &319138922
 Transform:
   m_ObjectHideFlags: 0
@@ -897,7 +911,7 @@ GameObject:
   - component: {fileID: 431674366}
   m_Layer: 0
   m_Name: Triangle
-  m_TagString: Gripper
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1050,7 +1064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8d6ce422de521458ef0280bbca717e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
 --- !u!1 &566785540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,7 +1243,7 @@ GameObject:
   - component: {fileID: 714677537}
   m_Layer: 0
   m_Name: RightChopstick3
-  m_TagString: Gripper
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1755,6 +1768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rotations: {fileID: 799490506}
+  grabber: {fileID: 0}
 --- !u!1 &1022805968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,10 +1905,9 @@ GameObject:
   - component: {fileID: 1058813045}
   - component: {fileID: 1058813044}
   - component: {fileID: 1058813048}
-  - component: {fileID: 1058813049}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: test
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1986,20 +1999,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
---- !u!114 &1058813049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1058813043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d2e81e15b8bc0469f43d302101adeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger: {fileID: 291197566}
+  m_CollisionDetection: 0
 --- !u!1 &1061167359
 GameObject:
   m_ObjectHideFlags: 0
@@ -2893,7 +2893,7 @@ GameObject:
   - component: {fileID: 1537607376}
   m_Layer: 0
   m_Name: RightChopstickTip
-  m_TagString: Gripper
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3506,9 +3506,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1839297362}
   - component: {fileID: 1839297363}
+  - component: {fileID: 1839297365}
   m_Layer: 0
   m_Name: Right
-  m_TagString: Gripper
+  m_TagString: GripperRight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3548,6 +3549,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &1839297365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839297361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc7e42a9e6f6c84d863134bdd926763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabber: {fileID: 291197566}
 --- !u!1 &1957239511
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,7 +3575,7 @@ GameObject:
   - component: {fileID: 1957239513}
   m_Layer: 0
   m_Name: Left
-  m_TagString: BentoArm
+  m_TagString: GripperLeft
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3617,6 +3631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rotations: {fileID: 799490506}
+  grabber: {fileID: 291197566}
 --- !u!1 &1960688286 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: f74f5b1b01535df4ab2b351fc10f3c73,

@@ -14,8 +14,10 @@ public class CollisionLeftChopstick : MonoBehaviour
 {
     private Tuple<string,bool> msg;
     public GameObject Rotations = null;
-    private List<Collision> collisionObjs = new List<Collision>();
+    private List<Collision> collisionLeftObjs = new List<Collision>();
     private List<Collider> colliderObjs = new List<Collider>();
+    protected bool leftBool = false;
+    public GameObject grabber = null;
 
     void OnTriggerEnter(Collider other)
     {
@@ -25,7 +27,7 @@ public class CollisionLeftChopstick : MonoBehaviour
         }   
         else 
         {
-            if(other.gameObject.tag != "test")
+            if(other.gameObject.tag != "Interactable")
             {
                 msg = new Tuple<string,bool>("Wrist Flexion", true);
                 Rotations.SendMessage("CollisionDetection", msg);
@@ -37,32 +39,48 @@ public class CollisionLeftChopstick : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         colliderObjs.Remove(other);
-        msg = new Tuple<string,bool>("Wrist Flexion", false);
-        Rotations.SendMessage("CollisionDetection", msg);
+        if(other.gameObject.tag != "Interactable")
+        {
+            msg = new Tuple<string,bool>("Wrist Flexion", false);
+            Rotations.SendMessage("CollisionDetection", msg);
+        }
     }
 
     void OnCollisionEnter(Collision other)
     {     
 
-        if(collisionObjs.Contains(other))
+        if(collisionLeftObjs.Contains(other))
         {
             return;
         }   
         else 
         {
-            if(other.gameObject.tag != "test")
+            if(other.gameObject.tag != "Interactable")
             {
                 msg = new Tuple<string,bool>("Wrist Flexion", true);
                 Rotations.SendMessage("CollisionDetection", msg);
             }
-            collisionObjs.Add(other);
+            else
+            {
+                leftBool = true;
+                grabber.SendMessage("LeftBool",leftBool);
+            }
+            collisionLeftObjs.Add(other);
         }
     }
 
     void OnCollisionExit(Collision other)
     {
-        collisionObjs.Remove(other);
-        msg = new Tuple<string,bool>("Wrist Flexion", false);
-        Rotations.SendMessage("CollisionDetection", msg);
+        collisionLeftObjs.Remove(other);
+        if(other.gameObject.tag != "Interactable")
+        {
+            msg = new Tuple<string,bool>("Wrist Flexion", false);
+            Rotations.SendMessage("CollisionDetection", msg);
+        }
+        else
+        {
+            leftBool = false;
+            grabber.SendMessage("LeftBool",leftBool);
+        }
     }
 }

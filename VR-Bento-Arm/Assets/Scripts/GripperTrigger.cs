@@ -15,4 +15,12 @@ public class GripperTrigger : MonoBehaviour
             other.gameObject.SendMessage("Attach",msg);
         }
     }
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "test")
+        {
+            msg = new Tuple<GameObject, bool>(gameObject,false);
+            other.gameObject.SendMessage("Attach",msg);
+        }
+    }
 }

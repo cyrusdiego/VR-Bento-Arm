@@ -4,10 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - test
   - BentoArm
   - Stand
   - Gripper
+  - GripperRight
+  - GripperLeft
+  - Interactable
   layers:
   - Default
   - TransparentFX

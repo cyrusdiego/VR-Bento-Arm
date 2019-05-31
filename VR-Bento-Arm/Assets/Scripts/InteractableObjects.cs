@@ -9,6 +9,12 @@ public class InteractableObjects : MonoBehaviour
     private List<Collision> collisionObjs = new List<Collision>();
     private bool contact = false;
     private int n = 0;
+
+    void Detatch(bool msg)
+    {
+        contact = msg;
+    }
+
     void Attach(Tuple<GameObject,bool> msg)
     {
         trigger = msg.Item1;
@@ -17,11 +23,27 @@ public class InteractableObjects : MonoBehaviour
     
     void FixedUpdate()
     {
-        if(contact)
+        int countRight = 0, countLeft = 0;
+        foreach(Collision obj in collisionObjs)
         {
-            print("contact true");
+            if(obj.gameObject.tag == "GripperRight")
+            {
+                countRight++;
+            }
+            if(obj.gameObject.tag == "GripperLeft")
+            {
+                countLeft++;
+            }
         }
-        if(contact && n >= 2)
+        print("right : " + countRight);
+        print("left : " + countLeft);
+        if(countLeft == 0 || countRight == 0 || !contact)
+        {
+            gameObject.transform.parent = gameObject.transform;
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        }
+
+        if(contact && countLeft > 0 && countRight > 0)
         {
             gameObject.transform.parent = trigger.transform;
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -30,21 +52,23 @@ public class InteractableObjects : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if(!collisionObjs.Contains(other))
+        bool add = true;
+        foreach(Collision obj in collisionObjs)
+        {
+            if(other.gameObject.tag == obj.gameObject.tag)
+            {
+                add = false;
+            }
+        }
+        if(add)
         {
             collisionObjs.Add(other);
         }
-        print(other.gameObject.ToString());
-        if(other.gameObject.tag == "Gripper")
-        {
-            n++;
-        }
-
     }
 
     void OnCollisionExit(Collision other)
     {
+        print("collision exit");
         collisionObjs.Remove(other);
- 
     }
 }

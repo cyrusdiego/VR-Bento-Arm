@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    public GameObject parent = null;
-    void Start()
+    void OnCollisionEnter(Collision other)
     {
-        gameObject.transform.parent = parent.transform;
-    }
-
-    void FixedUpdate()
-    {
+        print("got a collision right");
         
     }
-    
-    void OnCollisionEnter(Collision other)
+
+    void OnCollisionExit(Collision other)
     {
 
     }

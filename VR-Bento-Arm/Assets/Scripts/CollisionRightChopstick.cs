@@ -14,52 +14,33 @@ public class CollisionRightChopstick : MonoBehaviour
 {
     public GameObject Rotations = null;
     private Tuple<string,bool> msg;
-    private List<Collision> collisionObjs = new List<Collision>();
+    private List<Collision> collisionRightObjs = new List<Collision>();
     private List<Collider> colliderObjs = new List<Collider>();
-
-    void OnTriggerEnter(Collider other)
-    {
-        if(colliderObjs.Contains(other))
-        {
-            return;
-        }   
-        else 
-        {
-            msg = new Tuple<string, bool>("Open Hand", true);
-            Rotations.SendMessage("CollisionDetection",msg);
-            colliderObjs.Add(other);
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        colliderObjs.Remove(other);
-        msg = new Tuple<string, bool>("Open Hand", false);
-        Rotations.SendMessage("CollisionDetection", msg);
-    }
 
     void OnCollisionEnter(Collision other)
     {
-        if(collisionObjs.Contains(other))
+        if(collisionRightObjs.Contains(other))
         {
             return;
         }   
         else 
         {
-            if(other.gameObject.tag != "test")
+            if(other.gameObject.tag != "Interactable")
             {
                 msg = new Tuple<string, bool>("Open Hand", true);
                 Rotations.SendMessage("CollisionDetection",msg);
             }
-            collisionObjs.Add(other);
+            collisionRightObjs.Add(other);
         }
-       
     }
 
     void OnCollisionExit(Collision other)
     {
-        collisionObjs.Remove(other);
-        msg = new Tuple<string, bool>("Open Hand", false);
-        Rotations.SendMessage("CollisionDetection", msg);
+        collisionRightObjs.Remove(other);
+        if(other.gameObject.tag != "Interactable")
+        {
+            msg = new Tuple<string, bool>("Open Hand", false);
+            Rotations.SendMessage("CollisionDetection", msg);
+        }
     }
 }
