@@ -40,7 +40,7 @@ public class VRrotations : MonoBehaviour
     public GameObject[] gameObjects = new GameObject[5];
 
     // Specifies which joint will be rotating. 
-    private string mode;
+    public string mode;
     private int modeItr = 0;
 
     // Sets properties for the configurable joints. 
@@ -59,6 +59,7 @@ public class VRrotations : MonoBehaviour
     // Left end effector game object
     public GameObject leftEndEffector = null;
     private bool[] mux = new bool[] {false,false,false,false,false};
+    private bool tempBool = false;
     #endregion
     
     #region MonoAPI
@@ -240,7 +241,7 @@ public class VRrotations : MonoBehaviour
             leftRB.constraints = RigidbodyConstraints.FreezeAll;
             leftRB.useGravity = false;
             leftRB.isKinematic = false;
-            leftRB.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            leftRB.collisionDetectionMode = CollisionDetectionMode.Discrete;
         }
         else 
         {
@@ -248,7 +249,7 @@ public class VRrotations : MonoBehaviour
             leftRB.constraints = RigidbodyConstraints.None;
             leftRB.useGravity = false;
             leftRB.isKinematic = true;
-            leftRB.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+            leftRB.collisionDetectionMode = CollisionDetectionMode.Discrete;
         }
     }
 
@@ -344,6 +345,7 @@ public class VRrotations : MonoBehaviour
             mode = robotPartNames[modeItr++ % 5]; 
             SetRigidBody();  
             SetRotationAxis();
+            CorrectMUX();
             return true;
         }
         else 
@@ -356,9 +358,24 @@ public class VRrotations : MonoBehaviour
 
     #region Rotations
 
+    private void CorrectMUX()
+    {
+        if(mode == "Shoulder")
+        {
+            tempBool = mux[1];
+            mux[0] = false;
+            mux[1] = false;
+        }
+        if(mode == "Elbow")
+        {
+            mux[1] = tempBool;
+        }
+    }
+
     public void ObjectDetatched(bool msg)
     {
         mux[4] = msg;
+        mux[3] = msg;
     }
 
     public void ObjectAttatched(bool msg)
@@ -369,11 +386,12 @@ public class VRrotations : MonoBehaviour
 
     private bool refreshMux()
     {
-        // print("mux[0] == " + mux[0]);
-        // print("mux[1] == " + mux[1]);
-        // print("mux[2] == " + mux[2]);
-        // print("mux[3] == " + mux[3]);
-        // print("mux[4] == " + mux[4]);
+        print("mux[0] == " + mux[0]);
+        print("mux[1] == " + mux[1]);
+        print("mux[2] == " + mux[2]);
+        print("mux[3] == " + mux[3]);
+        print("mux[4] == " + mux[4]);
+
         switch (modeItr % 5) 
         {
             // Open hand 
@@ -387,7 +405,6 @@ public class VRrotations : MonoBehaviour
             // Elbow
             case 2: 
                 jointCollision[mode] = mux[1] || mux[3];
-
                 break;
             // Forearm 
             case 3:
@@ -410,28 +427,6 @@ public class VRrotations : MonoBehaviour
     public void CollisionDetection(Tuple<modes,bool> msg) 
     {
         mux[(int) msg.Item1] = msg.Item2;
-        switch (modeItr % 5) 
-        {
-            // Open hand 
-            case 0: 
-                jointCollision[mode] = mux[3];
-                break;
-            // Shoulder 
-            case 1: 
-                jointCollision[mode] = mux[1];
-                break;
-            // Elbow
-            case 2: 
-                jointCollision[mode] = mux[1] || mux[3];
-                break;
-            // Forearm 
-            case 3:
-                break;
-            // Wrist 
-            case 4:
-                jointCollision[mode] = mux[2] || mux[3];
-                break;
-        }
     }
 
     /*

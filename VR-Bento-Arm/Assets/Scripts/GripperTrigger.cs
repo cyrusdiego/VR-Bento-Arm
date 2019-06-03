@@ -10,9 +10,13 @@ public class GripperTrigger : MonoBehaviour
     private bool leftBool, rightBool;
     private List<Collider> colliderObjs = new List<Collider>();
     private int interactableObjs = 0, boxCollider = 0;
-
+    public VRrotations rotations = null;
     void OnTriggerEnter(Collider other)
     {
+        if(rotations.GetComponent<VRrotations>().mode == "Elbow")
+        {
+            return;
+        }
         if(!colliderObjs.Contains(other))
         {
             colliderObjs.Add(other);

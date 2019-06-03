@@ -357,3 +357,21 @@ RESOURCES:
     - enum from other script / object [link](https://answers.unity.com/questions/991759/how-do-i-call-an-enum-from-another-script.html)
     - plastic cup [link](https://free3d.com/3d-model/plastic-cup-high-poly-version-79161.html)
     - removing gameobject as child of another [link](https://answers.unity.com/questions/787390/de-attach-child-from-parent-and-remove-from-animat.html)
+
+- one weird interaction is if u push down on the interactables with the end effectors, it doesnt break but 
+the arm will keep pushing until it basically goes thru the table. i think i need to hard code where
+if pushing down and hitting an interactable: stop
+    - fixed it by adding the following in GripperTrigger.cs 
+    ```C#
+            if(rotations.GetComponent<VRrotations>().mode == "Elbow")
+        {
+            return;
+        }
+    ```
+- limitation with the current grabber method is that the object MUST be a kinematic object so it WILL 
+go thru the table unles i add it to the script as well to stop rotations 
+
+TODO FOR TMRW:
+    - switch moddle toggle to grip 
+    - fix open hand collisions (goes thru itslef and the table)
+    - camera position 

@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoundingBoxes : MonoBehaviour
 {
@@ -63,41 +64,47 @@ public class BoundingBoxes : MonoBehaviour
     */
     private void CheckKeyPress()
     {
+        if(CheckPress("GRIP_BUTTON_PRESS_LEFT"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
         if(CheckPress("GRIP_BUTTON_PRESS_RIGHT"))
         {
-            if(mode % 2 == 0)
-            {
-                foreach (GameObject armshell in armShells)
-                {
-                    armshell.SetActive(!armshell.activeSelf);
-                }
-                foreach (GameObject armbox in armBoxes)
-                {
-                    Component[] components = 
-                            armbox.GetComponents(typeof(BoxCollider));
-                    foreach (BoxCollider box in components)
-                    {
-                        box.enabled = true;
-                    }
-                }
-            }
-            else 
-            {
-                foreach (GameObject armshell in armShells)
-                {
-                    armshell.SetActive(!armshell.activeSelf);
-                }
-                foreach (GameObject armbox in armBoxes)
-                {
-                    Component[] components = 
-                            armbox.GetComponents(typeof(BoxCollider));
-                    foreach (BoxCollider box in components)
-                    {
-                        box.enabled = false;
-                    }
-                }
-            }
-            mode++;
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            // if(mode % 2 == 0)
+            // {
+            //     foreach (GameObject armshell in armShells)
+            //     {
+            //         armshell.SetActive(!armshell.activeSelf);
+            //     }
+            //     foreach (GameObject armbox in armBoxes)
+            //     {
+            //         Component[] components = 
+            //                 armbox.GetComponents(typeof(BoxCollider));
+            //         foreach (BoxCollider box in components)
+            //         {
+            //             box.enabled = true;
+            //         }
+            //     }
+            // }
+            // else 
+            // {
+            //     foreach (GameObject armshell in armShells)
+            //     {
+            //         armshell.SetActive(!armshell.activeSelf);
+            //     }
+            //     foreach (GameObject armbox in armBoxes)
+            //     {
+            //         Component[] components = 
+            //                 armbox.GetComponents(typeof(BoxCollider));
+            //         foreach (BoxCollider box in components)
+            //         {
+            //             box.enabled = false;
+            //         }
+            //     }
+            // }
+            // mode++;
         }
     }       
 }
