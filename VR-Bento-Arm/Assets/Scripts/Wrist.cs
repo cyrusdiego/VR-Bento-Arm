@@ -13,18 +13,19 @@ using UnityEngine;
 public class Wrist: MonoBehaviour
 {
     public GameObject Rotations = null;
-    private Tuple<string,bool> msg;
+    private Tuple<VRrotations.modes,bool> msg;
     private List<Collider> collidedObjs  = new List<Collider>();
 
     void OnTriggerEnter(Collider other)
     {
+        print("got a trigger in Forearm rotation object");
         if(collidedObjs.Contains(other))
         {
             return;
         }
         else 
         {
-            msg = new Tuple<string,bool>("Forearm Rotation", true);
+            msg = new Tuple<VRrotations.modes,bool>(VRrotations.modes.Forearm, true);
             Rotations.SendMessage("CollisionDetection", msg);
             collidedObjs.Add(other);
         }
@@ -34,7 +35,7 @@ public class Wrist: MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         collidedObjs.Remove(other);
-        msg = new Tuple<string,bool>("Forearm Rotation", false);
+        msg = new Tuple<VRrotations.modes,bool>(VRrotations.modes.Forearm, false);
         Rotations.SendMessage("CollisionDetection", msg);
     }
 

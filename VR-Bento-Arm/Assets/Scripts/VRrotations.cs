@@ -32,6 +32,7 @@ public class VRrotations : MonoBehaviour
     // Rotation modes and motor properties. 
     private string[] robotPartNames = { "Shoulder", "Elbow", "Forearm Rotation", 
             "Wrist Flexion", "Open Hand" };
+    public enum modes {Shoulder, Elbow, Forearm, Wrist, Hand};
     public float[] torqueVals = { 1.319f, 2.436f, 0.733f, 0.611f, 0.977f };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
@@ -57,7 +58,7 @@ public class VRrotations : MonoBehaviour
 
     // Left end effector game object
     public GameObject leftEndEffector = null;
-
+    private bool[] mux = new bool[] {false,false,false,false,false};
     #endregion
     
     #region MonoAPI
@@ -107,11 +108,16 @@ public class VRrotations : MonoBehaviour
     */
     void FixedUpdate()
     {
+        print("////START/////");
+        print("mux[1] == " + mux[1]);
+        print("mux[3] == " + mux[3]);
+        print("jointcollision[mode] == " + jointCollision[mode]);
+        print("/////END//////");
         textObject.text = mode;
         if(!CheckTrigger())
         {
             //Checks if the arm has collided with a box collider 
-            if(jointCollision[mode])
+            if(refreshMux())
             {
                 RestrictRotation();
             } 
@@ -200,7 +206,14 @@ public class VRrotations : MonoBehaviour
 
         rbParent.useGravity = false; 
         rbParent.isKinematic = false; 
-        rbParent.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        if(rbParent.isKinematic)
+        {
+            rbParent.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        }
+        else
+        {
+            rbParent.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
         rbParent.inertiaTensorRotation = Quaternion.identity;
         rbParent.constraints = RigidbodyConstraints.FreezePosition;
 
@@ -271,7 +284,7 @@ public class VRrotations : MonoBehaviour
                 break;
             // Wrist 
             case 4:
-                joint.axis = Vector3.back;
+                joint.axis = Vector3.forward;
                 joint.secondaryAxis = Vector3.up;
                 joint.connectedAnchor = new Vector3(-325.2f, 121.1f, 0);
                 deltaAngle = Mathf.FloorToInt(joint.transform.localEulerAngles.z);
@@ -352,6 +365,34 @@ public class VRrotations : MonoBehaviour
         }
     }
 
+    private bool refreshMux()
+    {
+        switch (modeItr % 5) 
+        {
+            // Open hand 
+            case 0: 
+                jointCollision[mode] = mux[3];
+                break;
+            // Shoulder 
+            case 1: 
+                jointCollision[mode] = mux[1];
+                break;
+            // Elbow
+            case 2: 
+                jointCollision[mode] = mux[1] || mux[3];
+
+                break;
+            // Forearm 
+            case 3:
+                break;
+            // Wrist 
+            case 4:
+                jointCollision[mode] = mux[2] || mux[3];
+                break;
+        }
+        return jointCollision[mode];
+    }
+
     /*
         @brief: called by bounding box gameObjects and will set collided to TRUE
         when the box colliders collide with one another. 
@@ -359,18 +400,49 @@ public class VRrotations : MonoBehaviour
         @param: Tuple holding the mode and if that segment of the arm is 
         colliding with another box collider.
     */
-    public void CollisionDetection(Tuple<string,bool> msg) 
+    public void CollisionDetection(Tuple<modes,bool> msg) 
     {
-        if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
+        mux[(int) msg.Item1] = msg.Item2;
+        print("mux[1] == " + mux[1]);
+        print("mux[3] == " + mux[3]);
+        switch (modeItr % 5) 
         {
-            jointCollision[mode] = msg.Item2;
+            // Open hand 
+            case 0: 
+                jointCollision[mode] = mux[3];
+                break;
+            // Shoulder 
+            case 1: 
+                jointCollision[mode] = mux[1];
+                break;
+            // Elbow
+            case 2: 
+                jointCollision[mode] = mux[1] || mux[3];
+
+                break;
+            // Forearm 
+            case 3:
+                break;
+            // Wrist 
+            case 4:
+                jointCollision[mode] = mux[2] || mux[3];
+                break;
         }
 
-        // Enables the end effectors to detect collision with itself.
-        if(msg.Item1 == "Wrist Flexion" && mode == "Open Hand")
-        {
-            jointCollision[mode] = msg.Item2;
-        }
+
+
+
+
+        // if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
+        // {
+        //     jointCollision[mode] = msg.Item2;
+        // }
+
+        // // Enables the end effectors to detect collision with itself.
+        // if(msg.Item1 == "Wrist Flexion" && mode == "Open Hand")
+        // {
+        //     jointCollision[mode] = msg.Item2;
+        // }
     }
 
     /*

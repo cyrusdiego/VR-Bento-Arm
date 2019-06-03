@@ -5,22 +5,48 @@ using System;
 
 public class GripperTrigger : MonoBehaviour
 {
-    private Tuple<GameObject,bool> msg;
+    public GameObject interactable = null;
+    private Transform interactableOriginal = null;
+    private bool leftBool, rightBool;
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "test")
+        if(other.gameObject.tag == "Interactable")
         {
-            msg = new Tuple<GameObject, bool>(gameObject,true);
-            other.gameObject.SendMessage("Attach",msg);
+            interactable = other.gameObject;
+            interactableOriginal = interactable.transform;
         }
     }
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "test")
+        interactable = null;
+    }
+
+    void RightBool(bool msg)
+    {
+        rightBool = msg;
+    }
+
+    void LeftBool(bool msg)
+    {
+        leftBool = msg;
+    }
+
+    void FixedUpdate()
+    {
+        if(leftBool && rightBool && interactable)
         {
-            msg = new Tuple<GameObject, bool>(gameObject,false);
-            other.gameObject.SendMessage("Attach",msg);
+            interactable.transform.parent = gameObject.transform;
+            interactable.GetComponent<Rigidbody>().isKinematic = true;
+        }
+        else if(!leftBool || !rightBool)
+        {
+            if(interactable)
+            {
+                interactable.transform.parent = interactableOriginal;
+                interactable.GetComponent<Rigidbody>().isKinematic = false;
+            }
         }
     }
+
 }

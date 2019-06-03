@@ -345,3 +345,14 @@ TODO:
 
 - got object interaction but will require further testing maybe like 80% confident rn
 - DO NOT HAVE WMR APP RUNNING WHILE RUNNING UNITY!!!
+
+**June 3**
+TODO:
+    - debug collisions
+    - add another object interaction
+    - ensure object interaction works
+    - have the "hide" shells thing restart the scene 
+
+RESOURCES:
+    - enum from other script / object [link](https://answers.unity.com/questions/991759/how-do-i-call-an-enum-from-another-script.html)
+    - plastic cup [link](https://free3d.com/3d-model/plastic-cup-high-poly-version-79161.html)

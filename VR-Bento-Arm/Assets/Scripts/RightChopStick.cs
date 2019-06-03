@@ -1,38 +1,47 @@
-﻿using System.Collections;
+﻿/* 
+    BLINC LAB VIPER PROJECT 
+    CollisionRightChopsticks.cs
+    Created by: Cyrus Diego May 21, 2019 
+
+    Sends message to controller script if it has collided with something
+ */
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RightChopStick : MonoBehaviour
+public class RightChopstick : MonoBehaviour
 {
-    protected bool rightBool = false;
-    public Chopsticks grabber = null;
-    public GameObject rotations = null;
-    public GameObject RightChopStickParent = null;
-    private Vector3 currentAngle;
-    private bool objectDetected = false;
+    public GameObject Rotations = null;
+    private Tuple<VRrotations.modes,bool> msg;
+    private List<Collision> collisionRightObjs = new List<Collision>();
+    private List<Collider> colliderObjs = new List<Collider>();
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Interactable")
+        print("got a collision in open hand object");
+        if(collisionRightObjs.Contains(other))
         {
-            rightBool = true;
-            currentAngle = RightChopStickParent.transform.localEulerAngles;
-            grabber.gameObject.SendMessage("RightBool",rightBool);
-            if(grabber.GetComponent<Chopsticks>().interactable)
+            return;
+        }   
+        else 
+        {
+            if(other.gameObject.tag != "Interactable")
             {
-                rotations.SendMessage("GrabbedObject",true);
+                msg = new Tuple<VRrotations.modes, bool>(VRrotations.modes.Hand, true);
+                Rotations.SendMessage("CollisionDetection",msg);
             }
-            objectDetected = true;
+            collisionRightObjs.Add(other);
         }
     }
 
-    void FixedUpdate()
+    void OnCollisionExit(Collision other)
     {
-        if(RightChopStickParent.transform.localEulerAngles.y != currentAngle.y && objectDetected)
+        collisionRightObjs.Remove(other);
+        if(other.gameObject.tag != "Interactable")
         {
-            rightBool = false;
-            grabber.gameObject.SendMessage("RightBool",rightBool);
-            rotations.SendMessage("GrabbedObject", false);
+            msg = new Tuple<VRrotations.modes, bool>(VRrotations.modes.Hand, false);
+            Rotations.SendMessage("CollisionDetection", msg);
         }
     }
 }

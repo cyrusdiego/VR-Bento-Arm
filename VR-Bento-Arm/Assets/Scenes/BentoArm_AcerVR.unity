@@ -290,7 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 192492689}
-  - component: {fileID: 192492692}
+  - component: {fileID: 192492690}
   m_Layer: 0
   m_Name: Shoulder_Rotation
   m_TagString: Untagged
@@ -315,7 +315,7 @@ Transform:
   m_Father: {fileID: 1965177382}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &192492692
+--- !u!114 &192492690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 291197567}
   - component: {fileID: 291197568}
   - component: {fileID: 291197570}
-  - component: {fileID: 291197571}
+  - component: {fileID: 291197569}
   m_Layer: 0
   m_Name: GripperTrigger
   m_TagString: Untagged
@@ -562,6 +562,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &291197569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291197566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c641a583958734e4282b55f7c04227f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactable: {fileID: 0}
 --- !u!54 &291197570
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -578,19 +591,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!114 &291197571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 291197566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fed3b91ff79ed49bc7a444fd495509, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactable: {fileID: 0}
 --- !u!1 &310720278
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,7 +945,7 @@ GameObject:
   - component: {fileID: 455520836}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: test
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1716,7 +1716,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 951933277}
-  - component: {fileID: 951933280}
   m_Layer: 0
   m_Name: Wrist_Flexion
   m_TagString: Untagged
@@ -1741,20 +1740,6 @@ Transform:
   m_Father: {fileID: 1407143169}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &951933280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951933276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a430918f110698143a2908f9d05bf434, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rotations: {fileID: 799490506}
-  grabber: {fileID: 0}
 --- !u!1 &1022805968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,7 +1882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &1058813044
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2088,7 +2073,6 @@ GameObject:
   - component: {fileID: 1078275894}
   - component: {fileID: 1078275896}
   - component: {fileID: 1078275895}
-  - component: {fileID: 1078275897}
   m_Layer: 0
   m_Name: VerticalBar (1)
   m_TagString: Untagged
@@ -2139,18 +2123,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 30, y: 324.5, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1078275897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078275893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d8d6ce422de521458ef0280bbca717e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1091104140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,7 +2213,7 @@ GameObject:
   - component: {fileID: 1175785738}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: test
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3621,7 +3593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc7e42a9e6f6c84d863134bdd926763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabber: {fileID: 291197571}
+  grabber: {fileID: 291197569}
   rotations: {fileID: 799490506}
   RightChopStickParent: {fileID: 1569028114}
 --- !u!1 &1957239511
@@ -3633,8 +3605,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1957239512}
-  - component: {fileID: 1957239514}
   - component: {fileID: 1957239513}
+  - component: {fileID: 1957239514}
   m_Layer: 0
   m_Name: Left
   m_TagString: GripperLeft

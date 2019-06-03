@@ -13,29 +13,22 @@ using UnityEngine;
 public class ForeArm : MonoBehaviour
 {
     public GameObject Rotations = null;
-    private Tuple<string,bool> msg;
+    private Tuple<VRrotations.modes,bool> msg;
     private List<Collider> collidedObjs = new List<Collider>();
 
     void OnTriggerEnter(Collider other)
     {
+        print("got a trigger in elbow rotation object");
         if(collidedObjs.Contains(other))
         {
             return;
         }
         else
         {
-            if(other.tag == "Stand")
+            if(other.tag != "Interactable")
             {
-                msg = new Tuple<string, bool>("Shoulder", true);
+                msg = new Tuple<VRrotations.modes, bool>(VRrotations.modes.Elbow, true);
                 Rotations.SendMessage("CollisionDetection",msg);
-            }
-            else
-            {
-                if(other.tag != "Interactable")
-                {
-                    msg = new Tuple<string, bool>("Elbow", true);
-                    Rotations.SendMessage("CollisionDetection",msg);
-                }
             }
             collidedObjs.Add(other);
         }
@@ -44,18 +37,10 @@ public class ForeArm : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         collidedObjs.Remove(other);
-        if(other.tag == "Stand")
+        if(other.tag != "Interactable")
         {
-            msg = new Tuple<string, bool>("Shoulder", false);
+            msg = new Tuple<VRrotations.modes, bool>(VRrotations.modes.Elbow, false);
             Rotations.SendMessage("CollisionDetection",msg);
-        }
-        else
-        {
-            if(other.tag != "Interactable")
-            {
-                msg = new Tuple<string, bool>("Elbow", false);
-                Rotations.SendMessage("CollisionDetection",msg);
-            }
         }
     }
 }
