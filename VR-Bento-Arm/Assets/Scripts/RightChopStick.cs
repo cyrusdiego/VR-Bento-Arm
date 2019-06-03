@@ -19,7 +19,6 @@ public class RightChopstick : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        print("got a collision in open hand object");
         if(collisionRightObjs.Contains(other))
         {
             return;

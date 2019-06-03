@@ -28,7 +28,7 @@ public class LeftChopstick : MonoBehaviour
         }   
         else 
         {
-            if(other.gameObject.tag != "Interactable")
+            if(other.gameObject.tag != "Interactable" && other.gameObject.tag != "Gripper")
             {
                 msg = new Tuple<VRrotations.modes,bool>(VRrotations.modes.Wrist, true);
                 Rotations.SendMessage("CollisionDetection", msg);
@@ -49,6 +49,7 @@ public class LeftChopstick : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {     
+        // print("collision detected: " + other);
         // print("got a collision in wrist flexion object");
         if(collisionLeftObjs.Contains(other))
         {
@@ -58,7 +59,6 @@ public class LeftChopstick : MonoBehaviour
         {
             if(other.gameObject.tag != "Interactable")
             {
-                print("stopping roation");
                 msg = new Tuple<VRrotations.modes,bool>(VRrotations.modes.Wrist, true);
                 Rotations.SendMessage("CollisionDetection", msg);
             }

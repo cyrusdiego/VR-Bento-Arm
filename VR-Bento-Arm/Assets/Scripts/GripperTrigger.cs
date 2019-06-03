@@ -8,13 +8,18 @@ public class GripperTrigger : MonoBehaviour
     public GameObject interactable = null;
     private Transform interactableOriginal = null;
     private bool leftBool, rightBool;
-
+    private List<Collider> colliderObjs = new List<Collider>();
+    private int n = 0;
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Interactable")
         {
             interactable = other.gameObject;
-            interactableOriginal = interactable.transform;
+        }
+        if(other.gameObject.tag == "boxColliderChild")
+        {
+            print("thing had right tag");
+            interactable = other.transform.parent.gameObject;
         }
     }
     void OnTriggerExit(Collider other)
@@ -43,7 +48,7 @@ public class GripperTrigger : MonoBehaviour
         {
             if(interactable)
             {
-                interactable.transform.parent = interactableOriginal;
+                interactable.transform.parent = null;
                 interactable.GetComponent<Rigidbody>().isKinematic = false;
             }
         }

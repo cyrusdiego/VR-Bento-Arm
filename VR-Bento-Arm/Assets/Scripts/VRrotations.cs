@@ -108,11 +108,6 @@ public class VRrotations : MonoBehaviour
     */
     void FixedUpdate()
     {
-        print("////START/////");
-        print("mux[1] == " + mux[1]);
-        print("mux[3] == " + mux[3]);
-        print("jointcollision[mode] == " + jointCollision[mode]);
-        print("/////END//////");
         textObject.text = mode;
         if(!CheckTrigger())
         {
@@ -196,9 +191,18 @@ public class VRrotations : MonoBehaviour
         GameObject child = robotGameObject[robotPartNames[modeItr % 5]];
 
         // Do not change the order of this 
-        child.AddComponent<Rigidbody>();  
-        parent.AddComponent<Rigidbody>(); 
-        parent.AddComponent<ConfigurableJoint>();
+        if(!child.GetComponent<Rigidbody>())
+        {
+            child.AddComponent<Rigidbody>();  
+        }
+        if(!parent.GetComponent<Rigidbody>())
+        {
+            parent.AddComponent<Rigidbody>(); 
+        }
+        if(!parent.GetComponent<ConfigurableJoint>())
+        {
+            parent.AddComponent<ConfigurableJoint>();
+        }
 
         // Set properties. 
         Rigidbody rbParent = parent.GetComponent<Rigidbody>();
@@ -352,26 +356,31 @@ public class VRrotations : MonoBehaviour
 
     #region Rotations
 
-    public void GrabbedObject(bool msg)
+    public void ObjectDetatched(bool msg)
     {
-        jointCollision[mode] = msg;
-        if(msg)
-        {
-            currentNumValues[mode] = -1;
-        }
-        else
-        {
-            currentNumValues[mode] = 1;
-        }
+        mux[4] = msg;
+    }
+
+    public void ObjectAttatched(bool msg)
+    {
+        print("grabbedobject was called");
+        print(msg);
+        mux[4] = msg;
+        currentNumValues[mode] = -1;
     }
 
     private bool refreshMux()
     {
+        // print("mux[0] == " + mux[0]);
+        // print("mux[1] == " + mux[1]);
+        // print("mux[2] == " + mux[2]);
+        // print("mux[3] == " + mux[3]);
+        // print("mux[4] == " + mux[4]);
         switch (modeItr % 5) 
         {
             // Open hand 
             case 0: 
-                jointCollision[mode] = mux[3];
+                jointCollision[mode] = mux[3] || mux[4];
                 break;
             // Shoulder 
             case 1: 
@@ -403,8 +412,6 @@ public class VRrotations : MonoBehaviour
     public void CollisionDetection(Tuple<modes,bool> msg) 
     {
         mux[(int) msg.Item1] = msg.Item2;
-        print("mux[1] == " + mux[1]);
-        print("mux[3] == " + mux[3]);
         switch (modeItr % 5) 
         {
             // Open hand 

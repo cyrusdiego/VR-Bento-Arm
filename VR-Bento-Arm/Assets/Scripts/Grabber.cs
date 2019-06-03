@@ -20,7 +20,7 @@ public class Grabber : MonoBehaviour
             grabber.gameObject.SendMessage("RightBool",rightBool);
             if(grabber.GetComponent<GripperTrigger>().interactable)
             {
-                rotations.SendMessage("GrabbedObject",true);
+                rotations.SendMessage("ObjectAttatched",true);
             }
             objectDetected = true;
         }
@@ -30,9 +30,10 @@ public class Grabber : MonoBehaviour
     {
         if(RightChopStickParent.transform.localEulerAngles.y != currentAngle.y && objectDetected)
         {
+            print("detatching");
             rightBool = false;
             grabber.gameObject.SendMessage("RightBool",rightBool);
-            rotations.SendMessage("GrabbedObject", false);
+            rotations.SendMessage("ObjectDetatched",false);
         }
     }
 }
