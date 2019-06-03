@@ -363,8 +363,6 @@ public class VRrotations : MonoBehaviour
 
     public void ObjectAttatched(bool msg)
     {
-        print("grabbedobject was called");
-        print(msg);
         mux[4] = msg;
         currentNumValues[mode] = -1;
     }
@@ -425,7 +423,6 @@ public class VRrotations : MonoBehaviour
             // Elbow
             case 2: 
                 jointCollision[mode] = mux[1] || mux[3];
-
                 break;
             // Forearm 
             case 3:
@@ -435,21 +432,6 @@ public class VRrotations : MonoBehaviour
                 jointCollision[mode] = mux[2] || mux[3];
                 break;
         }
-
-
-
-
-
-        // if(Array.IndexOf(robotPartNames, mode) <= Array.IndexOf(robotPartNames, msg.Item1))
-        // {
-        //     jointCollision[mode] = msg.Item2;
-        // }
-
-        // // Enables the end effectors to detect collision with itself.
-        // if(msg.Item1 == "Wrist Flexion" && mode == "Open Hand")
-        // {
-        //     jointCollision[mode] = msg.Item2;
-        // }
     }
 
     /*

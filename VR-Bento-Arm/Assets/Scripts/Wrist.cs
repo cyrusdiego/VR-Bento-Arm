@@ -18,7 +18,6 @@ public class Wrist: MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("got a trigger in Forearm rotation object");
         if(collidedObjs.Contains(other))
         {
             return;
@@ -29,7 +28,6 @@ public class Wrist: MonoBehaviour
             Rotations.SendMessage("CollisionDetection", msg);
             collidedObjs.Add(other);
         }
-        
     }
 
     void OnTriggerExit(Collider other)

@@ -18,7 +18,6 @@ public class ForeArm : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("got a trigger in elbow rotation object");
         if(collidedObjs.Contains(other))
         {
             return;

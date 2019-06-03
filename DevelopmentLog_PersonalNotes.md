@@ -356,3 +356,4 @@ TODO:
 RESOURCES:
     - enum from other script / object [link](https://answers.unity.com/questions/991759/how-do-i-call-an-enum-from-another-script.html)
     - plastic cup [link](https://free3d.com/3d-model/plastic-cup-high-poly-version-79161.html)
+    - removing gameobject as child of another [link](https://answers.unity.com/questions/787390/de-attach-child-from-parent-and-remove-from-animat.html)

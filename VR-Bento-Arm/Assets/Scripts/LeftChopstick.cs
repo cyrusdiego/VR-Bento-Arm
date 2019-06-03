@@ -21,7 +21,6 @@ public class LeftChopstick : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // print("got a trigger in wrist flexion object");
         if(colliderObjs.Contains(other))
         {
             return;
@@ -49,8 +48,6 @@ public class LeftChopstick : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {     
-        // print("collision detected: " + other);
-        // print("got a collision in wrist flexion object");
         if(collisionLeftObjs.Contains(other))
         {
             return;

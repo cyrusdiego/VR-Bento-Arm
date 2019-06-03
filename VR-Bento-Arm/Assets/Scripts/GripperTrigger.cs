@@ -9,22 +9,46 @@ public class GripperTrigger : MonoBehaviour
     private Transform interactableOriginal = null;
     private bool leftBool, rightBool;
     private List<Collider> colliderObjs = new List<Collider>();
-    private int n = 0;
+    private int interactableObjs = 0, boxCollider = 0;
+
     void OnTriggerEnter(Collider other)
     {
+        if(!colliderObjs.Contains(other))
+        {
+            colliderObjs.Add(other);
+        }
         if(other.gameObject.tag == "Interactable")
         {
             interactable = other.gameObject;
+            interactableObjs++;
         }
         if(other.gameObject.tag == "boxColliderChild")
         {
-            print("thing had right tag");
             interactable = other.transform.parent.gameObject;
+            boxCollider++;
+        }
+        if(interactableObjs > 0 && boxCollider > 0)
+        {
+            foreach(Collider obj in colliderObjs)
+            {
+                if(obj.gameObject.tag == "boxColliderChild")
+                {
+                    interactable = other.transform.parent.gameObject;
+                }
+            }
         }
     }
     void OnTriggerExit(Collider other)
     {
         interactable = null;
+        if(other.gameObject.tag == "Interactable")
+        {
+            interactableObjs--;
+        }
+        if(other.gameObject.tag == "boxColliderChild")
+        {
+            boxCollider--;
+        }
     }
 
     void RightBool(bool msg)

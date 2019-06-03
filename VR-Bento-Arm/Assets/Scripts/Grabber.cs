@@ -30,7 +30,6 @@ public class Grabber : MonoBehaviour
     {
         if(RightChopStickParent.transform.localEulerAngles.y != currentAngle.y && objectDetected)
         {
-            print("detatching");
             rightBool = false;
             grabber.gameObject.SendMessage("RightBool",rightBool);
             rotations.SendMessage("ObjectDetatched",false);
