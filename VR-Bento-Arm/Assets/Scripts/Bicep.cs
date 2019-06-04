@@ -19,7 +19,6 @@ public class Bicep: MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {   
-        print("got a trigger in shoulder rotation object");
         if(collidedObjs.Contains(other))
         {
             return;

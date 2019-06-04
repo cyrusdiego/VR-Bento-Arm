@@ -375,3 +375,21 @@ TODO FOR TMRW:
     - switch moddle toggle to grip 
     - fix open hand collisions (goes thru itslef and the table)
     - camera position 
+
+**June 4**
+    - switchting to the grip seems to do the same thing where it will miss the button press every now and 
+    then. will probably need to figure out a better place to put the function call? 
+    - got the collisions wokring better with the end effectors. going to continue with testing it 
+    to ensure that even when one limb is at the edge case, the other rotations still work fine. 
+    - need to continue testing the object interaction as well tho 
+    - havent yet tried the camera position. 
+
+    - camera position is being fixed now: scaled mixed reality playspace by 1000
+
+RESOURCES:
+    - wmr dev guide [link](https://blogs.msdn.microsoft.com/uk_faculty_connection/2017/10/09/mixed-reality-immersive-a-beginners-guide-to-building-for-mr/)
+
+- fixed the unresponsive trigger, moved it to Update instead 
+
+FUTURE IMPROVEMENTS:
+    - only have the grabber trigger active when the hand is open to a certain degree! 

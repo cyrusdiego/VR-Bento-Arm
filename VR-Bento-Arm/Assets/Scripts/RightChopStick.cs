@@ -10,6 +10,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// seems to not do anything with the grabber.cs being a child script under it 
+
 public class RightChopstick : MonoBehaviour
 {
     public GameObject Rotations = null;
@@ -17,8 +19,13 @@ public class RightChopstick : MonoBehaviour
     private List<Collision> collisionRightObjs = new List<Collision>();
     private List<Collider> colliderObjs = new List<Collider>();
 
+    void OnTriggerEnter(Collider other)
+    {
+        print("triggered with " + other);
+    }
     void OnCollisionEnter(Collision other)
     {
+        print("collided with " + other);
         if(collisionRightObjs.Contains(other))
         {
             return;
