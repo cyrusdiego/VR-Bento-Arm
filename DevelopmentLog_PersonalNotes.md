@@ -414,3 +414,10 @@ FUTURE IMPROVEMENTS:
         1) cover reflective floor with a carpet OR a dull covering 
         2) Glass cabinet casings need to be removed 
 
+**June 5**
+- `FixedUpdate()` vs `Update()` 
+    - `Update()` runs once per frame 
+    - `FixedUpdate()` can run once, zero, or several times per frame depending on 
+    how many physics frames per second are set in time settings 
+    - `FixedUpdate()` should be used when applying forces , torques or other physics related 
+    function so that they will sync with the physics engine 

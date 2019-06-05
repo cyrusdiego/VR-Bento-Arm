@@ -33,7 +33,7 @@ public class VRrotations : MonoBehaviour
     private string[] robotPartNames = { "Shoulder", "Elbow", "Forearm Rotation", 
             "Wrist Flexion", "Open Hand" };
     public enum modes {Shoulder, Elbow, Forearm, Wrist, Hand};
-    public float[] torqueVals = { 1.319f, 2.436f, 0.733f, 0.611f, 0.977f };
+    public float[] torqueVals = { 1319, 2436, 733, 611, 977 };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
 
     // Drag and Drop in Inspector. 

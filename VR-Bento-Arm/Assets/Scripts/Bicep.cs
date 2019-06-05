@@ -12,7 +12,6 @@ using UnityEngine;
 
 public class Bicep: MonoBehaviour
 {
-    // public Transform UpperArmShellTransform = null;
     public GameObject Rotations = null;
     private Tuple<VRrotations.modes,bool> msg;
     private List<Collider> collidedObjs = new List<Collider>();

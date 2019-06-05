@@ -15,23 +15,36 @@ public class BoundingBoxes : MonoBehaviour
 {
     public GameObject[] armBoxes = new GameObject[3];
     public GameObject[] armShells = new GameObject[5];
-    public GameObject rotations = null;
-    private int mode = 0;
+    private int mode = 1;
 
     /*
         @brief: Called before first frame. Turns of box colliders for the 
         Bento Arm so that only the Bento Arm Shells box colliders are used.
     */
-    void Start()
+    void Awake()
     {
-        foreach (GameObject armbox in armBoxes)
+        if(!armShells[2].activeSelf)
         {
-            Component[] components = armbox.GetComponents(typeof(BoxCollider));
-            foreach (BoxCollider box in components)
+            foreach (GameObject armbox in armBoxes)
             {
-                box.enabled = false;
+                Component[] components = armbox.GetComponents(typeof(BoxCollider));
+                foreach (BoxCollider box in components)
+                {
+                    box.enabled = true;
+                }
             }
-            
+            mode = -1;
+        }
+        else
+        {
+            foreach (GameObject armbox in armBoxes)
+            {
+                Component[] components = armbox.GetComponents(typeof(BoxCollider));
+                foreach (BoxCollider box in components)
+                {
+                    box.enabled = false;
+                }
+            }
         }
     }
 
@@ -64,13 +77,25 @@ public class BoundingBoxes : MonoBehaviour
     */
     private void CheckKeyPress()
     {
-        if(CheckPress("GRIP_BUTTON_PRESS_LEFT"))
+        if(CheckPress("GRIP_BUTTON_PRESS_RIGHT"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        if(CheckPress("GRIP_BUTTON_PRESS_RIGHT"))
+        if(CheckPress("TOUCHPAD_PRESS_RIGHT"))
         {
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            print("pressed button");
+            if(mode == 1)
+            {
+                SceneManager.LoadScene("BentoArm_AcerVRNOARMSHELLS");
+            }
+            else 
+            {
+                SceneManager.LoadScene("BentoArm_AcerVR");
+            }
+        }
+    }       
+}
+
 
             // if(mode % 2 == 0)
             // {
@@ -105,6 +130,3 @@ public class BoundingBoxes : MonoBehaviour
             //     }
             // }
             // mode++;
-        }
-    }       
-}

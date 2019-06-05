@@ -54,7 +54,7 @@ public class Grabber : MonoBehaviour
             rotations.SendMessage("CollisionDetection", msg);
         }
     }
-    void FixedUpdate()
+    void Update()
     {
         if(RightChopStickParent.transform.localEulerAngles.y != currentAngle.y && objectDetected)
         {
