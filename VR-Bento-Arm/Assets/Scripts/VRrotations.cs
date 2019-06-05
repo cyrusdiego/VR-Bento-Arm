@@ -392,7 +392,6 @@ public class VRrotations : MonoBehaviour
 
     public void ObjectAttatched(bool msg)
     {
-        print("got something");
         mux[5] = msg;
         mux[4] = msg;
         currentNumValues[mode] = -1;
@@ -403,8 +402,8 @@ public class VRrotations : MonoBehaviour
         // print("mux[0] == " + mux[0]);
         // print("mux[1] == " + mux[1]);
         // print("mux[2] == " + mux[2]);
-        // print("mux[3] == " + mux[3]);
-        // print("mux[4] == " + mux[4]);
+        print("mux[3] == " + mux[3]);
+        print("mux[4] == " + mux[4]);
         // print("mux[5] == " + mux[5]);
 
         switch (modeItr % 5) 
@@ -429,7 +428,7 @@ public class VRrotations : MonoBehaviour
                 break;
             // Wrist 
             case 4:
-                jointCollision[mode] = mux[2] || mux[3];
+                jointCollision[mode] = mux[3];
                 break;
         }
         // print(jointCollision[mode]);

@@ -17,7 +17,6 @@ public class Grabber : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        print("collidef with something");
         if(other.gameObject.tag == "Interactable")
         {
             rightBool = true;
@@ -35,7 +34,6 @@ public class Grabber : MonoBehaviour
             {
                 return;
             }   
-            print("sending msg to arm (right hand)");
             msg = new Tuple<VRrotations.modes, bool>(VRrotations.modes.Hand, true);
             rotations.SendMessage("CollisionDetection",msg);
             collisionRightObjs.Add(other);

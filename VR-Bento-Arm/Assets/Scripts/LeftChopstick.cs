@@ -29,8 +29,11 @@ public class LeftChopstick : MonoBehaviour
         {
             if(other.gameObject.tag != "Interactable" && other.gameObject.tag != "Gripper")
             {
-                msg = new Tuple<VRrotations.modes,bool>(VRrotations.modes.Wrist, true);
-                Rotations.SendMessage("CollisionDetection", msg);
+                if(Rotations.GetComponent<VRrotations>().mode == "Wrist Flexion" || other.gameObject.tag != "BentoArm")
+                {
+                    msg = new Tuple<VRrotations.modes,bool>(VRrotations.modes.Wrist, true);
+                    Rotations.SendMessage("CollisionDetection", msg);
+                }
             }
             colliderObjs.Add(other);
         }

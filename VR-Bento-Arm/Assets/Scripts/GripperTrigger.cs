@@ -22,7 +22,7 @@ public class GripperTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // De - activates the trigger when the arm is rotating the Elbow.
-        if(rotations.GetComponent<VRrotations>().mode == "Elbow")
+        if(rotations.GetComponent<VRrotations>().mode != "Open Hand")
         {
             return;
         }
