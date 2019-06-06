@@ -20,12 +20,12 @@ public class Forearm : MonoBehaviour
         if(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(-537,0,0);
+            cj.targetAngularVelocity = new Vector3(-0.537f,0,0);
         }
         else if(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") <= -0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(537,0,0);
+            cj.targetAngularVelocity = new Vector3(0.537f,0,0);
         }
         else
         {

@@ -433,3 +433,4 @@ FUTURE IMPROVEMENTS:
     motor ?? 
     - config joint help [link](https://answers.unity.com/questions/1276071/configurablejoint-target-positionrotation-issues-1.html)
     - position spring and damper [link](https://answers.unity.com/questions/29625/configurable-joint-what-does-position-spring-and-d.html)
+    - position sping and damper [link](https://forum.unity.com/threads/cant-set-a-joints-drive-mode-positional-velocity-in-5-5.452666/)
