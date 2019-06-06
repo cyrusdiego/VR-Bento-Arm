@@ -431,3 +431,5 @@ FUTURE IMPROVEMENTS:
     - the drives for joints are propertional derivative drives [link](https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/guide/Manual/Joints.html)
     - Axis / Secondary Axis: maybe we can change this every frame to maintain local axes per 
     motor ?? 
+    - config joint help [link](https://answers.unity.com/questions/1276071/configurablejoint-target-positionrotation-issues-1.html)
+    - position spring and damper [link](https://answers.unity.com/questions/29625/configurable-joint-what-does-position-spring-and-d.html)
