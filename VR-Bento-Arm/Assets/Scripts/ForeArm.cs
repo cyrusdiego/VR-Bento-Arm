@@ -26,7 +26,6 @@ public class ForeArm : MonoBehaviour
         {
             if(other.tag != "Interactable" && other.tag != "GripperLeft")
             {
-                print("got in still w/ " + other.tag);
                 msg = new Tuple<VRrotations.modes, bool>(VRrotations.modes.Elbow, true);
                 Rotations.SendMessage("CollisionDetection",msg);
             }

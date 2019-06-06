@@ -51,6 +51,7 @@ public class LeftChopstick : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {     
+        print("collided left chopstick");
         if(collisionLeftObjs.Contains(other))
         {
             return;

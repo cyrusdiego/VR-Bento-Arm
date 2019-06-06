@@ -1629,11 +1629,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torqueVals:
-  - 1.319
-  - 2.436
-  - 0.733
-  - 0.611
-  - 0.97
+  - 1319
+  - 2436
+  - 733
+  - 611
+  - 977
   velocityVals:
   - 6.27
   - 5.13
@@ -1692,7 +1692,6 @@ MonoBehaviour:
   - {fileID: 723190340}
   - {fileID: 813122515}
   - {fileID: 1242755863}
-  rotations: {fileID: 0}
 --- !u!1001 &813122513
 PrefabInstance:
   m_ObjectHideFlags: 0

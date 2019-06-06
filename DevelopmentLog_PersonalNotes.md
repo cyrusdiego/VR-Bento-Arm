@@ -420,4 +420,14 @@ FUTURE IMPROVEMENTS:
     - `FixedUpdate()` can run once, zero, or several times per frame depending on 
     how many physics frames per second are set in time settings 
     - `FixedUpdate()` should be used when applying forces , torques or other physics related 
-    function so that they will sync with the physics engine q
+    function so that they will sync with the physics engine 
+
+**June 6**
+*TODO*:
+    - research on configurable joints and rigid bodies to try and find a better way 
+    for rotations and collision detection 
+
+*RESEARCH*
+    - the drives for joints are propertional derivative drives [link](https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/guide/Manual/Joints.html)
+    - Axis / Secondary Axis: maybe we can change this every frame to maintain local axes per 
+    motor ?? 

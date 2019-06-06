@@ -31,7 +31,7 @@ public class VRrotations : MonoBehaviour
 
     // Rotation modes and motor properties. 
     private string[] robotPartNames = { "Shoulder", "Elbow", "Forearm Rotation", 
-            "Wrist Flexion", "Open Hand" };
+            "Wrist Flexion", "Hand" };
     public enum modes {Shoulder, Elbow, Forearm, Wrist, Hand};
     public float[] torqueVals = { 1319, 2436, 733, 611, 977 };
     public float[] velocityVals = { 6.27f, 5.13f, 737f, 9.90f, 9.90f }; // rpm 
@@ -238,7 +238,7 @@ public class VRrotations : MonoBehaviour
         SetConfigurableJoint(ref cj);
         // Sets joint to the configurable joint of current parent object. 
         joint = robotGameObject[mode].GetComponent<ConfigurableJoint>();
-        if(mode == "Open Hand")
+        if(mode == "Hand")
         {
             Destroy(child.GetComponent<Rigidbody>());
             Rigidbody leftRB = leftEndEffector.GetComponent<Rigidbody>();
@@ -402,17 +402,15 @@ public class VRrotations : MonoBehaviour
         // print("mux[0] == " + mux[0]);
         // print("mux[1] == " + mux[1]);
         // print("mux[2] == " + mux[2]);
-        print("mux[3] == " + mux[3]);
-        print("mux[4] == " + mux[4]);
+        // print("mux[3] == " + mux[3]);
+        // print("mux[4] == " + mux[4]);
         // print("mux[5] == " + mux[5]);
 
         switch (modeItr % 5) 
         {
             // Open hand 
             case 0: 
-                // print("mode is open hand");
                 jointCollision[mode] =  mux[4];
-                // print("jointcollision[mode] is " + jointCollision[mode]);
                 break;
             // Shoulder 
             case 1: 

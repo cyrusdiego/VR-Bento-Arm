@@ -36,6 +36,7 @@ public class GripperTrigger : MonoBehaviour
         {
             interactable = other.gameObject;
             interactableObjs++;
+            Debug.Log("_____ BALL TRIGGER ACTIVE _______");
         }
 
         if(other.gameObject.tag == "boxColliderChild")
