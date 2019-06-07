@@ -65,6 +65,7 @@ public class Hand : MonoBehaviour
     private void setTargetRotation()
     {
         targetRotation = Quaternion.Euler(-gameObject.transform.localEulerAngles.x,0,0);
+        print("____WRIST___" + targetRotation.eulerAngles.x);
         target = false;
     }
 }

@@ -11,7 +11,9 @@ public class Chopstick : MonoBehaviour
     private float motorTorque = 978000;
     private bool target = true;
     private Quaternion targetRotation;
-
+    private float hKeyPressTime,gKeyPressTime;
+    private float minTime = 0.01f;
+    private bool keyPress = false;
     void Start()
     {
         cj = gameObject.GetComponent<ConfigurableJoint>();
@@ -23,25 +25,36 @@ public class Chopstick : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") >= 0.5)
-        {
-            cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
-            motor.maximumForce = motorTorque;
-            motor.positionSpring = 0;
-            cj.angularXDrive = motor;
-            target = true;
+        keyPress = false;
+        if (Input.GetKeyDown(KeyCode.G)) {
+            gKeyPressTime = Time.timeSinceLevelLoad;
         }
-        else if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") <= -0.5)
-        {
-            cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
-            motor.maximumForce = motorTorque;
-            motor.positionSpring = 0;
-            cj.angularXDrive = motor;
-            target = true;
+        if (Input.GetKey(KeyCode.G)) {
+            if (Time.timeSinceLevelLoad - gKeyPressTime > minTime) {
+                cj.angularXMotion = ConfigurableJointMotion.Free;
+                cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+                motor.maximumForce = motorTorque;
+                motor.positionSpring = 0;
+                cj.angularXDrive = motor;
+                target = true;
+                keyPress = true;
+            }
         }
-        else
+        if (Input.GetKeyDown(KeyCode.H)) {
+            hKeyPressTime = Time.timeSinceLevelLoad;
+        }
+        if (Input.GetKey(KeyCode.H)) {
+            if (Time.timeSinceLevelLoad - hKeyPressTime > minTime) {
+                cj.angularXMotion = ConfigurableJointMotion.Free;
+                cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+                motor.maximumForce = motorTorque;
+                motor.positionSpring = 0;
+                cj.angularXDrive = motor;
+                target = true;
+                keyPress = true;
+            }
+        }
+        if(!keyPress)
         {
             if(target)
             {
@@ -54,7 +67,7 @@ public class Chopstick : MonoBehaviour
             motor.positionSpring = 1000000000;
             cj.angularXDrive = motor;
             target = false;
-
+            keyPress = false;
         }
     }
     private void setTargetRotation()

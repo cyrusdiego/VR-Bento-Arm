@@ -68,6 +68,8 @@ public class Forearm : MonoBehaviour
     private void setTargetRotation()
     {
         targetRotation = Quaternion.Euler(-gameObject.transform.localEulerAngles.x,0,0);
+        print("___FOREARM TRANSFORM__" + gameObject.transform.localEulerAngles.x);
+        print("____FOREARM QUATERNION___" + targetRotation.eulerAngles.x);
         target = false;
     }
 }
