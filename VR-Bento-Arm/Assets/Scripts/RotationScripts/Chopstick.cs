@@ -6,54 +6,60 @@ public class Chopstick : MonoBehaviour
 {
     private ConfigurableJoint cj = null;
     private Rigidbody rb = null;
-    private bool shoulder = false;
     private JointDrive motor;
+    private float maxSpeedLimit = 1.03f;
+    private float motorTorque = 978000;
+    private bool target = true;
+    private Quaternion targetRotation;
 
     void Start()
     {
         cj = gameObject.GetComponent<ConfigurableJoint>();
         rb = gameObject.GetComponent<Rigidbody>();
+        motor.positionDamper = motorTorque / maxSpeedLimit;
+        cj.angularXDrive = motor;
+        cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
 
     void Update()
     {
-        // if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") >= 0.5)
-        // {
-        //     cj.angularXMotion = ConfigurableJointMotion.Free;
-        //     cj.targetAngularVelocity = new Vector3(-9900,0,0);
-        // }
-        // else if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") <= -0.5)
-        // {
-        //     cj.angularXMotion = ConfigurableJointMotion.Free;
-        //     cj.targetAngularVelocity = new Vector3(9900,0,0);
-        // }
-        // else
-        // {
-        //     rb.angularVelocity = Vector3.zero;
-        //     cj.targetAngularVelocity = Vector3.zero;
-
-            cj.xMotion = ConfigurableJointMotion.Locked;
-            cj.yMotion = ConfigurableJointMotion.Locked;
-            cj.zMotion = ConfigurableJointMotion.Locked;
-            cj.angularXMotion = ConfigurableJointMotion.Locked;
-            cj.angularYMotion = ConfigurableJointMotion.Locked;
-            cj.angularZMotion = ConfigurableJointMotion.Locked;
-        // }
-
-    }
-/// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void FixedUpdate()
-    {
-        if(shoulder)
+        if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") >= 0.5)
         {
-            Vector3 angularVelocity = new Vector3(rb.angularVelocity.x,0,rb.angularVelocity.z);
+            cj.angularXMotion = ConfigurableJointMotion.Free;
+            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+            motor.maximumForce = motorTorque;
+            motor.positionSpring = 0;
+            cj.angularXDrive = motor;
+            target = true;
+        }
+        else if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") <= -0.5)
+        {
+            cj.angularXMotion = ConfigurableJointMotion.Free;
+            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+            motor.maximumForce = motorTorque;
+            motor.positionSpring = 0;
+            cj.angularXDrive = motor;
+            target = true;
+        }
+        else
+        {
+            if(target)
+            {
+                setTargetRotation();
+            }
             rb.angularVelocity = Vector3.zero;
+            cj.targetAngularVelocity = Vector3.zero;
+            cj.targetRotation = targetRotation;
+            motor.maximumForce = motorTorque;
+            motor.positionSpring = 1000000000;
+            cj.angularXDrive = motor;
+            target = false;
+
         }
     }
-    void HaltShoulderRotation(bool msg)
+    private void setTargetRotation()
     {
-        shoulder = msg;
+        targetRotation = Quaternion.Euler(-gameObject.transform.localEulerAngles.y,0,0);
+        target = false;
     }
 }

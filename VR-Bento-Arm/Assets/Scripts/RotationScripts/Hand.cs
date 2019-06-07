@@ -6,13 +6,19 @@ public class Hand : MonoBehaviour
 {
     private ConfigurableJoint cj = null;
     private Rigidbody rb = null;
-    private bool shoulder = false;
     private JointDrive motor;
+    private float maxSpeedLimit = 0.771f;
+    private float motorTorque = 733000f;
+    private Quaternion targetRotation;
+    private bool target = true;
 
     void Start()
     {
         cj = gameObject.GetComponent<ConfigurableJoint>();
         rb = gameObject.GetComponent<Rigidbody>();
+        motor.positionDamper = motorTorque / maxSpeedLimit;
+        cj.angularXDrive = motor;
+        cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
 
     void Update()
@@ -20,18 +26,34 @@ public class Hand : MonoBehaviour
         if(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(-9900,0,0);
+            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+            motor.maximumForce = motorTorque;
+            motor.positionSpring = 0;
+            cj.angularXDrive = motor;
+            target = true;
         }
         else if(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT") <= -0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(9900,0,0);
+            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+            motor.maximumForce = motorTorque;
+            motor.positionSpring = 0;
+            cj.angularXDrive = motor;
+            target = true;
         }
         else
         {
+            if(target)
+            {
+                setTargetRotation();
+            }
             rb.angularVelocity = Vector3.zero;
             cj.targetAngularVelocity = Vector3.zero;
-
+            cj.targetRotation = targetRotation;
+            motor.maximumForce = motorTorque;
+            motor.positionSpring = 1000000000;
+            cj.angularXDrive = motor;
+            target = false;
             // cj.xMotion = ConfigurableJointMotion.Locked;
             // cj.yMotion = ConfigurableJointMotion.Locked;
             // cj.zMotion = ConfigurableJointMotion.Locked;
@@ -40,19 +62,9 @@ public class Hand : MonoBehaviour
             // cj.angularZMotion = ConfigurableJointMotion.Locked;
         }
     }
-/// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void FixedUpdate()
+    private void setTargetRotation()
     {
-        if(shoulder)
-        {
-            Vector3 angularVelocity = new Vector3(rb.angularVelocity.x,0,rb.angularVelocity.z);
-            rb.angularVelocity = Vector3.zero;
-        }
-    }
-    void HaltShoulderRotation(bool msg)
-    {
-        shoulder = msg;
+        targetRotation = Quaternion.Euler(-gameObject.transform.localEulerAngles.x,0,0);
+        target = false;
     }
 }
