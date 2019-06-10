@@ -12,6 +12,7 @@ TagManager:
   - Gripper
   - test
   - boxColliderChild
+  - Table
   layers:
   - Default
   - TransparentFX

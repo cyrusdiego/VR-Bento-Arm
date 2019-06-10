@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chopstick : MonoBehaviour
+public class HandRotation : MonoBehaviour
 {
     private ConfigurableJoint cj = null;
     private Rigidbody rb = null;
@@ -21,6 +21,10 @@ public class Chopstick : MonoBehaviour
         motor.positionDamper = motorTorque / maxSpeedLimit;
         cj.angularXDrive = motor;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
+
+        // Prevents the right end effector from being disassembled
+        cj.projectionMode = JointProjectionMode.PositionAndRotation;
+        cj.projectionAngle = 0.1f;
     }
 
     void Update()
@@ -60,7 +64,7 @@ public class Chopstick : MonoBehaviour
             {
                 setTargetRotation();
             }
-            rb.angularVelocity = Vector3.zero;
+            // rb.angularVelocity = Vector3.zero;
             cj.targetAngularVelocity = Vector3.zero;
             cj.targetRotation = targetRotation;
             motor.maximumForce = motorTorque;
@@ -68,6 +72,12 @@ public class Chopstick : MonoBehaviour
             cj.angularXDrive = motor;
             target = false;
             keyPress = false;
+            cj.xMotion = ConfigurableJointMotion.Locked;
+            cj.yMotion = ConfigurableJointMotion.Locked;
+            cj.zMotion = ConfigurableJointMotion.Locked;
+            // cj.angularXMotion = ConfigurableJointMotion.Locked;
+            cj.angularYMotion = ConfigurableJointMotion.Locked;
+            cj.angularZMotion = ConfigurableJointMotion.Locked;
         }
     }
     private void setTargetRotation()

@@ -434,3 +434,25 @@ FUTURE IMPROVEMENTS:
     - config joint help [link](https://answers.unity.com/questions/1276071/configurablejoint-target-positionrotation-issues-1.html)
     - position spring and damper [link](https://answers.unity.com/questions/29625/configurable-joint-what-does-position-spring-and-d.html)
     - position sping and damper [link](https://forum.unity.com/threads/cant-set-a-joints-drive-mode-positional-velocity-in-5-5.452666/)
+
+**June 7**
+- Worked with Quinn and Riley to figure out the physics engine 
+- Got configurable joints working and a full (?) understanding of their drive system
+- Each Rigidbody has their mass defined and their degree of motion 
+- The Wrist and Elbow do have a bug where it has weird behaviour passed 90 degrees 
+
+**June 10** 
+*TODO* 
+    - Fix elbow and wrist bug (DONE)
+    - Improve Arm movement 
+        - basically figuring out spring value so that the arm segments will move realisticaly if say the chopsticks were rubbing against the table would the shoulder move with it?? 
+    
+- Naming convention of files / gameobjects are with the equivalent arm part 
+*RESOURCES*
+    - explaining quaternions [link](https://answers.unity.com/questions/645903/please-explain-quaternions.html)
+    - how to get inspector values [link](https://answers.unity.com/questions/1589025/how-to-get-inspector-rotation-values.html)
+    - rigidbody help [link](https://www.3dgep.com/physics-in-unity-3-5/)
+    - to get forces applied on rigidbody use onCollisionstay and `collision.impulse` 
+    - friction [link](https://forum.unity.com/threads/solved-friction-force-and-acceleration.505260/)
+- 10:49am -> this is what the rotations look like [link](https://answers.unity.com/questions/1299082/transformeulerangles-x-issues.html)
+but flipped about x axis, so, bottom half is 270 - 360 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Forearm : MonoBehaviour
+public class ElbowRotation : MonoBehaviour
 {
     private ConfigurableJoint cj = null;
     private Rigidbody rb = null;
@@ -18,9 +18,10 @@ public class Forearm : MonoBehaviour
     {
         cj = gameObject.GetComponent<ConfigurableJoint>();
         rb = gameObject.GetComponent<Rigidbody>();
-        motor.positionDamper = motorTorque / maxSpeedLimit;
         cj.angularXDrive = motor;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
+        cj.projectionMode = JointProjectionMode.PositionAndRotation;
+        cj.projectionAngle = 0.1f;
     }
 
     void FixedUpdate()
@@ -30,6 +31,7 @@ public class Forearm : MonoBehaviour
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
+            motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.x);
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
             target = true;
@@ -39,6 +41,7 @@ public class Forearm : MonoBehaviour
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
+            motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.x);
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
             target = true;
@@ -49,11 +52,12 @@ public class Forearm : MonoBehaviour
             {
                 setTargetRotation();
             }
-            rb.angularVelocity = Vector3.zero;
+            // rb.angularVelocity = Vector3.zero;
             cj.targetAngularVelocity = Vector3.zero;
             cj.targetRotation = targetRotation;
             motor.maximumForce = motorTorque;
-            motor.positionSpring = 1000000000;
+            motor.positionSpring = 10000000000000;
+            motor.positionDamper = 0;
             cj.angularXDrive = motor;
             target = false;
 
@@ -67,9 +71,9 @@ public class Forearm : MonoBehaviour
     }
     private void setTargetRotation()
     {
-        targetRotation = Quaternion.Euler(-gameObject.transform.localEulerAngles.x,0,0);
-        print("___FOREARM TRANSFORM__" + gameObject.transform.localEulerAngles.x);
-        print("____FOREARM QUATERNION___" + targetRotation.eulerAngles.x);
+        // Grabs rotation about x from the inspector 
+        float xInspectorRotation = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x;
+        targetRotation = Quaternion.Euler(-xInspectorRotation,0,0);
         target = false;
     }
 }

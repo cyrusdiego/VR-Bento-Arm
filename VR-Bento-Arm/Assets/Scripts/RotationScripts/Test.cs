@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    // Update is called once per frame
-    void FixedUpdate()
+    private Vector3 dir;
+    void OnCollisionStay(Collision other)
     {
-        gameObject.GetComponent<Rigidbody>().AddForce(0,0.02f * 9810f,0);
+        Vector3 force = other.impulse / Time.deltaTime;
+        dir = force;
+        print(force);
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        Debug.DrawRay(gameObject.transform.position, 1000 * Vector3.down,Color.yellow);
+        Debug.DrawRay(gameObject.transform.position,1000*dir,Color.blue);
+        Debug.DrawRay(gameObject.transform.position,-1000*dir,Color.blue);
+        Debug.DrawRay(gameObject.transform.position,new Vector3(dir.x,0,0),Color.red);
+
     }
 }
