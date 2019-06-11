@@ -456,3 +456,16 @@ FUTURE IMPROVEMENTS:
     - friction [link](https://forum.unity.com/threads/solved-friction-force-and-acceleration.505260/)
 - 10:49am -> this is what the rotations look like [link](https://answers.unity.com/questions/1299082/transformeulerangles-x-issues.html)
 but flipped about x axis, so, bottom half is 270 - 360 
+
+**June 11**
+*TODO*
+    - Friction 
+        - Increasing mass of the grippers (BOTH Chopsticks wrapper AND the Hand wrapper) to 1 provided enough force to lift the box with gravity ON, 
+        BUT it is very buggy, the grippers seem to go through the box and slight movement will let the box go
+    - Arm movement
+        - Arm still moves very rubbery? very hard to control for fine movement 
+
+*PROBLEMS + RESOURCES*
+    - objects "sink" though the table UNLESS I shut off gravity for the table [link](https://answers.unity.com/questions/453248/rigidbodies-sinking-through-surfaces.html)
+    - phyics behind the end effectors [link](https://en.wikipedia.org/wiki/Robot_end_effector)
+    - PHYSX for surgery sim, theres a gripper tool [link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2810833/)

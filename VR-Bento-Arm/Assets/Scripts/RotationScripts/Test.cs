@@ -12,9 +12,6 @@ public class Test : MonoBehaviour
         print(force);
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
     void Update()
     {
         Debug.DrawRay(gameObject.transform.position, 1000 * Vector3.down,Color.yellow);
