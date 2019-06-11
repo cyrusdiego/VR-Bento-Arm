@@ -479,3 +479,17 @@ but flipped about x axis, so, bottom half is 270 - 360
             - cons: this can potentially be buggy still and again does not rely on Unity's physics built in physics engine to handle the work
         - create a very un-noticeable box collider in the gripper that acts like a tooth to pick up objects 
 - changed bounce threshold was 2 originally
+- Messaged someone on unity forums with similar problem, should check inbox every now and then
+
+- the grippers need to limit the amount of force / torque is applied to objects:
+    - basically need to stop rotating when it has an object in hand 
+    - this will prevent it from going through the primitive and from the object from tunnelling under [link](https://forum.unity.com/threads/collision-problems-with-robotic-jaw.103010/)
+
+*RESOURCES*
+    - damp value for configurable joint cannot be 0 [link](https://issuetracker.unity3d.com/issues/configurablejoints-target-velocity-does-not-move-object-unless-position-damper-greater-than-0)
+    - config joint, target velocity [link](https://forum.unity.com/threads/configurable-joint-target-velocity.309359/)
+    - PID [link](https://answers.unity.com/questions/236144/rotate-using-physics.html)
+
+- Tried creating a wrapper class to do the rotations for but it didnt work as well??? for some reason i think the rotating one segment affected the others 
+- gravity for sure works ==> tested with dropping a ball 
+- torque i am not sure if it is correct with the current model of the joint, might want to make PID model 

@@ -29,7 +29,7 @@ public class ElbowRotation : MonoBehaviour
         if(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
             motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.x);
             motor.positionSpring = 0;
@@ -39,7 +39,7 @@ public class ElbowRotation : MonoBehaviour
         else if(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") <= -0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
             motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.x);
             motor.positionSpring = 0;
@@ -73,7 +73,7 @@ public class ElbowRotation : MonoBehaviour
     {
         // Grabs rotation about x from the inspector 
         float xInspectorRotation = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x;
-        targetRotation = Quaternion.Euler(-xInspectorRotation,0,0);
+        targetRotation = Quaternion.Euler(xInspectorRotation,0,0);
         target = false;
     }
 }

@@ -28,7 +28,7 @@ public class WristFlexion : MonoBehaviour
         if(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
@@ -37,7 +37,7 @@ public class WristFlexion : MonoBehaviour
         else if(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT") <= -0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
@@ -67,7 +67,7 @@ public class WristFlexion : MonoBehaviour
     private void setTargetRotation()
     {
         float xInspectorRotation = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x;
-        targetRotation = Quaternion.Euler(-xInspectorRotation,0,0);
+        targetRotation = Quaternion.Euler(xInspectorRotation,0,0);
         target = false;
     }
 }
