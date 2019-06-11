@@ -11,7 +11,6 @@ public class Test : MonoBehaviour
         dir = force;
         print(force);
     }
-
     void Update()
     {
         Debug.DrawRay(gameObject.transform.position, 1000 * Vector3.down,Color.yellow);

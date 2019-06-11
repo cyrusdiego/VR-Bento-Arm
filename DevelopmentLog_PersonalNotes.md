@@ -469,3 +469,13 @@ but flipped about x axis, so, bottom half is 270 - 360
     - objects "sink" though the table UNLESS I shut off gravity for the table [link](https://answers.unity.com/questions/453248/rigidbodies-sinking-through-surfaces.html)
     - phyics behind the end effectors [link](https://en.wikipedia.org/wiki/Robot_end_effector)
     - PHYSX for surgery sim, theres a gripper tool [link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2810833/)
+
+*OPTIONS TO FRICTION*
+        - increase mass of end effectors (and/or) decrease mass of object
+        - attatch a script to end effectors such that on contact (and while in contact) w/ 
+        appropriate object tag, they will grab the object information (mass) and use
+        `rigidbody.addForce(Vector3)` to the normal of the grippers in the direction 
+        of the contact points 
+            - cons: this can potentially be buggy still and again does not rely on Unity's physics built in physics engine to handle the work
+        - create a very un-noticeable box collider in the gripper that acts like a tooth to pick up objects 
+- changed bounce threshold was 2 originally
