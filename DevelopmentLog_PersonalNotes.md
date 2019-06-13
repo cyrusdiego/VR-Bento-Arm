@@ -569,3 +569,10 @@ Getting started:
     - `unsafe` code enable [link](https://stackoverflow.com/questions/39132079/how-to-use-unsafe-code-unity)
 **I had to add the DOTSJoints folder in assets AND a mcs.rsp file to allow it to compile**
 - meshes are incredibly expensive i guess because changing the cup to a mesh and the end effectors caused unity to stop responding 
+
+*TODO*
+    - redo controller scripts for the arm 
+    - redo the shell toggling
+    - use unity physics for the scene 
+
+- *Error* (Entities 0.0.12-preview.5 C# 6.0 Error) entity component system [link](https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/31)
