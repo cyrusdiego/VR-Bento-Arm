@@ -18,7 +18,6 @@ public class WristRotation: MonoBehaviour
     {
         cj = gameObject.GetComponent<ConfigurableJoint>();
         rb = gameObject.GetComponent<Rigidbody>();
-        motor.positionDamper = motorTorque / maxSpeedLimit;
         cj.angularXDrive = motor;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
         cj.angularXMotion = ConfigurableJointMotion.Free;
@@ -28,21 +27,23 @@ public class WristRotation: MonoBehaviour
     {
                     rb.constraints = RigidbodyConstraints.None;
 
-        if(Input.GetAxis("TOUCHPAD_HORIZONTAL_RIGHT") >= 0.5)
+        if(Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
+            motor.positionDamper = motorTorque / maxSpeedLimit;
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
             target = true;
 
         }
-        else if(Input.GetAxis("TOUCHPAD_HORIZONTAL_RIGHT") <= -0.5)
+        else if(Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT") <= -0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
+            motor.positionDamper = motorTorque / maxSpeedLimit;
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
             target = true;
@@ -53,10 +54,11 @@ public class WristRotation: MonoBehaviour
             {
                 setTargetRotation();
             }
-            // rb.angularVelocity = Vector3.zero;
             cj.targetAngularVelocity = Vector3.zero;
             motor.maximumForce = motorTorque;
             motor.positionSpring = 100000000000000;
+            motor.positionDamper = 0;
+            cj.angularXDrive = motor;
             target = false;
             rb.constraints = RigidbodyConstraints.FreezeRotationX;
 

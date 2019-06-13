@@ -26,22 +26,22 @@ public class ShoulderRotation : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") >= 0.5)
+        if(Input.GetAxis("THUMBSTICK_HORIZONTAL_LEFT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
             motor.positionSpring = 0;
-            motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.y);
+            motor.positionDamper = motorTorque / maxSpeedLimit;
             cj.angularXDrive = motor;
             target = true;
         }
-        else if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") <= -0.5)
+        else if(Input.GetAxis("THUMBSTICK_HORIZONTAL_LEFT") <= -0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
-            motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.y);
+            motor.positionDamper = motorTorque / maxSpeedLimit;
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
             target = true;
@@ -53,7 +53,6 @@ public class ShoulderRotation : MonoBehaviour
             {
                 setTargetRotation();
             }
-            // rb.angularVelocity = Vector3.zero;
             cj.targetAngularVelocity = Vector3.zero;
             cj.targetRotation = targetRotation;
             motor.maximumForce = motorTorque;

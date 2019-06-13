@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Table : MonoBehaviour
+public class Test2 : MonoBehaviour
 {
-
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<Rigidbody>().AddForce(9810,0,0);
+        gameObject.GetComponent<Rigidbody>().AddForce(-9810,0,0);
     }
 }

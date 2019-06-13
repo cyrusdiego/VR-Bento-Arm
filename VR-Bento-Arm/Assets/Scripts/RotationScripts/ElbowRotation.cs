@@ -23,7 +23,6 @@ public class ElbowRotation : MonoBehaviour
         cj.projectionMode = JointProjectionMode.PositionAndRotation;
         cj.projectionAngle = 0.1f;
     }
-
     void FixedUpdate()
     {      
         if(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT") >= 0.5)
@@ -45,7 +44,7 @@ public class ElbowRotation : MonoBehaviour
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
             target = true;
-        }
+        }   
         else
         {
             if(target)

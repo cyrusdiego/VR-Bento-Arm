@@ -11,9 +11,7 @@ public class HandRotation : MonoBehaviour
     private float motorTorque = 978000;
     private bool target = true;
     private Quaternion targetRotation;
-    private float hKeyPressTime,gKeyPressTime;
-    private float minTime = 0.01f;
-    private bool keyPress = false;
+
     void Start()
     {
         cj = gameObject.GetComponent<ConfigurableJoint>();
@@ -27,58 +25,47 @@ public class HandRotation : MonoBehaviour
         cj.projectionAngle = 0.1f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        keyPress = false;
-        if (Input.GetKeyDown(KeyCode.G)) {
-            gKeyPressTime = Time.timeSinceLevelLoad;
-        }
-        if (Input.GetKey(KeyCode.G)) {
-            if (Time.timeSinceLevelLoad - gKeyPressTime > minTime) {
-                cj.angularXMotion = ConfigurableJointMotion.Free;
-                cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
-                motor.maximumForce = motorTorque;
-                motor.positionSpring = 0;
-                cj.angularXDrive = motor;
-                target = true;
-                keyPress = true;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.H)) {
-            hKeyPressTime = Time.timeSinceLevelLoad;
-        }
-        if (Input.GetKey(KeyCode.H)) {
-            if (Time.timeSinceLevelLoad - hKeyPressTime > minTime) {
-                cj.angularXMotion = ConfigurableJointMotion.Free;
-                cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
-                motor.maximumForce = motorTorque;
-                motor.positionSpring = 0;
-                cj.angularXDrive = motor;
-                target = true;
-                keyPress = true;
-            }
-        }
-        if(!keyPress)
+        if(Input.GetButton("SELECT_TRIGGER_PRESS_LEFT"))
         {
-            if(target)
-            {
-                setTargetRotation();
-            }
-            // rb.angularVelocity = Vector3.zero;
-            cj.targetAngularVelocity = Vector3.zero;
-            cj.targetRotation = targetRotation;
+            cj.angularXMotion = ConfigurableJointMotion.Free;
+            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
             motor.maximumForce = motorTorque;
-            motor.positionSpring = 1000000000;
+            motor.positionSpring = 0;
             cj.angularXDrive = motor;
-            target = false;
-            keyPress = false;
-            cj.xMotion = ConfigurableJointMotion.Locked;
-            cj.yMotion = ConfigurableJointMotion.Locked;
-            cj.zMotion = ConfigurableJointMotion.Locked;
-            // cj.angularXMotion = ConfigurableJointMotion.Locked;
-            cj.angularYMotion = ConfigurableJointMotion.Locked;
-            cj.angularZMotion = ConfigurableJointMotion.Locked;
+            target = true;
+            return;
         }
+        if(Input.GetButton("SELECT_TRIGGER_PRESS_RIGHT"))
+        {
+            cj.angularXMotion = ConfigurableJointMotion.Free;
+            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+            motor.maximumForce = motorTorque;
+            motor.positionSpring = 0;
+            cj.angularXDrive = motor;
+            target = true;
+            return;
+        }
+            
+        if(target)
+        {
+            setTargetRotation();
+        }
+        // rb.angularVelocity = Vector3.zero;
+        cj.targetAngularVelocity = Vector3.zero;
+        cj.targetRotation = targetRotation;
+        motor.maximumForce = motorTorque;
+        motor.positionSpring = 1000000000;
+        cj.angularXDrive = motor;
+        target = false;
+        cj.xMotion = ConfigurableJointMotion.Locked;
+        cj.yMotion = ConfigurableJointMotion.Locked;
+        cj.zMotion = ConfigurableJointMotion.Locked;
+        // cj.angularXMotion = ConfigurableJointMotion.Locked;
+        cj.angularYMotion = ConfigurableJointMotion.Locked;
+        cj.angularZMotion = ConfigurableJointMotion.Locked;
+        
     }
     private void setTargetRotation()
     {

@@ -576,3 +576,15 @@ Getting started:
     - use unity physics for the scene 
 
 - *Error* (Entities 0.0.12-preview.5 C# 6.0 Error) entity component system [link](https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/31)
+- to use Unity physics, follow the installation guide in unity github (for ecs project) 
+
+- if i switch to unity physics: would have to reimplement the arm using unity physics "components", no available joint drives so would need to create another script to model a motor (a PID) and this won't guarantee 
+it would fix the problem with friction
+
+- i dont think i need to switch to unity physics
+    - so if i hold down the "close" button on the hand itll actually keep the ball up
+    - so there IS enough torque to lift the ball
+    - the problem was that there was no "continuous" force to keep the friction on the ball
+    - ball still falls when theres rapid stop (like hitting an edge case of the arm) or when moving side to side (probably the torque of one direction (elbow) unbalances the torque applied by the hand)
+    - does this make sense: w/ the real bento arm, when it picks up an objects the motor doesnt apply any more torque so what supplies the normal force? the object and the end effector but theres also grippers that provide extra frictional forces and contact points. i raised the mass of the endd effector to 0.2 and it was able to raise the object easily. object does jitter and the arm is "weak" to raise it ? but it does raise it 
+- problems with the config joint at edge cases (push elbow up -> move shoulder left and right) it gets stiff sometimes i dont know why ... 
