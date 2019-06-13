@@ -493,3 +493,79 @@ but flipped about x axis, so, bottom half is 270 - 360
 - Tried creating a wrapper class to do the rotations for but it didnt work as well??? for some reason i think the rotating one segment affected the others 
 - gravity for sure works ==> tested with dropping a ball 
 - torque i am not sure if it is correct with the current model of the joint, might want to make PID model 
+
+- torque i am not sure if it is correct with the current model of the joint, might want to make PID model for more control?
+
+**June 12**
+*RESOURCES* 
+    - rigidbody and collisions [link](https://www.reddit.com/r/Unity3D/comments/1ee65w/having_wonky_collisions_rigidbodies_being_weird/)
+
+- table doesnt need a rigidbody because its not moving !
+- pressing touchpad on right controller will toggle arm shells (resetting scene) 
+- looked into deformable bodies a little, it is quite difficult to implement as id need to learn about deforming meshes and its colliders 
+
+- will be moving on to a new physics engine learning how it works now:
+    - DOTS based project (PhysX vs DOTS)[link](https://forum.unity.com/threads/unity-physics-discussion.646486/#post-4336105)
+    - do I have to use ECS to use new physics system? [link](https://forum.unity.com/threads/do-i-have-to-use-ecs-to-use-the-new-physics-system.647035/)
+    - leveraging DOTS powered physics [link](https://www.youtube.com/watch?v=yuqM-Z-NauU)
+    - intro to ECS [link](https://www.youtube.com/watch?v=WLfhUKp2gag&list=PLX2vGYjWbI0S4yHZwjDI1boIrYStpBCdN)
+
+**June 13**
+*RESOURCES*
+Leveraging DOTS powered physics:
+
+*DOTS System* 
+*Burst Compiler*
+    - optimized assembly 
+    - C# code to be as fast as C++ 
+    - all physics jobs use burst 
+        - siumulation query jobs
+    - implications: supports subsets of C# no classes means no inheritance
+    - collider implements own virtual table
+*Entity component system* 
+    - design: layout components linearly in memory
+        - but physics needs random access 
+    - `EntityManager.GetCOmponent()` is slow
+    - instead design: uses ICompnentData's to define entity physics properties and mirrors ECS world into physics of NativeArrays
+    - Physics Collider (collision world) describes geometry and stored as blittable blob
+    - physivs velcoity (dynamics world) linear and angular
+    - physics mass (dynamic world) mass and inertia property 
+    - physicsjoint (dynamics world) joints definition and pair of entities 
+    - as a user, would only deal with components (in entity component system) and deal with them (ie rigidbody or joint) 
+*Job System*
+    - Broad Phase -> narrow phase -> solve 
+    - *Broad Phase* determine / detect which rigidbodies that are in contact or might be in contact
+        - output is list of rigidbody pairs 
+    - *Narrow Phase* low level collision detection algorithms and produces contact points 
+        - outputs to jacobians : mathematical model of all of them 
+    - *Solve* takes all the jacobians and determines output
+        - this last part has a lot of dependencies behind it and multithreading optimizes this 
+- multithreading the simulation is critical 
+    - maximize threads 
+- collision detection is highly parallelizable 
+    - granularity is per body pair 
+- look for pair of rigidbodies that can be solves in paralel 
+    - take these pairs and puts them into phases 
+
+*DEMO*
+    - Add "components" within the inspector 
+    1) add "physics shape" 
+        - this describes the shape of the objects -> basically wraps rigidbody and collider in one 
+    2) add "physics body"
+        - needed if you want it to move
+            - dynamic: it can move and others can move it, kinematic: it can move and push others but others cant move it, static: 
+    - Queries: "view" on the physics world by showing the ray casts in the scene 
+
+Unity Physics Documentation [link](https://docs.unity3d.com/Packages/com.unity.physics@0.1/manual/index.html)
+
+*Unity Physics* 
+Design:
+    - Stateless: most physics engines have large amounts of cached state to achieve high performance. cost: added complexity in simulation pipeline 
+    - modular: core algorithms are deliberatley decoupled from jobs and ECS to encourage their reuse 
+    - high performant
+Getting started:
+    - not having "physics body" will assume its static (anything not meant to move)
+
+    - `unsafe` code enable [link](https://stackoverflow.com/questions/39132079/how-to-use-unsafe-code-unity)
+**I had to add the DOTSJoints folder in assets AND a mcs.rsp file to allow it to compile**
+- meshes are incredibly expensive i guess because changing the cup to a mesh and the end effectors caused unity to stop responding 
