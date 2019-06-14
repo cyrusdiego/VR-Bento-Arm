@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/* 
+    BLINC LAB VIPER Project 
+    RotationBase.cs 
+    Created by: Cyrus Diego May 14, 2019 
+
+    Base class to control motor and arm rotations for each arm segment
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +25,10 @@ public class RotationBase : MonoBehaviour
     protected enum Axis {x,y,z};
     protected Axis axis;
 
+    /*
+        @breif: stores the rotation axis for later use
+        @param: integer mapping to an axis
+    */
     protected void setRotationAxis(int x)
     {
         if(x == 1)
@@ -33,8 +45,13 @@ public class RotationBase : MonoBehaviour
         }
     }
 
+    /*
+        @brief: rotates the arm segment using the configurable joint
+        @param: axis value from specifies joystick / button
+    */
     protected void getAxis(float axisValue)
     {
+        // determines the damp value based on which axis
         switch(axis)
         {
             case Axis.x:
@@ -51,6 +68,7 @@ public class RotationBase : MonoBehaviour
         motor.maximumForce = motorTorque;
         motor.positionSpring = 0;
 
+        // Rotates CW or CCW based on axis values from joystick / button
         if(axisValue >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
@@ -90,6 +108,10 @@ public class RotationBase : MonoBehaviour
             cj.angularZMotion = ConfigurableJointMotion.Locked;
         }
     }
+
+    /*
+        @brief: gets the current rotation from the inspector 
+    */
     protected void setTargetRotation()
     {
         float inspectorRotation = 0;
@@ -107,6 +129,7 @@ public class RotationBase : MonoBehaviour
             break;
         }
 
+        // Convert the rotation angle to quaternions
         targetRotation = Quaternion.Euler(inspectorRotation,0,0);
         target = false;
     }

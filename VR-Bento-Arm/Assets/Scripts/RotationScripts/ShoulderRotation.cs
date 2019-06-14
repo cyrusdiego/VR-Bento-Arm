@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/* 
+    BLINC LAB VIPER Project 
+    ShoulderRotation.cs 
+    Created by: Cyrus Diego May 14, 2019 
+
+    Inherits from RotationBase class and controls the arm's shoulder 
+    rotation. Attatched to the bicep game object. 
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,8 +21,11 @@ public class ShoulderRotation : RotationBase
         rb = gameObject.GetComponent<Rigidbody>();
         go = gameObject;
 
+        // Servo motor specs
         motorTorque = 1319000f;
         maxSpeedLimit = 0.61f;
+
+        cj.rotationDriveMode = RotationDriveMode.XYAndZ;
 
     }
 
