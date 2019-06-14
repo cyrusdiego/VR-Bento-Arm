@@ -8,13 +8,11 @@ public class ShoulderRotation : MonoBehaviour
     private Rigidbody rb = null;
     private JointDrive motor;
 
-    private float damp = 1;
+    // Servo specs
     private float motorTorque = 1319000f;
     private float maxSpeedLimit = 0.61f;
     private Quaternion targetRotation;
     private bool target = true;
-    private SoftJointLimit lowLimit;
-    private SoftJointLimit upperLimit;
 
     void Start()
     {
@@ -24,15 +22,18 @@ public class ShoulderRotation : MonoBehaviour
         cj.angularXDrive = motor;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
+
     void FixedUpdate()
     {
         if(Input.GetAxis("THUMBSTICK_HORIZONTAL_LEFT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+
             motor.maximumForce = motorTorque;
             motor.positionSpring = 0;
-            motor.positionDamper = motorTorque / maxSpeedLimit;
+            motor.positionDamper = motorTorque /(maxSpeedLimit - rb.angularVelocity.y);
+            
             cj.angularXDrive = motor;
             target = true;
         }
@@ -40,9 +41,11 @@ public class ShoulderRotation : MonoBehaviour
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+
             motor.maximumForce = motorTorque;
-            motor.positionDamper = motorTorque / maxSpeedLimit;
             motor.positionSpring = 0;
+            motor.positionDamper = motorTorque /(maxSpeedLimit - rb.angularVelocity.y);
+            
             cj.angularXDrive = motor;
             target = true;
 
@@ -55,9 +58,11 @@ public class ShoulderRotation : MonoBehaviour
             }
             cj.targetAngularVelocity = Vector3.zero;
             cj.targetRotation = targetRotation;
+
             motor.maximumForce = motorTorque;
             motor.positionSpring = 1000000000;
             motor.positionDamper = 0;
+            
             cj.angularXDrive = motor;
             target = false;
 

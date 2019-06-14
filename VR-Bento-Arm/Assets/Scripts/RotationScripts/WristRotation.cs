@@ -7,32 +7,31 @@ public class WristRotation: MonoBehaviour
     private ConfigurableJoint cj = null;
     private Rigidbody rb = null;
     private JointDrive motor;
-    private float maxSpeedLimit = 1.03f;
+
+    // Servo specs
     private float motorTorque = 611000;
-    private float stallTorque = 250000;
+    private float maxSpeedLimit = 1.03f;
     private Quaternion targetRotation;
     private bool target = true;
-    private SoftJointLimit lowLimit;
-    private SoftJointLimit upperLimit;
+
     void Start()
     {
         cj = gameObject.GetComponent<ConfigurableJoint>();
         rb = gameObject.GetComponent<Rigidbody>();
+
         cj.angularXDrive = motor;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
-        cj.angularXMotion = ConfigurableJointMotion.Free;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-                    rb.constraints = RigidbodyConstraints.None;
-
         if(Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT") >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+
             motor.maximumForce = motorTorque;
-            motor.positionDamper = motorTorque / maxSpeedLimit;
+            motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.x);
             motor.positionSpring = 0;
             cj.angularXDrive = motor;
             target = true;
@@ -42,9 +41,11 @@ public class WristRotation: MonoBehaviour
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+
             motor.maximumForce = motorTorque;
-            motor.positionDamper = motorTorque / maxSpeedLimit;
+            motor.positionDamper = motorTorque / (maxSpeedLimit - rb.angularVelocity.x);
             motor.positionSpring = 0;
+
             cj.angularXDrive = motor;
             target = true;
         }
@@ -55,13 +56,16 @@ public class WristRotation: MonoBehaviour
                 setTargetRotation();
             }
             cj.targetAngularVelocity = Vector3.zero;
+            cj.targetRotation = targetRotation;
+
             motor.maximumForce = motorTorque;
-            motor.positionSpring = 100000000000000;
+            motor.positionSpring = 1000000000;
             motor.positionDamper = 0;
+
             cj.angularXDrive = motor;
             target = false;
-            rb.constraints = RigidbodyConstraints.FreezeRotationX;
 
+            // Ensures it doesn't move in other axes
             cj.xMotion = ConfigurableJointMotion.Locked;
             cj.yMotion = ConfigurableJointMotion.Locked;
             cj.zMotion = ConfigurableJointMotion.Locked;
@@ -71,7 +75,8 @@ public class WristRotation: MonoBehaviour
     }
     private void setTargetRotation()
     {
-        targetRotation = Quaternion.Euler(-gameObject.transform.localEulerAngles.z,0,0);
+        float xInspectorRotation = UnityEditor.TransformUtils.GetInspectorRotation(gameObject.transform).x;
+        targetRotation = Quaternion.Euler(-xInspectorRotation,0,0);
         target = false;
     }
 }
