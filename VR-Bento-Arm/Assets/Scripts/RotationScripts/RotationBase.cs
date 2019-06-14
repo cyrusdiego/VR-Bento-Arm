@@ -35,14 +35,26 @@ public class RotationBase : MonoBehaviour
 
     protected void getAxis(float axisValue)
     {
+        switch(axis)
+        {
+            case Axis.x:
+                motor.positionDamper = motorTorque /(maxSpeedLimit - rb.angularVelocity.x);
+            break;
+            case Axis.y:
+                motor.positionDamper = motorTorque /(maxSpeedLimit - rb.angularVelocity.y);
+            break;
+            case Axis.z:
+                motor.positionDamper = motorTorque /(maxSpeedLimit - rb.angularVelocity.z);
+            break;
+        }
+
+        motor.maximumForce = motorTorque;
+        motor.positionSpring = 0;
+
         if(axisValue >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
-
-            motor.maximumForce = motorTorque;
-            motor.positionSpring = 0;
-            motor.positionDamper = motorTorque /(maxSpeedLimit - rb.angularVelocity.y);
             
             cj.angularXDrive = motor;
             target = true;
@@ -52,10 +64,6 @@ public class RotationBase : MonoBehaviour
             cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
 
-            motor.maximumForce = motorTorque;
-            motor.positionSpring = 0;
-            motor.positionDamper = motorTorque /(maxSpeedLimit - rb.angularVelocity.y);
-            
             cj.angularXDrive = motor;
             target = true;
         }
@@ -98,6 +106,7 @@ public class RotationBase : MonoBehaviour
                 inspectorRotation = UnityEditor.TransformUtils.GetInspectorRotation(go.transform).z;
             break;
         }
+
         targetRotation = Quaternion.Euler(inspectorRotation,0,0);
         target = false;
     }

@@ -618,7 +618,7 @@ ConfigurableJoint:
   m_GameObject: {fileID: 171131197}
   m_ConnectedBody: {fileID: 762906907}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
+  m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0.6999741, y: -3.4870605, z: -84.4002}
   serializedVersion: 2
@@ -997,7 +997,7 @@ ConfigurableJoint:
   m_GameObject: {fileID: 306394096}
   m_ConnectedBody: {fileID: 539218190}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
+  m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: -5.2000103, y: -3.0000153, z: -155.8001}
   serializedVersion: 2
@@ -1956,7 +1956,7 @@ ConfigurableJoint:
   m_GameObject: {fileID: 670377871}
   m_ConnectedBody: {fileID: 1096594369}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
+  m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: -23.469944, y: -15.578125, z: 18.69998}
   serializedVersion: 2
