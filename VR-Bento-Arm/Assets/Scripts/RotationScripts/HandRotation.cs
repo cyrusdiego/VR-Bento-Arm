@@ -38,13 +38,13 @@ public class HandRotation : RotationBase
     {
         if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT") >= 0.5)
         {
-            axisValue = -1 * Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT");
+            axisValue = Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT");
             getAxis(axisValue);
             return;
         }
         if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT") >= 0.5)
         {
-            axisValue = Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT");
+            axisValue = -1 * Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT");
             getAxis(axisValue);
             return;
         }

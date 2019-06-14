@@ -587,7 +587,7 @@ it would fix the problem with friction
     - the problem was that there was no "continuous" force to keep the friction on the ball
     - ball still falls when theres rapid stop (like hitting an edge case of the arm) or when moving side to side (probably the torque of one direction (elbow) unbalances the torque applied by the hand)
     - does this make sense: w/ the real bento arm, when it picks up an objects the motor doesnt apply any more torque so what supplies the normal force? the object and the end effector but theres also grippers that provide extra frictional forces and contact points. i raised the mass of the endd effector to 0.2 and it was able to raise the object easily. object does jitter and the arm is "weak" to raise it ? but it does raise it 
-- problems with the config joint at edge cases (push elbow up -> move shoulder left and right) it gets stiff sometimes i dont know why ... 
+- problems with the config joint at edge cases (push elbow up -> move shoulder left and right) it gets stiff sometimes i dont know why ... (FIXED)
 
 **June 14**
 - still have mcs.rsp file in assets 
