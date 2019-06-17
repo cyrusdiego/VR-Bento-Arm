@@ -1,46 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Test : MonoBehaviour
+using System.Threading;
+public class test : MonoBehaviour
 {
-    private bool touchingTable = true;
+ 
+    Thread thread; 
 
     /// <summary>
-    /// OnCollisionExit is called when this collider/rigidbody has
-    /// stopped touching another rigidbody/collider.
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods is called the first time.
     /// </summary>
-    /// <param name="other">The Collision data associated with this collision.</param>
-    void OnCollisionExit(Collision other)
+    void Start()
     {
-        if(other.gameObject.tag == "Table")
-        {
-            touchingTable = false;
-        }
+        thread = new Thread(printing);
+        print("starting thread");
+        thread.Start();
+        print("started thread");
     }
-
-    /// <summary>
-    /// OnCollisionEnter is called when this collider/rigidbody has begun
-    /// touching another rigidbody/collider.
-    /// </summary>
-    /// <param name="other">The Collision data associated with this collision.</param>
-    void OnCollisionEnter(Collision other)
-    {
-        if(other.gameObject.tag == "Table")
-        {
-            touchingTable = true;
-        }
-    }
-
-    /// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void FixedUpdate()
-    {
-        if(!touchingTable)
-        {
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        }
+    void printing(){
+        while(true)
+        print("inside thread");
     }
 }

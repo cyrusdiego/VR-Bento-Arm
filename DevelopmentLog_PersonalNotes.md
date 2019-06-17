@@ -622,3 +622,6 @@ it would fix the problem with friction
             udpClientTX.Send(packet, packet.Length, ipEndPointTX);
 ```
 in `KB_conncect_Click()` because the surprise demo button was greyed out and i just need a place to put it in.
+
+- if "W" is pressed from brachIOplexus, will move the elbow :)
+- i think im having problems with the main and sub threads running, it doesnt refresh on screen

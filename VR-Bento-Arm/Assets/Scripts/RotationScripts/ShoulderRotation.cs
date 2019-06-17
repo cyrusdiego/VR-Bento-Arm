@@ -34,4 +34,8 @@ public class ShoulderRotation : RotationBase
         // -1 to flip the direction 
         getAxis(-1*Input.GetAxis("THUMBSTICK_HORIZONTAL_LEFT"));
     }
+    public void recieveInput(int i)
+    {
+        getAxis((float)i);
+    }
 }

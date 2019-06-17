@@ -33,4 +33,9 @@ public class ElbowRotation : RotationBase
     {
         getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
     }
+
+    public void recieveInput(int i)
+    {
+        getAxis((float)i);
+    }
 }
