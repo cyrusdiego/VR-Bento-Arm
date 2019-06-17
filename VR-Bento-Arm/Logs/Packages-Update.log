@@ -65,3 +65,11 @@ Update Mode: updateDependencies
 
 The following packages were updated:
   com.unity.textmeshpro from version 2.0.0 to 2.0.1
+
+=== Mon Jun 17 10:08:54 2019
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.xr.windowsmr.metro from version 1.0.9 to 1.0.10

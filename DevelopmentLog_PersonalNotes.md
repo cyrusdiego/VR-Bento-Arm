@@ -591,3 +591,34 @@ it would fix the problem with friction
 
 **June 14**
 - still have mcs.rsp file in assets 
+- talked with quinn and riley about the arm further, agreed its okay for now (the arm is still kinda springy and this should be fixed)
+- talked with rory to set up UDP connection with Unity (for now it will just be one way proof of concept)
+
+**June 17**
+*TODO*
+    - going to read thru the BrachIOplexus code (UDP Connection) and try to connect to unity 
+
+- Currently the UDPRecieve.cs in Assets/Scripts/old AND UDPTest.cs in Assets/Scripts + the UDPClient in Documents/Cyrus/UDPClient programs work together
+    - UDPClient can send to unity and print the text to the console
+- UDPClient in Documents/Cyrus/UDPClient + UDPtoACE works as well:
+    ```C#
+    string text = Encoding.UTF8.GetString(bytes);
+    Console.Write(text);
+    ```
+
+- Basically I can send data to brachIOplexus but i can recieve rn, i need to fix the UDPtoScript button
+
+*UDP Comms Protocol* 
+- Required: position (?), Velocity, load (?), checksum, which "joystick" or button is pressed 
+- similar to how brachIOplexus has it organized, create an input map that will be updated from udp connections
+
+- was able to get a "proof of concept" of having brachioplexus sending a string to unity 
+- used UDPtest.cs and added 
+```C#
+            udpClientTX = new UdpClient();
+            ipEndPointTX = new IPEndPoint(localAddr, portTX);
+            string text = "yooooo";
+            byte[] packet = Encoding.UTF8.GetBytes(text);
+            udpClientTX.Send(packet, packet.Length, ipEndPointTX);
+```
+in `KB_conncect_Click()` because the surprise demo button was greyed out and i just need a place to put it in.

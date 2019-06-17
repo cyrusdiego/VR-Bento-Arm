@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
@@ -8,40 +8,32 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class UDPRecieve : MonoBehaviour
+public class UDPTest : MonoBehaviour
 {
-    Thread receiveThread;
+    private Int32 port = 30000;
+    private IPAddress local = IPAddress.Parse("127.0.0.1");
     UdpClient client;
-
-    public int port; 
-
-    public string lastReceivedUDPPacket="";
-    public string allReceivedUDPPackets="";
-
+    Thread recievingThread;
+    IPEndPoint endpoint;
     // Start is called before the first frame update
     void Start()
     {
-        print("UDPSend.init()");
+        print("initializing udp client");
+        client = new UdpClient(port);
+        endpoint = new IPEndPoint(local,port);
+        recievingThread = new Thread(recieve);
 
-        port = 9127;
-
-        print("Sending to 127.0.0.1 : "+port);
-        print("Test-Sending to this port");
-
-        receiveThread = new Thread(new ThreadStart(ReceiveData));
-        receiveThread.IsBackground = true;
-        receiveThread.Start();
+        print("starting seperate thread");
+        recievingThread.Start();
     }
 
-    private void ReceiveData()
+    void recieve()
     {
         print("Receiving Data");
-        client = new UdpClient(port);
         while(true)
         {
             try
             {
-                IPEndPoint endpoint = new IPEndPoint(IPAddress.Any, 904);
                 byte[] data = client.Receive(ref endpoint);
 
                 string text = Encoding.UTF8.GetString(data);
@@ -54,5 +46,4 @@ public class UDPRecieve : MonoBehaviour
             }
         }
     }
-    
 }
