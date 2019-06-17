@@ -420,4 +420,205 @@ FUTURE IMPROVEMENTS:
     - `FixedUpdate()` can run once, zero, or several times per frame depending on 
     how many physics frames per second are set in time settings 
     - `FixedUpdate()` should be used when applying forces , torques or other physics related 
-    function so that they will sync with the physics engine q
+    function so that they will sync with the physics engine 
+
+**June 6**
+*TODO*:
+    - research on configurable joints and rigid bodies to try and find a better way 
+    for rotations and collision detection 
+
+*RESEARCH*
+    - the drives for joints are propertional derivative drives [link](https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/guide/Manual/Joints.html)
+    - Axis / Secondary Axis: maybe we can change this every frame to maintain local axes per 
+    motor ?? 
+    - config joint help [link](https://answers.unity.com/questions/1276071/configurablejoint-target-positionrotation-issues-1.html)
+    - position spring and damper [link](https://answers.unity.com/questions/29625/configurable-joint-what-does-position-spring-and-d.html)
+    - position sping and damper [link](https://forum.unity.com/threads/cant-set-a-joints-drive-mode-positional-velocity-in-5-5.452666/)
+
+**June 7**
+- Worked with Quinn and Riley to figure out the physics engine 
+- Got configurable joints working and a full (?) understanding of their drive system
+- Each Rigidbody has their mass defined and their degree of motion 
+- The Wrist and Elbow do have a bug where it has weird behaviour passed 90 degrees 
+
+**June 10** 
+*TODO* 
+    - Fix elbow and wrist bug (DONE)
+    - Improve Arm movement 
+        - basically figuring out spring value so that the arm segments will move realisticaly if say the chopsticks were rubbing against the table would the shoulder move with it?? 
+    
+- Naming convention of files / gameobjects are with the equivalent arm part 
+*RESOURCES*
+    - explaining quaternions [link](https://answers.unity.com/questions/645903/please-explain-quaternions.html)
+    - how to get inspector values [link](https://answers.unity.com/questions/1589025/how-to-get-inspector-rotation-values.html)
+    - rigidbody help [link](https://www.3dgep.com/physics-in-unity-3-5/)
+    - to get forces applied on rigidbody use onCollisionstay and `collision.impulse` 
+    - friction [link](https://forum.unity.com/threads/solved-friction-force-and-acceleration.505260/)
+- 10:49am -> this is what the rotations look like [link](https://answers.unity.com/questions/1299082/transformeulerangles-x-issues.html)
+but flipped about x axis, so, bottom half is 270 - 360 
+
+**June 11**
+*TODO*
+    - Friction 
+        - Increasing mass of the grippers (BOTH Chopsticks wrapper AND the Hand wrapper) to 1 provided enough force to lift the box with gravity ON, 
+        BUT it is very buggy, the grippers seem to go through the box and slight movement will let the box go
+    - Arm movement
+        - Arm still moves very rubbery? very hard to control for fine movement 
+
+*PROBLEMS + RESOURCES*
+    - objects "sink" though the table UNLESS I shut off gravity for the table [link](https://answers.unity.com/questions/453248/rigidbodies-sinking-through-surfaces.html)
+    - phyics behind the end effectors [link](https://en.wikipedia.org/wiki/Robot_end_effector)
+    - PHYSX for surgery sim, theres a gripper tool [link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2810833/)
+
+*OPTIONS TO FRICTION*
+        - increase mass of end effectors (and/or) decrease mass of object
+        - attatch a script to end effectors such that on contact (and while in contact) w/ 
+        appropriate object tag, they will grab the object information (mass) and use
+        `rigidbody.addForce(Vector3)` to the normal of the grippers in the direction 
+        of the contact points 
+            - cons: this can potentially be buggy still and again does not rely on Unity's physics built in physics engine to handle the work
+        - create a very un-noticeable box collider in the gripper that acts like a tooth to pick up objects 
+- changed bounce threshold was 2 originally
+- Messaged someone on unity forums with similar problem, should check inbox every now and then
+
+- the grippers need to limit the amount of force / torque is applied to objects:
+    - basically need to stop rotating when it has an object in hand 
+    - this will prevent it from going through the primitive and from the object from tunnelling under [link](https://forum.unity.com/threads/collision-problems-with-robotic-jaw.103010/)
+
+*RESOURCES*
+    - damp value for configurable joint cannot be 0 [link](https://issuetracker.unity3d.com/issues/configurablejoints-target-velocity-does-not-move-object-unless-position-damper-greater-than-0)
+    - config joint, target velocity [link](https://forum.unity.com/threads/configurable-joint-target-velocity.309359/)
+    - PID [link](https://answers.unity.com/questions/236144/rotate-using-physics.html)
+
+- Tried creating a wrapper class to do the rotations for but it didnt work as well??? for some reason i think the rotating one segment affected the others 
+- gravity for sure works ==> tested with dropping a ball 
+- torque i am not sure if it is correct with the current model of the joint, might want to make PID model 
+
+- torque i am not sure if it is correct with the current model of the joint, might want to make PID model for more control?
+
+**June 12**
+*RESOURCES* 
+    - rigidbody and collisions [link](https://www.reddit.com/r/Unity3D/comments/1ee65w/having_wonky_collisions_rigidbodies_being_weird/)
+
+- table doesnt need a rigidbody because its not moving !
+- pressing touchpad on right controller will toggle arm shells (resetting scene) 
+- looked into deformable bodies a little, it is quite difficult to implement as id need to learn about deforming meshes and its colliders 
+
+- will be moving on to a new physics engine learning how it works now:
+    - DOTS based project (PhysX vs DOTS)[link](https://forum.unity.com/threads/unity-physics-discussion.646486/#post-4336105)
+    - do I have to use ECS to use new physics system? [link](https://forum.unity.com/threads/do-i-have-to-use-ecs-to-use-the-new-physics-system.647035/)
+    - leveraging DOTS powered physics [link](https://www.youtube.com/watch?v=yuqM-Z-NauU)
+    - intro to ECS [link](https://www.youtube.com/watch?v=WLfhUKp2gag&list=PLX2vGYjWbI0S4yHZwjDI1boIrYStpBCdN)
+
+**June 13**
+*RESOURCES*
+Leveraging DOTS powered physics:
+
+*DOTS System* 
+*Burst Compiler*
+    - optimized assembly 
+    - C# code to be as fast as C++ 
+    - all physics jobs use burst 
+        - siumulation query jobs
+    - implications: supports subsets of C# no classes means no inheritance
+    - collider implements own virtual table
+*Entity component system* 
+    - design: layout components linearly in memory
+        - but physics needs random access 
+    - `EntityManager.GetCOmponent()` is slow
+    - instead design: uses ICompnentData's to define entity physics properties and mirrors ECS world into physics of NativeArrays
+    - Physics Collider (collision world) describes geometry and stored as blittable blob
+    - physivs velcoity (dynamics world) linear and angular
+    - physics mass (dynamic world) mass and inertia property 
+    - physicsjoint (dynamics world) joints definition and pair of entities 
+    - as a user, would only deal with components (in entity component system) and deal with them (ie rigidbody or joint) 
+*Job System*
+    - Broad Phase -> narrow phase -> solve 
+    - *Broad Phase* determine / detect which rigidbodies that are in contact or might be in contact
+        - output is list of rigidbody pairs 
+    - *Narrow Phase* low level collision detection algorithms and produces contact points 
+        - outputs to jacobians : mathematical model of all of them 
+    - *Solve* takes all the jacobians and determines output
+        - this last part has a lot of dependencies behind it and multithreading optimizes this 
+- multithreading the simulation is critical 
+    - maximize threads 
+- collision detection is highly parallelizable 
+    - granularity is per body pair 
+- look for pair of rigidbodies that can be solves in paralel 
+    - take these pairs and puts them into phases 
+
+*DEMO*
+    - Add "components" within the inspector 
+    1) add "physics shape" 
+        - this describes the shape of the objects -> basically wraps rigidbody and collider in one 
+    2) add "physics body"
+        - needed if you want it to move
+            - dynamic: it can move and others can move it, kinematic: it can move and push others but others cant move it, static: 
+    - Queries: "view" on the physics world by showing the ray casts in the scene 
+
+Unity Physics Documentation [link](https://docs.unity3d.com/Packages/com.unity.physics@0.1/manual/index.html)
+
+*Unity Physics* 
+Design:
+    - Stateless: most physics engines have large amounts of cached state to achieve high performance. cost: added complexity in simulation pipeline 
+    - modular: core algorithms are deliberatley decoupled from jobs and ECS to encourage their reuse 
+    - high performant
+Getting started:
+    - not having "physics body" will assume its static (anything not meant to move)
+
+    - `unsafe` code enable [link](https://stackoverflow.com/questions/39132079/how-to-use-unsafe-code-unity)
+**I had to add the DOTSJoints folder in assets AND a mcs.rsp file to allow it to compile**
+- meshes are incredibly expensive i guess because changing the cup to a mesh and the end effectors caused unity to stop responding 
+
+*TODO*
+    - redo controller scripts for the arm 
+    - redo the shell toggling
+    - use unity physics for the scene 
+
+- *Error* (Entities 0.0.12-preview.5 C# 6.0 Error) entity component system [link](https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/31)
+- to use Unity physics, follow the installation guide in unity github (for ecs project) 
+
+- if i switch to unity physics: would have to reimplement the arm using unity physics "components", no available joint drives so would need to create another script to model a motor (a PID) and this won't guarantee 
+it would fix the problem with friction
+
+- i dont think i need to switch to unity physics
+    - so if i hold down the "close" button on the hand itll actually keep the ball up
+    - so there IS enough torque to lift the ball
+    - the problem was that there was no "continuous" force to keep the friction on the ball
+    - ball still falls when theres rapid stop (like hitting an edge case of the arm) or when moving side to side (probably the torque of one direction (elbow) unbalances the torque applied by the hand)
+    - does this make sense: w/ the real bento arm, when it picks up an objects the motor doesnt apply any more torque so what supplies the normal force? the object and the end effector but theres also grippers that provide extra frictional forces and contact points. i raised the mass of the endd effector to 0.2 and it was able to raise the object easily. object does jitter and the arm is "weak" to raise it ? but it does raise it 
+- problems with the config joint at edge cases (push elbow up -> move shoulder left and right) it gets stiff sometimes i dont know why ... (FIXED)
+
+**June 14**
+- still have mcs.rsp file in assets 
+- talked with quinn and riley about the arm further, agreed its okay for now (the arm is still kinda springy and this should be fixed)
+- talked with rory to set up UDP connection with Unity (for now it will just be one way proof of concept)
+
+**June 17**
+*TODO*
+    - going to read thru the BrachIOplexus code (UDP Connection) and try to connect to unity 
+
+- Currently the UDPRecieve.cs in Assets/Scripts/old AND UDPTest.cs in Assets/Scripts + the UDPClient in Documents/Cyrus/UDPClient programs work together
+    - UDPClient can send to unity and print the text to the console
+- UDPClient in Documents/Cyrus/UDPClient + UDPtoACE works as well:
+    ```C#
+    string text = Encoding.UTF8.GetString(bytes);
+    Console.Write(text);
+    ```
+
+- Basically I can send data to brachIOplexus but i can recieve rn, i need to fix the UDPtoScript button
+
+*UDP Comms Protocol* 
+- Required: position (?), Velocity, load (?), checksum, which "joystick" or button is pressed 
+- similar to how brachIOplexus has it organized, create an input map that will be updated from udp connections
+
+- was able to get a "proof of concept" of having brachioplexus sending a string to unity 
+- used UDPtest.cs and added 
+```C#
+            udpClientTX = new UdpClient();
+            ipEndPointTX = new IPEndPoint(localAddr, portTX);
+            string text = "yooooo";
+            byte[] packet = Encoding.UTF8.GetBytes(text);
+            udpClientTX.Send(packet, packet.Length, ipEndPointTX);
+```
+in `KB_conncect_Click()` because the surprise demo button was greyed out and i just need a place to put it in.
