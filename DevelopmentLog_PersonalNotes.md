@@ -625,3 +625,7 @@ in `KB_conncect_Click()` because the surprise demo button was greyed out and i j
 
 - if "W" is pressed from brachIOplexus, will move the elbow :)
 - i think im having problems with the main and sub threads running, it doesnt refresh on screen
+
+**June 18** 
+- fixed the earlier issue with the arm not moving up and down. had to comment out the interaction 
+with the vr controllers 

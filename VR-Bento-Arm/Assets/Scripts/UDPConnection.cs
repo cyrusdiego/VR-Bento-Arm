@@ -18,7 +18,7 @@ public class UDPConnection : MonoBehaviour
     IPEndPoint endpoint;
 
     public GameObject[] gameObjects = new GameObject[1];
-    private Dictionary<string,int> rotation = new Dictionary<string, int>();
+    private Dictionary<string,float> rotation = new Dictionary<string, float>();
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +50,7 @@ public class UDPConnection : MonoBehaviour
                 byte[] data = client.Receive(ref endpoint);
 
                 string text = Encoding.UTF8.GetString(data);
-
-                // print("Recieved message >> "+ text);
+                   
                 if(text == "W")
                 {
                     rotation["W"] = 1;

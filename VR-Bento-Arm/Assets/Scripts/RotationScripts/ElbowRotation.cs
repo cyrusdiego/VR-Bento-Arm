@@ -29,13 +29,14 @@ public class ElbowRotation : RotationBase
 
     }
 
-    void FixedUpdate()
-    {
-        getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-    }
+    // void FixedUpdate()
+    // {
+    //     getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+    // }
 
-    public void recieveInput(int i)
+    public void recieveInput(float i)
     {
-        getAxis((float)i);
+        print(i);
+        getAxis(i);
     }
 }
