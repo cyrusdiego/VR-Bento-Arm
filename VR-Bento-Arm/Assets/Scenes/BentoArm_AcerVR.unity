@@ -301,7 +301,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 7a87bc67bb801ef43b62bbdf95510699,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2534866581884222612, guid: 7a87bc67bb801ef43b62bbdf95510699,
         type: 3}
@@ -2370,9 +2370,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 799490506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac3f2cf08dfd9f54085dff604d290acc, type: 3}
+  m_Script: {fileID: 11500000, guid: c8e32948822e580438cee3a9f8ab3c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  port: 30000
+  gameObjects:
+  - {fileID: 670377871}
 --- !u!4 &799490508
 Transform:
   m_ObjectHideFlags: 0

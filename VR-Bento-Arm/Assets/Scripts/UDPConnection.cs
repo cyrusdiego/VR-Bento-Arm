@@ -50,7 +50,10 @@ public class UDPConnection : MonoBehaviour
                 byte[] data = client.Receive(ref endpoint);
 
                 string text = Encoding.UTF8.GetString(data);
-                   
+                if(text != "W" && text != "stop" && text != "S"){
+                print("Recieved Data >> " + text);
+
+                }
                 if(text == "W")
                 {
                     rotation["W"] = 1;
