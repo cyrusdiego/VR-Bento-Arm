@@ -629,3 +629,11 @@ in `KB_conncect_Click()` because the surprise demo button was greyed out and i j
 **June 18** 
 - fixed the earlier issue with the arm not moving up and down. had to comment out the interaction 
 with the vr controllers 
+- brachIOplexus broke with vs studio lol i cant open the designer so i cannot modify the GUI for unity display 
+
+**June 19**
+*TODO*
+- create a sample byte array to send on click and see if unity gets it 
+- the continuous array is used to control the arm, 
+    - so there needs to be a number of bytes expected, count them out and determine what to move from there. 
+    - probably just 5 bytes to move each arm for now. 
