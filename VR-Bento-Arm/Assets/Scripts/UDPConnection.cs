@@ -17,8 +17,9 @@ public class UDPConnection : MonoBehaviour
     Thread recievingThread;
     IPEndPoint endpoint;
 
-    public GameObject[] gameObjects = new GameObject[1];
+    public GameObject[] gameObjects = new GameObject[2];
     private Dictionary<string,float> rotation = new Dictionary<string, float>();
+    private byte[] packet = new byte[38];
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,6 @@ public class UDPConnection : MonoBehaviour
 
         print("Starting seperate thread...");
         recievingThread.Start();
-        rotation["W"] = 0;
     }
 
     /// <summary>
@@ -37,7 +37,21 @@ public class UDPConnection : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        gameObjects[0].SendMessage("recieveInput",rotation["W"]);
+        if(packet[0] == 0 && packet[1] == 0){
+            gameObjects[0].SendMessage("recieveInput", packet[0]);
+            return;
+        }
+        if(packet[0] == 1){
+            gameObjects[0].SendMessage("recieveInput", 1);
+            return;
+        }
+        if(packet[1] == 1){
+            gameObjects[0].SendMessage("recieveInput", -1);
+            return;
+        }
+
+        
+
     }
 
     void recieve()
@@ -48,24 +62,7 @@ public class UDPConnection : MonoBehaviour
             try
             {
                 byte[] data = client.Receive(ref endpoint);
-
-                string text = Encoding.UTF8.GetString(data);
-                if(text != "W" && text != "stop" && text != "S"){
-                print("Recieved Data >> " + text);
-
-                }
-                if(text == "W")
-                {
-                    rotation["W"] = 1;
-                }
-                if(text == "stop")
-                {
-                    rotation["W"] = 0;
-                }
-                if(text == "S")
-                {
-                    rotation["W"] = -1;
-                }
+                packet = data; 
             }
             catch (Exception err)
             {

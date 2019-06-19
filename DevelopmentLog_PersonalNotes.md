@@ -637,3 +637,32 @@ with the vr controllers
 - the continuous array is used to control the arm, 
     - so there needs to be a number of bytes expected, count them out and determine what to move from there. 
     - probably just 5 bytes to move each arm for now. 
+
+*Changes to BrachIOplexus*
+    - added packet array in Initialization
+    - added UDP connection setup in Keyboard controller
+    - added keyboard logging in Main loop 
+
+*Things Learned from BrachIOplexus*
+- Right now it's easy to just send to Unity what input is being pressed, simple just reading through the `InputMap` matrix 
+    - that would be simple way of controlling arm 
+    - cannot send over target position and velocity stuff to the virtual bento arm 
+    - idk if it's needed to be sent to unity due to the design of the rotaton as it is
+- if we did want to send in everything (positon (current, target, min, max), velocity(current, target, min, max), torque stuff, and what is being pressed)
+would need to redesign the rotation class to accomodate for those values / would need to redesign the class OR again, potentially creating custon 
+script to handle drive motor. 
+    - custom drive motor script would be easy, and brachIOplexus can send over the gain values for the PID model 
+    - would require more work as to sending the values properly, mapping from brachIOplexus space to Unity space (positions and velocities would be a pain to map)
+    - using Robot + Motor classes to get values for each servo motor 
+- im not sure what needs to be sent TO brachIOplexus for rn but certain values can be sent back in conjuction with the ID class 
+- Another thing is, im not sure what the end goal is with usage but, need  to figure out a way to accomodate for the vr controllers 
+    - if using brachIOplexus inputs then input from the controllers would need to be blocked
+    - idk if it would be better to connect vr controller to brachIOplexus to have it all there OR just have a detection condition in UNity 
+    to see if any data is being recieved from UDP -> if not then use controller else use brachIOplexus 
+- tested out the example 1 check sum thing, worked fine. not sure if i need it tho??? 
+- the output package to the servo motors are in the Dynamixel region, basically uses the robot class which holds certain values and writes the packet to the motors using dynamixel sdk 
+- the `readDyna()` function can read feedback from the dynamixel, maybe can immitiate this for the vr bento arm 
+- need to figure out further how much control brachIOplexus will have over Unity 
+
+- illustrates how windows form application works [link](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.application?view=netframework-4.8)
+- InitializeComponent() is in AboutBox1.Designer.cs

@@ -2376,6 +2376,7 @@ MonoBehaviour:
   port: 30000
   gameObjects:
   - {fileID: 670377871}
+  - {fileID: 670377871}
 --- !u!4 &799490508
 Transform:
   m_ObjectHideFlags: 0

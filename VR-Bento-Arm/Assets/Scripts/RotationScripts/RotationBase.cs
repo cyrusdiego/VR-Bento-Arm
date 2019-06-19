@@ -72,7 +72,7 @@ public class RotationBase : MonoBehaviour
         if(axisValue >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+            cj.targetAngularVelocity = new Vector3(maxSpeedLimit / 2,0,0);
             
             cj.angularXDrive = motor;
             target = true;
