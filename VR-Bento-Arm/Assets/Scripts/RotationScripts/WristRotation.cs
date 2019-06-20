@@ -32,6 +32,7 @@ public class WristRotation: RotationBase
     void FixedUpdate()
     {
         // -1 * to flip the rotation 
-        getAxis(-1*Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT"));
+        // getAxis(-1*Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT"));
+        getAxis(0,1);
     }
 }

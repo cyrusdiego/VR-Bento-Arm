@@ -36,6 +36,6 @@ public class ElbowRotation : RotationBase
 
     public void recieveInput(float i)
     {
-        getAxis(i);
+        getAxis(0,1);
     }
 }

@@ -1,3 +1,10 @@
+/* 
+    BLINC LAB VIPER Project 
+    UDPConection.cs 
+    Created by: Cyrus Diego June 17, 2019 
+
+    Connects with BrachIOplexus through UDP connection 
+ */
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -10,20 +17,23 @@ using UnityEngine;
 
 public class UDPConnection : MonoBehaviour
 {
+    // Network information 
     public Int32 port = 30000;
-    private IPAddress local = IPAddress.Parse("127.0.0.1");
+    public IPAddress local = IPAddress.Parse("127.0.0.1");
 
-    UdpClient client;
-    Thread recievingThread;
-    IPEndPoint endpoint;
+    // .NET classes for multi-threading and establishing a udp connection 
+    private UdpClient client;
+    private Thread recievingThread;
+    private IPEndPoint endpoint;
 
     public GameObject[] gameObjects = new GameObject[2];
-    private Dictionary<string,float> rotation = new Dictionary<string, float>();
-    private byte[] packet = new byte[38];
-    // Start is called before the first frame update
+    private byte[] packet = new byte[30];
+
     void Start()
     {
-        print("Initializing udp connection with brachIOplexus!!!");
+        print("Initializing udp connection with brachIOplexus...");
+
+        // Initialize udp connection and seperate thread 
         client = new UdpClient(port);
         endpoint = new IPEndPoint(local,port);
         recievingThread = new Thread(recieve);
@@ -32,37 +42,33 @@ public class UDPConnection : MonoBehaviour
         recievingThread.Start();
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
+
     void FixedUpdate()
     {
-        if(packet[0] == 0 && packet[1] == 0){
-            gameObjects[0].SendMessage("recieveInput", packet[0]);
-            return;
-        }
-        if(packet[0] == 1){
-            gameObjects[0].SendMessage("recieveInput", 1);
-            return;
-        }
-        if(packet[1] == 1){
-            gameObjects[0].SendMessage("recieveInput", -1);
-            return;
-        }
-
-        
-
+        // combine low and high bytes https://stackoverflow.com/questions/29745111/combining-2-bytes-highbyte-lowbyte-to-a-signed-int-in-c-sharp
+        // Little endian 
+        byte[] velocityPkg = new byte[2];
+        velocityPkg[0] = packet[2];
+        velocityPkg[1] = packet[3];
+        float velocity = BitConverter.ToInt16(velocityPkg,0);
+        velocity *= 0.11f * Mathf.PI / 30;
+        float[] pkg = new float[2];
+        pkg[0] = packet[0];
+        pkg[1] = velocity;
+        gameObjects[0].SendMessage("recieveInput", pkg);
     }
 
+    /*
+        @brief: recieves and stores incoming packets from brachIOplexus  
+    */
     void recieve()
     {
-        print("Receiving Data...");
+        print("Waiting for data...");
         while(true)
         {
             try
             {
-                byte[] data = client.Receive(ref endpoint);
-                packet = data; 
+                packet = client.Receive(ref endpoint); 
             }
             catch (Exception err)
             {

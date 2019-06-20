@@ -33,6 +33,7 @@ public class WristFlexion : RotationBase
 
     void FixedUpdate()
     {
-        getAxis(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT"));
+        // getAxis(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT"));
+        getAxis(0,1);
     }
 }

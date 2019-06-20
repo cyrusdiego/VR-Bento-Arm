@@ -666,3 +666,8 @@ script to handle drive motor.
 
 - illustrates how windows form application works [link](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.application?view=netframework-4.8)
 - InitializeComponent() is in AboutBox1.Designer.cs
+
+**June 20**
+- working on velocity ramp for the arm
+- sorta works but it seems one direction is going faster than other direction
+- also elbow moves when its not supposed to 
