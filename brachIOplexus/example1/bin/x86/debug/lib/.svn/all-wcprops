@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/c401w10-Johnny5/!svn/ver/11/trunk/simulator/lib
+END
+jogl_awt.dll
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/jogl_awt.dll
+END
+libgluegen-rt.so
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/libgluegen-rt.so
+END
+libjogl.so
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/libjogl.so
+END
+gluegen-rt.dll
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/gluegen-rt.dll
+END
+gluegen-rt.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/gluegen-rt.jar
+END
+jogl.dll
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/jogl.dll
+END
+jogl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/jogl.jar
+END
+junit-4.8.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/c401w10-Johnny5/!svn/ver/11/trunk/simulator/lib/junit-4.8.1.jar
+END
+libjogl_cg.so
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/libjogl_cg.so
+END
+libjogl_awt.so
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/libjogl_awt.so
+END
+jogl_cg.dll
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/c401w10-Johnny5/!svn/ver/9/trunk/simulator/lib/jogl_cg.dll
+END
