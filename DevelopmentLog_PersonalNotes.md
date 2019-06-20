@@ -669,5 +669,8 @@ script to handle drive motor.
 
 **June 20**
 - working on velocity ramp for the arm
-- sorta works but it seems one direction is going faster than other direction
+- sorta works but it seems one direction is going faster than other direction(FIXED)
 - also elbow moves when its not supposed to 
+
+- created singeloton pattern so that the udp connection is like a global variable 
+storing the byte array results there and the other objects can access it 

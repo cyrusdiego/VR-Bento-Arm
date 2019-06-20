@@ -6,8 +6,6 @@
     Inherits from RotationBase class and controls the arm's wrist flexion.
     Attatched to the hand game object. 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WristFlexion : RotationBase

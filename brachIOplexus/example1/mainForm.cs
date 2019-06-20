@@ -5929,8 +5929,8 @@ namespace brachIOplexus
                     KBrampD.Text = Convert.ToString(InputMap[2, 3]);
 
                     #region Unity testing 
-                    packet[2] = low_byte((ushort)robotObj.Motor[0].w);
-                    packet[3] = high_byte((ushort)robotObj.Motor[0].w);
+                    packet[2] = low_byte((UInt16)robotObj.Motor[0].w);
+                    packet[3] = high_byte((UInt16)robotObj.Motor[0].w);
 
                     int A = InputMap[2, 1];
                     int D = InputMap[2, 3];
@@ -5941,7 +5941,6 @@ namespace brachIOplexus
                     else if (A != 0 && D == 0)
                     {
                         packet[0] = 1;
-                        Console.WriteLine("sending pkt 1");
                     }
                     else if(A == 0 && D != 0)
                     {

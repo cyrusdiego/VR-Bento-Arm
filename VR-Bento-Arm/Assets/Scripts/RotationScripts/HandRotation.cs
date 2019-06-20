@@ -6,8 +6,6 @@
     Inherits from RotationBase class and controls the arm's chopstick 
     rotation. Attatched to the chopstick game object. 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HandRotation : RotationBase

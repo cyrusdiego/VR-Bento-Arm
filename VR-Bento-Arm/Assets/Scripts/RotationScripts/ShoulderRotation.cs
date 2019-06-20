@@ -6,8 +6,6 @@
     Inherits from RotationBase class and controls the arm's shoulder 
     rotation. Attatched to the bicep game object. 
  */
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -30,25 +28,39 @@ public class ShoulderRotation : RotationBase
 
     }
 
-    // void FixedUpdate()
-    // {
-    //     // -1 to flip the direction 
-    //     getAxis(-1*Input.GetAxis("THUMBSTICK_HORIZONTAL_LEFT"));
-    // }
-
-    public void recieveInput(float[] packet)
+    void FixedUpdate()
     {
-        print(packet[1]);
-        switch(packet[0]){
+        // -1 to flip the direction 
+        // getAxis(-1*Input.GetAxis("THUMBSTICK_HORIZONTAL_LEFT"));
+        float direction = UDPConnection.udp.shoulderRotation.Item1;
+        float velocity = UDPConnection.udp.shoulderRotation.Item2;
+        switch(direction)
+        {
             case 0:
-            getAxis(0,packet[1]);
+            getAxis(0,velocity);
             break;
             case 1:
-            getAxis(-1,packet[1]);
+            getAxis(-1,velocity);
             break;
             case 2:
-            getAxis(1,packet[1]);
+            getAxis(1,velocity);
             break;
         }
     }
+
+    // public void recieveInput(float[] packet)
+    // {
+    //     print(packet[1]);
+    //     switch(packet[0]){
+    //         case 0:
+    //         getAxis(0,packet[1]);
+    //         break;
+    //         case 1:
+    //         getAxis(-1,packet[1]);
+    //         break;
+    //         case 2:
+    //         getAxis(1,packet[1]);
+    //         break;
+    //     }
+    // }
 }

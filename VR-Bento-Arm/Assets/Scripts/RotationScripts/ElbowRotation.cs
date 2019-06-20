@@ -6,8 +6,6 @@
     Inherits from RotationBase class and controls the arm's elbow 
     rotation. Attatched to the forearm game object. 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ElbowRotation : RotationBase
@@ -29,10 +27,12 @@ public class ElbowRotation : RotationBase
 
     }
 
-    // void FixedUpdate()
-    // {
-    //     getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-    // }
+    void FixedUpdate()
+    {
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+                getAxis(0,1);
+
+    }
 
     public void recieveInput(float i)
     {

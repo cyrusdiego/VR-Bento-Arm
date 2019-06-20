@@ -5,9 +5,6 @@
 
     Base class to control motor and arm rotations for each arm segment
  */
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotationBase : MonoBehaviour
@@ -72,7 +69,7 @@ public class RotationBase : MonoBehaviour
         if(axisValue >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(speed / 2,0,0);
+            cj.targetAngularVelocity = new Vector3(speed,0,0);
             
             cj.angularXDrive = motor;
             target = true;

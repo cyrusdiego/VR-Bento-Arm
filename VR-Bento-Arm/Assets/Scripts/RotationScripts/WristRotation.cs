@@ -6,8 +6,6 @@
     Inherits from RotationBase class and controls the arm's wrist 
     rotation. Attatched to the wrist game object. 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WristRotation: RotationBase
