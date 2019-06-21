@@ -690,3 +690,5 @@ storing the byte array results there and the other objects can access it
 - Designer was "fixed" 
     -> open from file explorer not through visual studio (2017)
 - NOTE::: should configure two way comms so that when unity is paused or stopped, sends packet to disconnect 
+
+- got serialized and also check sum is correct 

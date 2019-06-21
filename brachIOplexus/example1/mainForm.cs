@@ -38,7 +38,7 @@ using MyoSharp.Exceptions;              // for MyoSharp
 using Clifton.Collections.Generic;      // For simple moving average
 using Clifton.Tools.Data;               // For simple moving average
 using System.Windows.Input;
-
+using System.Runtime.Serialization.Formatters.Binary;
 namespace brachIOplexus
 {
     public partial class mainForm : Form
@@ -8773,7 +8773,7 @@ namespace brachIOplexus
                 milliSec11 = stopWatch11.ElapsedMilliseconds;
 
                 // Clear and setup packet 
-                packetList.Clear();
+                packetList = new List<UInt16>();
 
                 // Fill header bytes
                 packetList.Add(255);
@@ -8784,12 +8784,22 @@ namespace brachIOplexus
 
                 // Fill packet from input signals 
                 updatePacket();
-                
-                // Convert to a byte array
-                // https://stackoverflow.com/questions/3097812/converting-a-list-of-ints-to-a-byte-array
-                byte[] packet = packetList.SelectMany(BitConverter.GetBytes).ToArray();
 
-                packet[packet.Length - 1] = (byte)~packet[packet.Length - 1];
+                // Convert to a byte array
+                //byte[] packet = new byte[packetList.Count];
+                //for(int i = 0; i < packetList.Count; i++)
+                //{
+                //    packet[i] = Convert.ToByte(packetList[i]);
+                //}
+                //byte[] packet = packetList.SelectMany(BitConverter.GetBytes).ToArray();
+                var binFormatter = new BinaryFormatter();
+                var mStream = new MemoryStream();
+                binFormatter.Serialize(mStream, packetList);
+                byte[] packet = mStream.ToArray();
+
+                //Console.WriteLine(packet[0].ToString());
+                //Console.WriteLine(packet[1].ToString());
+
 
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
             }
@@ -8813,7 +8823,7 @@ namespace brachIOplexus
             for(UInt16 i = 1; i < BENTO_NUM; i++)
             {
                 UInt16 state = (UInt16) stateObj.motorState[i];
-                if(state != 0 || state != 3)
+                if(state != 0 && state != 3)
                 {
                     length++;
 
@@ -8837,7 +8847,19 @@ namespace brachIOplexus
             {
                 packetList.AddRange(data);
             }
-
+            Console.WriteLine("checksum");
+            Console.WriteLine(checkSum);
+            Console.WriteLine("not checksum");
+            Console.WriteLine(~checkSum);
+            Console.WriteLine("uint16 ~ ");
+            Console.WriteLine((UInt16)~checkSum);
+            Console.WriteLine("lowbyte");
+            Console.WriteLine(low_byte((UInt16)~checkSum));
+            if((UInt16)~checkSum >= 255)
+            {
+                checkSum = low_byte((UInt16)~checkSum);
+            }
+            //Console.WriteLine(checkSum);
             packetList.Add(checkSum);
 
         }

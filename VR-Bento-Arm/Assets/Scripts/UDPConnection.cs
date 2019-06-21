@@ -11,10 +11,11 @@
 using System;
 using System.Net;
 using System.Net.Sockets; 
+using System.Collections.Generic;  // List
+using System.IO; // memory stream
+using System.Runtime.Serialization.Formatters.Binary;  // binary serializer 
 using System.Threading;  // multithreading 
-using System.Diagnostics; // process
 using UnityEngine;
-using UnityEditor;
 
 public class UDPConnection : MonoBehaviour
 {
@@ -74,24 +75,39 @@ public class UDPConnection : MonoBehaviour
         print("Starting seperate thread...");
         recievingThread.Start();
     }
-
+        int count = 0;
     /*
         @brief: takes the packet byte array and parses through it to determine 
         direction and velocity of each motor  
     */
     void Unpack()
     {
-        // Get shoulder velocity 
-        byte[] velocityPkg = new byte[2];
-        velocityPkg[0] = packet[2];  // extract specific bytes from packet
-        velocityPkg[1] = packet[3];
 
-        // convert to float and rad/s 
-        float velocity = BitConverter.ToInt16(velocityPkg,0);
-        velocity *= rpmToRads;
+        List<UInt16> incoming = new List<UInt16>();
+        var mStream = new MemoryStream();
+        var binFormatter = new BinaryFormatter();
+        mStream.Write(packet,0,packet.Length);
+        mStream.Position = 0;
+        incoming = binFormatter.Deserialize(mStream) as List<UInt16>;
+        if(count == 0){
+        foreach(UInt16 x in incoming){
+            print(x);
+            count++;
+        }
+        }
 
-        // Sets shoulder rotation values 
-        elbowRotation = new Tuple<float, float>(packet[0],velocity);
+        
+        // // Get shoulder velocity 
+        // byte[] velocityPkg = new byte[2];
+        // velocityPkg[0] = packet[2];  // extract specific bytes from packet
+        // velocityPkg[1] = packet[3];
+
+        // // convert to float and rad/s 
+        // float velocity = BitConverter.ToInt16(velocityPkg,0);
+        // velocity *= rpmToRads;
+
+        // // Sets shoulder rotation values 
+        // elbowRotation = new Tuple<float, float>(packet[0],velocity);
     }
 
     /*
@@ -115,10 +131,10 @@ public class UDPConnection : MonoBehaviour
             try
             {
                 packet = client.Receive(ref endpoint); 
-                // Unpack();
-                for(int i = 0; i < packet.Length; i++){
-                    print("packet[" + i + "] == " + packet[i]);
-                }
+                Unpack();
+                // for(int i = 0; i < packet.Length; i++){
+                //     print("packet[" + i + "] == " + packet[i]);
+                // }
             }
             catch (Exception err)
             {
