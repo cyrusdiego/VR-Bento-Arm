@@ -545,6 +545,9 @@
             this.label125 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabIO = new System.Windows.Forms.TabPage();
+            this.label210 = new System.Windows.Forms.Label();
+            this.UDPdelay2 = new System.Windows.Forms.Label();
+            this.demoAdaptiveButton = new System.Windows.Forms.Button();
             this.label206 = new System.Windows.Forms.Label();
             this.UDPdelay = new System.Windows.Forms.Label();
             this.demoSurpriseButton = new System.Windows.Forms.Button();
@@ -561,10 +564,10 @@
             this.labelText = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.tabMapping = new System.Windows.Forms.TabPage();
-            this.TaskTimerStateLabel = new System.Windows.Forms.Label();
-            this.label212 = new System.Windows.Forms.Label();
             this.TaskTimerGroupBox = new System.Windows.Forms.GroupBox();
+            this.TaskTimerStateLabel = new System.Windows.Forms.Label();
             this.TaskTimerValue = new System.Windows.Forms.Label();
+            this.label212 = new System.Windows.Forms.Label();
             this.TaskTimerLabel = new System.Windows.Forms.Label();
             this.TaskTimerReset = new System.Windows.Forms.Button();
             this.TaskTimerEnable = new System.Windows.Forms.Button();
@@ -579,6 +582,29 @@
             this.ID2_state = new System.Windows.Forms.Label();
             this.label148 = new System.Windows.Forms.Label();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.adaptiveFreeze_label = new System.Windows.Forms.Label();
+            this.label224 = new System.Windows.Forms.Label();
+            this.stateObj4 = new System.Windows.Forms.Label();
+            this.stateObj3 = new System.Windows.Forms.Label();
+            this.stateObj2 = new System.Windows.Forms.Label();
+            this.stateObj1 = new System.Windows.Forms.Label();
+            this.stateObj0 = new System.Windows.Forms.Label();
+            this.listPos_label = new System.Windows.Forms.Label();
+            this.label223 = new System.Windows.Forms.Label();
+            this.Adaptive_Pred4 = new System.Windows.Forms.Label();
+            this.AdaptiveEnabled = new System.Windows.Forms.CheckBox();
+            this.Adaptive_Pred3 = new System.Windows.Forms.Label();
+            this.Adaptive_Pred2 = new System.Windows.Forms.Label();
+            this.Adaptive_Pred1 = new System.Windows.Forms.Label();
+            this.Adaptive_Pred0 = new System.Windows.Forms.Label();
+            this.Adaptive_Item4 = new System.Windows.Forms.Label();
+            this.Adaptive_Item3 = new System.Windows.Forms.Label();
+            this.Adaptive_Item2 = new System.Windows.Forms.Label();
+            this.Adaptive_Item1 = new System.Windows.Forms.Label();
+            this.Adaptive_Item0 = new System.Windows.Forms.Label();
+            this.label221 = new System.Windows.Forms.Label();
+            this.label215 = new System.Windows.Forms.Label();
             this.switchSmaxLabel2 = new System.Windows.Forms.Label();
             this.switchSminLabel2 = new System.Windows.Forms.Label();
             this.switchSminTick2 = new System.Windows.Forms.Label();
@@ -771,6 +797,7 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
+            this.Unityconnect = new System.Windows.Forms.Button();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -874,6 +901,7 @@
             this.tabMapping.SuspendLayout();
             this.TaskTimerGroupBox.SuspendLayout();
             this.groupBox16.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.switchSmaxCtrl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.switchSminCtrl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.switchGainCtrl2)).BeginInit();
@@ -7719,6 +7747,10 @@
             // 
             // tabIO
             // 
+            this.tabIO.Controls.Add(this.Unityconnect);
+            this.tabIO.Controls.Add(this.label210);
+            this.tabIO.Controls.Add(this.UDPdelay2);
+            this.tabIO.Controls.Add(this.demoAdaptiveButton);
             this.tabIO.Controls.Add(this.label206);
             this.tabIO.Controls.Add(this.UDPdelay);
             this.tabIO.Controls.Add(this.demoSurpriseButton);
@@ -7751,6 +7783,38 @@
             this.tabIO.TabIndex = 0;
             this.tabIO.Text = "Input/Output";
             this.tabIO.UseVisualStyleBackColor = true;
+            // 
+            // label210
+            // 
+            this.label210.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label210.Location = new System.Drawing.Point(1013, 226);
+            this.label210.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label210.Name = "label210";
+            this.label210.Size = new System.Drawing.Size(83, 15);
+            this.label210.TabIndex = 233;
+            this.label210.Text = "Delay (ms):";
+            this.label210.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // UDPdelay2
+            // 
+            this.UDPdelay2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.UDPdelay2.Location = new System.Drawing.Point(1095, 226);
+            this.UDPdelay2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.UDPdelay2.Name = "UDPdelay2";
+            this.UDPdelay2.Size = new System.Drawing.Size(42, 15);
+            this.UDPdelay2.TabIndex = 234;
+            this.UDPdelay2.Text = "--";
+            // 
+            // demoAdaptiveButton
+            // 
+            this.demoAdaptiveButton.Enabled = false;
+            this.demoAdaptiveButton.Location = new System.Drawing.Point(434, 421);
+            this.demoAdaptiveButton.Name = "demoAdaptiveButton";
+            this.demoAdaptiveButton.Size = new System.Drawing.Size(103, 48);
+            this.demoAdaptiveButton.TabIndex = 232;
+            this.demoAdaptiveButton.Text = "Launch Adaptive Switching Demo";
+            this.demoAdaptiveButton.UseVisualStyleBackColor = true;
+            this.demoAdaptiveButton.Click += new System.EventHandler(this.demoAdaptiveButton_Click);
             // 
             // label206
             // 
@@ -7788,7 +7852,7 @@
             // 
             // demoShutdownButton
             // 
-            this.demoShutdownButton.Location = new System.Drawing.Point(434, 421);
+            this.demoShutdownButton.Location = new System.Drawing.Point(434, 475);
             this.demoShutdownButton.Name = "demoShutdownButton";
             this.demoShutdownButton.Size = new System.Drawing.Size(103, 48);
             this.demoShutdownButton.TabIndex = 228;
@@ -7808,7 +7872,7 @@
             // 
             // demoXBoxButton
             // 
-            this.demoXBoxButton.Location = new System.Drawing.Point(434, 261);
+            this.demoXBoxButton.Location = new System.Drawing.Point(434, 259);
             this.demoXBoxButton.Name = "demoXBoxButton";
             this.demoXBoxButton.Size = new System.Drawing.Size(103, 48);
             this.demoXBoxButton.TabIndex = 226;
@@ -7918,8 +7982,6 @@
             // 
             // tabMapping
             // 
-            this.tabMapping.Controls.Add(this.TaskTimerStateLabel);
-            this.tabMapping.Controls.Add(this.label212);
             this.tabMapping.Controls.Add(this.TaskTimerGroupBox);
             this.tabMapping.Controls.Add(this.switchState_label);
             this.tabMapping.Controls.Add(this.label213);
@@ -7953,42 +8015,32 @@
             this.tabMapping.Text = "Mapping";
             this.tabMapping.UseVisualStyleBackColor = true;
             // 
+            // TaskTimerGroupBox
+            // 
+            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerStateLabel);
+            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerValue);
+            this.TaskTimerGroupBox.Controls.Add(this.label212);
+            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerLabel);
+            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerReset);
+            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerEnable);
+            this.TaskTimerGroupBox.Enabled = false;
+            this.TaskTimerGroupBox.Location = new System.Drawing.Point(724, 537);
+            this.TaskTimerGroupBox.Name = "TaskTimerGroupBox";
+            this.TaskTimerGroupBox.Size = new System.Drawing.Size(372, 69);
+            this.TaskTimerGroupBox.TabIndex = 233;
+            this.TaskTimerGroupBox.TabStop = false;
+            this.TaskTimerGroupBox.Text = "Task Timer";
+            // 
             // TaskTimerStateLabel
             // 
             this.TaskTimerStateLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.TaskTimerStateLabel.Location = new System.Drawing.Point(808, 519);
+            this.TaskTimerStateLabel.Location = new System.Drawing.Point(290, 51);
             this.TaskTimerStateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TaskTimerStateLabel.Name = "TaskTimerStateLabel";
             this.TaskTimerStateLabel.Size = new System.Drawing.Size(80, 15);
             this.TaskTimerStateLabel.TabIndex = 235;
             this.TaskTimerStateLabel.Text = "--";
             this.TaskTimerStateLabel.Visible = false;
-            // 
-            // label212
-            // 
-            this.label212.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label212.Location = new System.Drawing.Point(724, 519);
-            this.label212.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label212.Name = "label212";
-            this.label212.Size = new System.Drawing.Size(80, 15);
-            this.label212.TabIndex = 234;
-            this.label212.Text = "Task Timer:";
-            this.label212.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.label212.Visible = false;
-            // 
-            // TaskTimerGroupBox
-            // 
-            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerValue);
-            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerLabel);
-            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerReset);
-            this.TaskTimerGroupBox.Controls.Add(this.TaskTimerEnable);
-            this.TaskTimerGroupBox.Enabled = false;
-            this.TaskTimerGroupBox.Location = new System.Drawing.Point(724, 447);
-            this.TaskTimerGroupBox.Name = "TaskTimerGroupBox";
-            this.TaskTimerGroupBox.Size = new System.Drawing.Size(372, 69);
-            this.TaskTimerGroupBox.TabIndex = 233;
-            this.TaskTimerGroupBox.TabStop = false;
-            this.TaskTimerGroupBox.Text = "Task Timer";
             // 
             // TaskTimerValue
             // 
@@ -8002,6 +8054,18 @@
             this.TaskTimerValue.Size = new System.Drawing.Size(46, 44);
             this.TaskTimerValue.TabIndex = 215;
             this.TaskTimerValue.Text = "--";
+            // 
+            // label212
+            // 
+            this.label212.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label212.Location = new System.Drawing.Point(206, 51);
+            this.label212.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label212.Name = "label212";
+            this.label212.Size = new System.Drawing.Size(80, 15);
+            this.label212.TabIndex = 234;
+            this.label212.Text = "Task Timer:";
+            this.label212.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label212.Visible = false;
             // 
             // TaskTimerLabel
             // 
@@ -8155,6 +8219,7 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Controls.Add(this.panel1);
             this.groupBox16.Controls.Add(this.switchSmaxLabel2);
             this.groupBox16.Controls.Add(this.switchSminLabel2);
             this.groupBox16.Controls.Add(this.switchSminTick2);
@@ -8192,10 +8257,273 @@
             this.groupBox16.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox16.Size = new System.Drawing.Size(372, 423);
+            this.groupBox16.Size = new System.Drawing.Size(372, 514);
             this.groupBox16.TabIndex = 138;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Sequential Switch";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.adaptiveFreeze_label);
+            this.panel1.Controls.Add(this.label224);
+            this.panel1.Controls.Add(this.stateObj4);
+            this.panel1.Controls.Add(this.stateObj3);
+            this.panel1.Controls.Add(this.stateObj2);
+            this.panel1.Controls.Add(this.stateObj1);
+            this.panel1.Controls.Add(this.stateObj0);
+            this.panel1.Controls.Add(this.listPos_label);
+            this.panel1.Controls.Add(this.label223);
+            this.panel1.Controls.Add(this.Adaptive_Pred4);
+            this.panel1.Controls.Add(this.AdaptiveEnabled);
+            this.panel1.Controls.Add(this.Adaptive_Pred3);
+            this.panel1.Controls.Add(this.Adaptive_Pred2);
+            this.panel1.Controls.Add(this.Adaptive_Pred1);
+            this.panel1.Controls.Add(this.Adaptive_Pred0);
+            this.panel1.Controls.Add(this.Adaptive_Item4);
+            this.panel1.Controls.Add(this.Adaptive_Item3);
+            this.panel1.Controls.Add(this.Adaptive_Item2);
+            this.panel1.Controls.Add(this.Adaptive_Item1);
+            this.panel1.Controls.Add(this.Adaptive_Item0);
+            this.panel1.Controls.Add(this.label221);
+            this.panel1.Controls.Add(this.label215);
+            this.panel1.Location = new System.Drawing.Point(5, 376);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(361, 133);
+            this.panel1.TabIndex = 213;
+            // 
+            // adaptiveFreeze_label
+            // 
+            this.adaptiveFreeze_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.adaptiveFreeze_label.Location = new System.Drawing.Point(304, 29);
+            this.adaptiveFreeze_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.adaptiveFreeze_label.Name = "adaptiveFreeze_label";
+            this.adaptiveFreeze_label.Size = new System.Drawing.Size(35, 15);
+            this.adaptiveFreeze_label.TabIndex = 244;
+            this.adaptiveFreeze_label.Text = "--";
+            // 
+            // label224
+            // 
+            this.label224.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label224.Location = new System.Drawing.Point(223, 30);
+            this.label224.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label224.Name = "label224";
+            this.label224.Size = new System.Drawing.Size(74, 15);
+            this.label224.TabIndex = 243;
+            this.label224.Text = "Freeze:";
+            this.label224.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // stateObj4
+            // 
+            this.stateObj4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.stateObj4.Location = new System.Drawing.Point(304, 117);
+            this.stateObj4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.stateObj4.Name = "stateObj4";
+            this.stateObj4.Size = new System.Drawing.Size(35, 15);
+            this.stateObj4.TabIndex = 242;
+            this.stateObj4.Text = "--";
+            this.stateObj4.Visible = false;
+            // 
+            // stateObj3
+            // 
+            this.stateObj3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.stateObj3.Location = new System.Drawing.Point(304, 102);
+            this.stateObj3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.stateObj3.Name = "stateObj3";
+            this.stateObj3.Size = new System.Drawing.Size(35, 15);
+            this.stateObj3.TabIndex = 241;
+            this.stateObj3.Text = "--";
+            this.stateObj3.Visible = false;
+            // 
+            // stateObj2
+            // 
+            this.stateObj2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.stateObj2.Location = new System.Drawing.Point(304, 87);
+            this.stateObj2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.stateObj2.Name = "stateObj2";
+            this.stateObj2.Size = new System.Drawing.Size(35, 15);
+            this.stateObj2.TabIndex = 240;
+            this.stateObj2.Text = "--";
+            this.stateObj2.Visible = false;
+            // 
+            // stateObj1
+            // 
+            this.stateObj1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.stateObj1.Location = new System.Drawing.Point(304, 72);
+            this.stateObj1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.stateObj1.Name = "stateObj1";
+            this.stateObj1.Size = new System.Drawing.Size(35, 15);
+            this.stateObj1.TabIndex = 239;
+            this.stateObj1.Text = "--";
+            this.stateObj1.Visible = false;
+            // 
+            // stateObj0
+            // 
+            this.stateObj0.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.stateObj0.Location = new System.Drawing.Point(304, 59);
+            this.stateObj0.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.stateObj0.Name = "stateObj0";
+            this.stateObj0.Size = new System.Drawing.Size(35, 15);
+            this.stateObj0.TabIndex = 238;
+            this.stateObj0.Text = "--";
+            this.stateObj0.Visible = false;
+            // 
+            // listPos_label
+            // 
+            this.listPos_label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.listPos_label.Location = new System.Drawing.Point(304, 44);
+            this.listPos_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.listPos_label.Name = "listPos_label";
+            this.listPos_label.Size = new System.Drawing.Size(35, 15);
+            this.listPos_label.TabIndex = 237;
+            this.listPos_label.Text = "--";
+            this.listPos_label.Visible = false;
+            // 
+            // label223
+            // 
+            this.label223.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label223.Location = new System.Drawing.Point(223, 45);
+            this.label223.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label223.Name = "label223";
+            this.label223.Size = new System.Drawing.Size(74, 15);
+            this.label223.TabIndex = 236;
+            this.label223.Text = "ListPos:";
+            this.label223.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label223.Visible = false;
+            // 
+            // Adaptive_Pred4
+            // 
+            this.Adaptive_Pred4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Pred4.Location = new System.Drawing.Point(95, 76);
+            this.Adaptive_Pred4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Pred4.Name = "Adaptive_Pred4";
+            this.Adaptive_Pred4.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Pred4.TabIndex = 196;
+            this.Adaptive_Pred4.Text = "Pred4";
+            // 
+            // AdaptiveEnabled
+            // 
+            this.AdaptiveEnabled.AutoSize = true;
+            this.AdaptiveEnabled.Location = new System.Drawing.Point(239, 5);
+            this.AdaptiveEnabled.Name = "AdaptiveEnabled";
+            this.AdaptiveEnabled.Size = new System.Drawing.Size(117, 17);
+            this.AdaptiveEnabled.TabIndex = 0;
+            this.AdaptiveEnabled.Text = "Adaptive Switching";
+            this.AdaptiveEnabled.UseVisualStyleBackColor = true;
+            // 
+            // Adaptive_Pred3
+            // 
+            this.Adaptive_Pred3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Pred3.Location = new System.Drawing.Point(95, 62);
+            this.Adaptive_Pred3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Pred3.Name = "Adaptive_Pred3";
+            this.Adaptive_Pred3.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Pred3.TabIndex = 195;
+            this.Adaptive_Pred3.Text = "Pred3";
+            // 
+            // Adaptive_Pred2
+            // 
+            this.Adaptive_Pred2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Pred2.Location = new System.Drawing.Point(95, 48);
+            this.Adaptive_Pred2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Pred2.Name = "Adaptive_Pred2";
+            this.Adaptive_Pred2.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Pred2.TabIndex = 194;
+            this.Adaptive_Pred2.Text = "Pred2";
+            // 
+            // Adaptive_Pred1
+            // 
+            this.Adaptive_Pred1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Pred1.Location = new System.Drawing.Point(95, 34);
+            this.Adaptive_Pred1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Pred1.Name = "Adaptive_Pred1";
+            this.Adaptive_Pred1.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Pred1.TabIndex = 193;
+            this.Adaptive_Pred1.Text = "Pred1";
+            // 
+            // Adaptive_Pred0
+            // 
+            this.Adaptive_Pred0.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Pred0.Location = new System.Drawing.Point(95, 20);
+            this.Adaptive_Pred0.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Pred0.Name = "Adaptive_Pred0";
+            this.Adaptive_Pred0.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Pred0.TabIndex = 192;
+            this.Adaptive_Pred0.Text = "Pred0";
+            // 
+            // Adaptive_Item4
+            // 
+            this.Adaptive_Item4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Item4.Location = new System.Drawing.Point(7, 76);
+            this.Adaptive_Item4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Item4.Name = "Adaptive_Item4";
+            this.Adaptive_Item4.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Item4.TabIndex = 191;
+            this.Adaptive_Item4.Text = "Item4";
+            this.Adaptive_Item4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // Adaptive_Item3
+            // 
+            this.Adaptive_Item3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Item3.Location = new System.Drawing.Point(7, 62);
+            this.Adaptive_Item3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Item3.Name = "Adaptive_Item3";
+            this.Adaptive_Item3.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Item3.TabIndex = 190;
+            this.Adaptive_Item3.Text = "Item3";
+            this.Adaptive_Item3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // Adaptive_Item2
+            // 
+            this.Adaptive_Item2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Item2.Location = new System.Drawing.Point(7, 48);
+            this.Adaptive_Item2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Item2.Name = "Adaptive_Item2";
+            this.Adaptive_Item2.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Item2.TabIndex = 189;
+            this.Adaptive_Item2.Text = "Item2";
+            this.Adaptive_Item2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // Adaptive_Item1
+            // 
+            this.Adaptive_Item1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Item1.Location = new System.Drawing.Point(7, 34);
+            this.Adaptive_Item1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Item1.Name = "Adaptive_Item1";
+            this.Adaptive_Item1.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Item1.TabIndex = 188;
+            this.Adaptive_Item1.Text = "Item1";
+            this.Adaptive_Item1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // Adaptive_Item0
+            // 
+            this.Adaptive_Item0.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Adaptive_Item0.Location = new System.Drawing.Point(7, 20);
+            this.Adaptive_Item0.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Adaptive_Item0.Name = "Adaptive_Item0";
+            this.Adaptive_Item0.Size = new System.Drawing.Size(73, 14);
+            this.Adaptive_Item0.TabIndex = 187;
+            this.Adaptive_Item0.Text = "Item0";
+            this.Adaptive_Item0.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label221
+            // 
+            this.label221.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label221.Location = new System.Drawing.Point(95, 6);
+            this.label221.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label221.Name = "label221";
+            this.label221.Size = new System.Drawing.Size(81, 14);
+            this.label221.TabIndex = 187;
+            this.label221.Text = "Prediction:";
+            // 
+            // label215
+            // 
+            this.label215.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label215.Location = new System.Drawing.Point(4, 6);
+            this.label215.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label215.Name = "label215";
+            this.label215.Size = new System.Drawing.Size(81, 14);
+            this.label215.TabIndex = 186;
+            this.label215.Text = "Output Device:";
             // 
             // switchSmaxLabel2
             // 
@@ -10601,6 +10929,16 @@
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
             // 
+            // button2
+            // 
+            this.Unityconnect.Location = new System.Drawing.Point(434, 208);
+            this.Unityconnect.Name = "Connect to Unity";
+            this.Unityconnect.Size = new System.Drawing.Size(103, 48);
+            this.Unityconnect.TabIndex = 235;
+            this.Unityconnect.Text = "Connect to Unity";
+            this.Unityconnect.UseVisualStyleBackColor = true;
+            this.Unityconnect.Click += new System.EventHandler(this.Unity_connect_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10741,6 +11079,8 @@
             this.TaskTimerGroupBox.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.switchSmaxCtrl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.switchSminCtrl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.switchGainCtrl2)).EndInit();
@@ -11524,6 +11864,33 @@
         private System.Windows.Forms.Button TaskTimerEnable;
         internal System.Windows.Forms.Label TaskTimerStateLabel;
         internal System.Windows.Forms.Label label212;
+        private System.Windows.Forms.Button demoAdaptiveButton;
+        internal System.Windows.Forms.Label label210;
+        internal System.Windows.Forms.Label UDPdelay2;
+        private System.Windows.Forms.CheckBox AdaptiveEnabled;
+        private System.Windows.Forms.Panel panel1;
+        internal System.Windows.Forms.Label Adaptive_Pred4;
+        internal System.Windows.Forms.Label Adaptive_Pred3;
+        internal System.Windows.Forms.Label Adaptive_Pred2;
+        internal System.Windows.Forms.Label Adaptive_Pred1;
+        internal System.Windows.Forms.Label Adaptive_Pred0;
+        internal System.Windows.Forms.Label Adaptive_Item4;
+        internal System.Windows.Forms.Label Adaptive_Item3;
+        internal System.Windows.Forms.Label Adaptive_Item2;
+        internal System.Windows.Forms.Label Adaptive_Item1;
+        internal System.Windows.Forms.Label Adaptive_Item0;
+        internal System.Windows.Forms.Label label221;
+        internal System.Windows.Forms.Label label215;
+        internal System.Windows.Forms.Label listPos_label;
+        internal System.Windows.Forms.Label label223;
+        internal System.Windows.Forms.Label stateObj4;
+        internal System.Windows.Forms.Label stateObj3;
+        internal System.Windows.Forms.Label stateObj2;
+        internal System.Windows.Forms.Label stateObj1;
+        internal System.Windows.Forms.Label stateObj0;
+        internal System.Windows.Forms.Label adaptiveFreeze_label;
+        internal System.Windows.Forms.Label label224;
+        private System.Windows.Forms.Button Unityconnect;
     }
 }
 

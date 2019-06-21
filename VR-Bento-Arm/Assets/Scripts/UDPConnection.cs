@@ -7,11 +7,14 @@
     - used https://www.youtube.com/watch?v=iSxifRKQKAA for the singleoton design
     to make this one instance of the class globally accessible 
  */
+
 using System;
 using System.Net;
 using System.Net.Sockets; 
 using System.Threading;  // multithreading 
+using System.Diagnostics; // process
 using UnityEngine;
+using UnityEditor;
 
 public class UDPConnection : MonoBehaviour
 {
@@ -26,20 +29,20 @@ public class UDPConnection : MonoBehaviour
     public Tuple<float,float> handRotation;
 
     // Network information 
-    public Int32 port = 30000;
+    public Int32 port = 30004;
     public IPAddress local = IPAddress.Parse("127.0.0.1");
 
     // .NET classes for multi-threading and establishing a udp connection 
     private UdpClient client;
     private Thread recievingThread;
     private IPEndPoint endpoint;
+    private bool exit;
 
     // Byte array retrieved from brachIOplexus 
-    private byte[] packet = new byte[30];
+    private byte[] packet;
 
-    // convert rpm -> rad/s
+    // convert servo vals -> rpm -> rad/s
     private float rpmToRads = 0.11f * Mathf.PI / 30;   
-
     void Start()
     {
         // Singleoton pattern
@@ -66,6 +69,7 @@ public class UDPConnection : MonoBehaviour
         endpoint = new IPEndPoint(local,port);
         recievingThread = new Thread(Recieve);
 
+        exit = false;
         // Start sub thread 
         print("Starting seperate thread...");
         recievingThread.Start();
@@ -87,7 +91,15 @@ public class UDPConnection : MonoBehaviour
         velocity *= rpmToRads;
 
         // Sets shoulder rotation values 
-        shoulderRotation = new Tuple<float, float>(packet[0],velocity);
+        elbowRotation = new Tuple<float, float>(packet[0],velocity);
+    }
+
+    /*
+        @brief: kills thread when the game object is destroyed 
+    */
+    void OnDestroy()
+    {
+        exit = true;
     }
 
     /*
@@ -95,13 +107,18 @@ public class UDPConnection : MonoBehaviour
     */
     void Recieve()
     {
+        print("port " + port + " local addr " + local);
         print("Streaming data...");
-        while(true)
+
+        while(!exit)
         {
             try
             {
                 packet = client.Receive(ref endpoint); 
-                Unpack();
+                // Unpack();
+                for(int i = 0; i < packet.Length; i++){
+                    print("packet[" + i + "] == " + packet[i]);
+                }
             }
             catch (Exception err)
             {

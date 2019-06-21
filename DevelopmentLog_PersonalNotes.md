@@ -674,3 +674,19 @@ script to handle drive motor.
 
 - created singeloton pattern so that the udp connection is like a global variable 
 storing the byte array results there and the other objects can access it 
+
+**June 21**
+*TODO*
+    - meeting with Rory, Quinn, and Riley to discuss packet design (DONE)
+
+*TODO FOR WEEK*
+    - implement packet
+        - test timing 
+        - test check sum 
+        - check cpu and memory usage 
+    - change GUI to add connection to Unity 
+    - Organize code in brachIOplexus
+    - use array for the rotation storage 
+- Designer was "fixed" 
+    -> open from file explorer not through visual studio (2017)
+- NOTE::: should configure two way comms so that when unity is paused or stopped, sends packet to disconnect 

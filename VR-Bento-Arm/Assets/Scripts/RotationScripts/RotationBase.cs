@@ -9,16 +9,20 @@ using UnityEngine;
 
 public class RotationBase : MonoBehaviour
 {
+    // Required components to rotate a joint
     protected ConfigurableJoint cj = null;
     protected Rigidbody rb = null;
     protected GameObject go = null;
     protected JointDrive motor;
 
+    // Motor properties (need to change with brachIOplexus)
     protected float motorTorque;
     protected float maxSpeedLimit;
     protected Quaternion targetRotation; 
     protected bool target = true;
 
+    // Depening on inherited class, axis of rotation in the joint space is 
+    // different.
     protected enum Axis {x,y,z};
     protected Axis axis;
 

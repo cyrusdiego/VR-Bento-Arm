@@ -129,7 +129,7 @@ namespace brachIOplexus
         static System.Threading.Timer t9;
         static Int32 portTX = 30000;                                   // Set the UDP ports
         static IPAddress localAddr = IPAddress.Parse("127.0.0.1");     // address for localhost
-        static int MSG_SIZE = 38;
+        static int MSG_SIZE = 38; 
         UdpClient udpClientTX;
         IPEndPoint ipEndPointTX;
         Stopwatch stopWatch9 = new Stopwatch();
@@ -148,9 +148,40 @@ namespace brachIOplexus
         //static IMovingAverage ID5_pos_avg = new SimpleMovingAverage(window2);    // for simplemovingaverage filter
         //static IMovingAverage ID5_load_avg = new SimpleMovingAverage(window2);    // for simplemovingaverage filter
 
+        // Adaptive Switching UPD Communication - Initialize Variables
+        UdpClient udpClient2 = new UdpClient();
+        static System.Threading.Timer t10;
+        static Int32 portTX2 = 30002;                                   // Set the UDP ports
+        static Int32 portRX2 = 30003;                                   // Set the UDP ports
+        static IPAddress localAddr2 = IPAddress.Parse("127.0.0.1");     // address for localhost
+        UdpClient udpClientTX2;
+        IPEndPoint ipEndPointTX2;
+        UdpClient udpClientRX2;
+        IPEndPoint ipEndPointRX2;
+        Stopwatch stopWatch10 = new Stopwatch();
+        long milliSec10;     // the timestep of the UDP loop in milliseconds
+        bool UDPflag2 = false;   // Flag used to used to track whether the demoSurpriseButton has been clicked and whether it is in the launch or close state
+        Process PythonProc2 = new Process();     // Process for launching the python script
+        double[] AdaptivePred = new double[5];
+        int[] AdaptiveIndex = new int[] { 0, 1, 2, 3, 4 };
+        bool adaptiveFreeze = false;        // the state variable for controlling whether the switching list is frozen under certain conditions (i.e. adaptiveFreeze = true -> freeze the list, adaptiveFreeze = false -> allow the list to be re-ordered)
+
         // Task Timer - Initialize Variables
         Stopwatch Task_Timer = new Stopwatch();  // timer for measuring the total amount of elapsed time
         int TaskTimerState = 0;     // 0 = disabled, 1 = reset(and ready to go), 2 = running, 3 = resetting
+
+        // Unity UDP connection 
+        static System.Threading.Timer t11;
+        static Int32 portTX3 = 30004;  // Send
+        static Int32 portRX3 = 30005;  // Recieve 
+        static IPAddress localAddr3 = IPAddress.Parse("127.0.0.1");  // Local address
+        UdpClient udpClientTX3;
+        IPEndPoint ipEndPointTX3;
+        Stopwatch stopWatch11 = new Stopwatch();
+        long milliSec11;  
+        bool UDPflag3 = false;
+        Process UnityProc = new Process();  // Process to launch VR project 
+        List<UInt16> packetList = new List<UInt16>();  // Packet buffer to store data 
 
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
@@ -172,7 +203,7 @@ namespace brachIOplexus
         public const int LEN_MX_GOAL_POSITION = 2;
         public const int LEN_MX_MOVING_SPEED = 2;
         public const int LEN_MX_GOAL_POS_SPEED = 4;
-        public const int LEN_MX_TORQUE_LIMIT = 2;
+        public const int LEN_MX_TORQUE_LIMIT= 2;
         public const int LEN_MX_PRESENT_POSITION = 2;
         public const int LEN_MX_PRESENT_SPEED = 2;
         public const int LEN_MX_PRESENT_LOAD = 2;
@@ -377,11 +408,11 @@ namespace brachIOplexus
         {
             public int pmin { get; set; }       // the CW angle limit of the motor
             public int pmax { get; set; }       // the CCW angle limit of the motor
-            public int p { get; set; }       // the goal position
+            public int p    { get; set; }       // the goal position
             public int p_prev { get; set; }     // the previous position of the motor (used for stopping dynamixel motors)
             public int wmin { get; set; }       // the minimum velocity of the motor
             public int wmax { get; set; }       // the maximum velocity of the motor
-            public int w { get; set; }       // the goal velocity
+            public int w    { get; set; }       // the goal velocity
             public int w_prev { get; set; }     // the previous velocity of the motor (not currently being used)
 
 
@@ -392,7 +423,7 @@ namespace brachIOplexus
             public int dofState { get; set; }       // The state of the DoF from the previous timestep. (not currently being used)
             public int switchState { get; set; }    // The state of the sequential switch (i.e. 0 = below threshold, 1 = above threshold -> switch to next item on list, 2 = Don't allow another switching event until both of the channels drops below threshold)                  
             public int listPos { get; set; }        // The position of the sequential switch in the switching order (i.e. cycles between 0 and 5 as)
-
+            
             public long timer1 { get; set; }        // Counter used for co-contracting switching.
             public long timer2 { get; set; }        // 2nd counter used for co-contracting switching
             public int[] motorState = new int[BENTO_NUM];   // The state of each motor (i.e. 0 = off, 1 = moving in cw direction, 2 = moving in ccw direction, 3 = hanging until co-contraction is finished)
@@ -435,7 +466,7 @@ namespace brachIOplexus
             public ushort posf { get; set; }      // the current filtered position of the motor
             public ushort vel { get; set; }       // the current velocity of the motor
             public ushort load { get; set; }      // the current load of the motor
-            public ushort loadf { get; set; }      // the current filtered load of the motor
+            public ushort loadf{ get; set; }      // the current filtered load of the motor
             public ushort volt { get; set; }      // the voltage of the motor
             public ushort temp { get; set; }      // the current temperature of the motor
             public ushort tempf { get; set; }      // the current filtered temperature of the motor
@@ -460,11 +491,11 @@ namespace brachIOplexus
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-
+            
             // How to find com ports and populate combobox: http://stackoverflow.com/questions/13794376/combo-box-for-serial-port
             string[] ports = SerialPort.GetPortNames();
             cmbSerialPorts.DataSource = ports;
-
+            
             // Audo-detect com port that is connected to the USB2dynamixel
             string auto_com_port = Autodetect_Dyna_Port();
             // How to check index of combobox based on string: http://stackoverflow.com/questions/13459772/how-to-check-index-of-combobox-based-on-string
@@ -594,12 +625,24 @@ namespace brachIOplexus
                     PythonProc.CloseMainWindow();   // Close the Python Script
                 }
 
+                // Close the UDP communication for the adaptive switching demo
+                // Clean up the client and server objects and close the python scripts
+                if (UDPflag2 == true)
+                {
+                    udpClientTX2.Close();
+                    udpClientRX2.Close();
+                    t10.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+                }
 
                 // Close port
                 if (BentoGroupBox.Enabled == true)
                 {
                     dynamixel.closePort(port_num);
                 }
+
+                // Close Unity communication and thread
+                udpClientTX3.Close();
+                t11.Change(Timeout.Infinite, Timeout.Infinite);
             }
             catch (Exception ex)
             {
@@ -635,16 +678,13 @@ namespace brachIOplexus
             return null;
         }
 
-        // Unity stuff
-        private byte[] packet = new byte[30];  // 5 for each rotation; udpClient.Send() can only send byte arrays
+        #endregion
 
-    #endregion
+        #region "Legacy Code"
+        // This code is from an old version of the GUI. We may revive some of it in a future version, but for now these functionalities are disabled
 
-    #region "Legacy Code"
-    // This code is from an old version of the GUI. We may revive some of it in a future version, but for now these functionalities are disabled
-
-    #region "Communication Settings (xPC Target)"
-    private void loadButton_Click_1(object sender, EventArgs e)
+        #region "Communication Settings (xPC Target)"
+        private void loadButton_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -3051,7 +3091,7 @@ namespace brachIOplexus
             }
         }
         #endregion
-
+       
         #region "LED Display"
         private void LEDconnect_Click(object sender, EventArgs e)
         {
@@ -3101,7 +3141,7 @@ namespace brachIOplexus
             }
         }
         #endregion
-
+        
         #region "Machine Learning"
         private void MLenable_Click(object sender, EventArgs e)
         {
@@ -3955,7 +3995,7 @@ namespace brachIOplexus
                 }
             }
 
-
+        
             catch (Exception me)
             {
                 MessageBox.Show(me.Message);
@@ -4040,7 +4080,7 @@ namespace brachIOplexus
             e.Myo.SetEmgStreaming(false);
             e.Myo.EmgDataAcquired -= Myo_EmgDataAcquired;
         }
-
+        
         // Event handler for when MYO armband connects 
         private void Hub_MyoConnected(object sender, MyoEventArgs e)
         {
@@ -4122,17 +4162,6 @@ namespace brachIOplexus
 
         private void KB_connect_Click(object sender, EventArgs e)
         {
-            // added to test udp with unity
-            // Unity Testing
-            udpClientTX = new UdpClient();
-            ipEndPointTX = new IPEndPoint(localAddr, portTX);
-            for (int i = 0; i < packet.Length; i++)
-            {
-                packet[i] = 0;
-            }
-            Console.Write("clicked");
-            // 
-
             // Re-configure the GUI when the keyboard is connected
             KBgroupBox.Enabled = true;
             KBdisconnect.Enabled = true;
@@ -4314,13 +4343,12 @@ namespace brachIOplexus
 
         private void SLRTconnect_Click(object sender, EventArgs e)
         {
-
             //// only set filename if it has not already been set in the xPC target tab
             //if (tg.DLMFileName == "")
             //{
             //    tg.DLMFileName = @"bin\x86\Debug\two_state_controller_8ch_EMG_PC104_rev18c.dlm";
             //}
-
+            
             //InvokeOnClick(connectButton, new EventArgs());      // Programatically click the 'Connect' button in the xPC target tab
 
             //// Check whether the target has connected
@@ -4483,36 +4511,36 @@ namespace brachIOplexus
                 // Initialize Groupbulkread Structs
                 read_group_num = dynamixel.groupBulkRead(port_num, PROTOCOL_VERSION);
 
-                if (cmbSerialPorts.SelectedIndex > -1)
-                {
-                    // MessageBox.Show(String.Format("You selected port '{0}'", cmbSerialPorts.SelectedItem));
-                    // Define the settings for serial communication and open the serial port
-                    // To find the portname search for 'device manager' in windows search and then look under Ports (Com & LPT)
+                    if (cmbSerialPorts.SelectedIndex > -1)
+                    {
+                        // MessageBox.Show(String.Format("You selected port '{0}'", cmbSerialPorts.SelectedItem));
+                        // Define the settings for serial communication and open the serial port
+                        // To find the portname search for 'device manager' in windows search and then look under Ports (Com & LPT)
 
-                    try
-                    {
-                        port_num = dynamixel.portHandler(cmbSerialPorts.SelectedItem.ToString());
-                    }
-                    catch (InvalidCastException ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                        try
+                        {
+                            port_num = dynamixel.portHandler(cmbSerialPorts.SelectedItem.ToString());
+                        }
+                        catch (InvalidCastException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
 
-                    // Open port
-                    if (dynamixel.openPort(port_num))
-                    {
-                        dynaStatus.Text = String.Format("Port {0} opened successfully", cmbSerialPorts.SelectedItem.ToString());
+                        // Open port
+                        if (dynamixel.openPort(port_num))
+                        {
+                            dynaStatus.Text = String.Format("Port {0} opened successfully", cmbSerialPorts.SelectedItem.ToString());
+                        }
+                        else
+                        {
+                            dynaStatus.Text = String.Format("Failed to open port {0}", cmbSerialPorts.SelectedItem.ToString());
+                            return;
+                        }
                     }
                     else
                     {
-                        dynaStatus.Text = String.Format("Failed to open port {0}", cmbSerialPorts.SelectedItem.ToString());
-                        return;
+                        dynaStatus.Text = "Please select a port first";
                     }
-                }
-                else
-                {
-                    dynaStatus.Text = "Please select a port first";
-                }
 
                 // Set port baudrate
                 if (dynamixel.setBaudRate(port_num, BAUDRATE))
@@ -4697,7 +4725,7 @@ namespace brachIOplexus
                     // Read the ccw parameter from the gripper if it is connected
                     UInt16 dxl_gripper_CCW_limit = 0;
                     dxl_gripper_CCW_limit = dynamixel.read2ByteTxRx(port_num, PROTOCOL_VERSION, DXL5_ID, ADDR_MX_CCW);
-
+                    
                     if ((dxl_comm_result = dynamixel.getLastTxRxResult(port_num, PROTOCOL_VERSION)) != COMM_SUCCESS)
                     {
                         dynaCommResult.Text = Convert.ToString(dxl_comm_result);
@@ -4710,19 +4738,19 @@ namespace brachIOplexus
                     else
                     {
                         int CCW_limit = Convert.ToInt32(dxl_gripper_CCW_limit);
-                        if (CCW_limit == GripperParam[0, 1])
+                        if (CCW_limit == GripperParam[0,1])
                         {
                             // Detected the chopsticks gripper
                             GripperID = 0;
                             dynaStatus.Text = dynaStatus.Text + Environment.NewLine + String.Format("Chopsticks is connected", DXL5_ID);
                         }
-                        else if (CCW_limit == GripperParam[1, 1])
+                        else if (CCW_limit == GripperParam[1,1])
                         {
                             // Detected the power hand right gripper
                             GripperID = 1;
                             dynaStatus.Text = dynaStatus.Text + Environment.NewLine + String.Format("Powerhand right is connected", DXL5_ID);
                         }
-                        else if (CCW_limit == GripperParam[2, 1])
+                        else if (CCW_limit == GripperParam[2,1])
                         {
                             // Detected the power hand right gripper
                             GripperID = 2;
@@ -4762,6 +4790,9 @@ namespace brachIOplexus
                     // Added this code for the surprise demo to help with user control
                     demoSurpriseButton.Enabled = true;
 
+                    // Added this code for the adaptive switching demo to help with user control
+                    demoAdaptiveButton.Enabled = true;
+
                     // Added this code for the Task timer
                     TaskTimerGroupBox.Enabled = true;
                     for (int i = 0; i <= BENTO_NUM - 1; i++)
@@ -4782,12 +4813,11 @@ namespace brachIOplexus
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void dynaDisconnect_Click(object sender, EventArgs e)
         {
+
             // Added this code for the Task timer
             TaskTimerGroupBox.Enabled = false;
 
@@ -4851,7 +4881,7 @@ namespace brachIOplexus
         {
             // Read feedback values back from the motors
             readDyna();
-
+            
             // initialize dynamixel positions when first turning on the torque
             robotObj.Motor[0].p = robotObj.Motor[0].p_prev;
             robotObj.Motor[1].p = robotObj.Motor[1].p_prev;
@@ -4989,7 +5019,7 @@ namespace brachIOplexus
 
             // Enable/disable relevant controls
             TorqueOn.Enabled = true;
-            TorqueOff.Enabled = false;
+            TorqueOff.Enabled = false; 
             moveCW.Enabled = false;
             moveCCW.Enabled = false;
             TorqueOn.Focus();
@@ -5021,7 +5051,7 @@ namespace brachIOplexus
 
             if (TorqueOn.Enabled == false && BentoGroupBox.Enabled == true)
             {
-
+                
 
                 BentoRun.Enabled = true;
                 BentoSuspend.Enabled = false;
@@ -5231,7 +5261,7 @@ namespace brachIOplexus
                 BentoSense.ID[0].load = (ushort)(parse_load((UInt16)dynamixel.groupBulkReadGetData(read_group_num, DXL1_ID, ADDR_MX_PRESENT_LOAD, LEN_MX_PRESENT_LOAD)) + 1023);
                 BentoSense.ID[0].volt = (UInt16)dynamixel.groupBulkReadGetData(read_group_num, DXL1_ID, ADDR_MX_PRESENT_VOLTAGE, LEN_MX_PRESENT_VOLTAGE);
                 BentoSense.ID[0].temp = (UInt16)dynamixel.groupBulkReadGetData(read_group_num, DXL1_ID, ADDR_MX_PRESENT_TEMP, LEN_MX_PRESENT_TEMP);
-
+                
                 ID1_present_position = BentoSense.ID[0].pos;
                 robotObj.Motor[0].p_prev = ID1_present_position;
 
@@ -5347,7 +5377,7 @@ namespace brachIOplexus
                 Volt4.Text = Convert.ToString(BentoSense.ID[3].volt / 10);
                 Temp4.Text = Convert.ToString(BentoSense.ID[3].tempf);
                 check_overheat(DXL4_ID, BentoSense.ID[3].temp);
-                check_overload(DXL4_ID, (UInt16)dynamixel.groupBulkReadGetData(read_group_num, DXL3_ID, ADDR_MX_TORQUE_LIMIT, LEN_MX_TORQUE_LIMIT));
+                check_overload(DXL4_ID, (UInt16)dynamixel.groupBulkReadGetData(read_group_num, DXL4_ID, ADDR_MX_TORQUE_LIMIT, LEN_MX_TORQUE_LIMIT));
             }
             // Get Dynamixel#5 present position value
             // If apply load in CCW direction load value is positive
@@ -5387,7 +5417,7 @@ namespace brachIOplexus
             {
                 BentoErrorColor.Text = "";
                 BentoErrorText.Text = "";
-            }
+            } 
         }
 
         // Check whether a dynamixel servo has overloaded
@@ -5751,16 +5781,17 @@ namespace brachIOplexus
                 // Update Xbox values
                 if (xBoxGroupBox.Enabled == true)
                 {
+                    Console.WriteLine("xbox is enableddddd");
                     int preGain = 500;
 
-                    InputMap[0, 0] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Left.X * preGain), true);
+                    InputMap[0, 0] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Left.X * preGain),true);
                     InputMap[0, 1] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Left.X * preGain), false);
                     InputMap[0, 2] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Left.Y * preGain), true);
                     InputMap[0, 3] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Left.Y * preGain), false);
                     InputMap[0, 4] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Right.X * preGain), true);
                     InputMap[0, 5] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Right.X * preGain), false);
                     InputMap[0, 6] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Right.Y * preGain), true);
-                    InputMap[0, 7] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Right.Y * preGain), false);
+                    InputMap[0, 7] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Right.Y * preGain), false); 
 
                     InputMap[0, 8] = Convert.ToInt32(reporterState.LastActiveState.Triggers.Left * preGain);
                     InputMap[0, 9] = Convert.ToInt32(reporterState.LastActiveState.Triggers.Right * preGain);
@@ -5847,7 +5878,7 @@ namespace brachIOplexus
                             //}
                             InvokeOnClick(demoXBoxButton, new EventArgs());
                             QuickProfileState = 0;
-
+ 
                         }
                         QuickProfileFlag = true;
                     }
@@ -5885,7 +5916,7 @@ namespace brachIOplexus
                     double ramp_delay = 264;      // the time in milliseconds that it takes for the keyboard to ramp up from stopped (0) to full speed (1).
                     int preGain = 500;
 
-                    InputMap[2, 0] = velocity_ramp(ref KBvel[0], Keyboard.IsKeyDown(Key.W), KBcheckRamp.Checked, preGain / (ramp_delay / milliSec1), preGain);
+                    InputMap[2, 0] = velocity_ramp(ref KBvel[0], Keyboard.IsKeyDown(Key.W), KBcheckRamp.Checked, preGain /( ramp_delay / milliSec1), preGain);
                     InputMap[2, 1] = velocity_ramp(ref KBvel[1], Keyboard.IsKeyDown(Key.A), KBcheckRamp.Checked, preGain / (ramp_delay / milliSec1), preGain);
                     InputMap[2, 2] = velocity_ramp(ref KBvel[2], Keyboard.IsKeyDown(Key.S), KBcheckRamp.Checked, preGain / (ramp_delay / milliSec1), preGain);
                     InputMap[2, 3] = velocity_ramp(ref KBvel[3], Keyboard.IsKeyDown(Key.D), KBcheckRamp.Checked, preGain / (ramp_delay / milliSec1), preGain);
@@ -5927,29 +5958,6 @@ namespace brachIOplexus
                     KBrampA.Text = Convert.ToString(InputMap[2, 1]);
                     KBrampS.Text = Convert.ToString(InputMap[2, 2]);
                     KBrampD.Text = Convert.ToString(InputMap[2, 3]);
-
-                    #region Unity testing 
-                    packet[2] = low_byte((UInt16)robotObj.Motor[0].w);
-                    packet[3] = high_byte((UInt16)robotObj.Motor[0].w);
-
-                    int A = InputMap[2, 1];
-                    int D = InputMap[2, 3];
-                    if (A != 0 && D != 0 || A == 0 && D == 0)
-                    {
-                        packet[0] = 0;
-                    }
-                    else if (A != 0 && D == 0)
-                    {
-                        packet[0] = 1;
-                    }
-                    else if(A == 0 && D != 0)
-                    {
-                        packet[0] = 2;
-                    }
-                    
-                    udpClientTX.Send(packet, packet.Length, ipEndPointTX);
-
-                    #endregion
                 }
 
                 // Update BioPatRec values
@@ -6042,6 +6050,8 @@ namespace brachIOplexus
                 // Update Simulink Realtime EMG values
                 if (SLRTgroupBox.Enabled == true && tg.IsConnected == true)
                 {
+
+
                     Action action = update_SLRT;
                     action.BeginInvoke(ar => action.EndInvoke(ar), null);
                     InputMap[5, 0] = SLRT_ch[0];
@@ -6117,6 +6127,46 @@ namespace brachIOplexus
 
                 #endregion
 
+                #region "Update Adaptive Switching Paramaters"
+
+                if (AdaptiveEnabled.Checked == true)
+                {
+                    if (adaptiveFreeze == false)
+                    {
+                        // Display the updates switching list and prediction values on the GUI
+                        Adaptive_Item0.Text = switch1OutputBox.Items[AdaptiveIndex[0]].ToString();
+                        Adaptive_Pred0.Text = AdaptivePred[0].ToString();
+                        Adaptive_Item1.Text = switch1OutputBox.Items[AdaptiveIndex[1]].ToString();
+                        Adaptive_Pred1.Text = AdaptivePred[1].ToString();
+                        Adaptive_Item2.Text = switch1OutputBox.Items[AdaptiveIndex[2]].ToString();
+                        Adaptive_Pred2.Text = AdaptivePred[2].ToString();
+                        Adaptive_Item3.Text = switch1OutputBox.Items[AdaptiveIndex[3]].ToString();
+                        Adaptive_Pred3.Text = AdaptivePred[3].ToString();
+                        Adaptive_Item4.Text = switch1OutputBox.Items[AdaptiveIndex[4]].ToString();
+                        Adaptive_Pred4.Text = AdaptivePred[4].ToString();
+                    }
+
+                    // Unfreeze the switching list when the user moves the arm (implies that they are done switching and that adaptive switching can resume)
+                    for (int i = 0; i < BENTO_NUM; i++)
+                    {
+                        if (stateObj.motorState[i] == 1 || stateObj.motorState[i] == 2)
+                        {
+                            adaptiveFreeze = false;
+                        }
+                    }
+
+                }
+
+                adaptiveFreeze_label.Text = Convert.ToString(adaptiveFreeze);
+                listPos_label.Text = Convert.ToString(stateObj.listPos);
+                stateObj0.Text = Convert.ToString(switchObj.List[0].output);
+                stateObj1.Text = Convert.ToString(switchObj.List[1].output);
+                stateObj2.Text = Convert.ToString(switchObj.List[2].output);
+                stateObj3.Text = Convert.ToString(switchObj.List[3].output);
+                stateObj4.Text = Convert.ToString(switchObj.List[4].output);
+
+                #endregion
+
                 #region "Update Sequential Switch Parameters
                 // Update the signal information for the sequential switch
                 if (switchModeBox.SelectedIndex == 0 && switchInputBox.SelectedIndex > 0)
@@ -6170,6 +6220,12 @@ namespace brachIOplexus
                             case 0:
                                 if (switchObj.signal > switchObj.smin1 && stateObj.switchState == 0)
                                 {
+                                    // Freeze the switching list once the user initiates a switching event (used for adaptive switching)
+                                    if (AdaptiveEnabled.Checked == true)
+                                    {
+                                        adaptiveFreeze = true;
+                                    }
+
                                     // Grab last position feedback and STOP! (added in to prevent state variable from staying high if active during a switching event)
                                     if (k >= 0)
                                     {
@@ -6237,6 +6293,12 @@ namespace brachIOplexus
                                     if (switchObj.flag1 == true && switchObj.flag2 == true)
                                     {
                                         // Co-contract conditions were met, so initiate switching event. 
+
+                                        // Freeze the switching list once the user initiates a switching event (used for adaptive switching)
+                                        if (AdaptiveEnabled.Checked == true)
+                                        {
+                                            adaptiveFreeze = true;
+                                        }
 
                                         // Reset previous joint so it can't move anymore
                                         if (k >= 0)
@@ -6331,9 +6393,8 @@ namespace brachIOplexus
 
                     if (dofObj[i].Enabled)
                     {
-                        // Changed this for Unity testing to connect ouput and input 
-                        //if (bentoSuspend == false || biopatrecMode.SelectedIndex == 1)  // only connect inputs to outputs if Bento is in 'Run' mode
-                        //{
+                        if (bentoSuspend == false || biopatrecMode.SelectedIndex == 1)  // only connect inputs to outputs if Bento is in 'Run' mode
+                        {
                             switch (dofObj[i].ChA.mapping)
                             {
                                 // Use first past the post control option
@@ -6375,8 +6436,8 @@ namespace brachIOplexus
                                         break;
                                 }
                             }
-                        //}
-
+                        }
+                        
                         // Check if additional Bento functions such as torque on/off or suspend/run are selected
                         if (k < -1)
                         {
@@ -6404,7 +6465,7 @@ namespace brachIOplexus
                         }
                     }
                 }
-
+                
                 if (BentoGroupBox.Enabled == true)
                 {
                     // Update feedback
@@ -6731,12 +6792,12 @@ namespace brachIOplexus
                 {
                     robotObj.Motor[k].p = linear_mapping(channel, robotObj.Motor[k].pmin, robotObj.Motor[k].pmax);
                 }
-                else if (flip == -1)
+                else if(flip == -1)
                 {
                     robotObj.Motor[k].p = linear_mapping(channel, robotObj.Motor[k].pmax, robotObj.Motor[k].pmin);
                 }
                 robotObj.Motor[k].w = 1023;
-
+                
             }
 
             // Bound the position values
@@ -6749,7 +6810,7 @@ namespace brachIOplexus
             //}
         }
 
-        private int toggle(Ch channel, int statePressed, Button state1, Button state2)
+        private int toggle(Ch channel,int statePressed, Button state1, Button state2)
         {
             // This function acts as a momentary switch that allows for toggling between
             // two states on the robot such as torque on/off and run/suspend.
@@ -6779,7 +6840,7 @@ namespace brachIOplexus
                 statePressed = 1;
                 return statePressed;
             }
-            else if (channel.signal < channel.smin)
+            else if(channel.signal < channel.smin)
             {
                 // Reset the momentary button when it falls below threshold
                 statePressed = 0;
@@ -6796,7 +6857,7 @@ namespace brachIOplexus
         //    {
         //        channel.signal = Convert.ToInt32(channel.smax);
         //    }
-
+            
         //    // Linear proportional mapping between signal strength and angular velocity of motor
         //    return Convert.ToInt32((robotObj.Motor[k].wmax - robotObj.Motor[k].wmin) / (channel.smax - channel.smin) * (channel.signal - channel.smin) + robotObj.Motor[k].wmin);
         //}
@@ -6963,7 +7024,7 @@ namespace brachIOplexus
         // Helper function to update the switching list
         private int updateList(int listPos)
         {
-            if (listPos == SWITCH_NUM - 1)
+            if (listPos == SWITCH_NUM-1)
             {
                 return 0;
             }
@@ -6971,7 +7032,7 @@ namespace brachIOplexus
             {
                 return listPos + 1;
             }
-
+        
         }
 
         //Helper function to cap the MAV display at the rail
@@ -7018,7 +7079,7 @@ namespace brachIOplexus
                 }
             }
 
-            return Convert.ToInt32(IsKeyDown) * max;
+            return Convert.ToInt32(IsKeyDown)*max;
         }
 
         // bound the value between its min and max values
@@ -7283,7 +7344,7 @@ namespace brachIOplexus
                 if (changed.mappingBox.SelectedIndex <= 1)
                 {
                     autoFill(dof.channel1.outputBox, dof.channel2.outputBox, changed.outputBox, 10);
-                    autoOff(dof.channel1.outputBox, dof.channel2.outputBox, changed.outputBox, 10);
+                    autoOff(dof.channel1.outputBox, dof.channel2.outputBox, changed.outputBox, 10); 
                 }
                 autoDeselect(dof.channel1.outputBox, dof.channel2.outputBox, changed.outputBox);
             }
@@ -7422,7 +7483,7 @@ namespace brachIOplexus
                 double_check(BentoList, 9, e);
             });
         }
-
+  
         private void XBoxList_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             this.BeginInvoke((MethodInvoker)delegate
@@ -7615,7 +7676,7 @@ namespace brachIOplexus
         // Update the minimum threshold for the switching channel
         private void switchSminCtrl1_ValueChanged(object sender, EventArgs e)
         {
-            switchObj.smin1 = switchSminCtrl1.Value * 100;
+            switchObj.smin1 = switchSminCtrl1.Value*100;
             // Adjust the position of the smin tick and label to reflect changes to the smin value
             switchSminTick1.Location = new Point(switch_tick_position(Convert.ToDouble(switchSminCtrl1.Value)), switchSminTick1.Location.Y);
             switchSminLabel1.Location = new Point(switch_tick_position(Convert.ToDouble(switchSminCtrl1.Value)) - switchSminLabel1.Width / 2 + switchSminTick1.Width / 2, switchSminLabel1.Location.Y);
@@ -7624,7 +7685,7 @@ namespace brachIOplexus
         // Update the maximum threshold for the switching channel
         private void switchSmaxCtrl1_ValueChanged(object sender, EventArgs e)
         {
-            switchObj.smax1 = switchSmaxCtrl1.Value * 100;
+            switchObj.smax1 = switchSmaxCtrl1.Value*100;
             // Adjust the position of the smin tick and label to reflect changes to the smin value
             switchSmaxTick1.Location = new Point(switch_tick_position(Convert.ToDouble(switchSmaxCtrl1.Value)), switchSmaxTick1.Location.Y);
             switchSmaxLabel1.Location = new Point(switch_tick_position(Convert.ToDouble(switchSmaxCtrl1.Value)) - switchSmaxLabel1.Width / 2 + switchSmaxTick1.Width / 2, switchSmaxLabel1.Location.Y);
@@ -7740,7 +7801,7 @@ namespace brachIOplexus
 
         private void switch1Flip_CheckedChanged(object sender, EventArgs e)
         {
-            switchObj.List[0].flip = Convert.ToInt32(switch1Flip.Checked);
+            switchObj.List[0].flip = Convert.ToInt32(switch1Flip.Checked); 
         }
 
         private void switch2Flip_CheckedChanged(object sender, EventArgs e)
@@ -7973,7 +8034,7 @@ namespace brachIOplexus
                                 bytes[1] = Convert.ToByte(robotObj.Motor[4].w);
                                 netStream.Write(bytes, 0, 2);
                             }
-
+                            
                             // Used for testing/troubleshooting
                             //bytes[0] = 15;
                             //bytes[1] = 80;
@@ -8047,12 +8108,12 @@ namespace brachIOplexus
                     PythonProc.StartInfo.UseShellExecute = false;
                     PythonProc.StartInfo.RedirectStandardOutput = false;
                     PythonProc.Start();
-
+                
                     // Initialize the UDP TX object
                     udpClientTX = new UdpClient();
                     ipEndPointTX = new IPEndPoint(localAddr, portTX);
 
-                    // Start the timer that will send the serial packets out to the arduino 
+                    // Start the timer that will send the serial packets out to the python script
                     // NOTE: for some reason the actual timestep of the timer is a bit slower -> i.e. it is set to 15ms, but actually achieves more like 19-20ms
                     t9 = new System.Threading.Timer(new TimerCallback(DoWork9), null, 0, 15);
 
@@ -8140,7 +8201,7 @@ namespace brachIOplexus
                     packet[8] = low_byte(BentoSense.ID[3].posf);
                     packet[9] = high_byte(BentoSense.ID[3].posf);
                     packet[10] = low_byte(BentoSense.ID[4].posf);
-                    packet[11] = high_byte(BentoSense.ID[4].pos);
+                    packet[11] = high_byte(BentoSense.ID[4].posf);
                     packet[12] = low_byte(BentoSense.ID[0].vel);
                     packet[13] = high_byte(BentoSense.ID[0].vel);
                     packet[14] = low_byte(BentoSense.ID[1].vel);
@@ -8414,8 +8475,372 @@ namespace brachIOplexus
 
 
 
+
         #endregion
 
+        #region "Adaptive Switching Demo"
+        private void demoAdaptiveButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (UDPflag2 == false && dynaConnect.Enabled == false)
+                {
+                    // Initialize Bento Arm feedback values to 0
+                    for (int i = 0; i < BENTO_NUM; i++)
+                    {
+                        BentoSense.ID[i].pos = 0;
+                        BentoSense.ID[i].vel = 0;
+                        BentoSense.ID[i].load = 0;
+                        BentoSense.ID[i].volt = 0;
+                        BentoSense.ID[i].temp = 0;
+                    }
 
+                    //// Launch the Python Script
+                    //// Reference: https://codefying.com/2015/10/02/executing-a-python-script-from-a-c-program/
+                    //PythonProc2.StartInfo.FileName = "C:\\WPy-3670\\python-3.6.7.amd64\\python.exe";
+                    //PythonProc2.StartInfo.Arguments = "C:\\WPy-3670\\bento_surprise_demo\\bento_percept_interface_demo.py";
+                    //PythonProc2.StartInfo.UseShellExecute = false;
+                    //PythonProc2.StartInfo.RedirectStandardOutput = false;
+                    //PythonProc2.Start();
+
+                    // Initialize the UDP TX object
+                    udpClientTX2 = new UdpClient();
+                    ipEndPointTX2 = new IPEndPoint(localAddr2, portTX2);
+
+                    //// Initialize the UDP RX object
+                    udpClientRX2 = new UdpClient(portRX2);
+                    ipEndPointRX2 = new IPEndPoint(localAddr2, portRX2);
+
+                    // Start the timer that will send the serial packets out to the arduino 
+                    // NOTE: for some reason the actual timestep of the timer is a bit slower -> i.e. it is set to 45ms, but actually achieves more like 49-50ms
+                    // This update rate is to match the 20Hz (50ms) that was used in the previous adaptive switching code from ROS
+                    t10 = new System.Threading.Timer(new TimerCallback(DoWork10), null, 0, 45);
+
+                    // Reset the UDP flag and update the button text
+                    UDPflag2 = true;
+                    demoAdaptiveButton.Text = "Close Adaptive Switching Demo";
+                }
+                //else if (UDPflag2 == true && PythonProc2.HasExited == false)
+                //{
+                //    // Close the Python Script
+                //    PythonProc2.CloseMainWindow();
+
+                //    t10.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+
+                //    // Reset the UDP flag and update the button text
+                //    UDPflag2 = false;
+                //    demoAdaptiveButton.Text = "Launch Adaptive Switching Demo";
+                //}
+                //else if (PythonProc2.HasExited == true)
+                //{
+                //    t10.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+
+                //    // Reset the UDP flag and update the button text
+                //    UDPflag2 = false;
+                //    demoAdaptiveButton.Text = "Launch Adaptive Switching Demo";
+                //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // This is a timer callback function that operates on a separate thread and that is used for communicating with an external program via UDP
+        public void DoWork10(object state)
+        {
+            try
+            {
+                // Stop stopwatch and record how long everything in the main loop took to execute as well as how long it took to retrigger the main loop
+                stopWatch10.Stop();
+                milliSec10 = stopWatch10.ElapsedMilliseconds;
+
+                if (UDPdelay2.InvokeRequired)
+                {
+                    UDPdelay2.Invoke(new MethodInvoker(delegate { UDPdelay2.Text = Convert.ToString(milliSec10); }));
+                }
+
+                // Reset and start the stop watch
+                stopWatch10.Restart();
+
+                // Send the sensor stream from the Bento Arm if the 
+                if (dynaConnect.Enabled == false)
+                {
+                    // Send the packet over the network to the connected program
+
+                    //// See UDP_Comm_Protocol_ASD_brachIO_to_python for the packet structure and example packets
+                    //// Packet Example 1 (Checksum = 203)
+                    //byte[] packet = new byte[13];
+                    //packet[0] = 255;    // First two bytes of the packet are the header section and set to 255
+                    //packet[1] = 255;
+                    //packet[2] = 1 * 9;      // The length of the data part of the packet
+                    //packet[3] = 1;
+                    //packet[4] = low_byte(2048);
+                    //packet[5] = high_byte(2048);
+                    //packet[6] = low_byte(1024);
+                    //packet[7] = high_byte(1024);
+                    //packet[8] = low_byte(1024);
+                    //packet[9] = high_byte(1024);
+                    //packet[10] = 25;
+                    //packet[11] = 1;
+
+                    //// Packet Example 2 (Checksum = 66)
+                    //byte[] packet = new byte[22];
+                    //packet[0] = 255;    // First two bytes of the packet are the header section and set to 255
+                    //packet[1] = 255;
+                    //packet[2] = 2*9;      // The length of the data part of the packet
+                    //packet[3] = 4;
+                    //packet[4] = low_byte(500);
+                    //packet[5] = high_byte(500);
+                    //packet[6] = low_byte(100);
+                    //packet[7] = high_byte(100);
+                    //packet[8] = low_byte(250);
+                    //packet[9] = high_byte(250);
+                    //packet[13] = low_byte(4095);
+                    //packet[14] = high_byte(4095);
+                    //packet[15] = low_byte(2047);
+                    //packet[16] = high_byte(2047);
+                    //packet[17] = low_byte(2047);
+                    //packet[18] = high_byte(2047);
+                    //packet[10] = 25;
+                    //packet[11] = 1;
+                    //packet[12] = 5;
+                    //packet[19] = 25;
+                    //packet[20] = 2;
+
+                    // Create a byte array for holding the packet values
+                    // Use a fixed message size of 50 values
+                    int MSG_SIZE2 = 49;
+                    byte[] packet = new byte[MSG_SIZE2];
+
+                    // Construct the packet that will be transmitted to the external program
+                    packet[0] = 255;    // First two bytes of the packet are the header section and set to 255
+                    packet[1] = 255;
+                    packet[2] = (byte)BENTO_NUM * 9;      // The length of the packet
+                    packet[3] = 1;
+                    packet[4] = low_byte(BentoSense.ID[0].posf);
+                    packet[5] = high_byte(BentoSense.ID[0].posf);
+                    packet[6] = low_byte(BentoSense.ID[0].vel);
+                    packet[7] = high_byte(BentoSense.ID[0].vel);
+                    packet[8] = low_byte(BentoSense.ID[0].loadf);
+                    packet[9] = high_byte(BentoSense.ID[0].loadf);
+                    packet[10] = (byte)BentoSense.ID[0].tempf;
+                    packet[11] = (byte)stateObj.motorState[0];
+                    packet[12] = 2;
+                    packet[13] = low_byte(BentoSense.ID[1].posf);
+                    packet[14] = high_byte(BentoSense.ID[1].posf);
+                    packet[15] = low_byte(BentoSense.ID[1].vel);
+                    packet[16] = high_byte(BentoSense.ID[1].vel);
+                    packet[17] = low_byte(BentoSense.ID[1].loadf);
+                    packet[18] = high_byte(BentoSense.ID[1].loadf);
+                    packet[19] = (byte)BentoSense.ID[1].tempf;
+                    packet[20] = (byte)stateObj.motorState[1];
+                    packet[21] = 3;
+                    packet[22] = low_byte(BentoSense.ID[2].posf);
+                    packet[23] = high_byte(BentoSense.ID[2].posf);
+                    packet[24] = low_byte(BentoSense.ID[2].vel);
+                    packet[25] = high_byte(BentoSense.ID[2].vel);
+                    packet[26] = low_byte(BentoSense.ID[2].loadf);
+                    packet[27] = high_byte(BentoSense.ID[2].loadf);
+                    packet[28] = (byte)BentoSense.ID[2].tempf;
+                    packet[29] = (byte)stateObj.motorState[2];
+                    packet[30] = 4;
+                    packet[31] = low_byte(BentoSense.ID[3].posf);
+                    packet[32] = high_byte(BentoSense.ID[3].posf);
+                    packet[33] = low_byte(BentoSense.ID[3].vel);
+                    packet[34] = high_byte(BentoSense.ID[3].vel);
+                    packet[35] = low_byte(BentoSense.ID[3].loadf);
+                    packet[36] = high_byte(BentoSense.ID[3].loadf);
+                    packet[37] = (byte)BentoSense.ID[3].tempf;
+                    packet[38] = (byte)stateObj.motorState[3];
+                    packet[39] = 5;
+                    packet[40] = low_byte(BentoSense.ID[4].posf);
+                    packet[41] = high_byte(BentoSense.ID[4].posf);
+                    packet[42] = low_byte(BentoSense.ID[4].vel);
+                    packet[43] = high_byte(BentoSense.ID[4].vel);
+                    packet[44] = low_byte(BentoSense.ID[4].loadf);
+                    packet[45] = high_byte(BentoSense.ID[4].loadf);
+                    packet[46] = (byte)BentoSense.ID[4].tempf;
+                    packet[47] = (byte)stateObj.motorState[4];
+
+
+                    // Calculate the checksum for the packet
+                    int checksum = 0;
+                    for (int p = 2; p < packet.Length - 1; p++)
+                    {
+                        checksum = checksum + packet[p];     // Add up all the bytes in the DATA section of the packet. i.e. do not count the header bytes
+                    }
+                    checksum = (byte)~checksum;     // return the bitwise complement which is equivalent to the NOT operator
+                    packet[packet.Length - 1] = (byte)checksum; // Tuck the checksum byte into the last slot in the byte array 
+                    udpClientTX2.Send(packet, packet.Length, ipEndPointTX2);
+
+                    // Process the return packet from the external program
+                    byte[] bytes = udpClientRX2.Receive(ref ipEndPointRX2);
+
+                    // Decode packets from the external program using packet structure from UDP_Comm_Protocol_ASD_python_to_brachIO_180619.xls
+                    // Calculate the checksum for the packet
+                    int checksumRX = 0;
+                    for (int p = 2; p < bytes.Length - 1; p++)
+                    {
+                        checksumRX = checksumRX + bytes[p];     // Add up all the bytes in the LENGTH and DATA section of hte packet
+                    }
+
+                    checksumRX = (byte)~checksumRX;     // return the bitwise complement which is equivalent to the NOT operator
+
+                    // Only update the input values if the packet is valid
+                    if (checksumRX == bytes[bytes.Length - 1] && bytes[0] == 255 && bytes[1] == 255)
+                    {
+                        for (int m = 3; m < bytes.Length - 1; m = m + 2)
+                        {
+                            AdaptivePred[bytes[m] - 1] = bytes[m + 1];
+                        }
+                    }
+
+                    if (AdaptiveEnabled.Checked == true)
+                    {
+                        // Sort the adaptive switching predictions into a sorted array that can be used for updating the list
+                        // Reference: https://stackoverflow.com/questions/8866414/how-to-sort-2d-array-in-c-sharp
+                        int[] newIndex = new int[] { 1, 2, 3, 4, 5 };
+                        AdaptivePred[switchObj.List[stateObj.listPos].output - 1] = -1;        // Set the prediction for the active item in the switching list to -1 so that it goes to the bottom of the list
+                        AdaptiveIndex = newIndex;       // Reset the index array
+                        Array.Sort(AdaptivePred, AdaptiveIndex);    // sort the arrays (default is ascending order)
+                        Array.Reverse(AdaptivePred);                // reverse the order of the array
+                        Array.Reverse(AdaptiveIndex);               // reverse the order of the array
+
+                        if (adaptiveFreeze == false)
+                        {
+                            // Update the switching list
+                            int[] listPos_new = new int[5];
+
+                            listPos_new[0] = updateList(stateObj.listPos);
+                            listPos_new[1] = updateList(listPos_new[0]);
+                            listPos_new[2] = updateList(listPos_new[1]);
+                            listPos_new[3] = updateList(listPos_new[2]);
+                            listPos_new[4] = updateList(listPos_new[3]);
+
+                            switchObj.List[listPos_new[0]].output = AdaptiveIndex[0];
+                            switchObj.List[listPos_new[1]].output = AdaptiveIndex[1];
+                            switchObj.List[listPos_new[2]].output = AdaptiveIndex[2];
+                            switchObj.List[listPos_new[3]].output = AdaptiveIndex[3];
+                            switchObj.List[listPos_new[4]].output = AdaptiveIndex[4];
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Unity 
+        // Sends and Recieves packets from Unity VR 
+        // Adapted from "Surprise Demo" 
+        // Refer to UDP_Comm_VIPER excel_rev#.xlsx file for packet breakdown 
+        private void Unity_connect_Click(object sender, EventArgs e)
+        {
+
+            if(!UDPflag3)
+            {
+                // Initialize UDP connection 
+                udpClientTX3 = new UdpClient();
+                ipEndPointTX3 = new IPEndPoint(localAddr3, portTX3);
+
+                // Start the thread to send packets to Unity 
+                t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+
+                UDPflag = true;
+                Unityconnect.Text = "Disconnect from Unity";
+            }
+            else
+            {
+                udpClientTX3.Close();
+                t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+
+                Unityconnect.Text = "Connect to Unity";
+                UDPflag3 = false;
+            }
+        }
+
+        private void sendToUnity(object state)
+        {
+            try
+            {
+                stopWatch11.Stop();
+                milliSec11 = stopWatch11.ElapsedMilliseconds;
+
+                // Clear and setup packet 
+                packetList.Clear();
+
+                // Fill header bytes
+                packetList.Add(255);
+                packetList.Add(255);
+
+                // Packet ID is 0 (for now) will need to implement for scene setup
+                packetList.Add(0);
+
+                // Fill packet from input signals 
+                updatePacket();
+                
+                // Convert to a byte array
+                // https://stackoverflow.com/questions/3097812/converting-a-list-of-ints-to-a-byte-array
+                byte[] packet = packetList.SelectMany(BitConverter.GetBytes).ToArray();
+
+                packet[packet.Length - 1] = (byte)~packet[packet.Length - 1];
+
+                udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void updatePacket()
+        {
+            UInt16 length = 0;
+            UInt16 checkSum = 0;
+            UInt16 lowByte;
+            UInt16 hiByte;
+
+            List<List<UInt16>> servoPkg = new List<List<UInt16>>();
+            List<UInt16> pkg = new List<UInt16>();
+
+            for(UInt16 i = 1; i < BENTO_NUM; i++)
+            {
+                UInt16 state = (UInt16) stateObj.motorState[i];
+                if(state != 0 || state != 3)
+                {
+                    length++;
+
+                    lowByte = (UInt16)low_byte((ushort)robotObj.Motor[i].w);
+                    hiByte = (UInt16)high_byte((ushort)robotObj.Motor[i].w);
+
+                    pkg.Add(i);
+                    pkg.Add(lowByte);
+                    pkg.Add(hiByte);
+                    pkg.Add(state);
+
+                    servoPkg.Add(pkg);
+
+                    checkSum += (UInt16)(i + lowByte + hiByte + state);
+                }
+            }
+            length *= 4;
+            packetList.Add(length);
+
+            foreach(List<UInt16> data in servoPkg)
+            {
+                packetList.AddRange(data);
+            }
+
+            packetList.Add(checkSum);
+
+        }
+        #endregion
     }
 }

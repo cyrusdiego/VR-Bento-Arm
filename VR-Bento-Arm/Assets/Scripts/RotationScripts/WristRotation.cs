@@ -24,7 +24,6 @@ public class WristRotation: RotationBase
         maxSpeedLimit = 1.03f;
 
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
-
     }
 
     void FixedUpdate()
