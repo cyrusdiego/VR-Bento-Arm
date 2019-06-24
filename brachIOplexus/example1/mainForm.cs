@@ -641,8 +641,11 @@ namespace brachIOplexus
                 }
 
                 // Close Unity communication and thread
-                udpClientTX3.Close();
-                t11.Change(Timeout.Infinite, Timeout.Infinite);
+                if(UDPflag3)
+                {
+                    udpClientTX3.Close();
+                    t11.Change(Timeout.Infinite, Timeout.Infinite);
+                }
             }
             catch (Exception ex)
             {
@@ -5781,7 +5784,6 @@ namespace brachIOplexus
                 // Update Xbox values
                 if (xBoxGroupBox.Enabled == true)
                 {
-                    Console.WriteLine("xbox is enableddddd");
                     int preGain = 500;
 
                     InputMap[0, 0] = splitAxis(Convert.ToInt32(reporterState.LastActiveState.ThumbSticks.Left.X * preGain),true);
@@ -8750,7 +8752,7 @@ namespace brachIOplexus
                 // Start the thread to send packets to Unity 
                 t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
 
-                UDPflag = true;
+                UDPflag3 = true;
                 Unityconnect.Text = "Disconnect from Unity";
             }
             else
@@ -8758,11 +8760,10 @@ namespace brachIOplexus
                 udpClientTX3.Close();
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
 
-                Unityconnect.Text = "Connect to Unity";
                 UDPflag3 = false;
+                Unityconnect.Text = "Connect to Unity";
             }
         }
-
         private void sendToUnity(object state)
         {
             try
@@ -8795,7 +8796,6 @@ namespace brachIOplexus
             {
                 MessageBox.Show(ex.Message);
             }
-            
         }
 
         private void updatePacket()
@@ -8809,7 +8809,6 @@ namespace brachIOplexus
             for (UInt16 i = 0; i < BENTO_NUM; i++)
             {
                 state = (UInt16)stateObj.motorState[i];
-
                 if (state != 0 && state != 3)
                 {
                     length++;
@@ -8821,7 +8820,6 @@ namespace brachIOplexus
                     packetList.Add(lowByte);
                     packetList.Add(hiByte);
                     packetList.Add(state);
-                    Console.WriteLine(i);
                     checkSum += (UInt16)(i + lowByte + hiByte + state);
                 }
             }

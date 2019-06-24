@@ -700,6 +700,8 @@ storing the byte array results there and the other objects can access it
 - connect to unity
 *Notes*
 - had to remove the (if bentoarm enabled) in main loop so that the data structs can update without a bento arm hooked up 
-- talk to rory / riley about removing length b/c im using List 
+- talk to rory / riley about removing length b/c im using List !!!!!
 
 - Tested two examples for values and checksum (correct results)
+- got basic movement workign for all joints using brachioplexus and keyboard 
+- xbox mapping is the same for somethings in unity (pushing on joystick is mapped to change scene )

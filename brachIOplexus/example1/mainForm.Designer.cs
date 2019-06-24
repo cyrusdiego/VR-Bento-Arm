@@ -545,6 +545,7 @@
             this.label125 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabIO = new System.Windows.Forms.TabPage();
+            this.Unityconnect = new System.Windows.Forms.Button();
             this.label210 = new System.Windows.Forms.Label();
             this.UDPdelay2 = new System.Windows.Forms.Label();
             this.demoAdaptiveButton = new System.Windows.Forms.Button();
@@ -797,7 +798,6 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
-            this.Unityconnect = new System.Windows.Forms.Button();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -7784,6 +7784,16 @@
             this.tabIO.Text = "Input/Output";
             this.tabIO.UseVisualStyleBackColor = true;
             // 
+            // Unityconnect
+            // 
+            this.Unityconnect.Location = new System.Drawing.Point(434, 208);
+            this.Unityconnect.Name = "Unityconnect";
+            this.Unityconnect.Size = new System.Drawing.Size(103, 48);
+            this.Unityconnect.TabIndex = 235;
+            this.Unityconnect.Text = "Connect to Unity";
+            this.Unityconnect.UseVisualStyleBackColor = true;
+            this.Unityconnect.Click += new System.EventHandler(this.Unity_connect_Click);
+            // 
             // label210
             // 
             this.label210.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -10928,16 +10938,6 @@
             // 
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
-            // 
-            // button2
-            // 
-            this.Unityconnect.Location = new System.Drawing.Point(434, 208);
-            this.Unityconnect.Name = "Connect to Unity";
-            this.Unityconnect.Size = new System.Drawing.Size(103, 48);
-            this.Unityconnect.TabIndex = 235;
-            this.Unityconnect.Text = "Connect to Unity";
-            this.Unityconnect.UseVisualStyleBackColor = true;
-            this.Unityconnect.Click += new System.EventHandler(this.Unity_connect_Click);
             // 
             // mainForm
             // 

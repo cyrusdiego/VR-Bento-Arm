@@ -43,6 +43,9 @@ public class UDPConnection : MonoBehaviour
     // convert servo vals -> rpm -> rad/s
     private float rpmToRads = 0.11f * Mathf.PI / 30;   
 
+    /*
+        @brief: function runs upon startup 
+    */
     void Start()
     {
         // Singleoton pattern
@@ -71,8 +74,8 @@ public class UDPConnection : MonoBehaviour
     }
 
     /*
-        @brief: takes the packet byte array and parses through it to determine 
-        direction and velocity of each motor  
+        @brief: takes the packet byte array and converts to a List<UInt16>
+        @return: List<UInt16> from brachIOplexus to fill packetList  
     */
     List<UInt16> Unpack()
     {
@@ -87,11 +90,19 @@ public class UDPConnection : MonoBehaviour
         return incoming;
     }
 
+    /*
+        @brief: retrieves the lower byte of a UInt16 number
+    */
     byte low_byte(ushort number)
     {
         return (byte)(number & 0xff);
     }
 
+    /*
+        @brief: checks if the packet recieved is correct:
+        double header: 255
+        checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
+    */
     bool validate()
     {
         UInt16 checksum = 0;
@@ -120,6 +131,10 @@ public class UDPConnection : MonoBehaviour
         }
     }
 
+    /*
+        @brief: combines low and high byte values and converts to rad /s velocity
+        value
+    */
     float getVelocity(UInt16 low, UInt16 hi)
     {
         UInt16 combined = (UInt16)((low) | (hi << 8));
@@ -128,6 +143,9 @@ public class UDPConnection : MonoBehaviour
         return velocity;
     }
 
+    /*
+        @brief: sets the rotation array to zero's 
+    */
     void clearRotationArray()
     {
         for(int i = 0; i < rotationArray.Length; i++)
@@ -136,6 +154,11 @@ public class UDPConnection : MonoBehaviour
         }
     }
 
+    /*
+        @brief: using the packet recieved from BrachIOplexus, fill the 
+        rotationArray array with velocity and direction values. rotationArray
+        is globally accessible to the rotation classes. 
+    */
     void parsePacket()
     {
         clearRotationArray();

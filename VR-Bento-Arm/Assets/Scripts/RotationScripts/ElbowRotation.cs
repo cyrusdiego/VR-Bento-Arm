@@ -30,7 +30,6 @@ public class ElbowRotation : RotationBase
     void FixedUpdate()
     {
         // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-                getAxis(0,0);
 
         float direction = UDPConnection.udp.rotationArray[2].Item1;
         float velocity = UDPConnection.udp.rotationArray[2].Item2;
