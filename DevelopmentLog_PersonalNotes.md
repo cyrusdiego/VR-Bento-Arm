@@ -692,3 +692,14 @@ storing the byte array results there and the other objects can access it
 - NOTE::: should configure two way comms so that when unity is paused or stopped, sends packet to disconnect 
 
 - got serialized and also check sum is correct 
+
+**June 22**
+*Steps for connecting brachIOplexus to Unity(keyboard)*
+- file->profile->kb_multi.dat
+- connect keyboard (velocity ramp on or off) 
+- connect to unity
+*Notes*
+- had to remove the (if bentoarm enabled) in main loop so that the data structs can update without a bento arm hooked up 
+- talk to rory / riley about removing length b/c im using List 
+
+- Tested two examples for values and checksum (correct results)

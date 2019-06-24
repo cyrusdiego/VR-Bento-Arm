@@ -6393,50 +6393,48 @@ namespace brachIOplexus
 
                     if (dofObj[i].Enabled)
                     {
-                        if (bentoSuspend == false || biopatrecMode.SelectedIndex == 1)  // only connect inputs to outputs if Bento is in 'Run' mode
+                        switch (dofObj[i].ChA.mapping)
                         {
-                            switch (dofObj[i].ChA.mapping)
-                            {
-                                // Use first past the post control option
-                                case 0:
-                                    if (k >= 0)
-                                    {
-                                        post(dofObj[i], k, i);
-                                    }
-                                    break;
-                                // Use Joint Position2 Mapping (map from the analog signals of two channels to the position of one of the joints on the robot)
-                                case 1:
+                            // Use first past the post control option
+                            case 0:
+                                if (k >= 0)
+                                {
+                                    post(dofObj[i], k, i);
+                                }
+                                break;
+                            // Use Joint Position2 Mapping (map from the analog signals of two channels to the position of one of the joints on the robot)
+                            case 1:
 
-                                    if (k >= 0)
-                                    {
-                                        joint_position2(dofObj[i], k, i);
-                                    }
-                                    break;
+                                if (k >= 0)
+                                {
+                                    joint_position2(dofObj[i], k, i);
+                                }
+                                break;
+                            // Use Joint Position1 Mapping (map from the analog signal of a single channel to the position of one of the joints on the robot)
+                            case 2:
+
+                                if (k >= 0 && dofObj[i].ChA.Enabled)
+                                {
+                                    joint_position1(dofObj[i].ChA, k, check_flip(i, dofObj[i].flipA));
+                                }
+                                break;
+                        }
+
+                        // Process second channel if using mappings that only use 1 channel (i.e. so you could control a DoF with each channel)
+                        if (dofObj[i].ChA.mapping == 2 || k < -1 || m < -1)
+                        {
+                            switch (dofObj[i].ChB.mapping)
+                            {
                                 // Use Joint Position1 Mapping (map from the analog signal of a single channel to the position of one of the joints on the robot)
                                 case 2:
-
-                                    if (k >= 0 && dofObj[i].ChA.Enabled)
+                                    if (m >= 0 && dofObj[i].ChB.Enabled)
                                     {
-                                        joint_position1(dofObj[i].ChA, k, check_flip(i, dofObj[i].flipA));
+                                        joint_position1(dofObj[i].ChB, m, check_flip(i, dofObj[i].flipB));
                                     }
                                     break;
                             }
-
-                            // Process second channel if using mappings that only use 1 channel (i.e. so you could control a DoF with each channel)
-                            if (dofObj[i].ChA.mapping == 2 || k < -1 || m < -1)
-                            {
-                                switch (dofObj[i].ChB.mapping)
-                                {
-                                    // Use Joint Position1 Mapping (map from the analog signal of a single channel to the position of one of the joints on the robot)
-                                    case 2:
-                                        if (m >= 0 && dofObj[i].ChB.Enabled)
-                                        {
-                                            joint_position1(dofObj[i].ChB, m, check_flip(i, dofObj[i].flipB));
-                                        }
-                                        break;
-                                }
-                            }
                         }
+                      
                         
                         // Check if additional Bento functions such as torque on/off or suspend/run are selected
                         if (k < -1)
@@ -8786,20 +8784,10 @@ namespace brachIOplexus
                 updatePacket();
 
                 // Convert to a byte array
-                //byte[] packet = new byte[packetList.Count];
-                //for(int i = 0; i < packetList.Count; i++)
-                //{
-                //    packet[i] = Convert.ToByte(packetList[i]);
-                //}
-                //byte[] packet = packetList.SelectMany(BitConverter.GetBytes).ToArray();
                 var binFormatter = new BinaryFormatter();
                 var mStream = new MemoryStream();
                 binFormatter.Serialize(mStream, packetList);
                 byte[] packet = mStream.ToArray();
-
-                //Console.WriteLine(packet[0].ToString());
-                //Console.WriteLine(packet[1].ToString());
-
 
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
             }
@@ -8816,52 +8804,58 @@ namespace brachIOplexus
             UInt16 checkSum = 0;
             UInt16 lowByte;
             UInt16 hiByte;
+            UInt16 state;
+            length = 2;
+            lowByte = (UInt16)low_byte(100);
+            hiByte = (UInt16)high_byte(100);
+            state = 1;
+            packetList.Add(4);
+            packetList.Add(lowByte);
+            packetList.Add(hiByte);
+            packetList.Add(state);
+            checkSum += (UInt16)(4 + lowByte + hiByte + state);
 
-            List<List<UInt16>> servoPkg = new List<List<UInt16>>();
-            List<UInt16> pkg = new List<UInt16>();
-
-            for(UInt16 i = 1; i < BENTO_NUM; i++)
-            {
-                UInt16 state = (UInt16) stateObj.motorState[i];
-                if(state != 0 && state != 3)
-                {
-                    length++;
-
-                    lowByte = (UInt16)low_byte((ushort)robotObj.Motor[i].w);
-                    hiByte = (UInt16)high_byte((ushort)robotObj.Motor[i].w);
-
-                    pkg.Add(i);
-                    pkg.Add(lowByte);
-                    pkg.Add(hiByte);
-                    pkg.Add(state);
-
-                    servoPkg.Add(pkg);
-
-                    checkSum += (UInt16)(i + lowByte + hiByte + state);
-                }
-            }
+            lowByte = (UInt16)low_byte(2047);
+            hiByte = (UInt16)high_byte(2047);
+            state = 2;
+            packetList.Add(5);
+            packetList.Add(lowByte);
+            packetList.Add(hiByte);
+            packetList.Add(state);
+            checkSum += (UInt16)(5 + lowByte + hiByte + state);
             length *= 4;
-            packetList.Add(length);
+            packetList.Insert(3, length);
+            //for (UInt16 i = 1; i < BENTO_NUM; i++)
+            //{
+            //    state = (UInt16)stateObj.motorState[i];
 
-            foreach(List<UInt16> data in servoPkg)
-            {
-                packetList.AddRange(data);
-            }
-            Console.WriteLine("checksum");
-            Console.WriteLine(checkSum);
-            Console.WriteLine("not checksum");
-            Console.WriteLine(~checkSum);
-            Console.WriteLine("uint16 ~ ");
-            Console.WriteLine((UInt16)~checkSum);
-            Console.WriteLine("lowbyte");
-            Console.WriteLine(low_byte((UInt16)~checkSum));
-            if((UInt16)~checkSum >= 255)
+            //    if (state != 0 && state != 3)
+            //    {
+            //        length++;
+
+            //        lowByte = (UInt16)low_byte((UInt16)robotObj.Motor[i].w);
+            //        hiByte = (UInt16)high_byte((UInt16)robotObj.Motor[i].w);
+
+            //        packetList.Add(i);
+            //        packetList.Add(lowByte);
+            //        packetList.Add(hiByte);
+            //        packetList.Add(state);
+
+            //        checkSum += (UInt16)(i + lowByte + hiByte + state);
+            //    }
+            //}
+            //length *= 4;
+            //packetList.Insert(3, length);
+
+            if ((UInt16)~checkSum >= 255)
             {
                 checkSum = low_byte((UInt16)~checkSum);
             }
-            //Console.WriteLine(checkSum);
+            else
+            {
+                checkSum = (UInt16)~checkSum;
+            }
             packetList.Add(checkSum);
-
         }
         #endregion
     }
