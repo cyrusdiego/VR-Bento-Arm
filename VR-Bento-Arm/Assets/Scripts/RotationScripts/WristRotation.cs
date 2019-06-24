@@ -26,10 +26,31 @@ public class WristRotation: RotationBase
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
 
+    // void FixedUpdate()
+    // {
+    //     // -1 * to flip the rotation 
+    //     // getAxis(-1*Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT"));
+    //     getAxis(0,1);
+    // }
+
     void FixedUpdate()
     {
-        // -1 * to flip the rotation 
-        // getAxis(-1*Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT"));
-        getAxis(0,1);
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+        float direction = UDPConnection.udp.rotationArray[3].Item1;
+        float velocity = UDPConnection.udp.rotationArray[3].Item2;
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
+
+            case 1:
+                getAxis(-1,velocity);
+                break;
+
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
     }
 }

@@ -8257,7 +8257,7 @@ namespace brachIOplexus
         {
             return (byte)(number >> 8);
         }
-
+         
         #endregion
 
         #region "Task Timer"
@@ -8805,47 +8805,28 @@ namespace brachIOplexus
             UInt16 lowByte;
             UInt16 hiByte;
             UInt16 state;
-            length = 2;
-            lowByte = (UInt16)low_byte(100);
-            hiByte = (UInt16)high_byte(100);
-            state = 1;
-            packetList.Add(4);
-            packetList.Add(lowByte);
-            packetList.Add(hiByte);
-            packetList.Add(state);
-            checkSum += (UInt16)(4 + lowByte + hiByte + state);
 
-            lowByte = (UInt16)low_byte(2047);
-            hiByte = (UInt16)high_byte(2047);
-            state = 2;
-            packetList.Add(5);
-            packetList.Add(lowByte);
-            packetList.Add(hiByte);
-            packetList.Add(state);
-            checkSum += (UInt16)(5 + lowByte + hiByte + state);
+            for (UInt16 i = 0; i < BENTO_NUM; i++)
+            {
+                state = (UInt16)stateObj.motorState[i];
+
+                if (state != 0 && state != 3)
+                {
+                    length++;
+
+                    lowByte = (UInt16)low_byte((UInt16)robotObj.Motor[i].w);
+                    hiByte = (UInt16)high_byte((UInt16)robotObj.Motor[i].w);
+
+                    packetList.Add(i);
+                    packetList.Add(lowByte);
+                    packetList.Add(hiByte);
+                    packetList.Add(state);
+                    Console.WriteLine(i);
+                    checkSum += (UInt16)(i + lowByte + hiByte + state);
+                }
+            }
             length *= 4;
             packetList.Insert(3, length);
-            //for (UInt16 i = 1; i < BENTO_NUM; i++)
-            //{
-            //    state = (UInt16)stateObj.motorState[i];
-
-            //    if (state != 0 && state != 3)
-            //    {
-            //        length++;
-
-            //        lowByte = (UInt16)low_byte((UInt16)robotObj.Motor[i].w);
-            //        hiByte = (UInt16)high_byte((UInt16)robotObj.Motor[i].w);
-
-            //        packetList.Add(i);
-            //        packetList.Add(lowByte);
-            //        packetList.Add(hiByte);
-            //        packetList.Add(state);
-
-            //        checkSum += (UInt16)(i + lowByte + hiByte + state);
-            //    }
-            //}
-            //length *= 4;
-            //packetList.Insert(3, length);
 
             if ((UInt16)~checkSum >= 255)
             {

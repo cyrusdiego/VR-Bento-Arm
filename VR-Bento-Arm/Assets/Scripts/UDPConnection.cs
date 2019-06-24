@@ -23,7 +23,8 @@ public class UDPConnection : MonoBehaviour
     public static UDPConnection udp;
 
     // Holds direction and velocity
-    private Tuple<float,float>[] rotationArray = new Tuple<float, float>[5]; 
+    // roationArray[0] is undefined
+    public Tuple<float,float>[] rotationArray = new Tuple<float, float>[6]; 
 
     // Network information 
     public Int32 port = 30004;
@@ -55,10 +56,7 @@ public class UDPConnection : MonoBehaviour
             Destroy(gameObject);
         }
 
-        for(int i = 0; i < rotationArray.Length; i++)
-        {
-            rotationArray[i] = new Tuple<float,float>(0,0);
-        }
+        clearRotationArray();
 
         // Initialize udp connection and seperate thread 
         print("Initializing udp connection with brachIOplexus...");
@@ -96,20 +94,21 @@ public class UDPConnection : MonoBehaviour
 
     bool validate()
     {
-        int checksum = 0;
+        UInt16 checksum = 0;
         for(int i = 4; i < packetList.Count - 1; i++)
         {
             checksum += packetList[i];
         }
 
-        if(checksum > 255)
+        if((UInt16)~checksum > 255)
         {
             checksum = low_byte((UInt16)~checksum);
         }
         else
         {
-            checksum = ~checksum;
+            checksum = (UInt16)~checksum;
         }
+
 
         if(checksum == packetList[packetList.Count - 1] && packetList[0] == 255 && packetList[1] == 255)
         {
@@ -123,24 +122,23 @@ public class UDPConnection : MonoBehaviour
 
     float getVelocity(UInt16 low, UInt16 hi)
     {
-        // Merging two arrays 
-        // https://stackoverflow.com/questions/59217/merging-two-arrays-in-net
-        
-        byte[] lowByte = BitConverter.GetBytes(low);
-        byte[] hiByte = BitConverter.GetBytes(hi);
-        byte[] combined = new byte[lowByte.Length + hiByte.Length];
+        UInt16 combined = (UInt16)((low) | (hi << 8));
 
-        Array.Copy(hiByte, combined, hiByte.Length);
-        Array.Copy(lowByte, 0, combined, hiByte.Length, lowByte.Length);
-        print("low == " + low + " high == " + hi + " combined == " + combined);
-
-        float velocity = BitConverter.ToInt16(combined,0) * rpmToRads;
-        print("velocity == " + velocity);
+        float velocity = combined * rpmToRads;
         return velocity;
+    }
+
+    void clearRotationArray()
+    {
+        for(int i = 0; i < rotationArray.Length; i++)
+        {
+            rotationArray[i] = new Tuple<float,float>(0,0);
+        }
     }
 
     void parsePacket()
     {
+        clearRotationArray();
         if(validate())
         {
             int length = packetList[3] / 4;
@@ -148,7 +146,7 @@ public class UDPConnection : MonoBehaviour
             {
                 float direction = packetList[4*i + 3];
                 float velocity = getVelocity(packetList[4*i + 1],packetList[4*i + 2]);
-                rotationArray[packetList[4*i]] = new Tuple<float, float>(direction,velocity);
+                rotationArray[packetList[4*i] + 1] = new Tuple<float, float>(direction,velocity);
             }
         }
     }

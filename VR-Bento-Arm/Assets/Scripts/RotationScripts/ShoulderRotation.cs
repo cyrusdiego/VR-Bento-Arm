@@ -30,38 +30,22 @@ public class ShoulderRotation : RotationBase
 
     void FixedUpdate()
     {
-        // -1 to flip the direction 
-        // getAxis(-1*Input.GetAxis("THUMBSTICK_HORIZONTAL_LEFT"));
-        // float direction = UDPConnection.udp.shoulderRotation.Item1;
-        // float velocity = UDPConnection.udp.shoulderRotation.Item2;
-        // switch(direction)
-        // {
-        //     case 0:
-        //     getAxis(0,velocity);
-        //     break;
-        //     case 1:
-        //     getAxis(-1,velocity);
-        //     break;
-        //     case 2:
-        //     getAxis(1,velocity);
-        //     break;
-        // }
-        getAxis(0,1);
-    }
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+        float direction = UDPConnection.udp.rotationArray[1].Item1;
+        float velocity = UDPConnection.udp.rotationArray[1].Item2;
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
 
-    // public void recieveInput(float[] packet)
-    // {
-    //     print(packet[1]);
-    //     switch(packet[0]){
-    //         case 0:
-    //         getAxis(0,packet[1]);
-    //         break;
-    //         case 1:
-    //         getAxis(-1,packet[1]);
-    //         break;
-    //         case 2:
-    //         getAxis(1,packet[1]);
-    //         break;
-    //     }
-    // }
+            case 1:
+                getAxis(-1,velocity);
+                break;
+
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
+    }
 }

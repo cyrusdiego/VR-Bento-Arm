@@ -32,21 +32,42 @@ public class HandRotation : RotationBase
         cj.projectionAngle = 0.1f;
     }
 
+    // void FixedUpdate()
+    // {
+    //     // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT") >= 0.5)
+    //     // {
+    //     //     axisValue = Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT");
+    //     //     getAxis(axisValue);
+    //     //     return;
+    //     // }
+    //     // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT") >= 0.5)
+    //     // {
+    //     //     axisValue = -1 * Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT");
+    //     //     getAxis(axisValue);
+    //     //     return;
+    //     // }
+
+    //     getAxis(0,1);
+    // }
+
     void FixedUpdate()
     {
-        // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT") >= 0.5)
-        // {
-        //     axisValue = Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT");
-        //     getAxis(axisValue);
-        //     return;
-        // }
-        // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT") >= 0.5)
-        // {
-        //     axisValue = -1 * Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT");
-        //     getAxis(axisValue);
-        //     return;
-        // }
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+        float direction = UDPConnection.udp.rotationArray[5].Item1;
+        float velocity = UDPConnection.udp.rotationArray[5].Item2;
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
 
-        getAxis(0,1);
+            case 1:
+                getAxis(-1,velocity);
+                break;
+
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
     }
 }

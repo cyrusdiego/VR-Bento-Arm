@@ -27,24 +27,26 @@ public class ElbowRotation : RotationBase
 
     }
 
-    // void FixedUpdate()
-    // {
-    //     // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-    //     float direction = UDPConnection.udp.elbowRotation.Item1;
-    //     float velocity = UDPConnection.udp.elbowRotation.Item2;
-    //     switch(direction)
-    //     {
-    //         case 0:
-    //             getAxis(0,velocity);
-    //             break;
+    void FixedUpdate()
+    {
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+                getAxis(0,0);
 
-    //         case 1:
-    //             getAxis(-1,velocity);
-    //             break;
+        float direction = UDPConnection.udp.rotationArray[2].Item1;
+        float velocity = UDPConnection.udp.rotationArray[2].Item2;
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
 
-    //         case 2:
-    //             getAxis(1,velocity);
-    //             break;
-    //     }
-    // }
+            case 1:
+                getAxis(-1,velocity);
+                break;
+
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
+    }
 }
