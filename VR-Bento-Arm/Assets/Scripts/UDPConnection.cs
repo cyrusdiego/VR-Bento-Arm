@@ -27,7 +27,7 @@ public class UDPConnection : MonoBehaviour
     public Tuple<float,float>[] rotationArray = new Tuple<float, float>[6]; 
 
     // Network information 
-    public Int32 port = 30004;
+    public Int32 portRX = 30004;
     public IPAddress local = IPAddress.Parse("127.0.0.1");
 
     // .NET classes for multi-threading and establishing a udp connection 
@@ -38,7 +38,7 @@ public class UDPConnection : MonoBehaviour
 
     // Byte array retrieved from brachIOplexus 
     private byte[] packet;
-    private List<UInt16> packetList;
+    // private List<byte> packetList;
 
     // convert servo vals -> rpm -> rad/s
     private float rpmToRads = 0.11f * Mathf.PI / 30;   
@@ -62,33 +62,30 @@ public class UDPConnection : MonoBehaviour
         clearRotationArray();
 
         // Initialize udp connection and seperate thread 
-        print("Initializing udp connection with brachIOplexus...");
-        client = new UdpClient(port);
-        endpoint = new IPEndPoint(local,port);
+        client = new UdpClient(portRX);
+        endpoint = new IPEndPoint(local,portRX);
         recievingThread = new Thread(Recieve);
 
         exit = false;
-        // Start sub thread 
-        print("Starting seperate thread...");
         recievingThread.Start();
     }
 
-    /*
-        @brief: takes the packet byte array and converts to a List<UInt16>
-        @return: List<UInt16> from brachIOplexus to fill packetList  
-    */
-    List<UInt16> Unpack()
-    {
+    // /*
+    //     @brief: takes the packet byte array and converts to a List<UInt16>
+    //     @return: List<UInt16> from brachIOplexus to fill packetList  
+    // */
+    // List<byte> Unpack()
+    // {
 
-        List<UInt16> incoming = new List<UInt16>();
-        var mStream = new MemoryStream();
-        var binFormatter = new BinaryFormatter();
-        mStream.Write(packet,0,packet.Length);
-        mStream.Position = 0;
-        incoming = binFormatter.Deserialize(mStream) as List<UInt16>;
+    //     List<byte> incoming = new List<byte>();
+    //     var mStream = new MemoryStream();
+    //     var binFormatter = new BinaryFormatter();
+    //     mStream.Write(packet,0,packet.Length);
+    //     mStream.Position = 0;
+    //     incoming = binFormatter.Deserialize(mStream) as List<byte>;
 
-        return incoming;
-    }
+    //     return incoming;
+    // }
 
     /*
         @brief: retrieves the lower byte of a UInt16 number
@@ -105,23 +102,23 @@ public class UDPConnection : MonoBehaviour
     */
     bool validate()
     {
-        UInt16 checksum = 0;
-        for(int i = 4; i < packetList.Count - 1; i++)
+        byte checksum = 0;
+        for(int i = 4; i < packet.Length - 1; i++)
         {
-            checksum += packetList[i];
+            checksum += packet[i];
         }
 
-        if((UInt16)~checksum > 255)
+        if((byte)~checksum > 255)
         {
             checksum = low_byte((UInt16)~checksum);
         }
         else
         {
-            checksum = (UInt16)~checksum;
+            checksum = (byte)~checksum;
         }
 
 
-        if(checksum == packetList[packetList.Count - 1] && packetList[0] == 255 && packetList[1] == 255)
+        if(checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
         {
             return true;
         }
@@ -135,7 +132,7 @@ public class UDPConnection : MonoBehaviour
         @brief: combines low and high byte values and converts to rad /s velocity
         value
     */
-    float getVelocity(UInt16 low, UInt16 hi)
+    float getVelocity(byte low, byte hi)
     {
         UInt16 combined = (UInt16)((low) | (hi << 8));
 
@@ -164,12 +161,13 @@ public class UDPConnection : MonoBehaviour
         clearRotationArray();
         if(validate())
         {
-            int length = packetList[3] / 4;
-            for(int i = 1; i < length + 1; i++)
+            int length = packet[3] / 4;
+            for(byte i = 1; i < length + 1; i++)
             {
-                float direction = packetList[4*i + 3];
-                float velocity = getVelocity(packetList[4*i + 1],packetList[4*i + 2]);
-                rotationArray[packetList[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+                float direction = packet[4*i + 3];
+                float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
+                rotationArray[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+                print(rotationArray[packet[4*i] + 1]);
             }
         }
     }
@@ -187,15 +185,11 @@ public class UDPConnection : MonoBehaviour
     */
     void Recieve()
     {
-        print("port " + port + " local addr " + local);
-        print("Streaming data...");
-
         while(!exit)
         {
             try
             {
                 packet = client.Receive(ref endpoint); 
-                packetList = Unpack();
                 parsePacket();
             }
             catch (Exception err)

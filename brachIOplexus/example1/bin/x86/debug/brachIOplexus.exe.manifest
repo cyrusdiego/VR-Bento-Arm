@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="brachIOplexus.exe" size="4102144">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="brachIOplexus.exe" size="4101632">
       <assemblyIdentity name="brachIOplexus" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>CzKlB2Y2llfQGn3XAXeWsD5Zhbk=</dsig:DigestValue>
+        <dsig:DigestValue>SZV5AqAr9o8gJ4DFkKJQtm5fVr4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>I3H8Ryf3KdOebrkuRW9ZUj4DVZ0=</dsig:DigestValue>
+        <dsig:DigestValue>Mt/Y+rQqcx45kACjpGe1BfmLbkM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

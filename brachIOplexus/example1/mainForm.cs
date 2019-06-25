@@ -181,7 +181,7 @@ namespace brachIOplexus
         long milliSec11;  
         bool UDPflag3 = false;
         Process UnityProc = new Process();  // Process to launch VR project 
-        List<UInt16> packetList = new List<UInt16>();  // Packet buffer to store data 
+        List<byte> packetList = new List<byte>();  // Packet buffer to store data 
 
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
@@ -8771,24 +8771,25 @@ namespace brachIOplexus
                 stopWatch11.Stop();
                 milliSec11 = stopWatch11.ElapsedMilliseconds;
 
-                // Clear and setup packet 
-                packetList = new List<UInt16>();
+                //// Clear and setup packet 
+                //packetList = new List<byte>();
 
-                // Fill header bytes
-                packetList.Add(255);
-                packetList.Add(255);
+                //// Fill header bytes
+                //packetList.Add(255);
+                //packetList.Add(255);
 
-                // Packet ID is 0 (for now) will need to implement for scene setup
-                packetList.Add(0);
+                //// Packet ID is 0 (for now) will need to implement for scene setup
+                //packetList.Add(0);
+                byte[] packet = updatePacket();
 
                 // Fill packet from input signals 
-                updatePacket();
+                //updatePacket();
 
                 // Convert to a byte array
-                var binFormatter = new BinaryFormatter();
-                var mStream = new MemoryStream();
-                binFormatter.Serialize(mStream, packetList);
-                byte[] packet = mStream.ToArray();
+                //var binFormatter = new BinaryFormatter();
+                //var mStream = new MemoryStream();
+                //binFormatter.Serialize(mStream, packetList);
+                //byte[] packet = mStream.ToArray();
 
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
             }
@@ -8798,43 +8799,123 @@ namespace brachIOplexus
             }
         }
 
-        private void updatePacket()
+        private byte[] updatePacket()
         {
-            UInt16 length = 0;
-            UInt16 checkSum = 0;
-            UInt16 lowByte;
-            UInt16 hiByte;
-            UInt16 state;
+            byte length = 0;
+            byte checkSum = 0;
+            byte lowByte;
+            byte hiByte;
+            byte state;
+            byte ID;
 
-            for (UInt16 i = 0; i < BENTO_NUM; i++)
+            for (int i = 0; i < BENTO_NUM; i++)
             {
-                state = (UInt16)stateObj.motorState[i];
+                state = (byte)stateObj.motorState[i];
                 if (state != 0 && state != 3)
                 {
                     length++;
-
-                    lowByte = (UInt16)low_byte((UInt16)robotObj.Motor[i].w);
-                    hiByte = (UInt16)high_byte((UInt16)robotObj.Motor[i].w);
-
-                    packetList.Add(i);
-                    packetList.Add(lowByte);
-                    packetList.Add(hiByte);
-                    packetList.Add(state);
-                    checkSum += (UInt16)(i + lowByte + hiByte + state);
                 }
             }
-            length *= 4;
-            packetList.Insert(3, length);
 
-            if ((UInt16)~checkSum >= 255)
+            length *= 4;
+            byte[] packet = new byte[5 + length];
+            packet[0] = 255;
+            packet[1] = 255;
+            packet[2] = 0;
+            packet[3] = length;
+            Console.WriteLine(packet.Length);
+
+            int idx = 4;
+            int step = 0;
+            for (byte i = 0; i < BENTO_NUM; i++)
+            {
+                state = (byte)stateObj.motorState[i];
+
+                if (state != 0 && state != 3)
+                {
+
+                    ID = i;
+                    lowByte = low_byte((UInt16)robotObj.Motor[i].w);
+                    hiByte = high_byte((UInt16)robotObj.Motor[i].w);
+
+                    packet[idx] = ID;
+                    packet[idx + 1] = lowByte;
+                    packet[idx + 2] = hiByte;
+                    packet[idx + 3] = state;
+                    idx += 4;
+                }
+
+                //if (state != 0 && state != 3)
+                //{
+                //    switch (step)
+                //    {
+                //        case 0:
+                //            packet[idx + step] = i;
+                //            step++;
+                //            break;
+                //        case 1:
+                //            packet[idx + step] = low_byte((UInt16)robotObj.Motor[i].w);
+                //            step++;
+                //            break;
+                //        case 2:
+                //            packet[idx + step] = high_byte((UInt16)robotObj.Motor[i].w);
+                //            step++;
+                //            break;
+                //        case 3:
+                //            Console.WriteLine("got a state ");
+                //            Console.WriteLine(state);
+                //            packet[idx + step] = high_byte(state);
+                //            step = 0;
+                //            idx += 4;
+                //            break;
+                //    }
+
+                //}
+            }
+            for (byte i = 4; i < packet.Length; i++)
+            {
+                checkSum += packet[i];
+            }
+
+            if ((byte)~checkSum >= 255)
             {
                 checkSum = low_byte((UInt16)~checkSum);
             }
             else
             {
-                checkSum = (UInt16)~checkSum;
+                checkSum = (byte)~checkSum;
             }
-            packetList.Add(checkSum);
+            packet[packet.Length - 1] = checkSum;
+            //for (byte i = 0; i < BENTO_NUM; i++)
+            //{
+            //    state = (byte)stateObj.motorState[i];
+            //    if (state != 0 && state != 3)
+            //    {
+            //        length++;
+
+            //        lowByte = (byte)low_byte((UInt16)robotObj.Motor[i].w);
+            //        hiByte = (byte)high_byte((UInt16)robotObj.Motor[i].w);
+
+            //        packetList.Add(i);
+            //        packetList.Add(lowByte);
+            //        packetList.Add(hiByte);
+            //        packetList.Add(state);
+            //        checkSum += (byte)(i + lowByte + hiByte + state);
+            //    }
+            //}
+            //length *= 4;
+            //packetList.Insert(3, length);
+
+            //if ((UInt16)~checkSum >= 255)
+            //{
+            //    checkSum = low_byte((UInt16)~checkSum);
+            //}
+            //else
+            //{
+            //    checkSum = (byte)~checkSum;
+            //}
+            //packetList.Add(checkSum);
+            return packet;
         }
         #endregion
     }
