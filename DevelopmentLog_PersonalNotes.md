@@ -705,3 +705,40 @@ storing the byte array results there and the other objects can access it
 - Tested two examples for values and checksum (correct results)
 - got basic movement workign for all joints using brachioplexus and keyboard 
 - xbox mapping is the same for somethings in unity (pushing on joystick is mapped to change scene )
+
+**June 26**
+- last few days was just working on the packet sending to Unity nothing exciting 
+- MYO currently not working with brachIOplexus 
+*TODO*
+- Create new output devices section in brachIOplexus 
+    - Connect
+    - Disconnect 
+    - DOF check list
+    - TX Port 
+    - RX Port
+    - IP Address 
+    - Select All
+    - Clear All 
+- Add functionality to above GUI elements 
+    - Connect -> functions exactly the same as before 
+    - Disconnect -> send a "terminating" packet to unity to stop moving 
+    - DOF check list -> filters out what is being sent to Unity 
+        - this will need to be constantly checked ? if this can be checked / unchecked while in use
+        - go to line 7478 (key workd BentoList_ItemCheck) for the open hand constraint 
+        - go to line 4868 (BentoSelectAll_Click) to check everything
+    - TX Port, RX Port, and IP Address -> parse thru the text to get the ports / addr vals
+    - Select All / Clear All -> obvious functionality 
+- Ensure GUI elements are properlly labelled and document here or in VIPER docs 
+    - dont use generic / default names and try to be concise 
+    - Change picture maybe ? so it has white background 
+- Create Tab for Unity Bento Arm 
+    - Restart Scene 
+    - Camera Positions 
+    - Choose specific scenes 
+- Create Flowchart to show connection with Unity 
+
+*QUESTIONS*
+- how is the DOF check list configured (probably with a profile)
+    - can i create a profile for the virtual bento arm ? 
+    - can the checklist be changed while the bento arm is connected (like once) or can it be changed while running ?
+        - this will affect how i send the data 

@@ -172,9 +172,9 @@ namespace brachIOplexus
 
         // Unity UDP connection 
         static System.Threading.Timer t11;
-        static Int32 portTX3 = 30004;  // Send
-        static Int32 portRX3 = 30005;  // Recieve 
-        static IPAddress localAddr3 = IPAddress.Parse("127.0.0.1");  // Local address
+        static Int32 portTX3;  // Send
+        static Int32 portRX3;  // Recieve 
+        static IPAddress localAddr3;  // Local address
         UdpClient udpClientTX3;
         IPEndPoint ipEndPointTX3;
         Stopwatch stopWatch11 = new Stopwatch();
@@ -8737,14 +8737,17 @@ namespace brachIOplexus
         #endregion
 
         #region Unity 
-        // Sends and Recieves packets from Unity VR 
-        // Adapted from "Surprise Demo" 
-        // Refer to UDP_Comm_VIPER excel_rev#.xlsx file for packet breakdown 
+
+        #region Unity GUI Elements
         private void Unity_connect_Click(object sender, EventArgs e)
         {
+            if (!UDPflag3)
+            {   
+                // Retrieve Ports and IP Address 
+                localAddr3 = IPAddress.Parse(unityIPaddrText.Text);
+                portTX3 = Int32.Parse(unityTXPortText.Text);
+                portRX3 = Int32.Parse(unityRXPortText.Text);
 
-            if(!UDPflag3)
-            {
                 // Initialize UDP connection 
                 udpClientTX3 = new UdpClient();
                 ipEndPointTX3 = new IPEndPoint(localAddr3, portTX3);
@@ -8753,17 +8756,45 @@ namespace brachIOplexus
                 t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
 
                 UDPflag3 = true;
-                Unityconnect.Text = "Disconnect from Unity";
+                Unity_connect.Enabled = false;
+                Unity_disconnect.Enabled = true;
             }
-            else
+            if (UnityBentoArmCheckList.GetItemChecked(0))
             {
-                udpClientTX3.Close();
-                t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
-
-                UDPflag3 = false;
-                Unityconnect.Text = "Connect to Unity";
+                Console.WriteLine("is checked broo");
             }
         }
+
+        private void Unity_disconnect_Click(object sender, EventArgs e)
+        {
+
+            if (UDPflag3)
+            {
+                t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+
+                stopArm();
+                udpClientTX3.Close();
+
+                UDPflag3 = false;
+                Unity_connect.Enabled = true;
+                Unity_disconnect.Enabled = false;
+            }
+        }
+
+        private void Unity_Select_All_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void Unity_Clear_All_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region UDP Connection
+        // Sends and Recieves packets from Unity VR 
+        // Adapted from "Surprise Demo" 
+        // Refer to UDP_Comm_VIPER excel_rev#.xlsx file for packet breakdown 
         private void sendToUnity(object state)
         {
             try
@@ -8771,25 +8802,7 @@ namespace brachIOplexus
                 stopWatch11.Stop();
                 milliSec11 = stopWatch11.ElapsedMilliseconds;
 
-                //// Clear and setup packet 
-                //packetList = new List<byte>();
-
-                //// Fill header bytes
-                //packetList.Add(255);
-                //packetList.Add(255);
-
-                //// Packet ID is 0 (for now) will need to implement for scene setup
-                //packetList.Add(0);
                 byte[] packet = updatePacket();
-
-                // Fill packet from input signals 
-                //updatePacket();
-
-                // Convert to a byte array
-                //var binFormatter = new BinaryFormatter();
-                //var mStream = new MemoryStream();
-                //binFormatter.Serialize(mStream, packetList);
-                //byte[] packet = mStream.ToArray();
 
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
             }
@@ -8799,10 +8812,29 @@ namespace brachIOplexus
             }
         }
 
+        private byte calcCheckSum(ref byte[] packet)
+        {
+            byte checkSum = 0;
+
+            for (byte i = 4; i < packet.Length; i++)
+            {
+                checkSum += packet[i];
+            }
+
+            if ((byte)~checkSum >= 255)
+            {
+                checkSum = low_byte((UInt16)~checkSum);
+            }
+            else
+            {
+                checkSum = (byte)~checkSum;
+            }
+            return checkSum;
+        }
+
         private byte[] updatePacket()
         {
             byte length = 0;
-            byte checkSum = 0;
             byte lowByte;
             byte hiByte;
             byte state;
@@ -8823,10 +8855,8 @@ namespace brachIOplexus
             packet[1] = 255;
             packet[2] = 0;
             packet[3] = length;
-            Console.WriteLine(packet.Length);
 
             int idx = 4;
-            int step = 0;
             for (byte i = 0; i < BENTO_NUM; i++)
             {
                 state = (byte)stateObj.motorState[i];
@@ -8844,79 +8874,27 @@ namespace brachIOplexus
                     packet[idx + 3] = state;
                     idx += 4;
                 }
-
-                //if (state != 0 && state != 3)
-                //{
-                //    switch (step)
-                //    {
-                //        case 0:
-                //            packet[idx + step] = i;
-                //            step++;
-                //            break;
-                //        case 1:
-                //            packet[idx + step] = low_byte((UInt16)robotObj.Motor[i].w);
-                //            step++;
-                //            break;
-                //        case 2:
-                //            packet[idx + step] = high_byte((UInt16)robotObj.Motor[i].w);
-                //            step++;
-                //            break;
-                //        case 3:
-                //            Console.WriteLine("got a state ");
-                //            Console.WriteLine(state);
-                //            packet[idx + step] = high_byte(state);
-                //            step = 0;
-                //            idx += 4;
-                //            break;
-                //    }
-
-                //}
-            }
-            for (byte i = 4; i < packet.Length; i++)
-            {
-                checkSum += packet[i];
             }
 
-            if ((byte)~checkSum >= 255)
-            {
-                checkSum = low_byte((UInt16)~checkSum);
-            }
-            else
-            {
-                checkSum = (byte)~checkSum;
-            }
-            packet[packet.Length - 1] = checkSum;
-            //for (byte i = 0; i < BENTO_NUM; i++)
-            //{
-            //    state = (byte)stateObj.motorState[i];
-            //    if (state != 0 && state != 3)
-            //    {
-            //        length++;
-
-            //        lowByte = (byte)low_byte((UInt16)robotObj.Motor[i].w);
-            //        hiByte = (byte)high_byte((UInt16)robotObj.Motor[i].w);
-
-            //        packetList.Add(i);
-            //        packetList.Add(lowByte);
-            //        packetList.Add(hiByte);
-            //        packetList.Add(state);
-            //        checkSum += (byte)(i + lowByte + hiByte + state);
-            //    }
-            //}
-            //length *= 4;
-            //packetList.Insert(3, length);
-
-            //if ((UInt16)~checkSum >= 255)
-            //{
-            //    checkSum = low_byte((UInt16)~checkSum);
-            //}
-            //else
-            //{
-            //    checkSum = (byte)~checkSum;
-            //}
-            //packetList.Add(checkSum);
+            packet[packet.Length - 1] = calcCheckSum(ref packet);
+         
             return packet;
         }
+
+        private void stopArm()
+        {
+            byte[] packet = new byte[6]; // will need to change this when have it finalized 
+            packet[0] = 255;
+            packet[1] = 255;
+            packet[2] = 1;
+            packet[3] = 1;
+            packet[4] = 0;
+            packet[5] = calcCheckSum(ref packet);
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+
+        }
+        #endregion
+
         #endregion
     }
 }

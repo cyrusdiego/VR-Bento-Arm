@@ -161,13 +161,19 @@ public class UDPConnection : MonoBehaviour
         clearRotationArray();
         if(validate())
         {
-            int length = packet[3] / 4;
-            for(byte i = 1; i < length + 1; i++)
+            if(packet[2] == 0)
             {
-                float direction = packet[4*i + 3];
-                float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
-                rotationArray[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
-                print(rotationArray[packet[4*i] + 1]);
+                int length = packet[3] / 4;
+                for(byte i = 1; i < length + 1; i++)
+                {
+                    float direction = packet[4*i + 3];
+                    float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
+                    rotationArray[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+                }
+            }
+            else
+            {
+                clearRotationArray();
             }
         }
     }

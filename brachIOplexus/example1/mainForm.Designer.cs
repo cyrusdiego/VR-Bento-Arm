@@ -545,7 +545,6 @@
             this.label125 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabIO = new System.Windows.Forms.TabPage();
-            this.Unityconnect = new System.Windows.Forms.Button();
             this.label210 = new System.Windows.Forms.Label();
             this.UDPdelay2 = new System.Windows.Forms.Label();
             this.demoAdaptiveButton = new System.Windows.Forms.Button();
@@ -564,6 +563,19 @@
             this.labelID = new System.Windows.Forms.Label();
             this.labelText = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.UnityBentoArm = new System.Windows.Forms.GroupBox();
+            this.Unity_connect = new System.Windows.Forms.Button();
+            this.unityRXPortText = new System.Windows.Forms.TextBox();
+            this.unityRXPort = new System.Windows.Forms.Label();
+            this.unityTXPort = new System.Windows.Forms.Label();
+            this.unityIPaddr = new System.Windows.Forms.Label();
+            this.unityTXPortText = new System.Windows.Forms.TextBox();
+            this.unityIPaddrText = new System.Windows.Forms.TextBox();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
+            this.unityClearAll = new System.Windows.Forms.Button();
+            this.Unity_disconnect = new System.Windows.Forms.Button();
+            this.unitySelectAll = new System.Windows.Forms.Button();
+            this.UnityBentoArmCheckList = new System.Windows.Forms.CheckedListBox();
             this.tabMapping = new System.Windows.Forms.TabPage();
             this.TaskTimerGroupBox = new System.Windows.Forms.GroupBox();
             this.TaskTimerStateLabel = new System.Windows.Forms.Label();
@@ -898,6 +910,8 @@
             this.tabControl1.SuspendLayout();
             this.tabIO.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.UnityBentoArm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             this.tabMapping.SuspendLayout();
             this.TaskTimerGroupBox.SuspendLayout();
             this.groupBox16.SuspendLayout();
@@ -7747,7 +7761,6 @@
             // 
             // tabIO
             // 
-            this.tabIO.Controls.Add(this.Unityconnect);
             this.tabIO.Controls.Add(this.label210);
             this.tabIO.Controls.Add(this.UDPdelay2);
             this.tabIO.Controls.Add(this.demoAdaptiveButton);
@@ -7784,16 +7797,6 @@
             this.tabIO.Text = "Input/Output";
             this.tabIO.UseVisualStyleBackColor = true;
             // 
-            // Unityconnect
-            // 
-            this.Unityconnect.Location = new System.Drawing.Point(434, 208);
-            this.Unityconnect.Name = "Unityconnect";
-            this.Unityconnect.Size = new System.Drawing.Size(103, 48);
-            this.Unityconnect.TabIndex = 235;
-            this.Unityconnect.Text = "Connect to Unity";
-            this.Unityconnect.UseVisualStyleBackColor = true;
-            this.Unityconnect.Click += new System.EventHandler(this.Unity_connect_Click);
-            // 
             // label210
             // 
             this.label210.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -7818,7 +7821,7 @@
             // demoAdaptiveButton
             // 
             this.demoAdaptiveButton.Enabled = false;
-            this.demoAdaptiveButton.Location = new System.Drawing.Point(434, 421);
+            this.demoAdaptiveButton.Location = new System.Drawing.Point(664, 162);
             this.demoAdaptiveButton.Name = "demoAdaptiveButton";
             this.demoAdaptiveButton.Size = new System.Drawing.Size(103, 48);
             this.demoAdaptiveButton.TabIndex = 232;
@@ -7852,7 +7855,7 @@
             // demoSurpriseButton
             // 
             this.demoSurpriseButton.Enabled = false;
-            this.demoSurpriseButton.Location = new System.Drawing.Point(434, 367);
+            this.demoSurpriseButton.Location = new System.Drawing.Point(663, 213);
             this.demoSurpriseButton.Name = "demoSurpriseButton";
             this.demoSurpriseButton.Size = new System.Drawing.Size(103, 48);
             this.demoSurpriseButton.TabIndex = 229;
@@ -7862,7 +7865,7 @@
             // 
             // demoShutdownButton
             // 
-            this.demoShutdownButton.Location = new System.Drawing.Point(434, 475);
+            this.demoShutdownButton.Location = new System.Drawing.Point(664, 267);
             this.demoShutdownButton.Name = "demoShutdownButton";
             this.demoShutdownButton.Size = new System.Drawing.Size(103, 48);
             this.demoShutdownButton.TabIndex = 228;
@@ -7872,7 +7875,7 @@
             // 
             // demoMYObutton
             // 
-            this.demoMYObutton.Location = new System.Drawing.Point(434, 313);
+            this.demoMYObutton.Location = new System.Drawing.Point(664, 110);
             this.demoMYObutton.Name = "demoMYObutton";
             this.demoMYObutton.Size = new System.Drawing.Size(103, 48);
             this.demoMYObutton.TabIndex = 227;
@@ -7882,7 +7885,7 @@
             // 
             // demoXBoxButton
             // 
-            this.demoXBoxButton.Location = new System.Drawing.Point(434, 259);
+            this.demoXBoxButton.Location = new System.Drawing.Point(664, 60);
             this.demoXBoxButton.Name = "demoXBoxButton";
             this.demoXBoxButton.Size = new System.Drawing.Size(103, 48);
             this.demoXBoxButton.TabIndex = 226;
@@ -7982,13 +7985,165 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.UnityBentoArm);
             this.groupBox9.Controls.Add(this.groupBox6);
             this.groupBox9.Location = new System.Drawing.Point(309, 6);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(348, 190);
+            this.groupBox9.Size = new System.Drawing.Size(348, 474);
             this.groupBox9.TabIndex = 215;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Output Devices";
+            // 
+            // UnityBentoArm
+            // 
+            this.UnityBentoArm.Controls.Add(this.Unity_connect);
+            this.UnityBentoArm.Controls.Add(this.unityRXPortText);
+            this.UnityBentoArm.Controls.Add(this.unityRXPort);
+            this.UnityBentoArm.Controls.Add(this.unityTXPort);
+            this.UnityBentoArm.Controls.Add(this.unityIPaddr);
+            this.UnityBentoArm.Controls.Add(this.unityTXPortText);
+            this.UnityBentoArm.Controls.Add(this.unityIPaddrText);
+            this.UnityBentoArm.Controls.Add(this.pictureBox13);
+            this.UnityBentoArm.Controls.Add(this.unityClearAll);
+            this.UnityBentoArm.Controls.Add(this.Unity_disconnect);
+            this.UnityBentoArm.Controls.Add(this.unitySelectAll);
+            this.UnityBentoArm.Controls.Add(this.UnityBentoArmCheckList);
+            this.UnityBentoArm.Location = new System.Drawing.Point(8, 189);
+            this.UnityBentoArm.Name = "UnityBentoArm";
+            this.UnityBentoArm.Size = new System.Drawing.Size(334, 276);
+            this.UnityBentoArm.TabIndex = 2;
+            this.UnityBentoArm.TabStop = false;
+            this.UnityBentoArm.Text = "Unity Bento Arm - Setup";
+            // 
+            // Unity_connect
+            // 
+            this.Unity_connect.Location = new System.Drawing.Point(17, 18);
+            this.Unity_connect.Margin = new System.Windows.Forms.Padding(2);
+            this.Unity_connect.Name = "Unity_connect";
+            this.Unity_connect.Size = new System.Drawing.Size(74, 19);
+            this.Unity_connect.TabIndex = 226;
+            this.Unity_connect.Text = "Connect";
+            this.Unity_connect.UseVisualStyleBackColor = true;
+            this.Unity_connect.Click += new System.EventHandler(this.Unity_connect_Click);
+            // 
+            // unityRXPortText
+            // 
+            this.unityRXPortText.Location = new System.Drawing.Point(80, 223);
+            this.unityRXPortText.Name = "unityRXPortText";
+            this.unityRXPortText.Size = new System.Drawing.Size(100, 20);
+            this.unityRXPortText.TabIndex = 231;
+            this.unityRXPortText.Text = "30005";
+            // 
+            // unityRXPort
+            // 
+            this.unityRXPort.AutoSize = true;
+            this.unityRXPort.Location = new System.Drawing.Point(13, 223);
+            this.unityRXPort.Name = "unityRXPort";
+            this.unityRXPort.Size = new System.Drawing.Size(44, 13);
+            this.unityRXPort.TabIndex = 230;
+            this.unityRXPort.Text = "RX Port";
+            // 
+            // unityTXPort
+            // 
+            this.unityTXPort.AutoSize = true;
+            this.unityTXPort.Location = new System.Drawing.Point(13, 196);
+            this.unityTXPort.Name = "unityTXPort";
+            this.unityTXPort.Size = new System.Drawing.Size(43, 13);
+            this.unityTXPort.TabIndex = 229;
+            this.unityTXPort.Text = "TX Port";
+            // 
+            // unityIPaddr
+            // 
+            this.unityIPaddr.AutoSize = true;
+            this.unityIPaddr.Location = new System.Drawing.Point(14, 169);
+            this.unityIPaddr.Name = "unityIPaddr";
+            this.unityIPaddr.Size = new System.Drawing.Size(58, 13);
+            this.unityIPaddr.TabIndex = 228;
+            this.unityIPaddr.Text = "IP Address";
+            // 
+            // unityTXPortText
+            // 
+            this.unityTXPortText.Location = new System.Drawing.Point(80, 193);
+            this.unityTXPortText.Name = "unityTXPortText";
+            this.unityTXPortText.Size = new System.Drawing.Size(100, 20);
+            this.unityTXPortText.TabIndex = 227;
+            this.unityTXPortText.Text = "30004";
+            // 
+            // unityIPaddrText
+            // 
+            this.unityIPaddrText.Location = new System.Drawing.Point(80, 166);
+            this.unityIPaddrText.Name = "unityIPaddrText";
+            this.unityIPaddrText.Size = new System.Drawing.Size(100, 20);
+            this.unityIPaddrText.TabIndex = 226;
+            this.unityIPaddrText.Text = "127.0.0.1";
+            // 
+            // pictureBox13
+            // 
+            this.pictureBox13.Image = global::brachIOplexus.Properties.Resources._1280px_Unity_Technologies_logo_svg;
+            this.pictureBox13.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox13.InitialImage")));
+            this.pictureBox13.Location = new System.Drawing.Point(6, 40);
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.Size = new System.Drawing.Size(176, 120);
+            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox13.TabIndex = 223;
+            this.pictureBox13.TabStop = false;
+            // 
+            // unityClearAll
+            // 
+            this.unityClearAll.Enabled = false;
+            this.unityClearAll.Location = new System.Drawing.Point(261, 210);
+            this.unityClearAll.Margin = new System.Windows.Forms.Padding(2);
+            this.unityClearAll.Name = "unityClearAll";
+            this.unityClearAll.Size = new System.Drawing.Size(66, 19);
+            this.unityClearAll.TabIndex = 225;
+            this.unityClearAll.Text = "Clear All";
+            this.unityClearAll.UseVisualStyleBackColor = true;
+            // 
+            // Unity_disconnect
+            // 
+            this.Unity_disconnect.Enabled = false;
+            this.Unity_disconnect.Location = new System.Drawing.Point(94, 18);
+            this.Unity_disconnect.Margin = new System.Windows.Forms.Padding(2);
+            this.Unity_disconnect.Name = "Unity_disconnect";
+            this.Unity_disconnect.Size = new System.Drawing.Size(74, 19);
+            this.Unity_disconnect.TabIndex = 186;
+            this.Unity_disconnect.Text = "Disconnect";
+            this.Unity_disconnect.UseVisualStyleBackColor = true;
+            this.Unity_disconnect.Click += new System.EventHandler(this.Unity_disconnect_Click);
+            // 
+            // unitySelectAll
+            // 
+            this.unitySelectAll.Enabled = false;
+            this.unitySelectAll.Location = new System.Drawing.Point(191, 209);
+            this.unitySelectAll.Margin = new System.Windows.Forms.Padding(2);
+            this.unitySelectAll.Name = "unitySelectAll";
+            this.unitySelectAll.Size = new System.Drawing.Size(66, 19);
+            this.unitySelectAll.TabIndex = 224;
+            this.unitySelectAll.Text = "Select All";
+            this.unitySelectAll.UseVisualStyleBackColor = true;
+            // 
+            // UnityBentoArmCheckList
+            // 
+            this.UnityBentoArmCheckList.CheckOnClick = true;
+            this.UnityBentoArmCheckList.Enabled = true;
+            this.UnityBentoArmCheckList.FormattingEnabled = true;
+            this.UnityBentoArmCheckList.Items.AddRange(new object[] {
+            "Shoulder (CCW)",
+            "Shoulder (CW)",
+            "Elbow Extend",
+            "Elbow Flex",
+            "Wrist (CCW)",
+            "Wrist (CW)",
+            "Wrist Flex",
+            "Wrist Extend",
+            "Hand Close",
+            "Hand Open",
+            "Torque On/Off",
+            "Run/Suspend"});
+            this.UnityBentoArmCheckList.Location = new System.Drawing.Point(191, 18);
+            this.UnityBentoArmCheckList.Name = "UnityBentoArmCheckList";
+            this.UnityBentoArmCheckList.Size = new System.Drawing.Size(134, 184);
+            this.UnityBentoArmCheckList.TabIndex = 223;
             // 
             // tabMapping
             // 
@@ -11074,6 +11229,9 @@
             this.tabIO.ResumeLayout(false);
             this.tabIO.PerformLayout();
             this.groupBox9.ResumeLayout(false);
+            this.UnityBentoArm.ResumeLayout(false);
+            this.UnityBentoArm.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             this.tabMapping.ResumeLayout(false);
             this.TaskTimerGroupBox.ResumeLayout(false);
             this.TaskTimerGroupBox.PerformLayout();
@@ -11890,7 +12048,19 @@
         internal System.Windows.Forms.Label stateObj0;
         internal System.Windows.Forms.Label adaptiveFreeze_label;
         internal System.Windows.Forms.Label label224;
-        private System.Windows.Forms.Button Unityconnect;
+        private System.Windows.Forms.GroupBox UnityBentoArm;
+        private System.Windows.Forms.PictureBox pictureBox13;
+        private System.Windows.Forms.Button unityClearAll;
+        private System.Windows.Forms.Button Unity_disconnect;
+        private System.Windows.Forms.Button unitySelectAll;
+        private System.Windows.Forms.CheckedListBox UnityBentoArmCheckList;
+        private System.Windows.Forms.Label unityTXPort;
+        private System.Windows.Forms.Label unityIPaddr;
+        private System.Windows.Forms.TextBox unityTXPortText;
+        private System.Windows.Forms.TextBox unityIPaddrText;
+        private System.Windows.Forms.TextBox unityRXPortText;
+        private System.Windows.Forms.Label unityRXPort;
+        private System.Windows.Forms.Button Unity_connect;
     }
 }
 
