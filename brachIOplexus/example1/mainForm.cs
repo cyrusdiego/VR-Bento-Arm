@@ -8739,10 +8739,10 @@ namespace brachIOplexus
         #region Unity 
 
         #region Unity GUI Elements
-        private void Unity_connect_Click(object sender, EventArgs e)
+        private void unityConnect_Click(object sender, EventArgs e)
         {
             if (!UDPflag3)
-            {   
+            {
                 // Retrieve Ports and IP Address 
                 localAddr3 = IPAddress.Parse(unityIPaddrText.Text);
                 portTX3 = Int32.Parse(unityTXPortText.Text);
@@ -8756,16 +8756,12 @@ namespace brachIOplexus
                 t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
 
                 UDPflag3 = true;
-                Unity_connect.Enabled = false;
-                Unity_disconnect.Enabled = true;
-            }
-            if (UnityBentoArmCheckList.GetItemChecked(0))
-            {
-                Console.WriteLine("is checked broo");
+                unityConnect.Enabled = false;
+                unityDisconnect.Enabled = true;
             }
         }
 
-        private void Unity_disconnect_Click(object sender, EventArgs e)
+        private void unityDisconnect_Click(object sender, EventArgs e)
         {
 
             if (UDPflag3)
@@ -8776,18 +8772,29 @@ namespace brachIOplexus
                 udpClientTX3.Close();
 
                 UDPflag3 = false;
-                Unity_connect.Enabled = true;
-                Unity_disconnect.Enabled = false;
+                unityConnect.Enabled = true;
+                unityDisconnect.Enabled = false;
             }
         }
 
-        private void Unity_Select_All_Click(object sender, EventArgs e)
+        private void unitySelectAll_Click(object sender, EventArgs e)
         {
+            // Select all of the items in the checkedListBox
+            for (int i = 0; i < unityCheckList.Items.Count; i++)
+            {
+                unityCheckList.SetItemChecked(i, true);
 
+            }
         }
-        private void Unity_Clear_All_Click(object sender, EventArgs e)
+        private void unityClearAll_Click(object sender, EventArgs e)
         {
 
+            // Select all of the items in the checkedListBox
+            for (int i = 0; i < unityCheckList.Items.Count; i++)
+            {
+                unityCheckList.SetItemChecked(i, false);
+
+            }
         }
         #endregion
 
@@ -8832,6 +8839,47 @@ namespace brachIOplexus
             return checkSum;
         }
 
+        // Note i am not sure what the Run/Suspend && Torque On/Off booleans do 
+        private bool checkList(int idx, byte state)
+        {
+
+            bool valid = true;
+            switch (idx)
+            {
+                case 0:
+                    if ((state == 1 && !unityCheckList.GetItemChecked(1)) || (state == 2 && !unityCheckList.GetItemChecked(0)))
+                    {
+                        valid = false;
+                    }
+                    break;
+                case 1:  // This is based on Unity configuration, could be different with real Bento arm-> would need to change on Unity side if needed
+                    if ((state == 1 && !unityCheckList.GetItemChecked(3)) || (state == 2 && !unityCheckList.GetItemChecked(2)))
+                    {
+                        valid = false;
+                    }
+                    break;
+                case 2:
+                    if ((state == 1 && !unityCheckList.GetItemChecked(5)) || (state == 2 && !unityCheckList.GetItemChecked(4)))
+                    {
+                        valid = false;
+                    }
+                    break;
+                case 3:  // This is based on Unity configuration, could be different with real Bento arm-> would need to change on Unity side if needed 
+                    if ((state == 1 && !unityCheckList.GetItemChecked(6)) || (state == 2 && !unityCheckList.GetItemChecked(7)))
+                    {
+                        valid = false;
+                    }
+                    break;
+                case 4:  // Hand is a bit special as Rory has it set up for the Bento where both always have to be on or both have to be off
+                    if ((state == 1 && !unityCheckList.GetItemChecked(8)) || (state == 2 && !unityCheckList.GetItemChecked(9)))
+                    {
+                        valid = false;
+                    }
+                    break;
+            }
+            return valid;
+        }
+
         private byte[] updatePacket()
         {
             byte length = 0;
@@ -8843,7 +8891,7 @@ namespace brachIOplexus
             for (int i = 0; i < BENTO_NUM; i++)
             {
                 state = (byte)stateObj.motorState[i];
-                if (state != 0 && state != 3)
+                if (state != 0 && state != 3 && checkList(i, state))
                 {
                     length++;
                 }
@@ -8861,7 +8909,7 @@ namespace brachIOplexus
             {
                 state = (byte)stateObj.motorState[i];
 
-                if (state != 0 && state != 3)
+                if (state != 0 && state != 3 && checkList(i, state))
                 {
 
                     ID = i;
@@ -8877,7 +8925,7 @@ namespace brachIOplexus
             }
 
             packet[packet.Length - 1] = calcCheckSum(ref packet);
-         
+
             return packet;
         }
 
