@@ -801,6 +801,7 @@
             this.label178 = new System.Windows.Forms.Label();
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
+            this.tabUnity = new System.Windows.Forms.TabPage();
             this.statusPanel1 = new System.Windows.Forms.Panel();
             this.MYOstatus = new System.Windows.Forms.Label();
             this.BentoErrorText = new System.Windows.Forms.Label();
@@ -810,6 +811,8 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
+            this.unityScene = new System.Windows.Forms.GroupBox();
+            this.unitySceneReset = new System.Windows.Forms.Button();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -941,7 +944,9 @@
             this.ArduinoInputGroupBox.SuspendLayout();
             this.biopatrecGroupBox.SuspendLayout();
             this.SLRTgroupBox.SuspendLayout();
+            this.tabUnity.SuspendLayout();
             this.statusPanel1.SuspendLayout();
+            this.unityScene.SuspendLayout();
             this.SuspendLayout();
             // 
             // tg
@@ -7751,6 +7756,7 @@
             this.tabControl1.Controls.Add(this.tabBento);
             this.tabControl1.Controls.Add(this.tabXPC);
             this.tabControl1.Controls.Add(this.tabViz);
+            this.tabControl1.Controls.Add(this.tabUnity);
             this.tabControl1.Location = new System.Drawing.Point(8, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -8090,7 +8096,6 @@
             // 
             // unityClearAll
             // 
-            this.unityClearAll.Enabled = true;
             this.unityClearAll.Location = new System.Drawing.Point(261, 210);
             this.unityClearAll.Margin = new System.Windows.Forms.Padding(2);
             this.unityClearAll.Name = "unityClearAll";
@@ -8114,7 +8119,6 @@
             // 
             // unitySelectAll
             // 
-            this.unitySelectAll.Enabled = true;
             this.unitySelectAll.Location = new System.Drawing.Point(191, 209);
             this.unitySelectAll.Margin = new System.Windows.Forms.Padding(2);
             this.unitySelectAll.Name = "unitySelectAll";
@@ -8127,7 +8131,6 @@
             // unityCheckList
             // 
             this.unityCheckList.CheckOnClick = true;
-            this.unityCheckList.Enabled = true;
             this.unityCheckList.FormattingEnabled = true;
             this.unityCheckList.Items.AddRange(new object[] {
             "Shoulder (CCW)",
@@ -11009,6 +11012,16 @@
             this.label180.Text = "Ch3:";
             this.label180.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // tabUnity
+            // 
+            this.tabUnity.Controls.Add(this.unityScene);
+            this.tabUnity.Location = new System.Drawing.Point(4, 22);
+            this.tabUnity.Name = "tabUnity";
+            this.tabUnity.Size = new System.Drawing.Size(1162, 642);
+            this.tabUnity.TabIndex = 5;
+            this.tabUnity.Text = "Unity";
+            this.tabUnity.UseVisualStyleBackColor = true;
+            // 
             // statusPanel1
             // 
             this.statusPanel1.Controls.Add(this.MYOstatus);
@@ -11095,6 +11108,26 @@
             // 
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
+            // 
+            // unityScene
+            // 
+            this.unityScene.Controls.Add(this.unitySceneReset);
+            this.unityScene.Location = new System.Drawing.Point(3, 3);
+            this.unityScene.Name = "unityScene";
+            this.unityScene.Size = new System.Drawing.Size(266, 157);
+            this.unityScene.TabIndex = 0;
+            this.unityScene.TabStop = false;
+            this.unityScene.Text = "Scene - Configuration";
+            // 
+            // unitySceneReset
+            // 
+            this.unitySceneReset.Location = new System.Drawing.Point(7, 20);
+            this.unitySceneReset.Name = "unitySceneReset";
+            this.unitySceneReset.Size = new System.Drawing.Size(75, 23);
+            this.unitySceneReset.TabIndex = 0;
+            this.unitySceneReset.Text = "Reset Current Scene";
+            this.unitySceneReset.UseVisualStyleBackColor = true;
+            this.unitySceneReset.Click += new System.EventHandler(this.unitySceneReset_Click);
             // 
             // mainForm
             // 
@@ -11274,8 +11307,10 @@
             this.biopatrecGroupBox.ResumeLayout(false);
             this.biopatrecGroupBox.PerformLayout();
             this.SLRTgroupBox.ResumeLayout(false);
+            this.tabUnity.ResumeLayout(false);
             this.statusPanel1.ResumeLayout(false);
             this.statusPanel1.PerformLayout();
+            this.unityScene.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12063,6 +12098,9 @@
         private System.Windows.Forms.TextBox unityRXPortText;
         private System.Windows.Forms.Label unityRXPort;
         private System.Windows.Forms.Button unityConnect;
+        private System.Windows.Forms.TabPage tabUnity;
+        private System.Windows.Forms.GroupBox unityScene;
+        private System.Windows.Forms.Button unitySceneReset;
     }
 }
 

@@ -8768,7 +8768,7 @@ namespace brachIOplexus
             {
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
 
-                stopArm();
+                sendUtility(1,0);
                 udpClientTX3.Close();
 
                 UDPflag3 = false;
@@ -8795,6 +8795,10 @@ namespace brachIOplexus
                 unityCheckList.SetItemChecked(i, false);
 
             }
+        }
+        private void unitySceneReset_Click(object sender, EventArgs e)
+        {
+
         }
         #endregion
 
@@ -8938,8 +8942,12 @@ namespace brachIOplexus
             packet[3] = 1;
             packet[4] = 0;
             packet[5] = calcCheckSum(ref packet);
-            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 
+        }
+
+        private void sendUtility(int stop, int reset)
+        {
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
         #endregion
 
