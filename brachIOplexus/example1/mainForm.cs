@@ -187,6 +187,7 @@ namespace brachIOplexus
         bool UDPflag3 = false;
         Process UnityProc = new Process();  // Process to launch VR project 
         bool armShells = false;
+        bool udpRXFlag = true;
 
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
@@ -8773,6 +8774,7 @@ namespace brachIOplexus
                 t12 = new System.Threading.Timer(new TimerCallback(recieveFromUnity), null, 0, 15);
 
                 UDPflag3 = true;
+                udpRXFlag = true;
                 unityConnect.Enabled = false;
                 unityDisconnect.Enabled = true;
             }
@@ -8780,10 +8782,9 @@ namespace brachIOplexus
 
         private void unityDisconnect_Click(object sender, EventArgs e)
         {
-
             if (UDPflag3)
             {
-
+                udpRXFlag = false;
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
                 sendUtility(1,0);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
@@ -8861,7 +8862,6 @@ namespace brachIOplexus
                 milliSec11 = stopWatch11.ElapsedMilliseconds;
 
                 byte[] packet = updatePacket();
-
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 
             }
@@ -8994,7 +8994,7 @@ namespace brachIOplexus
         #region UDP RX
         private void recieveFromUnity(object state)
         {
-            while(true)
+            while(udpRXFlag)
             {
                 try
                 {
@@ -9006,7 +9006,7 @@ namespace brachIOplexus
 
                         byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
                         parsePacket(ref packet);
-                        break;
+                        udpRXFlag = false;
                     }
                 }
                 catch (Exception ex)

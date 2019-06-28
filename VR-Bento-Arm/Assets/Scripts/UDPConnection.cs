@@ -105,7 +105,7 @@ public class UDPConnection : MonoBehaviour
     {
         exit = true;
         clientRX.Close();
-        // clientTX.Close();
+        clientTX.Close();
     }
 
     void updateScene()
