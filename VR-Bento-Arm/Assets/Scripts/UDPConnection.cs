@@ -11,11 +11,9 @@
 using System;
 using System.Net;
 using System.Net.Sockets; 
-using System.Collections.Generic;  // List
-using System.IO; // memory stream
-using System.Runtime.Serialization.Formatters.Binary;  // binary serializer 
 using System.Threading;  // multithreading 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UDPConnection : MonoBehaviour
 {
@@ -38,16 +36,18 @@ public class UDPConnection : MonoBehaviour
 
     // Byte array retrieved from brachIOplexus 
     private byte[] packet;
-    // private List<byte> packetList;
 
     // convert servo vals -> rpm -> rad/s
     private float rpmToRads = 0.11f * Mathf.PI / 30;   
+
+    private byte scene;
 
     /*
         @brief: function runs upon startup 
     */
     void Start()
     {
+        scene = 0;
         // Singleoton pattern
         if(udp == null)
         {
@@ -70,22 +70,23 @@ public class UDPConnection : MonoBehaviour
         recievingThread.Start();
     }
 
-    // /*
-    //     @brief: takes the packet byte array and converts to a List<UInt16>
-    //     @return: List<UInt16> from brachIOplexus to fill packetList  
-    // */
-    // List<byte> Unpack()
-    // {
-
-    //     List<byte> incoming = new List<byte>();
-    //     var mStream = new MemoryStream();
-    //     var binFormatter = new BinaryFormatter();
-    //     mStream.Write(packet,0,packet.Length);
-    //     mStream.Position = 0;
-    //     incoming = binFormatter.Deserialize(mStream) as List<byte>;
-
-    //     return incoming;
-    // }
+    void Update()
+    {
+        if(scene != 0)
+        {
+            exit = true;
+            client.Close();
+            if(scene == 1)
+            {
+                SceneManager.LoadScene("BentoArm_AcerVR");
+            }
+            else if(scene == 2)
+            {
+                SceneManager.LoadScene("BentoArm_AcerVRNOARMSHELLS");
+            }
+            scene = 0;
+        }
+    }
 
     /*
         @brief: retrieves the lower byte of a UInt16 number
@@ -173,7 +174,11 @@ public class UDPConnection : MonoBehaviour
             }
             else
             {
-                clearRotationArray();
+                if(packet[3] == 1)
+                {
+                    clearRotationArray();
+                }
+                scene = packet[4];
             }
         }
     }

@@ -181,7 +181,7 @@ namespace brachIOplexus
         long milliSec11;  
         bool UDPflag3 = false;
         Process UnityProc = new Process();  // Process to launch VR project 
-        List<byte> packetList = new List<byte>();  // Packet buffer to store data 
+        bool armShells = false;
 
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
@@ -8737,8 +8737,14 @@ namespace brachIOplexus
         #endregion
 
         #region Unity 
-
+        /*
+         * Created by: Cyrus Diego 
+         * June 19, 2019 
+         */
         #region Unity GUI Elements
+        /*
+         * Function below handle click events with added Unity buttons in BrachIOplexus GUI 
+         */
         private void unityConnect_Click(object sender, EventArgs e)
         {
             if (!UDPflag3)
@@ -8768,7 +8774,7 @@ namespace brachIOplexus
             {
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
 
-                sendUtility(1,0);
+                sendUtility(1,0);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
                 udpClientTX3.Close();
 
                 UDPflag3 = false;
@@ -8798,14 +8804,42 @@ namespace brachIOplexus
         }
         private void unitySceneReset_Click(object sender, EventArgs e)
         {
+            if (armShells)
+            {
+                sendUtility(1, 2);
+            }
+            else
+            {
+                sendUtility(1, 1);
+            }
+        }
 
+        private void unityArmShellToggle_Click(object sender, EventArgs e)
+        {
+            if(armShells)
+            {
+                sendUtility(1, 1);
+                armShells = false;
+            }
+            else
+            {
+                sendUtility(1, 2);
+                armShells = true;
+            }
         }
         #endregion
 
         #region UDP Connection
-        // Sends and Recieves packets from Unity VR 
-        // Adapted from "Surprise Demo" 
-        // Refer to UDP_Comm_VIPER excel_rev#.xlsx file for packet breakdown 
+        /*
+         * Implements and controls UDP communication with Unity 
+         * Adapted from "Suprise Demo"
+         * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
+         */
+
+        /*
+         * @brief: Function runs in background and handles try/catch for sending continuous 
+         * packets to control the Virtual Bento Arm
+         */
         private void sendToUnity(object state)
         {
             try
@@ -8816,6 +8850,7 @@ namespace brachIOplexus
                 byte[] packet = updatePacket();
 
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+
             }
             catch (Exception ex)
             {
@@ -8823,6 +8858,12 @@ namespace brachIOplexus
             }
         }
 
+        /*
+         * @brief: calculates the checksum value based on packet recieved
+         * formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
+         * 
+         * @param: packet to be sent 
+         */
         private byte calcCheckSum(ref byte[] packet)
         {
             byte checkSum = 0;
@@ -8843,10 +8884,17 @@ namespace brachIOplexus
             return checkSum;
         }
 
-        // Note i am not sure what the Run/Suspend && Torque On/Off booleans do 
+        // Note: i am not sure what the Run/Suspend && Torque On/Off booleans do 
+        /*
+         * @brief: Checks the DOF check box list in Unity Bento Arm section of BrachIOplexus 
+         * to determine if a DOF has been locked
+         * 
+         * @brief: 
+         *      idx: Servo ID being checked 
+         *      state: CW / CCW direction of the joint 
+         */
         private bool checkList(int idx, byte state)
         {
-
             bool valid = true;
             switch (idx)
             {
@@ -8884,6 +8932,11 @@ namespace brachIOplexus
             return valid;
         }
 
+        /*
+         * @brief: iterates through existing objects to determine state and 
+         * velocity of bento arm. Uses values to send commands to Unity
+         * Bento Arm
+         */
         private byte[] updatePacket()
         {
             byte length = 0;
@@ -8903,10 +8956,10 @@ namespace brachIOplexus
 
             length *= 4;
             byte[] packet = new byte[5 + length];
-            packet[0] = 255;
-            packet[1] = 255;
-            packet[2] = 0;
-            packet[3] = length;
+            packet[0] = 255;            // Header
+            packet[1] = 255;            // Header
+            packet[2] = 0;              // Type: 0
+            packet[3] = length;         // Length of Data 
 
             int idx = 4;
             for (byte i = 0; i < BENTO_NUM; i++)
@@ -8920,10 +8973,10 @@ namespace brachIOplexus
                     lowByte = low_byte((UInt16)robotObj.Motor[i].w);
                     hiByte = high_byte((UInt16)robotObj.Motor[i].w);
 
-                    packet[idx] = ID;
-                    packet[idx + 1] = lowByte;
-                    packet[idx + 2] = hiByte;
-                    packet[idx + 3] = state;
+                    packet[idx] = ID;               // Servo ID
+                    packet[idx + 1] = lowByte;      // Velocity Low
+                    packet[idx + 2] = hiByte;       // Velocity Hi
+                    packet[idx + 3] = state;        // CW / CCW 
                     idx += 4;
                 }
             }
@@ -8933,20 +8986,20 @@ namespace brachIOplexus
             return packet;
         }
 
-        private void stopArm()
+        /*
+         * @brief: creates a unique packet that is only sent on specific button 
+         * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
+         * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
+         */
+        private void sendUtility(byte stop, byte reset)
         {
             byte[] packet = new byte[6]; // will need to change this when have it finalized 
-            packet[0] = 255;
-            packet[1] = 255;
-            packet[2] = 1;
-            packet[3] = 1;
-            packet[4] = 0;
+            packet[0] = 255;            // Header
+            packet[1] = 255;            // Header
+            packet[2] = 1;              // Type: 1
+            packet[3] = stop;           // Stop Signal
+            packet[4] = reset;          // Scene Signal 
             packet[5] = calcCheckSum(ref packet);
-
-        }
-
-        private void sendUtility(int stop, int reset)
-        {
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
         #endregion

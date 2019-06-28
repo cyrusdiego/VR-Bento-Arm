@@ -706,7 +706,7 @@ storing the byte array results there and the other objects can access it
 - got basic movement workign for all joints using brachioplexus and keyboard 
 - xbox mapping is the same for somethings in unity (pushing on joystick is mapped to change scene )
 
-**June 26, 27**
+**June 26, 27, 28**
 - last few days was just working on the packet sending to Unity nothing exciting 
 - MYO currently not working with brachIOplexus 
 *TODO*
@@ -731,12 +731,13 @@ storing the byte array results there and the other objects can access it
 - Ensure GUI elements are properlly labelled and document here or in VIPER docs 
     - dont use generic / default names and try to be concise (DONE)
 - Create Tab for Unity Bento Arm 
-    - Restart Scene 
+    - Restart Scene (DONE)
     - Camera Positions 
-    - Choose specific scenes 
-- Create Flowchart to show connection with Unity 
-- Configure the "Shut down demos" button to detect the unity demo stuff 
+    - Choose specific scenes -> restart and choosing a scene can be the same thing, need a way to store all the scenes in unity and to store active scene (DONE)
+    then use that value to restart or use the storage of other scenes to load another scene
+- Create Flowchart to show connection with Unity (put in VIPER Doc)
 - Time the thread execution [link](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch?view=netframework-4.8)
+- copy functionality of arm and udp connection to no arm shell scene 
 *QUESTIONS*
 - how is the DOF check list configured (probably with a profile)
     - can i create a profile for the virtual bento arm ? 
