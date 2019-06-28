@@ -23,3 +23,12 @@ to create the port and IP address
 ### Hand Open / Close
 - The actual Bento Arm has a constraint where they both have to be on / both have to be off
 - This constraint has **not** been implemented
+
+# June 28,2019
+
+- Created new unity Tab
+- Holds reset and arm shell toggle
+
+- Also displays name of active scene 
+
+- **Note** brachioplexus MUST connect first then Unity can be turned on 

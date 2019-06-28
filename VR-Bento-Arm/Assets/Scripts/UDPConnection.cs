@@ -52,19 +52,11 @@ public class UDPConnection : MonoBehaviour
     /*
         @brief: function runs upon startup 
     */
-    void Start()
+    void Awake()
     {
         scene = 0;
         // Singleoton pattern
-        if(udp == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            udp = this;
-        }
-        else if(udp != this)
-        {
-            Destroy(gameObject);
-        }
+        udp = this;
 
         clearRotationArray();
         if(SceneManager.GetActiveScene().name == "BentoArm_AcerVR")
@@ -112,6 +104,7 @@ public class UDPConnection : MonoBehaviour
     {
         exit = true;
         clientRX.Close();
+        clientTX.Close();
         if(scene == 1)
         {
             SceneManager.LoadScene("BentoArm_AcerVR");

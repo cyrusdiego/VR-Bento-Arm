@@ -649,6 +649,7 @@ namespace brachIOplexus
                 // Close Unity communication and thread
                 if(UDPflag3)
                 {
+                    udpRXFlag = false;
                     udpClientTX3.Close();
                     udpClientRX3.Close();
                     t11.Change(Timeout.Infinite, Timeout.Infinite);

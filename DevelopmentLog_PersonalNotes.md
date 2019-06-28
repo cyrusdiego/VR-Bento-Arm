@@ -734,12 +734,12 @@ storing the byte array results there and the other objects can access it
     - Restart Scene (DONE)
     - Camera Positions 
     - Choose specific scenes -> restart and choosing a scene can be the same thing, need a way to store all the scenes in unity and to store active scene (DONE)
-    then use that value to restart or use the storage of other scenes to load another scene
+    then use that value to restart or use the storage of other scenes to load another scene (DONE)
 - Create Flowchart to show connection with Unity (put in VIPER Doc)
 - Time the thread execution [link](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch?view=netframework-4.8)
-- copy functionality of arm and udp connection to no arm shell scene 
-- send to brachIOplexus current scene name 
-    - est. RX port to have recieving working
+- copy functionality of arm and udp connection to no arm shell scene (DONE)
+- send to brachIOplexus current scene name (DONE)
+    - est. RX port to have recieving working (DONE)
 
 *QUESTIONS + POSSIBLE FEATURES*
 - how is the DOF check list configured (probably with a profile)
@@ -748,3 +748,5 @@ storing the byte array results there and the other objects can access it
         - this will affect how i send the data 
 - what kind of feedback from unity would be seen in brachioplexus unity tab 
 - Unity tab would specify what scene would the user want to first load? 
+- would the user want to see what the test subject sees? when game is fully loaded idk how that would work
+- when creating new scenes in the future i would need to document how to do this and how to reconfigure brachIOplexus to include these scenes? 
