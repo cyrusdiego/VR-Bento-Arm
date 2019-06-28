@@ -8783,6 +8783,7 @@ namespace brachIOplexus
 
             if (UDPflag3)
             {
+
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
                 sendUtility(1,0);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
@@ -8993,18 +8994,27 @@ namespace brachIOplexus
         #region UDP RX
         private void recieveFromUnity(object state)
         {
-            try
+            while(true)
             {
-                stopWatch12.Stop();
-                milliSec12 = stopWatch12.ElapsedMilliseconds;
+                try
+                {
+                    // https://stackoverflow.com/questions/5932204/c-sharp-udp-listener-un-blocking-or-prevent-revceiving-from-being-stuck
+                    if (udpClientRX3.Available > 0)
+                    {
+                        stopWatch12.Stop();
+                        milliSec12 = stopWatch12.ElapsedMilliseconds;
 
-                byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
-                parsePacket(ref packet);
+                        byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
+                        parsePacket(ref packet);
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
         }
 
         private void parsePacket(ref byte[] packet)
@@ -9013,11 +9023,19 @@ namespace brachIOplexus
             {
                 if(packet[2] == 0)
                 {
-                    unityActiveSceneName.Text = "Bento Arm with Arm Shells";
+                    // https://social.msdn.microsoft.com/Forums/vstudio/en-US/a83a8655-76b8-4225-b38d-3b33eb67aafc/c-threading-changing-label?forum=csharpgeneral
+                    this.Invoke((MethodInvoker)delegate()
+                    {
+                        unityActiveSceneName.Text = "Bento Arm with Arm Shells";
+                    });
+                    
                 }
                 else
                 {
-                    unityActiveSceneName.Text = "Bento Arm without Arm Shells";
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        unityActiveSceneName.Text = "Bento Arm without Arm Shells";
+                    });
                 }
             }
         }

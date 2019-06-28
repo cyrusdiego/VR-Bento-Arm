@@ -11044,7 +11044,7 @@
             this.unityActiveScene.Controls.Add(this.unityActiveSceneName);
             this.unityActiveScene.Location = new System.Drawing.Point(7, 19);
             this.unityActiveScene.Name = "unityActiveScene";
-            this.unityActiveScene.Size = new System.Drawing.Size(109, 58);
+            this.unityActiveScene.Size = new System.Drawing.Size(253, 58);
             this.unityActiveScene.TabIndex = 2;
             this.unityActiveScene.TabStop = false;
             this.unityActiveScene.Text = "Current Scene";
@@ -11054,9 +11054,8 @@
             this.unityActiveSceneName.AutoSize = true;
             this.unityActiveSceneName.Location = new System.Drawing.Point(6, 27);
             this.unityActiveSceneName.Name = "unityActiveSceneName";
-            this.unityActiveSceneName.Size = new System.Drawing.Size(16, 13);
+            this.unityActiveSceneName.Size = new System.Drawing.Size(0, 13);
             this.unityActiveSceneName.TabIndex = 2;
-            this.unityActiveSceneName.Text = "...";
             // 
             // unitySceneConfiguration
             // 

@@ -43,6 +43,7 @@ public class UDPConnection : MonoBehaviour
     private float rpmToRads = 0.11f * Mathf.PI / 30;   
 
     private byte scene;
+    private byte activeScene;
 
     #endregion
 
@@ -66,19 +67,27 @@ public class UDPConnection : MonoBehaviour
         }
 
         clearRotationArray();
+        if(SceneManager.GetActiveScene().name == "BentoArm_AcerVR")
+        {
+            activeScene = 0;
+        }
+        else
+        {
+            activeScene = 1;
+        }
 
         // Initialize udp connection and seperate thread 
         clientRX = new UdpClient(portRX);
         endpointRX = new IPEndPoint(local,portRX);
         threadRX = new Thread(Recieve);
 
-        // clientTX = new UdpClient(portTX);
-        // endpointTX = new IPEndPoint(local,portTX);
-        // threadTX = new Thread(Send);
+        clientTX = new UdpClient();
+        endpointTX = new IPEndPoint(local,portTX);
+        threadTX = new Thread(Send);
 
         exit = false;
         threadRX.Start();
-        // threadTX.Start();
+        threadTX.Start();
     }
 
     void Update()
@@ -204,22 +213,13 @@ public class UDPConnection : MonoBehaviour
     {
         try
         {
-            print("trying to send packet");
             byte[] packet = new byte[4];
             packet[0] = 255;
             packet[1] = 255;
-            if(SceneManager.GetActiveScene().ToString() == "BentoArm_AcerVR")
-            {
-                packet[2] = 0;
-            }
-            else
-            {
-                packet[2] = 1;
-            }
+            packet[2] = activeScene;
             packet[3] = calcCheckSum(ref packet,2,3);
 
             clientTX.Send(packet,packet.Length,endpointTX);
-            print("sent packet");
         }
         catch (Exception ex)
         {
@@ -241,8 +241,12 @@ public class UDPConnection : MonoBehaviour
         {
             try
             {
-                byte[] packet = clientRX.Receive(ref endpointRX); 
-                parsePacket(ref packet);
+                // https://stackoverflow.com/questions/5932204/c-sharp-udp-listener-un-blocking-or-prevent-revceiving-from-being-stuck
+                if(clientRX.Available > 0)
+                {
+                    byte[] packet = clientRX.Receive(ref endpointRX); 
+                    parsePacket(ref packet);
+                }
             }
             catch (Exception err)
             {
