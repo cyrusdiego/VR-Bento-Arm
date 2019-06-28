@@ -172,13 +172,18 @@ namespace brachIOplexus
 
         // Unity UDP connection 
         static System.Threading.Timer t11;
+        static System.Threading.Timer t12;
         static Int32 portTX3;  // Send
         static Int32 portRX3;  // Recieve 
         static IPAddress localAddr3;  // Local address
         UdpClient udpClientTX3;
+        UdpClient udpClientRX3;
         IPEndPoint ipEndPointTX3;
+        IPEndPoint ipEndPointRX3;
         Stopwatch stopWatch11 = new Stopwatch();
-        long milliSec11;  
+        Stopwatch stopWatch12 = new Stopwatch();
+        long milliSec11;
+        long milliSec12;
         bool UDPflag3 = false;
         Process UnityProc = new Process();  // Process to launch VR project 
         bool armShells = false;
@@ -644,7 +649,9 @@ namespace brachIOplexus
                 if(UDPflag3)
                 {
                     udpClientTX3.Close();
+                    udpClientRX3.Close();
                     t11.Change(Timeout.Infinite, Timeout.Infinite);
+                    t12.Change(Timeout.Infinite, Timeout.Infinite);
                 }
             }
             catch (Exception ex)
@@ -8741,6 +8748,7 @@ namespace brachIOplexus
          * Created by: Cyrus Diego 
          * June 19, 2019 
          */
+
         #region Unity GUI Elements
         /*
          * Function below handle click events with added Unity buttons in BrachIOplexus GUI 
@@ -8753,13 +8761,16 @@ namespace brachIOplexus
                 localAddr3 = IPAddress.Parse(unityIPaddrText.Text);
                 portTX3 = Int32.Parse(unityTXPortText.Text);
                 portRX3 = Int32.Parse(unityRXPortText.Text);
-
+                
                 // Initialize UDP connection 
                 udpClientTX3 = new UdpClient();
+                udpClientRX3 = new UdpClient(portRX3);
                 ipEndPointTX3 = new IPEndPoint(localAddr3, portTX3);
+                ipEndPointRX3 = new IPEndPoint(localAddr3, portRX3);
 
                 // Start the thread to send packets to Unity 
                 t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+                t12 = new System.Threading.Timer(new TimerCallback(recieveFromUnity), null, 0, 15);
 
                 UDPflag3 = true;
                 unityConnect.Enabled = false;
@@ -8773,9 +8784,10 @@ namespace brachIOplexus
             if (UDPflag3)
             {
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
-
+                t12.Change(Timeout.Infinite, Timeout.Infinite);
                 sendUtility(1,0);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
                 udpClientTX3.Close();
+                udpClientRX3.Close();
 
                 UDPflag3 = false;
                 unityConnect.Enabled = true;
@@ -8829,7 +8841,7 @@ namespace brachIOplexus
         }
         #endregion
 
-        #region UDP Connection
+        #region UDP TX
         /*
          * Implements and controls UDP communication with Unity 
          * Adapted from "Suprise Demo"
@@ -8856,32 +8868,6 @@ namespace brachIOplexus
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        /*
-         * @brief: calculates the checksum value based on packet recieved
-         * formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
-         * 
-         * @param: packet to be sent 
-         */
-        private byte calcCheckSum(ref byte[] packet)
-        {
-            byte checkSum = 0;
-
-            for (byte i = 4; i < packet.Length; i++)
-            {
-                checkSum += packet[i];
-            }
-
-            if ((byte)~checkSum >= 255)
-            {
-                checkSum = low_byte((UInt16)~checkSum);
-            }
-            else
-            {
-                checkSum = (byte)~checkSum;
-            }
-            return checkSum;
         }
 
         // Note: i am not sure what the Run/Suspend && Torque On/Off booleans do 
@@ -9001,6 +8987,100 @@ namespace brachIOplexus
             packet[4] = reset;          // Scene Signal 
             packet[5] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        }
+        #endregion
+
+        #region UDP RX
+        private void recieveFromUnity(object state)
+        {
+            try
+            {
+                stopWatch12.Stop();
+                milliSec12 = stopWatch12.ElapsedMilliseconds;
+
+                byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
+                parsePacket(ref packet);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void parsePacket(ref byte[] packet)
+        {
+            if(validate(ref packet, 2,3))
+            {
+                if(packet[2] == 0)
+                {
+                    unityActiveSceneName.Text = "Bento Arm with Arm Shells";
+                }
+                else
+                {
+                    unityActiveSceneName.Text = "Bento Arm without Arm Shells";
+                }
+            }
+        }
+        #endregion
+
+        #region UDP Utilities
+        /*
+         * @brief: calculates the checksum value based on packet recieved
+         * formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
+         * 
+         * @param: packet to be sent 
+         */
+        private byte calcCheckSum(ref byte[] packet)
+        {
+            byte checkSum = 0;
+
+            for (byte i = 4; i < packet.Length; i++)
+            {
+                checkSum += packet[i];
+            }
+
+            if ((byte)~checkSum >= 255)
+            {
+                checkSum = low_byte((UInt16)~checkSum);
+            }
+            else
+            {
+                checkSum = (byte)~checkSum;
+            }
+            return checkSum;
+        }
+
+        /*
+            @brief: checks if the packet recieved is correct:
+            double header: 255
+            checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
+        */
+        bool validate(ref byte[] packet, byte start, byte end)
+        {
+            byte checksum = 0;
+            for (int i = start; i < end; i++)
+            {
+                checksum += packet[i];
+            }
+
+            if ((byte)~checksum > 255)
+            {
+                checksum = low_byte((UInt16)~checksum);
+            }
+            else
+            {
+                checksum = (byte)~checksum;
+            }
+
+
+            if (checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
 

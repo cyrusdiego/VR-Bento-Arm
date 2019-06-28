@@ -775,7 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e32948822e580438cee3a9f8ab3c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 30004
+  portRX: 30004
 --- !u!1 &245329324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 4ed6005edcaa782428ae68f8558bb508,

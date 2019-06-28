@@ -11,12 +11,13 @@
 using System;
 using System.Net;
 using System.Net.Sockets; 
-using System.Threading;  // multithreading 
+using System.Threading;  
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UDPConnection : MonoBehaviour
 {
+    #region Variables
     // Singleoton pattern
     public static UDPConnection udp;
 
@@ -26,21 +27,26 @@ public class UDPConnection : MonoBehaviour
 
     // Network information 
     public Int32 portRX = 30004;
+    public Int32 portTX = 30005;
     public IPAddress local = IPAddress.Parse("127.0.0.1");
 
     // .NET classes for multi-threading and establishing a udp connection 
-    private UdpClient client;
-    private Thread recievingThread;
-    private IPEndPoint endpoint;
+    private UdpClient clientRX;
+    private UdpClient clientTX;
+    private Thread threadRX;
+    private Thread threadTX;
+    private IPEndPoint endpointRX;
+    private IPEndPoint endpointTX;
     private bool exit;
-
-    // Byte array retrieved from brachIOplexus 
-    private byte[] packet;
 
     // convert servo vals -> rpm -> rad/s
     private float rpmToRads = 0.11f * Mathf.PI / 30;   
 
     private byte scene;
+
+    #endregion
+
+    #region Unity API
 
     /*
         @brief: function runs upon startup 
@@ -62,31 +68,55 @@ public class UDPConnection : MonoBehaviour
         clearRotationArray();
 
         // Initialize udp connection and seperate thread 
-        client = new UdpClient(portRX);
-        endpoint = new IPEndPoint(local,portRX);
-        recievingThread = new Thread(Recieve);
+        clientRX = new UdpClient(portRX);
+        endpointRX = new IPEndPoint(local,portRX);
+        threadRX = new Thread(Recieve);
+
+        // clientTX = new UdpClient(portTX);
+        // endpointTX = new IPEndPoint(local,portTX);
+        // threadTX = new Thread(Send);
 
         exit = false;
-        recievingThread.Start();
+        threadRX.Start();
+        // threadTX.Start();
     }
 
     void Update()
     {
         if(scene != 0)
         {
-            exit = true;
-            client.Close();
-            if(scene == 1)
-            {
-                SceneManager.LoadScene("BentoArm_AcerVR");
-            }
-            else if(scene == 2)
-            {
-                SceneManager.LoadScene("BentoArm_AcerVRNOARMSHELLS");
-            }
-            scene = 0;
+            updateScene();
         }
     }
+
+    /*
+        @brief: kills thread when the game object is destroyed 
+    */
+    void OnDestroy()
+    {
+        exit = true;
+        clientRX.Close();
+        // clientTX.Close();
+    }
+
+    void updateScene()
+    {
+        exit = true;
+        clientRX.Close();
+        if(scene == 1)
+        {
+            SceneManager.LoadScene("BentoArm_AcerVR");
+        }
+        else if(scene == 2)
+        {
+            SceneManager.LoadScene("BentoArm_AcerVRNOARMSHELLS");
+        }
+        scene = 0;
+    }
+
+    #endregion
+
+    #region Utilities
 
     /*
         @brief: retrieves the lower byte of a UInt16 number
@@ -101,10 +131,10 @@ public class UDPConnection : MonoBehaviour
         double header: 255
         checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
     */
-    bool validate()
+    bool validate(ref byte[] packet, byte start, byte end)
     {
         byte checksum = 0;
-        for(int i = 4; i < packet.Length - 1; i++)
+        for(int i = start; i < end; i++)
         {
             checksum += packet[i];
         }
@@ -130,6 +160,97 @@ public class UDPConnection : MonoBehaviour
     }
 
     /*
+        @brief: sets the rotation array to zero's 
+    */
+    void clearRotationArray()
+    {
+        for(int i = 0; i < rotationArray.Length; i++)
+        {
+            rotationArray[i] = new Tuple<float,float>(0,0);
+        }
+    }
+
+    /*
+    * @brief: calculates the checksum value based on packet recieved
+    * formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
+    * 
+    * @param: packet to be sent 
+    */
+    private byte calcCheckSum(ref byte[] packet, byte start, byte end)
+    {
+        byte checkSum = 0;
+
+        for (byte i = start; i < end; i++)
+        {
+            checkSum += packet[i];
+        }
+
+        if ((byte)~checkSum >= 255)
+        {
+            checkSum = low_byte((UInt16)~checkSum);
+        }
+        else
+        {
+            checkSum = (byte)~checkSum;
+        }
+        return checkSum;
+    }
+
+    #endregion
+
+    #region UDPTX
+
+    void Send()
+    {
+        try
+        {
+            print("trying to send packet");
+            byte[] packet = new byte[4];
+            packet[0] = 255;
+            packet[1] = 255;
+            if(SceneManager.GetActiveScene().ToString() == "BentoArm_AcerVR")
+            {
+                packet[2] = 0;
+            }
+            else
+            {
+                packet[2] = 1;
+            }
+            packet[3] = calcCheckSum(ref packet,2,3);
+
+            clientTX.Send(packet,packet.Length,endpointTX);
+            print("sent packet");
+        }
+        catch (Exception ex)
+        {
+            print(ex.ToString());
+        }
+
+    }
+
+    #endregion
+
+    #region UDPRX
+
+    /*
+        @brief: recieves and stores incoming packets from brachIOplexus  
+    */
+    void Recieve()
+    {
+        while(!exit)
+        {
+            try
+            {
+                byte[] packet = clientRX.Receive(ref endpointRX); 
+                parsePacket(ref packet);
+            }
+            catch (Exception err)
+            {
+                print(err.ToString());            
+            }
+        }
+    }
+    /*
         @brief: combines low and high byte values and converts to rad /s velocity
         value
     */
@@ -142,25 +263,14 @@ public class UDPConnection : MonoBehaviour
     }
 
     /*
-        @brief: sets the rotation array to zero's 
-    */
-    void clearRotationArray()
-    {
-        for(int i = 0; i < rotationArray.Length; i++)
-        {
-            rotationArray[i] = new Tuple<float,float>(0,0);
-        }
-    }
-
-    /*
         @brief: using the packet recieved from BrachIOplexus, fill the 
         rotationArray array with velocity and direction values. rotationArray
         is globally accessible to the rotation classes. 
     */
-    void parsePacket()
+    void parsePacket(ref byte[] packet)
     {
         clearRotationArray();
-        if(validate())
+        if(validate(ref packet, 4, (byte)(packet.Length - 1)))
         {
             if(packet[2] == 0)
             {
@@ -183,30 +293,5 @@ public class UDPConnection : MonoBehaviour
         }
     }
 
-    /*
-        @brief: kills thread when the game object is destroyed 
-    */
-    void OnDestroy()
-    {
-        exit = true;
-    }
-
-    /*
-        @brief: recieves and stores incoming packets from brachIOplexus  
-    */
-    void Recieve()
-    {
-        while(!exit)
-        {
-            try
-            {
-                packet = client.Receive(ref endpoint); 
-                parsePacket();
-            }
-            catch (Exception err)
-            {
-                print(err.ToString());            
-            }
-        }
-    }
+    #endregion
 }

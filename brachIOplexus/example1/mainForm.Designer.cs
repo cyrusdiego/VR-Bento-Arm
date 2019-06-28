@@ -802,7 +802,11 @@
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
-            this.unityScene = new System.Windows.Forms.GroupBox();
+            this.unitySceneInformation = new System.Windows.Forms.GroupBox();
+            this.unityActiveScene = new System.Windows.Forms.GroupBox();
+            this.unityActiveSceneName = new System.Windows.Forms.Label();
+            this.unitySceneConfiguration = new System.Windows.Forms.GroupBox();
+            this.unityArmShells = new System.Windows.Forms.Button();
             this.unitySceneReset = new System.Windows.Forms.Button();
             this.statusPanel1 = new System.Windows.Forms.Panel();
             this.MYOstatus = new System.Windows.Forms.Label();
@@ -813,7 +817,6 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
-            this.unityArmShells = new System.Windows.Forms.Button();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -946,7 +949,9 @@
             this.biopatrecGroupBox.SuspendLayout();
             this.SLRTgroupBox.SuspendLayout();
             this.tabUnity.SuspendLayout();
-            this.unityScene.SuspendLayout();
+            this.unitySceneInformation.SuspendLayout();
+            this.unityActiveScene.SuspendLayout();
+            this.unitySceneConfiguration.SuspendLayout();
             this.statusPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -11015,7 +11020,8 @@
             // 
             // tabUnity
             // 
-            this.tabUnity.Controls.Add(this.unityScene);
+            this.tabUnity.Controls.Add(this.unitySceneInformation);
+            this.tabUnity.Controls.Add(this.unitySceneConfiguration);
             this.tabUnity.Location = new System.Drawing.Point(4, 22);
             this.tabUnity.Name = "tabUnity";
             this.tabUnity.Size = new System.Drawing.Size(1162, 642);
@@ -11023,24 +11029,63 @@
             this.tabUnity.Text = "Unity";
             this.tabUnity.UseVisualStyleBackColor = true;
             // 
-            // unityScene
+            // unitySceneInformation
             // 
-            this.unityScene.Controls.Add(this.unityArmShells);
-            this.unityScene.Controls.Add(this.unitySceneReset);
-            this.unityScene.Location = new System.Drawing.Point(3, 3);
-            this.unityScene.Name = "unityScene";
-            this.unityScene.Size = new System.Drawing.Size(266, 157);
-            this.unityScene.TabIndex = 0;
-            this.unityScene.TabStop = false;
-            this.unityScene.Text = "Scene - Configuration";
+            this.unitySceneInformation.Controls.Add(this.unityActiveScene);
+            this.unitySceneInformation.Location = new System.Drawing.Point(3, 166);
+            this.unitySceneInformation.Name = "unitySceneInformation";
+            this.unitySceneInformation.Size = new System.Drawing.Size(266, 162);
+            this.unitySceneInformation.TabIndex = 1;
+            this.unitySceneInformation.TabStop = false;
+            this.unitySceneInformation.Text = "Scene - Information";
+            // 
+            // unityActiveScene
+            // 
+            this.unityActiveScene.Controls.Add(this.unityActiveSceneName);
+            this.unityActiveScene.Location = new System.Drawing.Point(7, 19);
+            this.unityActiveScene.Name = "unityActiveScene";
+            this.unityActiveScene.Size = new System.Drawing.Size(109, 58);
+            this.unityActiveScene.TabIndex = 2;
+            this.unityActiveScene.TabStop = false;
+            this.unityActiveScene.Text = "Current Scene";
+            // 
+            // unityActiveSceneName
+            // 
+            this.unityActiveSceneName.AutoSize = true;
+            this.unityActiveSceneName.Location = new System.Drawing.Point(6, 27);
+            this.unityActiveSceneName.Name = "unityActiveSceneName";
+            this.unityActiveSceneName.Size = new System.Drawing.Size(16, 13);
+            this.unityActiveSceneName.TabIndex = 2;
+            this.unityActiveSceneName.Text = "...";
+            // 
+            // unitySceneConfiguration
+            // 
+            this.unitySceneConfiguration.Controls.Add(this.unityArmShells);
+            this.unitySceneConfiguration.Controls.Add(this.unitySceneReset);
+            this.unitySceneConfiguration.Location = new System.Drawing.Point(3, 3);
+            this.unitySceneConfiguration.Name = "unitySceneConfiguration";
+            this.unitySceneConfiguration.Size = new System.Drawing.Size(266, 157);
+            this.unitySceneConfiguration.TabIndex = 0;
+            this.unitySceneConfiguration.TabStop = false;
+            this.unitySceneConfiguration.Text = "Scene - Configuration";
+            // 
+            // unityArmShells
+            // 
+            this.unityArmShells.Location = new System.Drawing.Point(7, 49);
+            this.unityArmShells.Name = "unityArmShells";
+            this.unityArmShells.Size = new System.Drawing.Size(109, 23);
+            this.unityArmShells.TabIndex = 1;
+            this.unityArmShells.Text = "Remove Arm Shells";
+            this.unityArmShells.UseVisualStyleBackColor = true;
+            this.unityArmShells.Click += new System.EventHandler(this.unityArmShellToggle_Click);
             // 
             // unitySceneReset
             // 
             this.unitySceneReset.Location = new System.Drawing.Point(7, 20);
             this.unitySceneReset.Name = "unitySceneReset";
-            this.unitySceneReset.Size = new System.Drawing.Size(75, 23);
+            this.unitySceneReset.Size = new System.Drawing.Size(109, 23);
             this.unitySceneReset.TabIndex = 0;
-            this.unitySceneReset.Text = "Reset Current Scene";
+            this.unitySceneReset.Text = "Reset Scene";
             this.unitySceneReset.UseVisualStyleBackColor = true;
             this.unitySceneReset.Click += new System.EventHandler(this.unitySceneReset_Click);
             // 
@@ -11130,17 +11175,6 @@
             // 
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
-            // 
-            // unityArmShells
-            // 
-            this.unityArmShells.Location = new System.Drawing.Point(7, 49);
-            this.unityArmShells.Name = "unityArmShells";
-            this.unityArmShells.Size = new System.Drawing.Size(75, 23);
-            this.unityArmShells.TabIndex = 1;
-            this.unityArmShells.Text = "Remove Arm Shells";
-            this.unityArmShells.UseVisualStyleBackColor = true;
-            this.unityArmShells.Click += new System.EventHandler(this.unityArmShellToggle_Click);
-
             // 
             // mainForm
             // 
@@ -11321,7 +11355,10 @@
             this.biopatrecGroupBox.PerformLayout();
             this.SLRTgroupBox.ResumeLayout(false);
             this.tabUnity.ResumeLayout(false);
-            this.unityScene.ResumeLayout(false);
+            this.unitySceneInformation.ResumeLayout(false);
+            this.unityActiveScene.ResumeLayout(false);
+            this.unityActiveScene.PerformLayout();
+            this.unitySceneConfiguration.ResumeLayout(false);
             this.statusPanel1.ResumeLayout(false);
             this.statusPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -12112,9 +12149,12 @@
         private System.Windows.Forms.Label unityRXPort;
         private System.Windows.Forms.Button unityConnect;
         private System.Windows.Forms.TabPage tabUnity;
-        private System.Windows.Forms.GroupBox unityScene;
+        private System.Windows.Forms.GroupBox unitySceneConfiguration;
         private System.Windows.Forms.Button unitySceneReset;
         private System.Windows.Forms.Button unityArmShells;
+        private System.Windows.Forms.GroupBox unitySceneInformation;
+        private System.Windows.Forms.GroupBox unityActiveScene;
+        private System.Windows.Forms.Label unityActiveSceneName;
     }
 }
 

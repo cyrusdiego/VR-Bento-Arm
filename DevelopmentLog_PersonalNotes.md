@@ -738,8 +738,13 @@ storing the byte array results there and the other objects can access it
 - Create Flowchart to show connection with Unity (put in VIPER Doc)
 - Time the thread execution [link](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch?view=netframework-4.8)
 - copy functionality of arm and udp connection to no arm shell scene 
-*QUESTIONS*
+- send to brachIOplexus current scene name 
+    - est. RX port to have recieving working
+
+*QUESTIONS + POSSIBLE FEATURES*
 - how is the DOF check list configured (probably with a profile)
     - can i create a profile for the virtual bento arm ? 
     - can the checklist be changed while the bento arm is connected (like once) or can it be changed while running ?
         - this will affect how i send the data 
+- what kind of feedback from unity would be seen in brachioplexus unity tab 
+- Unity tab would specify what scene would the user want to first load? 
