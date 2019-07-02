@@ -11071,6 +11071,7 @@
             this.unityClearCameraPosition.TabIndex = 3;
             this.unityClearCameraPosition.Text = "Clear Positions";
             this.unityClearCameraPosition.UseVisualStyleBackColor = true;
+            this.unityClearCameraPosition.Click += new System.EventHandler(this.unityClearCameraPosition_Click);
             // 
             // unityToggleCameraPosition
             // 

@@ -8846,20 +8846,22 @@ namespace brachIOplexus
 
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
+            unityCameraPositions.Add("thing1");
+            unityCameraPositions.Add("thing2");
+            unityCameraPositions.Add("thing3");
             sendUtility(save: 1);
         }
 
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
         {
+            Console.WriteLine($"before: {unityCameraPositions.Count} ");
             sendUtility(clear: 1);
+            unityCameraPositions.Clear();
+            Console.WriteLine($"after: {unityCameraPositions.Count} ");
         }
 
         private void unityEditCameraPosition_Click(object sender, EventArgs e)
         {
-            unityCameraPositions.Add("thing1");
-            unityCameraPositions.Add("thing2");
-            unityCameraPositions.Add("thing3");
-            // create new thread??
             unityCamera cameraForm = new unityCamera();
             cameraForm.StartPosition = FormStartPosition.CenterParent;
             cameraForm.ShowDialog();

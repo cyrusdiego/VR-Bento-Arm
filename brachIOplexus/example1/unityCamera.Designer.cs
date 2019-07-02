@@ -49,6 +49,7 @@ namespace brachIOplexus
                 Button rename = new Button();
 
                 slot.Text = i.ToString();
+                slot.Name = "slot" + i.ToString();
                 slot.AutoSize = true;
 
                 name.Text = mainForm.unityCameraPositions[i];
@@ -56,12 +57,12 @@ namespace brachIOplexus
                 name.Size = textSize;
 
                 delete.Text = "Delete";
-                delete.Name = i.ToString();
+                delete.Name = "delete" + i.ToString();
                 delete.AutoSize = true;
                 delete.Click += new EventHandler(this.deletePosition);
 
                 rename.Text = "Rename";
-                rename.Name = i.ToString();
+                rename.Name = "rename" + i.ToString();
                 rename.AutoSize = true;
                 rename.Click += new EventHandler(this.renamePosition);
 
