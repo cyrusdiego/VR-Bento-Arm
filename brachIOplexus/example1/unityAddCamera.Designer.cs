@@ -70,7 +70,7 @@
             // 
             // unityAddCamera
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(280, 280);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.PostitionText);

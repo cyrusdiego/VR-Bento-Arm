@@ -8855,12 +8855,11 @@ namespace brachIOplexus
 
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
-            unityCameraPositions.Add("thing1");
-            unityCameraPositions.Add("thing2");
-            unityCameraPositions.Add("thing3");
             cameraPositionIdx = unityCameraPositions.Count - 1;
             sendUtility(save: 1);
-            // Create form
+            unityAddCamera cameraForm = new unityAddCamera();
+            cameraForm.StartPosition = FormStartPosition.CenterParent;
+            cameraForm.ShowDialog();
             this.Invoke((MethodInvoker)delegate ()
             {
                 unityCurrentCameraPositionText.Text = unityCameraPositions[unityCameraPositions.Count - 1];
