@@ -770,3 +770,5 @@ storing the byte array results there and the other objects can access it
 
 *POSSIBLE MODIFICATIONS:*
 - do another layer of abstraction by seperating the recieve and send and utilities functionality into seperate objects if time permits this week
+
+- with changes to brachioplexus prolly get review from riley on performance / threads with the new window

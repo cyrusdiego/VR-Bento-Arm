@@ -11061,6 +11061,7 @@
             this.unityEditCameraPosition.TabIndex = 4;
             this.unityEditCameraPosition.Text = "Edit Positions";
             this.unityEditCameraPosition.UseVisualStyleBackColor = true;
+            this.unityEditCameraPosition.Click += new System.EventHandler(this.unityEditCameraPosition_Click);
             // 
             // unityClearCameraPosition
             // 
