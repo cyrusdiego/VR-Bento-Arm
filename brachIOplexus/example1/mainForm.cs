@@ -8870,51 +8870,6 @@ namespace brachIOplexus
             sendUtility(next: 1);
         }
 
-        private void createEditForm()
-        {
-            Form editForm = new Form();
-
-            editForm.AutoSize = true;
-            editForm.MaximizeBox = false;
-            editForm.MinimizeBox = false;
-            editForm.StartPosition = FormStartPosition.CenterParent;
-            editForm.Text = "Edit - Camera Positions";
-
-            Point origin = new Point(10, 10);
-            Size textSize = new Size(150, 5);
-
-            for (int i = 0; i < unityCameraPositions.Count; i++)
-            {
-                Label slot = new Label();
-                TextBox name = new TextBox();
-                Button delete = new Button();
-                Button rename = new Button();
-
-                slot.Text = i.ToString();
-                slot.AutoSize = true;
-
-                name.Text = unityCameraPositions[i];
-                name.Size = textSize;
-
-                delete.Text = "Delete";
-                delete.AutoSize = true;
-
-                rename.Text = "Rename";
-                rename.AutoSize = true;
-
-                slot.Location = new Point(origin.X, origin.Y + (i*22));
-                name.Location = new Point(origin.X + 15, origin.Y + (i * 20));
-                delete.Location = new Point(origin.X + 15 + textSize.Width, origin.Y + (i * 20));
-                rename.Location = new Point(origin.X + 15 + textSize.Width + delete.Width, origin.Y + (i * 20));
-
-                editForm.Controls.Add(slot);
-                editForm.Controls.Add(name);
-                editForm.Controls.Add(delete);
-                editForm.Controls.Add(rename);
-            }
-            // Display the form as a modal dialog box.
-            editForm.ShowDialog();
-        }
         #endregion
 
         #region UDP TX
@@ -9045,6 +9000,12 @@ namespace brachIOplexus
             packet[packet.Length - 1] = calcCheckSum(ref packet);
 
             return packet;
+        }
+
+        public void deletePosition(int index)
+        {
+            unityCameraPositions.RemoveAt(index);
+            sendUtility(delete: (byte)index);
         }
 
         /*

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using System;
 namespace brachIOplexus
 {
     partial class unityCamera
@@ -54,10 +55,14 @@ namespace brachIOplexus
                 name.Size = textSize;
 
                 delete.Text = "Delete";
+                delete.Name = i.ToString();
                 delete.AutoSize = true;
+                delete.Click += new EventHandler(this.deletePosition);
 
                 rename.Text = "Rename";
+                rename.Name = i.ToString();
                 rename.AutoSize = true;
+                rename.Click += new EventHandler(this.renamePosition);
 
                 slot.Location = new Point(origin.X, origin.Y + (i * 22));
                 name.Location = new Point(origin.X + 15, origin.Y + (i * 20));

@@ -17,5 +17,19 @@ namespace brachIOplexus
         {
             InitializeComponent();
         }
+        private void deletePosition(object sender, EventArgs e)
+        {
+            Button delete = (Button)sender;
+            if (System.Windows.Forms.Application.OpenForms["mainForm"] != null)
+            {
+                (System.Windows.Forms.Application.OpenForms["mainForm"] as mainForm).deletePosition(int.Parse(delete.Name)); ;
+            }
+        }
+        private void renamePosition(object sender, EventArgs e)
+        {
+            TextBox rename = (TextBox)sender;
+            mainForm.unityCameraPositions[int.Parse(rename.Name)] = rename.Text;
+            Console.WriteLine(rename.Text);
+        }
     }
 }
