@@ -8788,7 +8788,7 @@ namespace brachIOplexus
                 udpRXFlag = false;
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
-                sendUtility(1,0);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
+                sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
                 udpClientTX3.Close();
                 udpClientRX3.Close();
 
@@ -8821,7 +8821,7 @@ namespace brachIOplexus
         {
             if (armShells)
             {
-                sendUtility(1, 2);
+                sendUtility(1, 2); 
             }
             else
             {
@@ -8841,6 +8841,11 @@ namespace brachIOplexus
                 sendUtility(1, 2);
                 armShells = true;
             }
+        }
+
+        private void unitySaveCameraPosition_Click(object sender, EventArgs e)
+        {
+            sendUtility(save: 1);
         }
         #endregion
 
@@ -8979,15 +8984,18 @@ namespace brachIOplexus
          * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
          * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
          */
-        private void sendUtility(byte stop, byte reset)
+        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 0, byte next = 0, byte clear = 0)
         {
-            byte[] packet = new byte[6]; // will need to change this when have it finalized 
+            byte[] packet = new byte[9]; // will need to change this when have it finalized 
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
             packet[2] = 1;              // Type: 1
             packet[3] = stop;           // Stop Signal
             packet[4] = reset;          // Scene Signal 
-            packet[5] = calcCheckSum(ref packet);
+            packet[5] = save;           // Save Camera Position
+            packet[6] = next;           // Next Camera Position
+            packet[7] = clear;          // Clear Camera Positions 
+            packet[8] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
         #endregion

@@ -32,3 +32,13 @@ to create the port and IP address
 - Also displays name of active scene 
 
 - **Note** brachioplexus MUST connect first then Unity can be turned on 
+
+# July 2, 2019
+- Create section for camera control 
+
+**Features**
+- Save camera position
+- Switch to Next position
+- Clear Presets 
+- Edit Presets
+- Display Current posiiton 

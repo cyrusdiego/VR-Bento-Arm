@@ -802,6 +802,13 @@
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
+            this.unityCameraPosition = new System.Windows.Forms.GroupBox();
+            this.unityEditCameraPosition = new System.Windows.Forms.Button();
+            this.unityClearCameraPosition = new System.Windows.Forms.Button();
+            this.unityToggleCameraPosition = new System.Windows.Forms.Button();
+            this.unitySaveCameraPosition = new System.Windows.Forms.Button();
+            this.unityCurrentCameraPosition = new System.Windows.Forms.GroupBox();
+            this.unityCurrentCameraPositionText = new System.Windows.Forms.Label();
             this.unitySceneInformation = new System.Windows.Forms.GroupBox();
             this.unityActiveScene = new System.Windows.Forms.GroupBox();
             this.unityActiveSceneName = new System.Windows.Forms.Label();
@@ -949,6 +956,8 @@
             this.biopatrecGroupBox.SuspendLayout();
             this.SLRTgroupBox.SuspendLayout();
             this.tabUnity.SuspendLayout();
+            this.unityCameraPosition.SuspendLayout();
+            this.unityCurrentCameraPosition.SuspendLayout();
             this.unitySceneInformation.SuspendLayout();
             this.unityActiveScene.SuspendLayout();
             this.unitySceneConfiguration.SuspendLayout();
@@ -11020,6 +11029,7 @@
             // 
             // tabUnity
             // 
+            this.tabUnity.Controls.Add(this.unityCameraPosition);
             this.tabUnity.Controls.Add(this.unitySceneInformation);
             this.tabUnity.Controls.Add(this.unitySceneConfiguration);
             this.tabUnity.Location = new System.Drawing.Point(4, 22);
@@ -11029,12 +11039,81 @@
             this.tabUnity.Text = "Unity";
             this.tabUnity.UseVisualStyleBackColor = true;
             // 
+            // unityCameraPosition
+            // 
+            this.unityCameraPosition.Controls.Add(this.unityEditCameraPosition);
+            this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);
+            this.unityCameraPosition.Controls.Add(this.unityToggleCameraPosition);
+            this.unityCameraPosition.Controls.Add(this.unitySaveCameraPosition);
+            this.unityCameraPosition.Controls.Add(this.unityCurrentCameraPosition);
+            this.unityCameraPosition.Location = new System.Drawing.Point(275, 3);
+            this.unityCameraPosition.Name = "unityCameraPosition";
+            this.unityCameraPosition.Size = new System.Drawing.Size(266, 157);
+            this.unityCameraPosition.TabIndex = 2;
+            this.unityCameraPosition.TabStop = false;
+            this.unityCameraPosition.Text = "Scene - Camera Position";
+            // 
+            // unityEditCameraPosition
+            // 
+            this.unityEditCameraPosition.Location = new System.Drawing.Point(141, 113);
+            this.unityEditCameraPosition.Name = "unityEditCameraPosition";
+            this.unityEditCameraPosition.Size = new System.Drawing.Size(119, 23);
+            this.unityEditCameraPosition.TabIndex = 4;
+            this.unityEditCameraPosition.Text = "Edit Positions";
+            this.unityEditCameraPosition.UseVisualStyleBackColor = true;
+            // 
+            // unityClearCameraPosition
+            // 
+            this.unityClearCameraPosition.Location = new System.Drawing.Point(141, 84);
+            this.unityClearCameraPosition.Name = "unityClearCameraPosition";
+            this.unityClearCameraPosition.Size = new System.Drawing.Size(119, 23);
+            this.unityClearCameraPosition.TabIndex = 3;
+            this.unityClearCameraPosition.Text = "Clear Positions";
+            this.unityClearCameraPosition.UseVisualStyleBackColor = true;
+            // 
+            // unityToggleCameraPosition
+            // 
+            this.unityToggleCameraPosition.Location = new System.Drawing.Point(6, 113);
+            this.unityToggleCameraPosition.Name = "unityToggleCameraPosition";
+            this.unityToggleCameraPosition.Size = new System.Drawing.Size(119, 23);
+            this.unityToggleCameraPosition.TabIndex = 2;
+            this.unityToggleCameraPosition.Text = "Next Position";
+            this.unityToggleCameraPosition.UseVisualStyleBackColor = true;
+            // 
+            // unitySaveCameraPosition
+            // 
+            this.unitySaveCameraPosition.Location = new System.Drawing.Point(6, 84);
+            this.unitySaveCameraPosition.Name = "unitySaveCameraPosition";
+            this.unitySaveCameraPosition.Size = new System.Drawing.Size(119, 23);
+            this.unitySaveCameraPosition.TabIndex = 1;
+            this.unitySaveCameraPosition.Text = "Save Position";
+            this.unitySaveCameraPosition.UseVisualStyleBackColor = true;
+            this.unitySaveCameraPosition.Click += new System.EventHandler(this.unitySaveCameraPosition_Click);
+            // 
+            // unityCurrentCameraPosition
+            // 
+            this.unityCurrentCameraPosition.Controls.Add(this.unityCurrentCameraPositionText);
+            this.unityCurrentCameraPosition.Location = new System.Drawing.Point(6, 20);
+            this.unityCurrentCameraPosition.Name = "unityCurrentCameraPosition";
+            this.unityCurrentCameraPosition.Size = new System.Drawing.Size(254, 58);
+            this.unityCurrentCameraPosition.TabIndex = 0;
+            this.unityCurrentCameraPosition.TabStop = false;
+            this.unityCurrentCameraPosition.Text = "Current Camera Position";
+            // 
+            // unityCurrentCameraPositionText
+            // 
+            this.unityCurrentCameraPositionText.AutoSize = true;
+            this.unityCurrentCameraPositionText.Location = new System.Drawing.Point(6, 29);
+            this.unityCurrentCameraPositionText.Name = "unityCurrentCameraPositionText";
+            this.unityCurrentCameraPositionText.Size = new System.Drawing.Size(0, 13);
+            this.unityCurrentCameraPositionText.TabIndex = 0;
+            // 
             // unitySceneInformation
             // 
             this.unitySceneInformation.Controls.Add(this.unityActiveScene);
             this.unitySceneInformation.Location = new System.Drawing.Point(3, 166);
             this.unitySceneInformation.Name = "unitySceneInformation";
-            this.unitySceneInformation.Size = new System.Drawing.Size(266, 162);
+            this.unitySceneInformation.Size = new System.Drawing.Size(266, 253);
             this.unitySceneInformation.TabIndex = 1;
             this.unitySceneInformation.TabStop = false;
             this.unitySceneInformation.Text = "Scene - Information";
@@ -11074,7 +11153,7 @@
             this.unityArmShells.Name = "unityArmShells";
             this.unityArmShells.Size = new System.Drawing.Size(109, 23);
             this.unityArmShells.TabIndex = 1;
-            this.unityArmShells.Text = "Remove Arm Shells";
+            this.unityArmShells.Text = "Toggle Arm Shells";
             this.unityArmShells.UseVisualStyleBackColor = true;
             this.unityArmShells.Click += new System.EventHandler(this.unityArmShellToggle_Click);
             // 
@@ -11354,6 +11433,9 @@
             this.biopatrecGroupBox.PerformLayout();
             this.SLRTgroupBox.ResumeLayout(false);
             this.tabUnity.ResumeLayout(false);
+            this.unityCameraPosition.ResumeLayout(false);
+            this.unityCurrentCameraPosition.ResumeLayout(false);
+            this.unityCurrentCameraPosition.PerformLayout();
             this.unitySceneInformation.ResumeLayout(false);
             this.unityActiveScene.ResumeLayout(false);
             this.unityActiveScene.PerformLayout();
@@ -12154,6 +12236,13 @@
         private System.Windows.Forms.GroupBox unitySceneInformation;
         private System.Windows.Forms.GroupBox unityActiveScene;
         private System.Windows.Forms.Label unityActiveSceneName;
+        private System.Windows.Forms.GroupBox unityCameraPosition;
+        private System.Windows.Forms.Button unityClearCameraPosition;
+        private System.Windows.Forms.Button unityToggleCameraPosition;
+        private System.Windows.Forms.Button unitySaveCameraPosition;
+        private System.Windows.Forms.GroupBox unityCurrentCameraPosition;
+        private System.Windows.Forms.Label unityCurrentCameraPositionText;
+        private System.Windows.Forms.Button unityEditCameraPosition;
     }
 }
 

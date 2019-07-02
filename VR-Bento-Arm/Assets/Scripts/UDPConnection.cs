@@ -18,6 +18,7 @@ using UnityEngine.SceneManagement;
 public class UDPConnection : MonoBehaviour
 {
     #region Variables
+
     // Singleoton pattern
     public static UDPConnection udp;
 
@@ -42,8 +43,12 @@ public class UDPConnection : MonoBehaviour
     // convert servo vals -> rpm -> rad/s
     private float rpmToRads = 0.11f * Mathf.PI / 30;   
 
+    // Scene triggers
     private byte scene;
     private byte activeScene;
+
+    // object to hold camera posiitons 
+    private cameraPositions cameraContainer = new cameraPositions(); 
 
     #endregion
 
@@ -284,6 +289,10 @@ public class UDPConnection : MonoBehaviour
                 if(packet[3] == 1)
                 {
                     clearRotationArray();
+                }
+                if(packet[6] != 0)
+                {
+                    cameraContainer.save( , packet[6]);
                 }
                 scene = packet[4];
             }

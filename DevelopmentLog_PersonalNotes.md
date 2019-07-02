@@ -706,7 +706,7 @@ storing the byte array results there and the other objects can access it
 - got basic movement workign for all joints using brachioplexus and keyboard 
 - xbox mapping is the same for somethings in unity (pushing on joystick is mapped to change scene )
 
-**June 26, 27, 28**
+**June 26, 27, 28; July 2**
 - last few days was just working on the packet sending to Unity nothing exciting 
 - MYO currently not working with brachIOplexus 
 *TODO*
@@ -741,6 +741,23 @@ storing the byte array results there and the other objects can access it
 - send to brachIOplexus current scene name (DONE)
     - est. RX port to have recieving working (DONE)
 
+- Camera Positions:
+    - Save Current Position and save container (for flexibility this will be expandable)
+        - have popout box to choose which slot to save, name, data, and if you want to assign a button to it?? 
+    - Main GUI will just have the following:
+        - Label to what Camera position name user is in
+        - Button to iterate thru positions -> should have a little message in unity to show this as well? 
+        - button to Save current position -> will trigger a pop up message box to assign name and slot 
+        - Button to Clear presets 
+        - Button to Edit the name of the positions / delete specific slot
+
+- Camera Position Container: 
+    - Need to store: transform of wrapper camera object(  ), index to each transform (  ) -> store in list 
+    - methods: clear list(  ), store position at position(  ), delete specific (index) position(  ), overwrite specific position(  ), 
+- BrachIOplexus: 
+    - 
+- Utility Packet doesn't need a Length byte as the length of the packet is never variable 
+        
 *QUESTIONS + POSSIBLE FEATURES*
 - how is the DOF check list configured (probably with a profile)
     - can i create a profile for the virtual bento arm ? 
@@ -750,3 +767,6 @@ storing the byte array results there and the other objects can access it
 - Unity tab would specify what scene would the user want to first load? 
 - would the user want to see what the test subject sees? when game is fully loaded idk how that would work
 - when creating new scenes in the future i would need to document how to do this and how to reconfigure brachIOplexus to include these scenes? 
+
+*POSSIBLE MODIFICATIONS:*
+- do another layer of abstraction by seperating the recieve and send and utilities functionality into seperate objects if time permits this week
