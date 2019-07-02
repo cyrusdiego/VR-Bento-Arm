@@ -189,7 +189,7 @@ namespace brachIOplexus
         bool armShells = false;
         bool udpRXFlag = true;
         public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
-
+        private int cameraPositionIdx = 0;
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
         // Control table address
@@ -8779,6 +8779,15 @@ namespace brachIOplexus
                 udpRXFlag = true;
                 unityConnect.Enabled = false;
                 unityDisconnect.Enabled = true;
+
+                // Displays camera position if the list is not empty upon opening brachIOplexus
+                //if(unityCameraPositions.Count > 0)
+                //{
+                //    this.Invoke((MethodInvoker)delegate ()
+                //    {
+                //        unityCurrentCameraPositionText.Text = unityCameraPositions[0];
+                //    });
+                //}
             }
         }
 
@@ -8849,15 +8858,23 @@ namespace brachIOplexus
             unityCameraPositions.Add("thing1");
             unityCameraPositions.Add("thing2");
             unityCameraPositions.Add("thing3");
+            cameraPositionIdx = unityCameraPositions.Count - 1;
             sendUtility(save: 1);
+            // Create form
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityCurrentCameraPositionText.Text = unityCameraPositions[unityCameraPositions.Count - 1];
+            });
         }
 
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
         {
-            Console.WriteLine($"before: {unityCameraPositions.Count} ");
             sendUtility(clear: 1);
             unityCameraPositions.Clear();
-            Console.WriteLine($"after: {unityCameraPositions.Count} ");
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
+            });
         }
 
         private void unityEditCameraPosition_Click(object sender, EventArgs e)
@@ -8869,7 +8886,15 @@ namespace brachIOplexus
 
         private void unityNextCameraPosition_Click(object sender, EventArgs e)
         {
-            sendUtility(next: 1);
+            if(unityCameraPositions.Count > 0)
+            {
+                sendUtility(next: 1);
+                cameraPositionIdx = (++cameraPositionIdx % unityCameraPositions.Count);
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+                });
+            }
         }
 
         #endregion
@@ -9006,6 +9031,13 @@ namespace brachIOplexus
 
         public void deletePosition(int index)
         {
+            if(unityCurrentCameraPositionText.Text == unityCameraPositions[index])
+            {
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    unityCurrentCameraPositionText.Text = "Not set to a preset";
+                });
+            }
             unityCameraPositions.RemoveAt(index);
             sendUtility(delete: (byte)index);
         }

@@ -33,6 +33,7 @@ namespace brachIOplexus
             matches[1] = this.Controls.Find("delete" + index, true)[0];
             matches[2] = this.Controls.Find("slot" + index, true)[0];
             matches[3] = this.Controls.Find("rename" + index, true)[0];
+
             for(int i = 0; i < 4; i++)
             {
                 matches[i].Enabled = false;

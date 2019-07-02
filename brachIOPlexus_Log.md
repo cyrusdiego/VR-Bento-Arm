@@ -35,10 +35,13 @@ to create the port and IP address
 
 # July 2, 2019
 - Create section for camera control 
-
+- created a list<string> to hold the names of the camera presets
+- pop up window to edit names and delete presets
 **Features**
-- Save camera position
-- Switch to Next position
-- Clear Presets 
-- Edit Presets
-- Display Current posiiton 
+- Save camera position: pop up window to name the camera position and sends signal to unity
+- Switch to Next position: loops thru list to go to next one and sends signal to do the same in unity
+- Clear Presets: clears list and sends signal to clear in unity
+- Edit Presets: pop up window to delete specific preset or rename 
+- Display Current posiiton
+*Question:* does brachIOplexus clear everything once its shutdown (after building the software)? 
+    - this affects the saved camera presets and how they will be displayed

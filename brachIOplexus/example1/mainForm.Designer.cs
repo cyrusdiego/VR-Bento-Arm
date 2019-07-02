@@ -11081,6 +11081,7 @@
             this.unityToggleCameraPosition.TabIndex = 2;
             this.unityToggleCameraPosition.Text = "Next Position";
             this.unityToggleCameraPosition.UseVisualStyleBackColor = true;
+            this.unityToggleCameraPosition.Click += new System.EventHandler(this.unityNextCameraPosition_Click);
             // 
             // unitySaveCameraPosition
             // 
@@ -11109,6 +11110,7 @@
             this.unityCurrentCameraPositionText.Name = "unityCurrentCameraPositionText";
             this.unityCurrentCameraPositionText.Size = new System.Drawing.Size(0, 13);
             this.unityCurrentCameraPositionText.TabIndex = 0;
+            this.unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
             // 
             // unitySceneInformation
             // 
