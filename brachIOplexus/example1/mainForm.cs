@@ -129,7 +129,7 @@ namespace brachIOplexus
         static System.Threading.Timer t9;
         static Int32 portTX = 30000;                                   // Set the UDP ports
         static IPAddress localAddr = IPAddress.Parse("127.0.0.1");     // address for localhost
-        static int MSG_SIZE = 38; 
+        static int MSG_SIZE = 38;
         UdpClient udpClientTX;
         IPEndPoint ipEndPointTX;
         Stopwatch stopWatch9 = new Stopwatch();
@@ -165,7 +165,6 @@ namespace brachIOplexus
         double[] AdaptivePred = new double[5];
         int[] AdaptiveIndex = new int[] { 0, 1, 2, 3, 4 };
         bool adaptiveFreeze = false;        // the state variable for controlling whether the switching list is frozen under certain conditions (i.e. adaptiveFreeze = true -> freeze the list, adaptiveFreeze = false -> allow the list to be re-ordered)
-        List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
 
         // Task Timer - Initialize Variables
         Stopwatch Task_Timer = new Stopwatch();  // timer for measuring the total amount of elapsed time
@@ -189,6 +188,7 @@ namespace brachIOplexus
         Process UnityProc = new Process();  // Process to launch VR project 
         bool armShells = false;
         bool udpRXFlag = true;
+        public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
 
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
@@ -8856,13 +8856,20 @@ namespace brachIOplexus
 
         private void unityEditCameraPosition_Click(object sender, EventArgs e)
         {
-            
+            unityCameraPositions.Add("thing1");
+            unityCameraPositions.Add("thing2");
+            unityCameraPositions.Add("thing3");
+            // create new thread??
+            unityCamera cameraForm = new unityCamera();
+            cameraForm.StartPosition = FormStartPosition.CenterParent;
+            cameraForm.ShowDialog();
         }
 
         private void unityNextCameraPosition_Click(object sender, EventArgs e)
         {
             sendUtility(next: 1);
         }
+
         #endregion
 
         #region UDP TX
@@ -8993,6 +9000,12 @@ namespace brachIOplexus
             packet[packet.Length - 1] = calcCheckSum(ref packet);
 
             return packet;
+        }
+
+        public void deletePosition(int index)
+        {
+            unityCameraPositions.RemoveAt(index);
+            sendUtility(delete: (byte)index);
         }
 
         /*
