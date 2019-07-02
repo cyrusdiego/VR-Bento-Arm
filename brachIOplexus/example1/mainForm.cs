@@ -165,6 +165,7 @@ namespace brachIOplexus
         double[] AdaptivePred = new double[5];
         int[] AdaptiveIndex = new int[] { 0, 1, 2, 3, 4 };
         bool adaptiveFreeze = false;        // the state variable for controlling whether the switching list is frozen under certain conditions (i.e. adaptiveFreeze = true -> freeze the list, adaptiveFreeze = false -> allow the list to be re-ordered)
+        List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
 
         // Task Timer - Initialize Variables
         Stopwatch Task_Timer = new Stopwatch();  // timer for measuring the total amount of elapsed time
@@ -8847,6 +8848,21 @@ namespace brachIOplexus
         {
             sendUtility(save: 1);
         }
+
+        private void unityClearCameraPosition_Click(object sender, EventArgs e)
+        {
+            sendUtility(clear: 1);
+        }
+
+        private void unityEditCameraPosition_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void unityNextCameraPosition_Click(object sender, EventArgs e)
+        {
+            sendUtility(next: 1);
+        }
         #endregion
 
         #region UDP TX
@@ -8984,9 +9000,9 @@ namespace brachIOplexus
          * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
          * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
          */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 0, byte next = 0, byte clear = 0)
+        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 0, byte next = 0, byte clear = 0, byte delete = 255)
         {
-            byte[] packet = new byte[9]; // will need to change this when have it finalized 
+            byte[] packet = new byte[10]; // will need to change this when have it finalized 
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
             packet[2] = 1;              // Type: 1
@@ -8995,7 +9011,8 @@ namespace brachIOplexus
             packet[5] = save;           // Save Camera Position
             packet[6] = next;           // Next Camera Position
             packet[7] = clear;          // Clear Camera Positions 
-            packet[8] = calcCheckSum(ref packet);
+            packet[8] = delete;         // Delete at Index 
+            packet[9] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
         #endregion

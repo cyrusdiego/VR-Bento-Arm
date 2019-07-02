@@ -8,26 +8,64 @@
  */
 
 
-using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class cameraPositions : MonoBehaviour
+public class cameraController : MonoBehaviour
 {
-    private List<Transform> positions;
+    private List<Vector3> positions = new List<Vector3>();
+    private Vector3 currentPosition;
+    private int positionItr = 0;
 
-    public cameraPositions()
+    void Awake()
     {
-        positions = new List<Transform>();
+        currentPosition = gameObject.GetComponent<Transform>().position;
     }
 
-    public void save(Transform current)
+    void Update()
     {
-        positions.Add(current);
+        for(int i = 0; i < 4; i++)
+        {
+            byte val = UDPConnection.udp.cameraArray[i];
+            // Test this to see if it will catch the default
+            if(val != 0 && val != 255)
+            {
+                switch(i)
+                {
+                    case 0:
+                        save();
+                        break;
+                    case 1:
+                        next();
+                        break;
+                    case 2:
+                        clear();
+                        break;
+                    case 3:
+                        delete(val);
+                        break;
+                }
+            }
+        }
+        transform.position = currentPosition;
     }
 
-    public void clear()
+    private void save()
     {
-        positions = new List<Transform>();
+        positions.Add(currentPosition);
+    }
+    private void next()
+    {
+        positionItr = (++positionItr % positions.Count);
+        currentPosition = positions[positionItr];
+    }
+    private void clear()
+    {
+        positions.Clear();
+        positionItr = 0;
+    }
+    private void delete(byte index)
+    {
+        positions.RemoveAt(index);
     }
 }

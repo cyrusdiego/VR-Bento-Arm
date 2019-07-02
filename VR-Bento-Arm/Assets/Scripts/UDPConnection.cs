@@ -25,6 +25,7 @@ public class UDPConnection : MonoBehaviour
     // Holds direction and velocity
     // roationArray[0] is undefined
     public Tuple<float,float>[] rotationArray = new Tuple<float, float>[6]; 
+    public byte[] cameraArray = new byte[4];
 
     // Network information 
     public Int32 portRX = 30004;
@@ -48,7 +49,7 @@ public class UDPConnection : MonoBehaviour
     private byte activeScene;
 
     // object to hold camera posiitons 
-    private cameraPositions cameraContainer = new cameraPositions(); 
+    private cameraController camController = new cameraController(); 
 
     #endregion
 
@@ -290,11 +291,12 @@ public class UDPConnection : MonoBehaviour
                 {
                     clearRotationArray();
                 }
-                if(packet[6] != 0)
-                {
-                    cameraContainer.save( , packet[6]);
-                }
                 scene = packet[4];
+
+                for(int i = 5; i < packet.Length - 1; i++)
+                {
+                    cameraArray[i - 5] = packet[i];
+                }
             }
         }
     }

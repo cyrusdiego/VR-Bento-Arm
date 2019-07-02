@@ -753,9 +753,9 @@ storing the byte array results there and the other objects can access it
 
 - Camera Position Container: 
     - Need to store: transform of wrapper camera object(  ), index to each transform (  ) -> store in list 
-    - methods: clear list(  ), store position at position(  ), delete specific (index) position(  ), overwrite specific position(  ), 
-- BrachIOplexus: 
-    - 
+    - methods: clear list(  ), store position at position(  ), delete specific (index) position(  ), overwrite specific position(  ),
+    - detect duplicates -> using a set 
+
 - Utility Packet doesn't need a Length byte as the length of the packet is never variable 
         
 *QUESTIONS + POSSIBLE FEATURES*
