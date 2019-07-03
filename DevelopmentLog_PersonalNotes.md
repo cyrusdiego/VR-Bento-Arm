@@ -732,7 +732,7 @@ storing the byte array results there and the other objects can access it
     - dont use generic / default names and try to be concise (DONE)
 - Create Tab for Unity Bento Arm 
     - Restart Scene (DONE)
-    - Camera Positions 
+    - Camera Positions (DONE)
     - Choose specific scenes -> restart and choosing a scene can be the same thing, need a way to store all the scenes in unity and to store active scene (DONE)
     then use that value to restart or use the storage of other scenes to load another scene (DONE)
 - Create Flowchart to show connection with Unity (put in VIPER Doc)
@@ -745,18 +745,19 @@ storing the byte array results there and the other objects can access it
     - Save Current Position and save container (for flexibility this will be expandable)
         - have popout box to choose which slot to save, name, data, and if you want to assign a button to it?? 
     - Main GUI will just have the following:
-        - Label to what Camera position name user is in
-        - Button to iterate thru positions -> should have a little message in unity to show this as well? 
-        - button to Save current position -> will trigger a pop up message box to assign name and slot 
-        - Button to Clear presets 
-        - Button to Edit the name of the positions / delete specific slot
+        - Label to what Camera position name user is in(DONE)
+        - Button to iterate thru positions -> should have a little message in unity to show this as well? (DONE)
+        - button to Save current position -> will trigger a pop up message box to assign name and slot (DONE)
+        - Button to Clear presets (DONE)
+        - Button to Edit the name of the positions / delete specific slot(DONE)
 
 - Camera Position Container: 
-    - Need to store: transform of wrapper camera object(  ), index to each transform (  ) -> store in list 
-    - methods: clear list(  ), store position at position(  ), delete specific (index) position(  ), overwrite specific position(  ),
+    - Need to store: transform of wrapper camera object(DONE), index to each transform (DONE) -> store in list 
+    - methods: clear list(DONE), store position at position(DONE), delete specific (index) position(DONE), overwrite specific position(DONE),
     - detect duplicates -> using a set 
 
 - Utility Packet doesn't need a Length byte as the length of the packet is never variable 
+
         
 *QUESTIONS + POSSIBLE FEATURES*
 - how is the DOF check list configured (probably with a profile)
@@ -768,7 +769,81 @@ storing the byte array results there and the other objects can access it
 - would the user want to see what the test subject sees? when game is fully loaded idk how that would work
 - when creating new scenes in the future i would need to document how to do this and how to reconfigure brachIOplexus to include these scenes? 
 
+
 *POSSIBLE MODIFICATIONS:*
 - do another layer of abstraction by seperating the recieve and send and utilities functionality into seperate objects if time permits this week
 
 - with changes to brachioplexus  get review from riley on performance / threads with the new windows
+
+**July 3**
+- need a way to save data (serialization, json, etc) and store with brachIOplexus [link](https://stackoverflow.com/questions/34426570/best-way-to-save-data-in-unity-game) [link2](https://researchandprogram.blogspot.com/2017/09/data-saving-techniques-for-unity3d.html)
+- transform and vector3 cannot be serialized 
+- Serializing player game data in unity [link](https://www.sitepoint.com/saving-and-loading-player-game-data-in-unity/)
+- Json serialization [link](https://docs.unity3d.com/Manual/JSONSerialization.html) 
+    - the json file can be stored in project directory 
+
+*TODO for the next week*
+1) Documentation
+2) Setup the Vive Headset 
+3) Implement saving data to a file 
+4) Implement simple task metric data collection
+5) Improve brachIOplexus 
+6) Improve Unity
+*1) Documentation* 
+Current Status:
+    - Chapter 2 and 3 are Unity tutorials, guides, and troubleshooting along with connecting the headsets (only Acer is implemented)
+    - Chapter 2: Unity Guide. Basic navigation and overall using unity 
+        - Explains setup of bento arm and talks about wrapper objects 
+        - Explains how to add a GameObject 
+
+Todo:
+    - Chapter 1:
+        - setup / outline and will be fully implemented once proejct is completed
+        - what the project does
+        - tasks implemented 
+        - starting up the project 
+        - navigating the unity "game" 
+        - navigating brachIOplexus 
+    - Chapter 2: 
+        - update Scripts section: add currently used scripts and add a description for each one 
+        - Adding gameobjects: create more detailed step by step guide (does it need rigidbody, should it have a collider, is a trigger needed, what conditions would be required to have these components) being 
+        as detailed as possible (do an example: a sphere, a trigger, an imported 3D object (cup and the bento arm))
+        - Creating new Scenes (for new tasks): copying the Bento Arm, ensuring the controller objects are present (include a step by step in detailed example), a way to double check the basics are there and 
+        things to double check / possible problems. Where to find the scene, how to go to that scene from brachIOplexus or future GUI in unity
+        - Expand on Unity Input system for adding other forms of input (directly connecting a usb controller or adding a fresh VR controller if it was not mapped already and add HTC vive input setup) 
+            - do an example for all of them (step by step and screenshots )
+    - Flow chart of Unity + brachIOplexus interaction 
+        - screenshots of brachIOplexus GUI, explaining functionality, explaining underlying processes
+        - Explain unity side and brachIOplexus side
+        - Reference packet excel spreadsheet (put excel sheet in project directory and push to repo)
+    - Chapter 3: VR Headset Setup
+        - Go into more detail for Acer (add screenshots and walk through it more in detail!)
+        - Add Htc Vive headset setup 
+        - include test projects / unity projects to use to see if everything is working fine 
+            - maybe create a scene in the unity project to test for input from controllers + detect which headset is connected 
+
+*2) Setup the Vive Headset*
+- Create Scene to detect the headset being used and proceed to correct Bento arm scene 
+- Create a test scene to test for controller input to test with headset connection -> hand in hand with documentation
+- Run the two scenes (w/ and w/o arm shells) with the htc headset + htc controllers + brachIOplexus running at same time 
+    - Have vive controllers control bento arm then leave it **commented** out and do the same with the acer headset 
+- Goes hand in hand with documentation 
+
+*3) Implement saving data to a file* 
+- Similar to profiles for brachIOplexus
+- Save camera positions in json file in an accessible folder (maybe consider building the project)
+
+*4) Implement simple task metric data collection*
+- Use ball and cup task
+- Create a start timer and countdown shown in VR and will stop when Ball is in cup or if brachIOplexus stops it 
+
+*7) Improve BrachIOplexus* 
+- Unity tab should be greyed out if Unity is not being connected 
+- Add timer to Unity tab 
+- Control menu screen from brachIOplexus? 
+
+*6) Improve Unity*
+- Create boundary boxes so ball doesnt fall off 
+- create menu gui and starting scene able to be navigated from vr controllers or brachIOplexus 
+
+        
