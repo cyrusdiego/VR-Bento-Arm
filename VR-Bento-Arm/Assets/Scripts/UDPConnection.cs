@@ -48,9 +48,6 @@ public class UDPConnection : MonoBehaviour
     private byte scene;
     private byte activeScene;
 
-    // object to hold camera posiitons 
-    private cameraController camController = new cameraController(); 
-
     #endregion
 
     #region Unity API
@@ -178,6 +175,14 @@ public class UDPConnection : MonoBehaviour
         }
     }
 
+    void clearCameraArray()
+    {
+        for(int i = 0; i < cameraArray.Length; i++)
+        {
+            cameraArray[i] = (byte)0;
+        }
+    }
+
     /*
     * @brief: calculates the checksum value based on packet recieved
     * formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
@@ -273,6 +278,7 @@ public class UDPConnection : MonoBehaviour
     void parsePacket(ref byte[] packet)
     {
         clearRotationArray();
+        //clearCameraArray();
         if(validate(ref packet, 4, (byte)(packet.Length - 1)))
         {
             if(packet[2] == 0)

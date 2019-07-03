@@ -8857,6 +8857,7 @@ namespace brachIOplexus
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
             sendUtility(save: 1);
+
             unityAddCamera cameraForm = new unityAddCamera();
             cameraForm.StartPosition = FormStartPosition.CenterParent;
             cameraForm.ShowDialog();
@@ -8874,6 +8875,7 @@ namespace brachIOplexus
         {
             sendUtility(clear: 1);
             unityCameraPositions.Clear();
+            cameraPositionIdx = 0;
             this.Invoke((MethodInvoker)delegate ()
             {
                 unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
