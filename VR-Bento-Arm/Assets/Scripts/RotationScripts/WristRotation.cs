@@ -6,8 +6,6 @@
     Inherits from RotationBase class and controls the arm's wrist 
     rotation. Attatched to the wrist game object. 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WristRotation: RotationBase
@@ -26,12 +24,33 @@ public class WristRotation: RotationBase
         maxSpeedLimit = 1.03f;
 
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
-
     }
+
+    // void FixedUpdate()
+    // {
+    //     // -1 * to flip the rotation 
+    //     // getAxis(-1*Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT"));
+    //     getAxis(0,1);
+    // }
 
     void FixedUpdate()
     {
-        // -1 * to flip the rotation 
-        getAxis(-1*Input.GetAxis("TOUCHPAD_HORIZONTAL_LEFT"));
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+        float direction = UDPConnection.udp.rotationArray[3].Item1;
+        float velocity = UDPConnection.udp.rotationArray[3].Item2;
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
+
+            case 1:
+                getAxis(-1,velocity);
+                break;
+
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
     }
 }

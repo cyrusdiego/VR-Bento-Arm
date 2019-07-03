@@ -1,27 +1,28 @@
 ﻿/* 
     BLINC LAB VIPER Project 
     RotationBase.cs 
-    Created by: Cyrus Diego May 14, 2019 
+    Created by: Cyrus Diego June 4, 2019 
 
     Base class to control motor and arm rotations for each arm segment
  */
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotationBase : MonoBehaviour
 {
+    // Required components to rotate a joint
     protected ConfigurableJoint cj = null;
     protected Rigidbody rb = null;
     protected GameObject go = null;
     protected JointDrive motor;
 
+    // Motor properties (need to change with brachIOplexus)
     protected float motorTorque;
     protected float maxSpeedLimit;
     protected Quaternion targetRotation; 
     protected bool target = true;
 
+    // Depening on inherited class, axis of rotation in the joint space is 
+    // different.
     protected enum Axis {x,y,z};
     protected Axis axis;
 
@@ -49,7 +50,7 @@ public class RotationBase : MonoBehaviour
         @brief: rotates the arm segment using the configurable joint
         @param: axis value from specifies joystick / button
     */
-    protected void getAxis(float axisValue)
+    protected void getAxis(float axisValue, float speed)
     {
         // determines the damp value based on which axis
         switch(axis)
@@ -72,7 +73,7 @@ public class RotationBase : MonoBehaviour
         if(axisValue >= 0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(maxSpeedLimit,0,0);
+            cj.targetAngularVelocity = new Vector3(speed,0,0);
             
             cj.angularXDrive = motor;
             target = true;
@@ -80,7 +81,7 @@ public class RotationBase : MonoBehaviour
         else if(axisValue <= -0.5)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
-            cj.targetAngularVelocity = new Vector3(-maxSpeedLimit,0,0);
+            cj.targetAngularVelocity = new Vector3(-speed,0,0);
 
             cj.angularXDrive = motor;
             target = true;

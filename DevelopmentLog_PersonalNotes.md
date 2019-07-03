@@ -622,3 +622,153 @@ it would fix the problem with friction
             udpClientTX.Send(packet, packet.Length, ipEndPointTX);
 ```
 in `KB_conncect_Click()` because the surprise demo button was greyed out and i just need a place to put it in.
+
+- if "W" is pressed from brachIOplexus, will move the elbow :)
+- i think im having problems with the main and sub threads running, it doesnt refresh on screen
+
+**June 18** 
+- fixed the earlier issue with the arm not moving up and down. had to comment out the interaction 
+with the vr controllers 
+- brachIOplexus broke with vs studio lol i cant open the designer so i cannot modify the GUI for unity display 
+
+**June 19**
+*TODO*
+- create a sample byte array to send on click and see if unity gets it 
+- the continuous array is used to control the arm, 
+    - so there needs to be a number of bytes expected, count them out and determine what to move from there. 
+    - probably just 5 bytes to move each arm for now. 
+
+*Changes to BrachIOplexus*
+    - added packet array in Initialization
+    - added UDP connection setup in Keyboard controller
+    - added keyboard logging in Main loop 
+
+*Things Learned from BrachIOplexus*
+- Right now it's easy to just send to Unity what input is being pressed, simple just reading through the `InputMap` matrix 
+    - that would be simple way of controlling arm 
+    - cannot send over target position and velocity stuff to the virtual bento arm 
+    - idk if it's needed to be sent to unity due to the design of the rotaton as it is
+- if we did want to send in everything (positon (current, target, min, max), velocity(current, target, min, max), torque stuff, and what is being pressed)
+would need to redesign the rotation class to accomodate for those values / would need to redesign the class OR again, potentially creating custon 
+script to handle drive motor. 
+    - custom drive motor script would be easy, and brachIOplexus can send over the gain values for the PID model 
+    - would require more work as to sending the values properly, mapping from brachIOplexus space to Unity space (positions and velocities would be a pain to map)
+    - using Robot + Motor classes to get values for each servo motor 
+- im not sure what needs to be sent TO brachIOplexus for rn but certain values can be sent back in conjuction with the ID class 
+- Another thing is, im not sure what the end goal is with usage but, need  to figure out a way to accomodate for the vr controllers 
+    - if using brachIOplexus inputs then input from the controllers would need to be blocked
+    - idk if it would be better to connect vr controller to brachIOplexus to have it all there OR just have a detection condition in UNity 
+    to see if any data is being recieved from UDP -> if not then use controller else use brachIOplexus 
+- tested out the example 1 check sum thing, worked fine. not sure if i need it tho??? 
+- the output package to the servo motors are in the Dynamixel region, basically uses the robot class which holds certain values and writes the packet to the motors using dynamixel sdk 
+- the `readDyna()` function can read feedback from the dynamixel, maybe can immitiate this for the vr bento arm 
+- need to figure out further how much control brachIOplexus will have over Unity 
+
+- illustrates how windows form application works [link](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.application?view=netframework-4.8)
+- InitializeComponent() is in AboutBox1.Designer.cs
+
+**June 20**
+- working on velocity ramp for the arm
+- sorta works but it seems one direction is going faster than other direction(FIXED)
+- also elbow moves when its not supposed to 
+
+- created singeloton pattern so that the udp connection is like a global variable 
+storing the byte array results there and the other objects can access it 
+
+**June 21**
+*TODO*
+    - meeting with Rory, Quinn, and Riley to discuss packet design (DONE)
+
+*TODO FOR WEEK*
+    - implement packet
+        - test timing 
+        - test check sum 
+        - check cpu and memory usage 
+    - change GUI to add connection to Unity 
+    - Organize code in brachIOplexus
+    - use array for the rotation storage 
+- Designer was "fixed" 
+    -> open from file explorer not through visual studio (2017)
+- NOTE::: should configure two way comms so that when unity is paused or stopped, sends packet to disconnect ??
+
+- got serialized and also check sum is correct 
+
+**June 22**
+*Steps for connecting brachIOplexus to Unity(keyboard)*
+- file->profile->kb_multi.dat
+- connect keyboard (velocity ramp on or off) 
+- connect to unity
+*Notes*
+- had to remove the (if bentoarm enabled) in main loop so that the data structs can update without a bento arm hooked up 
+- talk to rory / riley about removing length b/c im using List !!!!!
+
+- Tested two examples for values and checksum (correct results)
+- got basic movement workign for all joints using brachioplexus and keyboard 
+- xbox mapping is the same for somethings in unity (pushing on joystick is mapped to change scene )
+
+**June 26, 27, 28; July 2**
+- last few days was just working on the packet sending to Unity nothing exciting 
+- MYO currently not working with brachIOplexus 
+*TODO*
+- Create new output devices section in brachIOplexus 
+    - Connect (DONE)
+    - Disconnect (DONE)
+    - DOF check list(DONE)
+    - TX Port (DONE)
+    - RX Port(DONE)
+    - IP Address (DONE)
+    - Select All(DONE)
+    - Clear All (DONE)
+- Add functionality to above GUI elements 
+    - Connect -> functions exactly the same as before (DONE)
+    - Disconnect -> send a "terminating" packet to unity to stop moving (DONE)
+    - DOF check list -> filters out what is being sent to Unity (DONE but will need to be modified)
+        - this will need to be constantly checked ? if this can be checked / unchecked while in use
+        - go to line 7478 (key workd BentoList_ItemCheck) for the open hand constraint  (TALK TO RORY )
+        - go to line 4868 (BentoSelectAll_Click) to check everything (DONE)
+    - TX Port, RX Port, and IP Address -> parse thru the text to get the ports / addr vals (DONE)
+    - Select All / Clear All -> obvious functionality (DONE)
+- Ensure GUI elements are properlly labelled and document here or in VIPER docs 
+    - dont use generic / default names and try to be concise (DONE)
+- Create Tab for Unity Bento Arm 
+    - Restart Scene (DONE)
+    - Camera Positions 
+    - Choose specific scenes -> restart and choosing a scene can be the same thing, need a way to store all the scenes in unity and to store active scene (DONE)
+    then use that value to restart or use the storage of other scenes to load another scene (DONE)
+- Create Flowchart to show connection with Unity (put in VIPER Doc)
+- Time the thread execution [link](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch?view=netframework-4.8)
+- copy functionality of arm and udp connection to no arm shell scene (DONE)
+- send to brachIOplexus current scene name (DONE)
+    - est. RX port to have recieving working (DONE)
+
+- Camera Positions:
+    - Save Current Position and save container (for flexibility this will be expandable)
+        - have popout box to choose which slot to save, name, data, and if you want to assign a button to it?? 
+    - Main GUI will just have the following:
+        - Label to what Camera position name user is in
+        - Button to iterate thru positions -> should have a little message in unity to show this as well? 
+        - button to Save current position -> will trigger a pop up message box to assign name and slot 
+        - Button to Clear presets 
+        - Button to Edit the name of the positions / delete specific slot
+
+- Camera Position Container: 
+    - Need to store: transform of wrapper camera object(  ), index to each transform (  ) -> store in list 
+    - methods: clear list(  ), store position at position(  ), delete specific (index) position(  ), overwrite specific position(  ),
+    - detect duplicates -> using a set 
+
+- Utility Packet doesn't need a Length byte as the length of the packet is never variable 
+        
+*QUESTIONS + POSSIBLE FEATURES*
+- how is the DOF check list configured (probably with a profile)
+    - can i create a profile for the virtual bento arm ? 
+    - can the checklist be changed while the bento arm is connected (like once) or can it be changed while running ?
+        - this will affect how i send the data 
+- what kind of feedback from unity would be seen in brachioplexus unity tab 
+- Unity tab would specify what scene would the user want to first load? 
+- would the user want to see what the test subject sees? when game is fully loaded idk how that would work
+- when creating new scenes in the future i would need to document how to do this and how to reconfigure brachIOplexus to include these scenes? 
+
+*POSSIBLE MODIFICATIONS:*
+- do another layer of abstraction by seperating the recieve and send and utilities functionality into seperate objects if time permits this week
+
+- with changes to brachioplexus  get review from riley on performance / threads with the new windows

@@ -6,8 +6,6 @@
     Inherits from RotationBase class and controls the arm's wrist flexion.
     Attatched to the hand game object. 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WristFlexion : RotationBase
@@ -31,8 +29,30 @@ public class WristFlexion : RotationBase
 
     }
 
+    // void FixedUpdate()
+    // {
+    //     // getAxis(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT"));
+    //     getAxis(0,1);
+    // }
+
     void FixedUpdate()
     {
-        getAxis(Input.GetAxis("TOUCHPAD_VERTICAL_RIGHT"));
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+        float direction = UDPConnection.udp.rotationArray[4].Item1;
+        float velocity = UDPConnection.udp.rotationArray[4].Item2;
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
+
+            case 1:
+                getAxis(-1,velocity);
+                break;
+
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
     }
 }

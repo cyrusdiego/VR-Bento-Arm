@@ -1,0 +1,54 @@
+/*
+************************************************The config file...***************************************************
+The file is order dependent. The first mesh is assumed to be the base. Each mesh is then added, as a child, to the previous one.
+
+SYNTAX DETAILS
+==============
+
+DATA-LINES (the meat n' potatoes):
+fileName.obj : 3D-origin(3D float) : KinematicType ('R' for rotational, 'T' for transformative) : leftLimit (1D float or 'inf' for infinite) : rightLimit (1D float or 'inf' for infinite) : speedConversionRatio (1D float)
+
+COMMENTS:
+Single-line: // The line
+Multi-line: /* Some lines */
+
+/*
+ADVANCED SYNTAX DETAILS
+=======================
+
+SYMBOLS (like C-Macros, but use only literal values):
+#define symbol-name symbol-value
+
+SINGLE PARENT -- MULTIPLE CHILDREN (ie. 1 hand, 5 fingers):
+parent-data-line
+{
+child1-data-line
+child2-data-line
+...
+}
+
+EXAMPLE CONFIG FILE
+===================
+*/
+
+// Use a symbol definition for speed conversion, since it's used more than once.
+#define speedConversion 0.005217621
+
+/*These are the .obj files which comprise the robot arm used for which this software was created.
+Notice that it has only 1 Single Parent -- Multi child relationship, with only 2 'grippers'
+on the hand.*/
+
+centred_ground_link.obj : 0,0,0 : r : 0,0.5,0 : 0,0.5,0 : speedConversion
+centred_upperarm_link.obj : 0,0,0 : R : 0,-3.14,0 : 0,3.14,0 : speedConversion
+centred_forearm_link.obj : 0,1.34,0 : r : -2,0,0 : 2,0,0 : speedConversion
+centred_wrist_link.obj : 0,1.74,0 : r : -3,0,0 : 1,0,0 : speedConversion
+centred_palm_link.obj : 0,.23,-.7 : R : 0,0,-2 : 0,0,2 : speedConversion
+{ // This line in only parsed as far as the '{', so it's safe to put comments here. DO NOT put comments at the end of other lines!
+centred_gripper_left_link.obj : 0.61,.15,0 : t : -1,0,0 : 1,0,0 : speedConversion
+centred_gripper_right_link.obj : -0.61,.15,0 : T : -1,0,0 : 1,0,0 : speedConversion
+} // Again, we can put comments here, but it's probably best not to, just to avoid confusion.
+
+/*
+Feel free to put comments after your KinematicChain specification, they will be ignored by the
+parser, just like the other comments.
+*/

@@ -1,46 +1,74 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Test : MonoBehaviour
+public class test : MonoBehaviour
 {
-    private bool touchingTable = true;
-
-    /// <summary>
-    /// OnCollisionExit is called when this collider/rigidbody has
-    /// stopped touching another rigidbody/collider.
-    /// </summary>
-    /// <param name="other">The Collision data associated with this collision.</param>
-    void OnCollisionExit(Collision other)
-    {
-        if(other.gameObject.tag == "Table")
-        {
-            touchingTable = false;
-        }
-    }
-
-    /// <summary>
-    /// OnCollisionEnter is called when this collider/rigidbody has begun
-    /// touching another rigidbody/collider.
-    /// </summary>
-    /// <param name="other">The Collision data associated with this collision.</param>
-    void OnCollisionEnter(Collision other)
-    {
-        if(other.gameObject.tag == "Table")
-        {
-            touchingTable = true;
-        }
-    }
-
-    /// <summary>
-    /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    /// </summary>
+    public Transform cameraObject = null;
+    
     void FixedUpdate()
     {
-        if(!touchingTable)
-        {
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        if(Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") < 1 && Input.GetAxis("THUMBSTICK_HORIZONTAL_RIGHT") > -1){}
+    }
+
+    private int camZMovement = 0, camXMovement = 0, camYMovement = 0;
+    // Update is called once per frame
+    void Update()
+    {
+        checkJoystick();
+    }
+
+    /*
+        @brief: checks if a button is being held / squeezed
+
+        @param: the button being squeezed 
+    */
+    private int checkHold(string button) {
+        if(Input.GetAxis(button) > 0.9){
+            return -1;
+        } else if(Input.GetAxis(button) < -0.9){
+            return 1;
+        } else {
+            return 0;
         }
+    }
+
+    private void checkJoystick(){
+        camZMovement = checkHold("THUMBSTICK_VERTICAL_RIGHT");
+        switch(camZMovement){
+            case 0:
+                cameraObject.Translate(new Vector3(0, 0, 0), Space.Self);
+                break;
+            case 1:
+                cameraObject.Translate(new Vector3(0, 0, 500f * Time.deltaTime), Space.Self);
+                break;
+            case -1:
+                cameraObject.Translate(new Vector3(0, 0, -500f * Time.deltaTime), Space.Self);
+                break;
+        }
+        camXMovement = checkHold("THUMBSTICK_HORIZONTAL_RIGHT");
+        switch(camXMovement){
+            case 0:
+                cameraObject.Translate(new Vector3(0, 0, 0), Space.Self);
+                break;
+            case 1:
+                cameraObject.Translate(new Vector3(-500f * Time.deltaTime, 0, 0), Space.Self);
+                break;
+            case -1:
+                cameraObject.Translate(new Vector3(500f * Time.deltaTime, 0, 0), Space.Self);
+                break;
+        }
+        camYMovement = checkHold("THUMBSTICK_VERTICAL_LEFT");
+        switch(camYMovement){
+            case 0:
+                cameraObject.Translate(new Vector3(0, 0, 0), Space.Self);
+                break;
+            case 1:
+                cameraObject.Translate(new Vector3(0, 500f * Time.deltaTime, 0), Space.Self);
+                break;
+            case -1:
+                cameraObject.Translate(new Vector3(0, -500f * Time.deltaTime, 0), Space.Self);
+                break;
+        }
+        
     }
 }
