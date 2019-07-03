@@ -17,6 +17,8 @@ namespace brachIOplexus
             this.MinimizeBox = false;
             this.MaximizeBox = false;
             this.Text = "Save Camera Position";
+            this.AcceptButton = this.EnterButton;
+            this.CancelButton = this.ExitButton;
 
             // https://stackoverflow.com/questions/2022660/how-to-get-the-size-of-a-winforms-form-titlebar-height
             Rectangle screenRectangle = RectangleToScreen(this.ClientRectangle);
@@ -30,6 +32,18 @@ namespace brachIOplexus
             this.EnterButton.Location = new Point(midX - this.EnterButton.Width - 15 , (int)(midY - (this.EnterButton.Height / 2) + 40));
             this.ExitButton.Location = new Point(midX + 15, (int)(midY - (this.ExitButton.Height / 2) + 40));
 
+            this.PostitionText.Text = $"Position{mainForm.unityCameraPositions.Count + 1}";
+        }
+
+        private void enter(object sender, EventArgs e)
+        {
+            string name = this.PostitionText.Text;
+            mainForm.unityCameraPositions.Add(name);
+            this.Close();
+        }
+        private void exit(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

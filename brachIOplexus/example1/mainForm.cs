@@ -189,7 +189,8 @@ namespace brachIOplexus
         bool armShells = false;
         bool udpRXFlag = true;
         public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
-        private int cameraPositionIdx = 0;
+        public static int cameraPositionIdx = 0;
+
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
         // Control table address
@@ -8855,15 +8856,18 @@ namespace brachIOplexus
 
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
-            cameraPositionIdx = unityCameraPositions.Count - 1;
             sendUtility(save: 1);
             unityAddCamera cameraForm = new unityAddCamera();
             cameraForm.StartPosition = FormStartPosition.CenterParent;
             cameraForm.ShowDialog();
-            this.Invoke((MethodInvoker)delegate ()
+            if(unityCameraPositions.Count > 0)
             {
-                unityCurrentCameraPositionText.Text = unityCameraPositions[unityCameraPositions.Count - 1];
-            });
+                cameraPositionIdx = unityCameraPositions.Count - 1;
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    unityCurrentCameraPositionText.Text = unityCameraPositions[unityCameraPositions.Count - 1];
+                });
+            }
         }
 
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
@@ -8896,6 +8900,13 @@ namespace brachIOplexus
             }
         }
 
+        public void updateCurrentPosition()
+        {
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+            });
+        }
         #endregion
 
         #region UDP TX

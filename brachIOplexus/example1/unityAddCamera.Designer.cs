@@ -58,6 +58,7 @@
             this.EnterButton.TabIndex = 2;
             this.EnterButton.Text = "Enter";
             this.EnterButton.UseVisualStyleBackColor = true;
+            this.EnterButton.Click += new System.EventHandler(this.enter);
             // 
             // ExitButton
             // 
@@ -67,6 +68,7 @@
             this.ExitButton.TabIndex = 3;
             this.ExitButton.Text = "Cancel";
             this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.Click += new System.EventHandler(this.exit);
             // 
             // unityAddCamera
             // 

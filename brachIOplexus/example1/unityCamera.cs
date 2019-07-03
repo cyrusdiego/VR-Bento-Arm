@@ -44,9 +44,14 @@ namespace brachIOplexus
         private void renamePosition(object sender, EventArgs e)
         {
             Button rename = (Button)sender;
-            var matches = this.Controls.Find("textBox" + rename.Name.ToString(),true);
+            string index = Regex.Match(rename.Name.ToString(), @"\d+").Value;
+            var matches = this.Controls.Find("textBox" + index,true);
             string name = matches[0].Text;
-            mainForm.unityCameraPositions[int.Parse(rename.Name)] = name;
+            mainForm.unityCameraPositions[int.Parse(index)] = name;
+            if (System.Windows.Forms.Application.OpenForms["mainForm"] != null)
+            {
+                (System.Windows.Forms.Application.OpenForms["mainForm"] as mainForm).updateCurrentPosition();
+            }
         }
     }
 }

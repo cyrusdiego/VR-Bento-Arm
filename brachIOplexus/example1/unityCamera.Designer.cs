@@ -54,6 +54,7 @@ namespace brachIOplexus
 
                 name.Text = mainForm.unityCameraPositions[i];
                 name.Name = "textBox" + i.ToString();
+                Console.WriteLine(name.Name);
                 name.Size = textSize;
 
                 delete.Text = "Delete";
