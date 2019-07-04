@@ -18,6 +18,7 @@ namespace brachIOplexus
         private List<Button> renameList = new List<Button>();
         private List<TextBox> textList = new List<TextBox>();
         private List<Label> labelList = new List<Label>();
+        private string jsonStoragePath = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
 
         public unityCamera()
         {
@@ -51,6 +52,10 @@ namespace brachIOplexus
             {
                 (System.Windows.Forms.Application.OpenForms["mainForm"] as mainForm).updateCurrentPosition();
             }
+
+            string oldName = System.IO.Path.Combine(jsonStoragePath, $"{index}");
+            string newName = System.IO.Path.Combine(jsonStoragePath, $"{name}");
+            System.IO.File.Move(oldName,newName);
         }
     }
 }

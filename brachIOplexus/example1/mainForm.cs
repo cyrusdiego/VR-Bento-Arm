@@ -190,6 +190,7 @@ namespace brachIOplexus
         bool udpRXFlag = true;
         public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
         public static int cameraPositionIdx = 0;
+        private string jsonStoragePath = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
 
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
@@ -586,6 +587,10 @@ namespace brachIOplexus
                 dof.channel2.MappingIndexChanged += filterMappingComboBox;
 
             }
+
+            #region Unity Initialization
+            
+            #endregion
 
         }
 
@@ -8861,12 +8866,14 @@ namespace brachIOplexus
             unityAddCamera cameraForm = new unityAddCamera();
             cameraForm.StartPosition = FormStartPosition.CenterParent;
             cameraForm.ShowDialog();
+            string name = string.Empty;
             if(unityCameraPositions.Count > 0)
             {
                 cameraPositionIdx = unityCameraPositions.Count - 1;
+                name = unityCameraPositions[unityCameraPositions.Count - 1];
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    unityCurrentCameraPositionText.Text = unityCameraPositions[unityCameraPositions.Count - 1];
+                    unityCurrentCameraPositionText.Text = name;
                 });
             }
         }

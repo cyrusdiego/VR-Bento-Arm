@@ -97,7 +97,7 @@ public class cameraController : MonoBehaviour
 
     private void saveToJson()
     {
-        string fileName = $"{positions.Count - 1}";
+        string fileName = $"Position{positions.Count - 1}";
         string filePath = Path.Combine(jsonStoragePath,fileName);
         Vector3 position = headset.position;
         cameraData data = new cameraData();

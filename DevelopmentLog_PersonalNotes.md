@@ -856,5 +856,13 @@ Todo:
 *RESOURCES* 
 - check if directory is empty [link](https://stackoverflow.com/questions/4748104/how-to-check-if-a-folder-is-empty)
 - delete files [link](https://stackoverflow.com/questions/1288718/how-to-delete-all-files-and-folders-in-a-directory)
-
+- how to create a file / folder [link](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-create-a-file-or-folder)
+- read / parse a json file [link](https://stackoverflow.com/questions/13297563/read-and-parse-a-json-file-in-c-sharp)
+- loop thru files in directory [link](https://stackoverflow.com/questions/13297563/read-and-parse-a-json-file-in-c-sharp)
+- get index of item in a list [link](https://stackoverflow.com/questions/17995706/how-to-get-the-index-of-an-item-in-a-list-in-a-single-step)
+- overwriting a file [link](https://stackoverflow.com/questions/44235689/how-to-overwrite-a-file-if-it-already-exists)
+- filestream for read and write [link](https://docs.microsoft.com/en-us/dotnet/api/system.io.filestream?view=netframework-4.8)
+- renaming / movign files [link](https://docs.microsoft.com/en-us/dotnet/api/system.io.file.move?view=netframework-4.8)
 - optimize code and brachiOplexus, unity is lagging a little
+
+- removing rename functionality and keeping naming convention succinct with the index in list
