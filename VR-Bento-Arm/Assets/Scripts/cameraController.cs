@@ -10,12 +10,31 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 
 public class cameraController : MonoBehaviour
 {
     private List<Vector3> positions = new List<Vector3>();
     private int positionItr = 0;
+    private string jsonStoragePath = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
     public Transform headset = null;
+
+    void Awake()
+    {
+        string[] contents = Directory.GetFiles(jsonStoragePath);
+        for(int i = 0; i < contents.Length; i++)
+        {
+            string fileName = contents[i];
+            string filePath = Path.Combine(jsonStoragePath,fileName);
+            using(StreamReader reader = new StreamReader(filePath))
+            {
+                string jsonContents = reader.ReadToEnd();
+                cameraData data = JsonUtility.FromJson<cameraData>(jsonContents);
+                Vector3 position = new Vector3(data.x, data.y, data.z);
+                positions.Add(position);
+            }
+        }
+    }
 
     void Update()
     {
@@ -49,6 +68,7 @@ public class cameraController : MonoBehaviour
         positions.Add(headset.position);
         UDPConnection.udp.cameraArray[0] = 0;
         positionItr = positions.Count - 1;
+        saveToJson();
     }
     private void next()
     {
@@ -67,5 +87,22 @@ public class cameraController : MonoBehaviour
     {
         positions.RemoveAt(index);
         UDPConnection.udp.cameraArray[4] = 255;
+    }
+
+    private void saveToJson()
+    {
+        string fileName = $"{positions.Count - 1}";
+        string filePath = Path.Combine(jsonStoragePath,fileName);
+        Vector3 position = headset.position;
+        cameraData data = new cameraData();
+        data.x = position.x;
+        data.y = position.y;
+        data.z = position.z;
+        string jsonCameraData = JsonUtility.ToJson(data);
+
+        if(!File.Exists(filePath))
+        {
+            File.WriteAllText(filePath,jsonCameraData);
+        }
     }
 }

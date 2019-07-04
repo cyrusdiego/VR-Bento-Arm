@@ -832,6 +832,9 @@ Todo:
 *3) Implement saving data to a file* 
 - Similar to profiles for brachIOplexus
 - Save camera positions in json file in an accessible folder (maybe consider building the project)
+- Make this easy to understand, easy to access (from file path, parse, from brachIOplexus), easy to re-implement, flexible as to what data is being saved
+- Currently: camera positions and metric data should be saved
+- [link](https://docs.unity3d.com/Manual/JSONSerialization.html)
 
 *4) Implement simple task metric data collection*
 - Use ball and cup task
@@ -841,9 +844,14 @@ Todo:
 - Unity tab should be greyed out if Unity is not being connected 
 - Add timer to Unity tab 
 - Control menu screen from brachIOplexus? 
+- startup of either unity / brachioplexus doesnt matter
 
 *6) Improve Unity*
 - Create boundary boxes so ball doesnt fall off 
 - create menu gui and starting scene able to be navigated from vr controllers or brachIOplexus 
 
-        
+- Possible goal for the next inchstone is to have a "beta" version of the project where it is fully built ?
+
+**July 4**
+*RESOURCES* 
+- check if directory is empty [link](https://stackoverflow.com/questions/4748104/how-to-check-if-a-folder-is-empty)
