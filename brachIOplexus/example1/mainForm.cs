@@ -8857,7 +8857,7 @@ namespace brachIOplexus
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
             sendUtility(save: 1);
-
+   
             unityAddCamera cameraForm = new unityAddCamera();
             cameraForm.StartPosition = FormStartPosition.CenterParent;
             cameraForm.ShowDialog();
@@ -8898,6 +8898,13 @@ namespace brachIOplexus
                 this.Invoke((MethodInvoker)delegate ()
                 {
                     unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+                });
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
                 });
             }
         }
@@ -9043,7 +9050,7 @@ namespace brachIOplexus
 
         public void deletePosition(int index)
         {
-            if(unityCurrentCameraPositionText.Text == unityCameraPositions[index])
+            if(unityCameraPositions.Count != 0 || unityCurrentCameraPositionText.Text == unityCameraPositions[index])
             {
                 this.Invoke((MethodInvoker)delegate ()
                 {
@@ -9059,7 +9066,7 @@ namespace brachIOplexus
          * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
          * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
          */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 0, byte next = 0, byte clear = 0, byte delete = 255)
+        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte delete = 255)
         {
             byte[] packet = new byte[10]; // will need to change this when have it finalized 
             packet[0] = 255;            // Header

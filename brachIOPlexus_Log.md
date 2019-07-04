@@ -45,3 +45,6 @@ to create the port and IP address
 - Display Current posiiton
 *Question:* does brachIOplexus clear everything once its shutdown (after building the software)? 
     - this affects the saved camera presets and how they will be displayed
+
+# July 4, 2019
+- Created folder in `C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions` to store camera positions as json files 

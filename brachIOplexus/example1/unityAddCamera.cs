@@ -32,7 +32,7 @@ namespace brachIOplexus
             this.EnterButton.Location = new Point(midX - this.EnterButton.Width - 15 , (int)(midY - (this.EnterButton.Height / 2) + 40));
             this.ExitButton.Location = new Point(midX + 15, (int)(midY - (this.ExitButton.Height / 2) + 40));
 
-            this.PostitionText.Text = $"Position{mainForm.unityCameraPositions.Count + 1}";
+            this.PostitionText.Text = $"Position{mainForm.unityCameraPositions.Count}";
         }
 
         private void enter(object sender, EventArgs e)

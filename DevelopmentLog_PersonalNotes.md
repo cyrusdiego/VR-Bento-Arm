@@ -855,3 +855,6 @@ Todo:
 **July 4**
 *RESOURCES* 
 - check if directory is empty [link](https://stackoverflow.com/questions/4748104/how-to-check-if-a-folder-is-empty)
+- delete files [link](https://stackoverflow.com/questions/1288718/how-to-delete-all-files-and-folders-in-a-directory)
+
+- optimize code and brachiOplexus, unity is lagging a little

@@ -1,6 +1,8 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using System;
+using System.Collections.Generic;
+
 namespace brachIOplexus
 {
     partial class unityCamera
@@ -49,21 +51,20 @@ namespace brachIOplexus
                 Button rename = new Button();
 
                 slot.Text = i.ToString();
-                slot.Name = "slot" + i.ToString();
+                slot.Name = "slot";
                 slot.AutoSize = true;
 
                 name.Text = mainForm.unityCameraPositions[i];
-                name.Name = "textBox" + i.ToString();
-                Console.WriteLine(name.Name);
+                name.Name = "textBox";
                 name.Size = textSize;
 
                 delete.Text = "Delete";
-                delete.Name = "delete" + i.ToString();
+                delete.Name = "delete";
                 delete.AutoSize = true;
                 delete.Click += new EventHandler(this.deletePosition);
 
                 rename.Text = "Rename";
-                rename.Name = "rename" + i.ToString();
+                rename.Name = "rename";
                 rename.AutoSize = true;
                 rename.Click += new EventHandler(this.renamePosition);
 
@@ -76,6 +77,12 @@ namespace brachIOplexus
                 this.Controls.Add(name);
                 this.Controls.Add(delete);
                 this.Controls.Add(rename);
+
+                this.labelList.Add(slot);
+                this.textList.Add(name);
+                this.deleteList.Add(delete);
+                this.renameList.Add(rename);
+
             }
         }
 
