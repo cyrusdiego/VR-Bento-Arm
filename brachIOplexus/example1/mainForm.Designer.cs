@@ -803,7 +803,6 @@
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
             this.unityCameraPosition = new System.Windows.Forms.GroupBox();
-            this.unityEditCameraPosition = new System.Windows.Forms.Button();
             this.unityClearCameraPosition = new System.Windows.Forms.Button();
             this.unityToggleCameraPosition = new System.Windows.Forms.Button();
             this.unitySaveCameraPosition = new System.Windows.Forms.Button();
@@ -11041,7 +11040,6 @@
             // 
             // unityCameraPosition
             // 
-            this.unityCameraPosition.Controls.Add(this.unityEditCameraPosition);
             this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);
             this.unityCameraPosition.Controls.Add(this.unityToggleCameraPosition);
             this.unityCameraPosition.Controls.Add(this.unitySaveCameraPosition);
@@ -11052,16 +11050,6 @@
             this.unityCameraPosition.TabIndex = 2;
             this.unityCameraPosition.TabStop = false;
             this.unityCameraPosition.Text = "Scene - Camera Position";
-            // 
-            // unityEditCameraPosition
-            // 
-            this.unityEditCameraPosition.Location = new System.Drawing.Point(141, 113);
-            this.unityEditCameraPosition.Name = "unityEditCameraPosition";
-            this.unityEditCameraPosition.Size = new System.Drawing.Size(119, 23);
-            this.unityEditCameraPosition.TabIndex = 4;
-            this.unityEditCameraPosition.Text = "Edit Positions";
-            this.unityEditCameraPosition.UseVisualStyleBackColor = true;
-            this.unityEditCameraPosition.Click += new System.EventHandler(this.unityEditCameraPosition_Click);
             // 
             // unityClearCameraPosition
             // 
@@ -11108,7 +11096,7 @@
             this.unityCurrentCameraPositionText.AutoSize = true;
             this.unityCurrentCameraPositionText.Location = new System.Drawing.Point(6, 29);
             this.unityCurrentCameraPositionText.Name = "unityCurrentCameraPositionText";
-            this.unityCurrentCameraPositionText.Size = new System.Drawing.Size(0, 13);
+            this.unityCurrentCameraPositionText.Size = new System.Drawing.Size(139, 13);
             this.unityCurrentCameraPositionText.TabIndex = 0;
             this.unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
             // 
@@ -12246,7 +12234,6 @@
         private System.Windows.Forms.Button unitySaveCameraPosition;
         private System.Windows.Forms.GroupBox unityCurrentCameraPosition;
         private System.Windows.Forms.Label unityCurrentCameraPositionText;
-        private System.Windows.Forms.Button unityEditCameraPosition;
     }
 }
 

@@ -589,7 +589,17 @@ namespace brachIOplexus
             }
 
             #region Unity Initialization
-            
+            var contents = Directory.GetFiles(jsonStoragePath);
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityCurrentCameraPositionText.Text = Path.GetFileName(contents[0]);
+            });
+            for (int i = 0; i < contents.Length; i++)
+            {
+                string fileName = Path.GetFileName(contents[i]);
+                unityCameraPositions.Add(fileName);
+                cameraPositionIdx++;
+            }
             #endregion
 
         }
@@ -8862,20 +8872,14 @@ namespace brachIOplexus
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
             sendUtility(save: 1);
-   
-            unityAddCamera cameraForm = new unityAddCamera();
-            cameraForm.StartPosition = FormStartPosition.CenterParent;
-            cameraForm.ShowDialog();
-            string name = string.Empty;
-            if(unityCameraPositions.Count > 0)
+            string name = $"Position{unityCameraPositions.Count}";
+            unityCameraPositions.Add(name);
+            cameraPositionIdx++;
+            this.Invoke((MethodInvoker)delegate ()
             {
-                cameraPositionIdx = unityCameraPositions.Count - 1;
-                name = unityCameraPositions[unityCameraPositions.Count - 1];
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCurrentCameraPositionText.Text = name;
-                });
-            }
+                unityCurrentCameraPositionText.Text = name;
+            });
+            
         }
 
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
@@ -8889,23 +8893,17 @@ namespace brachIOplexus
             });
         }
 
-        private void unityEditCameraPosition_Click(object sender, EventArgs e)
-        {
-            unityCamera cameraForm = new unityCamera();
-            cameraForm.StartPosition = FormStartPosition.CenterParent;
-            cameraForm.ShowDialog();
-        }
-
         private void unityNextCameraPosition_Click(object sender, EventArgs e)
         {
             if(unityCameraPositions.Count > 0)
             {
                 sendUtility(next: 1);
-                cameraPositionIdx = (++cameraPositionIdx % unityCameraPositions.Count);
+                cameraPositionIdx = (cameraPositionIdx % unityCameraPositions.Count);
                 this.Invoke((MethodInvoker)delegate ()
                 {
                     unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
                 });
+                cameraPositionIdx++;
             }
             else
             {
@@ -9055,27 +9053,14 @@ namespace brachIOplexus
             return packet;
         }
 
-        public void deletePosition(int index)
-        {
-            if(unityCameraPositions.Count != 0 || unityCurrentCameraPositionText.Text == unityCameraPositions[index])
-            {
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCurrentCameraPositionText.Text = "Not set to a preset";
-                });
-            }
-            unityCameraPositions.RemoveAt(index);
-            sendUtility(delete: (byte)index);
-        }
-
         /*
          * @brief: creates a unique packet that is only sent on specific button 
          * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
          * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
          */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte delete = 255)
+        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255)
         {
-            byte[] packet = new byte[10]; // will need to change this when have it finalized 
+            byte[] packet = new byte[9]; // will need to change this when have it finalized 
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
             packet[2] = 1;              // Type: 1
@@ -9084,8 +9069,7 @@ namespace brachIOplexus
             packet[5] = save;           // Save Camera Position
             packet[6] = next;           // Next Camera Position
             packet[7] = clear;          // Clear Camera Positions 
-            packet[8] = delete;         // Delete at Index 
-            packet[9] = calcCheckSum(ref packet);
+            packet[8] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
         #endregion
