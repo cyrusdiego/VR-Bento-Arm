@@ -11,7 +11,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System;
 
 public class cameraController : MonoBehaviour
 {
@@ -92,7 +92,6 @@ public class cameraController : MonoBehaviour
         string filePath = Path.Combine(jsonStoragePath,fileName);
         Vector3 position = headset.position;
         cameraData data = new cameraData();
-        data.listIndex = positions.Count - 1;
         data.x = position.x;
         data.y = position.y;
         data.z = position.z;
@@ -112,4 +111,13 @@ public class cameraController : MonoBehaviour
             file.Delete(); 
         }
     }
+}
+
+[Serializable]
+public class cameraData
+{
+    public float x;
+    public float y;
+    public float z;
+
 }
