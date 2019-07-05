@@ -821,6 +821,11 @@ Todo:
         - Add Htc Vive headset setup 
         - include test projects / unity projects to use to see if everything is working fine 
             - maybe create a scene in the unity project to test for input from controllers + detect which headset is connected 
+    - Camera Position Profiles:
+        - button functionality 
+        - how to create a profile
+        - how to load a profile
+        - how to move camera 
 
 *2) Setup the Vive Headset*
 - Create Scene to detect the headset being used and proceed to correct Bento arm scene 
@@ -858,7 +863,7 @@ Todo:
 - delete files [link](https://stackoverflow.com/questions/1288718/how-to-delete-all-files-and-folders-in-a-directory)
 - how to create a file / folder [link](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-create-a-file-or-folder)
 - read / parse a json file [link](https://stackoverflow.com/questions/13297563/read-and-parse-a-json-file-in-c-sharp)
-- loop thru files in directory [link](https://stackoverflow.com/questions/13297563/read-and-parse-a-json-file-in-c-sharp)
+- loop thru files in directory [link](https://stackoverflow.com/questions/4254339/how-to-loop-through-all-the-files-in-a-directory-in-c-net)
 - get index of item in a list [link](https://stackoverflow.com/questions/17995706/how-to-get-the-index-of-an-item-in-a-list-in-a-single-step)
 - overwriting a file [link](https://stackoverflow.com/questions/44235689/how-to-overwrite-a-file-if-it-already-exists)
 - filestream for read and write [link](https://docs.microsoft.com/en-us/dotnet/api/system.io.filestream?view=netframework-4.8)
@@ -866,3 +871,13 @@ Todo:
 - optimize code and brachiOplexus, unity is lagging a little
 
 - removing rename functionality and keeping naming convention succinct with the index in list
+
+*todo*
+- move initialization of camera stuff in on click for unity
+
+**July 5**
+- returning a value from a form [link](https://stackoverflow.com/questions/5233502/how-to-return-a-value-from-a-form-in-c)
+
+- got profile saving
+*TODO*
+- brachioplexus throws wsa blocking if unity is off and brachioplexus tries to disconnect (after using the comms)

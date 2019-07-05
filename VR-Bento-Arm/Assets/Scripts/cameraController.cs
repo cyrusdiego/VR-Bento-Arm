@@ -11,7 +11,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System;
 
 public class cameraController : MonoBehaviour
 {
@@ -22,19 +22,7 @@ public class cameraController : MonoBehaviour
 
     void Awake()
     {
-        string[] contents = Directory.GetFiles(jsonStoragePath);
-        for(int i = 0; i < contents.Length; i++)
-        {
-            string fileName = contents[i];
-            string filePath = Path.Combine(jsonStoragePath,fileName);
-            using(StreamReader reader = new StreamReader(filePath))
-            {
-                string jsonContents = reader.ReadToEnd();
-                cameraData data = JsonUtility.FromJson<cameraData>(jsonContents);
-                Vector3 positionData = new Vector3(data.x, data.y, data.z);
-                positions.Add(positionData);
-            }
-        }
+        loadCameraPositions();
     }
 
     void Update()
@@ -57,7 +45,9 @@ public class cameraController : MonoBehaviour
                         clear();
                         break;
                     case 3:
-                        delete(val);
+                    print("ordered to load camera positons from the temp workspace");
+                    
+                        loadCameraPositions();
                         break;
                 }
             }
@@ -88,11 +78,32 @@ public class cameraController : MonoBehaviour
         deleteJson();
     }
 
-    private void delete(byte index)
+    private void loadCameraPositions()
     {
-        positions.RemoveAt(index);
-        UDPConnection.udp.cameraArray[3] = 255;
-        deleteJson(index);
+        print("loading contents");
+        string[] contents = Directory.GetFiles(jsonStoragePath);
+        print("size of contents: " + contents.Length);
+        for(int i = 0; i < contents.Length; i++)
+        {
+            string fileName = contents[i];
+            string filePath = Path.Combine(jsonStoragePath,fileName);
+            using(StreamReader reader = new StreamReader(filePath))
+            {
+                string jsonContents = reader.ReadToEnd();
+                cameraData data = JsonUtility.FromJson<cameraData>(jsonContents);
+                Vector3 positionData = new Vector3(data.x, data.y, data.z);
+                positions.Add(positionData);
+            }
+        }
+        if(positions.Count > 0)
+        {
+            headset.position = positions[0];
+        }
+        if(UDPConnection.udp.cameraArray[3] != 255)
+        {
+            UDPConnection.udp.cameraArray[3] = 255;
+        }
+        print("size of positions: " + positions.Count);
     }
 
     private void saveToJson()
@@ -101,7 +112,6 @@ public class cameraController : MonoBehaviour
         string filePath = Path.Combine(jsonStoragePath,fileName);
         Vector3 position = headset.position;
         cameraData data = new cameraData();
-        data.listIndex = positions.Count - 1;
         data.x = position.x;
         data.y = position.y;
         data.z = position.z;
@@ -121,38 +131,13 @@ public class cameraController : MonoBehaviour
             file.Delete(); 
         }
     }
+}
 
-    private void deleteJson(byte index)
-    {
-        print((int)index);
-        string[] contents = Directory.GetFiles(jsonStoragePath);
-        string fileName = string.Empty;
-        string deleteFile = string.Empty;
-        bool found = false;
-        cameraData data = null;
-        for(int i = 0; i < contents.Length; i++)
-        {
-            fileName = contents[i];
-            string filePath = Path.Combine(jsonStoragePath,fileName);
-            if(found)
-            {
-                data.listIndex = index++;
-                string jsonContents = JsonUtility.ToJson(data);
-                File.WriteAllText(filePath,jsonContents);
-            }
-            using(StreamReader reader = new StreamReader(filePath))
-            {
-                string jsonContents = reader.ReadToEnd();
-                data = JsonUtility.FromJson<cameraData>(jsonContents);
-                if(data.listIndex == (int)index)
-                {
-                    deleteFile = fileName;
-                    found = true;
-                }
-            }
-        }
-        print(deleteFile);
-        string path = Path.Combine(jsonStoragePath,deleteFile); 
-        File.Delete(path);        
-    }
+[Serializable]
+public class cameraData
+{
+    public float x;
+    public float y;
+    public float z;
+
 }
