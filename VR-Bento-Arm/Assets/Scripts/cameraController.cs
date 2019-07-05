@@ -44,9 +44,7 @@ public class cameraController : MonoBehaviour
                     case 2:
                         clear();
                         break;
-                    case 3:
-                    print("ordered to load camera positons from the temp workspace");
-                    
+                    case 3:                    
                         loadCameraPositions();
                         break;
                 }
@@ -80,9 +78,7 @@ public class cameraController : MonoBehaviour
 
     private void loadCameraPositions()
     {
-        print("loading contents");
         string[] contents = Directory.GetFiles(jsonStoragePath);
-        print("size of contents: " + contents.Length);
         for(int i = 0; i < contents.Length; i++)
         {
             string fileName = contents[i];
@@ -103,7 +99,6 @@ public class cameraController : MonoBehaviour
         {
             UDPConnection.udp.cameraArray[3] = 255;
         }
-        print("size of positions: " + positions.Count);
     }
 
     private void saveToJson()
