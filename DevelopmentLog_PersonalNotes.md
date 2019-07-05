@@ -874,3 +874,10 @@ Todo:
 
 *todo*
 - move initialization of camera stuff in on click for unity
+
+**July 5**
+- returning a value from a form [link](https://stackoverflow.com/questions/5233502/how-to-return-a-value-from-a-form-in-c)
+
+- got profile saving
+*TODO*
+- brachioplexus throws wsa blocking if unity is off and brachioplexus tries to disconnect (after using the comms)

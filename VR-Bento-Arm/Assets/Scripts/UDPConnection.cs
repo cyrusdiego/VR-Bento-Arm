@@ -25,7 +25,7 @@ public class UDPConnection : MonoBehaviour
     // Holds direction and velocity
     // roationArray[0] is undefined
     public Tuple<float,float>[] rotationArray = new Tuple<float, float>[6]; 
-    public byte[] cameraArray = new byte[3];
+    public byte[] cameraArray = new byte[4];
 
     // Network information 
     public Int32 portRX = 30004;

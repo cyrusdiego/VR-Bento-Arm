@@ -22,25 +22,12 @@ public class cameraController : MonoBehaviour
 
     void Awake()
     {
-        string[] contents = Directory.GetFiles(jsonStoragePath);
-        for(int i = 0; i < contents.Length; i++)
-        {
-            string fileName = contents[i];
-            string filePath = Path.Combine(jsonStoragePath,fileName);
-            using(StreamReader reader = new StreamReader(filePath))
-            {
-                string jsonContents = reader.ReadToEnd();
-                cameraData data = JsonUtility.FromJson<cameraData>(jsonContents);
-                Vector3 positionData = new Vector3(data.x, data.y, data.z);
-                positions.Add(positionData);
-            }
-        }
-        headset.position = positions[0];
+        loadCameraPositions();
     }
 
     void Update()
     {
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 4; i++)
         {
             byte val = UDPConnection.udp.cameraArray[i];
             // Test this to see if it will catch the default
@@ -56,6 +43,11 @@ public class cameraController : MonoBehaviour
                         break;
                     case 2:
                         clear();
+                        break;
+                    case 3:
+                    print("ordered to load camera positons from the temp workspace");
+                    
+                        loadCameraPositions();
                         break;
                 }
             }
@@ -84,6 +76,34 @@ public class cameraController : MonoBehaviour
         positionItr = 0;
         UDPConnection.udp.cameraArray[2] = 255;
         deleteJson();
+    }
+
+    private void loadCameraPositions()
+    {
+        print("loading contents");
+        string[] contents = Directory.GetFiles(jsonStoragePath);
+        print("size of contents: " + contents.Length);
+        for(int i = 0; i < contents.Length; i++)
+        {
+            string fileName = contents[i];
+            string filePath = Path.Combine(jsonStoragePath,fileName);
+            using(StreamReader reader = new StreamReader(filePath))
+            {
+                string jsonContents = reader.ReadToEnd();
+                cameraData data = JsonUtility.FromJson<cameraData>(jsonContents);
+                Vector3 positionData = new Vector3(data.x, data.y, data.z);
+                positions.Add(positionData);
+            }
+        }
+        if(positions.Count > 0)
+        {
+            headset.position = positions[0];
+        }
+        if(UDPConnection.udp.cameraArray[3] != 255)
+        {
+            UDPConnection.udp.cameraArray[3] = 255;
+        }
+        print("size of positions: " + positions.Count);
     }
 
     private void saveToJson()

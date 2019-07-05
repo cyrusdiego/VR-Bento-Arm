@@ -825,8 +825,8 @@
             this.doF1 = new brachIOplexus.DoF();
             this.unitySaveProfile = new System.Windows.Forms.Button();
             this.unityLoadProfile = new System.Windows.Forms.Button();
-            this.unityCurrentProfile = new System.Windows.Forms.GroupBox();
-            this.label222 = new System.Windows.Forms.Label();
+            this.unityProfileGroupBox = new System.Windows.Forms.GroupBox();
+            this.unityCameraProfile = new System.Windows.Forms.Label();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -965,7 +965,7 @@
             this.unityActiveScene.SuspendLayout();
             this.unitySceneConfiguration.SuspendLayout();
             this.statusPanel1.SuspendLayout();
-            this.unityCurrentProfile.SuspendLayout();
+            this.unityProfileGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // tg
@@ -10997,7 +10997,7 @@
             // 
             // unityCameraPosition
             // 
-            this.unityCameraPosition.Controls.Add(this.unityCurrentProfile);
+            this.unityCameraPosition.Controls.Add(this.unityProfileGroupBox);
             this.unityCameraPosition.Controls.Add(this.unityLoadProfile);
             this.unityCameraPosition.Controls.Add(this.unitySaveProfile);
             this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);
@@ -11274,24 +11274,24 @@
             this.unityLoadProfile.UseVisualStyleBackColor = true;
             this.unityLoadProfile.Click += new System.EventHandler(this.unityLoadProfile_Click);
             // 
-            // unityCurrentProfile
+            // unityProfileGroupBox
             // 
-            this.unityCurrentProfile.Controls.Add(this.label222);
-            this.unityCurrentProfile.Location = new System.Drawing.Point(6, 84);
-            this.unityCurrentProfile.Name = "unityCurrentProfile";
-            this.unityCurrentProfile.Size = new System.Drawing.Size(254, 58);
-            this.unityCurrentProfile.TabIndex = 6;
-            this.unityCurrentProfile.TabStop = false;
-            this.unityCurrentProfile.Text = "Scene - Current Camera Profile";
+            this.unityProfileGroupBox.Controls.Add(this.unityCameraProfile);
+            this.unityProfileGroupBox.Location = new System.Drawing.Point(6, 84);
+            this.unityProfileGroupBox.Name = "unityProfileGroupBox";
+            this.unityProfileGroupBox.Size = new System.Drawing.Size(254, 58);
+            this.unityProfileGroupBox.TabIndex = 6;
+            this.unityProfileGroupBox.TabStop = false;
+            this.unityProfileGroupBox.Text = "Scene - Current Camera Profile";
             // 
-            // label222
+            // unityCameraProfile
             // 
-            this.label222.AutoSize = true;
-            this.label222.Location = new System.Drawing.Point(6, 29);
-            this.label222.Name = "label222";
-            this.label222.Size = new System.Drawing.Size(47, 13);
-            this.label222.TabIndex = 0;
-            this.label222.Text = "label222";
+            this.unityCameraProfile.AutoSize = true;
+            this.unityCameraProfile.Location = new System.Drawing.Point(6, 29);
+            this.unityCameraProfile.Name = "unityCameraProfile";
+            this.unityCameraProfile.Size = new System.Drawing.Size(47, 13);
+            this.unityCameraProfile.TabIndex = 0;
+            this.unityCameraProfile.Text = "No Profile Loaded";
             // 
             // mainForm
             // 
@@ -11481,8 +11481,8 @@
             this.unitySceneConfiguration.ResumeLayout(false);
             this.statusPanel1.ResumeLayout(false);
             this.statusPanel1.PerformLayout();
-            this.unityCurrentProfile.ResumeLayout(false);
-            this.unityCurrentProfile.PerformLayout();
+            this.unityProfileGroupBox.ResumeLayout(false);
+            this.unityProfileGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12283,8 +12283,8 @@
         private System.Windows.Forms.Button unitySaveCameraPosition;
         private System.Windows.Forms.GroupBox unityCurrentCameraPosition;
         private System.Windows.Forms.Label unityCurrentCameraPositionText;
-        private System.Windows.Forms.GroupBox unityCurrentProfile;
-        private System.Windows.Forms.Label label222;
+        private System.Windows.Forms.GroupBox unityProfileGroupBox;
+        private System.Windows.Forms.Label unityCameraProfile;
         private System.Windows.Forms.Button unityLoadProfile;
         private System.Windows.Forms.Button unitySaveProfile;
     }

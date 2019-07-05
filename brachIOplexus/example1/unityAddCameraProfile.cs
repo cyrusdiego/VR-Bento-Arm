@@ -10,9 +10,20 @@ namespace brachIOplexus
 {
     internal partial class unityAddCameraProfile : Form
     {
+        public string profileName { get; set; }
+
         public unityAddCameraProfile()
         {
             InitializeComponent();
+        }
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void Enter_Click(object sender, EventArgs e)
+        {
+            profileName = this.textBox1.Text;
+            this.Close();
         }
     }
 }

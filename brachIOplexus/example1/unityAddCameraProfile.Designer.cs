@@ -58,7 +58,9 @@
             this.Cancel.TabIndex = 2;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
-            this.Cancel.Click += new System.EventHandler(this.Cancel);
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            this.CancelButton = Cancel;
+            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             // 
             // Enter
             // 
@@ -68,7 +70,9 @@
             this.Enter.TabIndex = 3;
             this.Enter.Text = "Enter";
             this.Enter.UseVisualStyleBackColor = true;
-            this.Enter.Click += new System.EventHandler(this.Enter);
+            this.Enter.Click += new System.EventHandler(this.Enter_Click);
+            this.AcceptButton = Enter;
+            this.Enter.DialogResult = System.Windows.Forms.DialogResult.OK;
             // 
             // unityAddCameraProfile
             // 
