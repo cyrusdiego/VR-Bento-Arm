@@ -8,66 +8,69 @@
  */
 using UnityEngine;
 
-public class HandRotation : RotationBase
+namespace WMR
 {
-    private float axisValue = 0;
-
-    void Start()
+    public class HandRotation : RotationBase
     {
-        // Chopsticks rotate about its local y axis
-        setRotationAxis(2);
+        private float axisValue = 0;
 
-        cj = gameObject.GetComponent<ConfigurableJoint>();
-        rb = gameObject.GetComponent<Rigidbody>();
-        go = gameObject;
-
-        cj.rotationDriveMode = RotationDriveMode.XYAndZ;
-
-        // Servo motor specs
-        motorTorque = 978000;
-        maxSpeedLimit = 1.03f;
-
-        // Prevents the right end effector from being disassembled
-        cj.projectionMode = JointProjectionMode.PositionAndRotation;
-        cj.projectionAngle = 0.1f;
-    }
-
-    // void FixedUpdate()
-    // {
-    //     // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT") >= 0.5)
-    //     // {
-    //     //     axisValue = Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT");
-    //     //     getAxis(axisValue);
-    //     //     return;
-    //     // }
-    //     // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT") >= 0.5)
-    //     // {
-    //     //     axisValue = -1 * Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT");
-    //     //     getAxis(axisValue);
-    //     //     return;
-    //     // }
-
-    //     getAxis(0,1);
-    // }
-
-    void FixedUpdate()
-    {
-        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-        float direction = UDPConnection.udp.rotationArray[5].Item1;
-        float velocity = UDPConnection.udp.rotationArray[5].Item2;
-        switch(direction)
+        void Start()
         {
-            case 0:
-                getAxis(0,velocity);
-                break;
+            // Chopsticks rotate about its local y axis
+            setRotationAxis(2);
 
-            case 1:
-                getAxis(-1,velocity);
-                break;
+            cj = gameObject.GetComponent<ConfigurableJoint>();
+            rb = gameObject.GetComponent<Rigidbody>();
+            go = gameObject;
 
-            case 2:
-                getAxis(1,velocity);
-                break;
+            cj.rotationDriveMode = RotationDriveMode.XYAndZ;
+
+            // Servo motor specs
+            motorTorque = 978000;
+            maxSpeedLimit = 1.03f;
+
+            // Prevents the right end effector from being disassembled
+            cj.projectionMode = JointProjectionMode.PositionAndRotation;
+            cj.projectionAngle = 0.1f;
+        }
+
+        // void FixedUpdate()
+        // {
+        //     // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT") >= 0.5)
+        //     // {
+        //     //     axisValue = Input.GetAxis("SELECT_TRIGGER_SQUEEZE_LEFT");
+        //     //     getAxis(axisValue);
+        //     //     return;
+        //     // }
+        //     // if(Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT") >= 0.5)
+        //     // {
+        //     //     axisValue = -1 * Input.GetAxis("SELECT_TRIGGER_SQUEEZE_RIGHT");
+        //     //     getAxis(axisValue);
+        //     //     return;
+        //     // }
+
+        //     getAxis(0,1);
+        // }
+
+        void FixedUpdate()
+        {
+            // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+            float direction = UDPConnection.udp.rotationArray[5].Item1;
+            float velocity = UDPConnection.udp.rotationArray[5].Item2;
+            switch(direction)
+            {
+                case 0:
+                    getAxis(0,velocity);
+                    break;
+
+                case 1:
+                    getAxis(-1,velocity);
+                    break;
+
+                case 2:
+                    getAxis(1,velocity);
+                    break;
+            }
         }
     }
 }

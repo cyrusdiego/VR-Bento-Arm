@@ -827,6 +827,7 @@ Todo:
         - how to create a profile
         - how to load a profile
         - how to move camera 
+    - SteamVR setup, controller input settings, controller binding
 
 *2) Setup the Vive Headset*
 - Create Scene to detect the headset being used and proceed to correct Bento arm scene 
@@ -854,13 +855,14 @@ Todo:
 - startup of either unity / brachioplexus doesnt matter
 - move initialization of camera stuff in on click for unity
 - brachioplexus throws wsa blocking if unity is off and brachioplexus tries to disconnect (after using the comms)
+
 *6) Improve Unity*
 - Create boundary boxes so ball doesnt fall off 
 - create menu gui and starting scene able to be navigated from vr controllers or brachIOplexus 
 - delete dots, unity physics
 - create a scene loader class (singleton behaviour) to queue task scenes together? 
     - can also hold current scene to send to brachIOplexus
-
+- bento control -> vive / acer controllers or brachIOplexus
 - Possible goal for the next inchstone is to have a "beta" version of the project where it is fully built ?
 
 **July 4**

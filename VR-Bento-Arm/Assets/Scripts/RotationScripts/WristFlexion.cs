@@ -8,7 +8,9 @@
  */
 using UnityEngine;
 
-public class WristFlexion : RotationBase
+namespace WMR
+{
+    public class WristFlexion : RotationBase
 {
     void Start()
     {
@@ -55,4 +57,5 @@ public class WristFlexion : RotationBase
                 break;
         }
     }
+}
 }

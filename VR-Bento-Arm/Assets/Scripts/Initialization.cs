@@ -23,11 +23,11 @@ public class Initialization : Singleton<Initialization>
 
     private PlatformSelection _platformSelection = PlatformSelection.NULL;
 
-    void Start()
+    void Awake()
     {
         List<string> supportedDeviceList = new List<string>(XRSettings.supportedDevices);
 
-        #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) && !UNITY_WSA_10_0
+        #if (UNITY_STANDALONE_WIN) && !UNITY_WSA_10_0 //  && !UNITY_EDITOR
             if(supportedDeviceList.Contains("OpenVR"))
             {
                 LoadPlatform(PlatformSelection.VIVE);
@@ -61,7 +61,7 @@ public class Initialization : Singleton<Initialization>
                 break;
             case PlatformSelection.VIVE:
                 print("DETECTED DEVICE: HTC Vive Headset");
-                SceneManager.LoadScene("VIPER_HTC_VIVE");
+                SceneManager.LoadScene("VIPER_VIVE");
                 break;
         }
     }
