@@ -888,6 +888,9 @@ Todo:
 - imported steamVR
 - imported openvr (package manager)
 
+- to get steamvr to work, needed to change build settings to pc standalone and then x84_64
+    - dont change for now, acer headset still works, just when building the project there will be two different ways 
+
 - steamvr Error [link](https://forum.unity.com/threads/2-compiler-errors-with-steamvr-for-unity.393275/) solution
 ```
 Assets\SteamVR\Scripts\SteamVR_Render.cs(180,40): error CS1061: 'SteamVR_ExternalCamera' does not contain a definition for 'SetupDeviceIndex' and no accessible extension method 'SetupDeviceIndex' accepting a first argument of type 'SteamVR_ExternalCamera' could be found (are you missing a using directive or an assembly reference?)
