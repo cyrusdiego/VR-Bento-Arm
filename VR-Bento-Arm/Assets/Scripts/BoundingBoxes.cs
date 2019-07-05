@@ -86,11 +86,11 @@ public class BoundingBoxes : MonoBehaviour
             print("pressed button");
             if(mode == 1)
             {
-                SceneManager.LoadScene("BentoArm_AcerVRNOARMSHELLS");
+                SceneManager.LoadScene("VIPER_WMR_NoShells");
             }
             else 
             {
-                SceneManager.LoadScene("BentoArm_AcerVR");
+                SceneManager.LoadScene("VIPER_WMR");
             }
         }
     }       

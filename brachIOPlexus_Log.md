@@ -48,3 +48,7 @@ to create the port and IP address
 
 # July 4, 2019
 - Created folder in `C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions` to store camera positions as json files 
+
+# July 5, 2019 
+- Implemented: save / load camera profiles 
+- Removed: delete / rename specific camera positions 

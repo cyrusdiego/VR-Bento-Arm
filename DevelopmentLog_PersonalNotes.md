@@ -789,6 +789,7 @@ storing the byte array results there and the other objects can access it
 4) Implement simple task metric data collection
 5) Improve brachIOplexus 
 6) Improve Unity
+
 *1) Documentation* 
 Current Status:
     - Chapter 2 and 3 are Unity tutorials, guides, and troubleshooting along with connecting the headsets (only Acer is implemented)
@@ -834,7 +835,7 @@ Todo:
     - Have vive controllers control bento arm then leave it **commented** out and do the same with the acer headset 
 - Goes hand in hand with documentation 
 
-*3) Implement saving data to a file* 
+*3) Implement saving data to a file* (DONE)
 - Similar to profiles for brachIOplexus
 - Save camera positions in json file in an accessible folder (maybe consider building the project)
 - Make this easy to understand, easy to access (from file path, parse, from brachIOplexus), easy to re-implement, flexible as to what data is being saved
@@ -844,16 +845,21 @@ Todo:
 *4) Implement simple task metric data collection*
 - Use ball and cup task
 - Create a start timer and countdown shown in VR and will stop when Ball is in cup or if brachIOplexus stops it 
+- possibly create a logger class (singleton behaviour) to log things in global space (things like error, trial metrics, etc)
 
 *7) Improve BrachIOplexus* 
 - Unity tab should be greyed out if Unity is not being connected 
 - Add timer to Unity tab 
 - Control menu screen from brachIOplexus? 
 - startup of either unity / brachioplexus doesnt matter
-
+- move initialization of camera stuff in on click for unity
+- brachioplexus throws wsa blocking if unity is off and brachioplexus tries to disconnect (after using the comms)
 *6) Improve Unity*
 - Create boundary boxes so ball doesnt fall off 
 - create menu gui and starting scene able to be navigated from vr controllers or brachIOplexus 
+- delete dots, unity physics
+- create a scene loader class (singleton behaviour) to queue task scenes together? 
+    - can also hold current scene to send to brachIOplexus
 
 - Possible goal for the next inchstone is to have a "beta" version of the project where it is fully built ?
 
@@ -873,11 +879,20 @@ Todo:
 - removing rename functionality and keeping naming convention succinct with the index in list
 
 *todo*
-- move initialization of camera stuff in on click for unity
 
 **July 5**
 - returning a value from a form [link](https://stackoverflow.com/questions/5233502/how-to-return-a-value-from-a-form-in-c)
 
 - got profile saving
-*TODO*
-- brachioplexus throws wsa blocking if unity is off and brachioplexus tries to disconnect (after using the comms)
+
+- imported steamVR
+- imported openvr (package manager)
+
+- steamvr Error [link](https://forum.unity.com/threads/2-compiler-errors-with-steamvr-for-unity.393275/) solution
+```
+Assets\SteamVR\Scripts\SteamVR_Render.cs(180,40): error CS1061: 'SteamVR_ExternalCamera' does not contain a definition for 'SetupDeviceIndex' and no accessible extension method 'SetupDeviceIndex' accepting a first argument of type 'SteamVR_ExternalCamera' could be found (are you missing a using directive or an assembly reference?)
+
+Assets\SteamVR\Scripts\SteamVR_Render.cs(207,44): error CS1061: 'SteamVR_ExternalCamera' does not contain a definition for 'SetupPose' and no accessible extension method 'SetupPose' accepting a first argument of type 'SteamVR_ExternalCamera' could be found (are you missing a using directive or an assembly reference?)
+
+
+```
