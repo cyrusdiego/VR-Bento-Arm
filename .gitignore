@@ -63,4 +63,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+<<<<<<< HEAD
 .vs/
+=======
+# .vs folder
+.vs/
+>>>>>>> jsonCamera

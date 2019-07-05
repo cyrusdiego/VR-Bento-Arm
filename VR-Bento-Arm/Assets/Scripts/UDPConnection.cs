@@ -60,6 +60,10 @@ public class UDPConnection : MonoBehaviour
         scene = 0;
         // Singleoton pattern
         udp = this;
+        for(int i = 0; i < 4; i++)
+        {
+            cameraArray[i] = 255;
+        }
 
         clearRotationArray();
         if(SceneManager.GetActiveScene().name == "BentoArm_AcerVR")
@@ -179,7 +183,7 @@ public class UDPConnection : MonoBehaviour
     {
         for(int i = 0; i < cameraArray.Length; i++)
         {
-            cameraArray[i] = (byte)0;
+            cameraArray[i] = (byte)255;
         }
     }
 

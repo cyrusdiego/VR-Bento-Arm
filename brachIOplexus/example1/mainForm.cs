@@ -170,6 +170,7 @@ namespace brachIOplexus
         Stopwatch Task_Timer = new Stopwatch();  // timer for measuring the total amount of elapsed time
         int TaskTimerState = 0;     // 0 = disabled, 1 = reset(and ready to go), 2 = running, 3 = resetting
 
+        #region Unity Initialization
         // Unity UDP connection 
         static System.Threading.Timer t11;
         static System.Threading.Timer t12;
@@ -190,6 +191,9 @@ namespace brachIOplexus
         bool udpRXFlag = true;
         public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
         public static int cameraPositionIdx = 0;
+        private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
+        private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
+        #endregion
 
         #region "Dynamixel SDK Initilization"
         // DynamixelSDK
@@ -586,6 +590,27 @@ namespace brachIOplexus
                 dof.channel2.MappingIndexChanged += filterMappingComboBox;
 
             }
+
+            #region Unity Initialization
+            var contents = Directory.GetFiles(unitySavedCameraPositions);
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                if (contents.Count() > 0)
+                {
+                    unityCurrentCameraPositionText.Text = Path.GetFileName(contents[0]);
+                }
+            });
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityCameraProfile.Text = "No Profile Loaded";
+            });
+            for (int i = 0; i < contents.Length; i++)
+            {
+                string fileName = Path.GetFileName(contents[i]);
+                unityCameraPositions.Add(fileName);
+                cameraPositionIdx++;
+            }
+            #endregion
 
         }
 
@@ -8857,18 +8882,14 @@ namespace brachIOplexus
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
             sendUtility(save: 1);
-
-            unityAddCamera cameraForm = new unityAddCamera();
-            cameraForm.StartPosition = FormStartPosition.CenterParent;
-            cameraForm.ShowDialog();
-            if(unityCameraPositions.Count > 0)
+            string name = $"Position{unityCameraPositions.Count}";
+            unityCameraPositions.Add(name);
+            cameraPositionIdx++;
+            this.Invoke((MethodInvoker)delegate ()
             {
-                cameraPositionIdx = unityCameraPositions.Count - 1;
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCurrentCameraPositionText.Text = unityCameraPositions[unityCameraPositions.Count - 1];
-                });
-            }
+                unityCurrentCameraPositionText.Text = name;
+            });
+            
         }
 
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
@@ -8880,13 +8901,10 @@ namespace brachIOplexus
             {
                 unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
             });
-        }
-
-        private void unityEditCameraPosition_Click(object sender, EventArgs e)
-        {
-            unityCamera cameraForm = new unityCamera();
-            cameraForm.StartPosition = FormStartPosition.CenterParent;
-            cameraForm.ShowDialog();
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityCameraProfile.Text = "No Profile Loaded";
+            });
         }
 
         private void unityNextCameraPosition_Click(object sender, EventArgs e)
@@ -8894,10 +8912,18 @@ namespace brachIOplexus
             if(unityCameraPositions.Count > 0)
             {
                 sendUtility(next: 1);
-                cameraPositionIdx = (++cameraPositionIdx % unityCameraPositions.Count);
+                cameraPositionIdx = (cameraPositionIdx % unityCameraPositions.Count);
                 this.Invoke((MethodInvoker)delegate ()
                 {
                     unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+                });
+                cameraPositionIdx++;
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
                 });
             }
         }
@@ -8908,6 +8934,74 @@ namespace brachIOplexus
             {
                 unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
             });
+        }
+
+        private void unitySaveProfile_Click(object sender, EventArgs e)
+        {
+            string[] files = Directory.GetFiles(unitySavedCameraPositions);
+            string profile = string.Empty;
+            string pathToProfile = string.Empty;
+            using (var popup = new unityAddCameraProfile())
+            {
+                var result = popup.ShowDialog();
+                if(result == DialogResult.OK)
+                {
+                    profile = popup.profileName;
+                    pathToProfile = Path.Combine(unityCameraProfiles, profile);
+                    if(Directory.Exists(pathToProfile))
+                    {
+                        MessageBox.Show("That profile name already exists, please rename or delete the profile.");
+                    }
+
+                    Directory.CreateDirectory(pathToProfile);
+                }
+            }
+            foreach(string str in files)
+            {
+                string fileName = Path.GetFileName(str);
+                string destination = Path.Combine(pathToProfile,fileName);
+                File.Copy(str, destination, true);
+            }
+
+
+        }
+
+        private void unityLoadProfile_Click(object sender, EventArgs e)
+        {
+            string profileName = string.Empty;
+            string[] files = null;
+            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.SelectedPath = unityCameraProfiles;
+                DialogResult result = folderDialog.ShowDialog();
+                if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
+                {
+                    profileName = Path.GetFileName(folderDialog.SelectedPath);
+                    files = Directory.GetFiles(folderDialog.SelectedPath);
+                }
+            }
+            if(files != null)
+            {
+                foreach (string str in files)
+                {
+                    string fileName = Path.GetFileName(str);
+                    string destination = Path.Combine(unitySavedCameraPositions, fileName);
+                    File.Copy(str, destination, true);
+                    unityCameraPositions.Add(fileName);
+                }
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    unityCameraProfile.Text = profileName;
+                });
+
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    unityCurrentCameraPositionText.Text = unityCameraPositions[0];
+                });
+                sendUtility(profile: 1);
+                cameraPositionIdx = 1;
+            }
+
         }
         #endregion
 
@@ -9041,25 +9135,12 @@ namespace brachIOplexus
             return packet;
         }
 
-        public void deletePosition(int index)
-        {
-            if(unityCurrentCameraPositionText.Text == unityCameraPositions[index])
-            {
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCurrentCameraPositionText.Text = "Not set to a preset";
-                });
-            }
-            unityCameraPositions.RemoveAt(index);
-            sendUtility(delete: (byte)index);
-        }
-
         /*
          * @brief: creates a unique packet that is only sent on specific button 
          * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
          * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
          */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 0, byte next = 0, byte clear = 0, byte delete = 255)
+        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255)
         {
             byte[] packet = new byte[10]; // will need to change this when have it finalized 
             packet[0] = 255;            // Header
@@ -9070,7 +9151,7 @@ namespace brachIOplexus
             packet[5] = save;           // Save Camera Position
             packet[6] = next;           // Next Camera Position
             packet[7] = clear;          // Clear Camera Positions 
-            packet[8] = delete;         // Delete at Index 
+            packet[8] = profile;
             packet[9] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
