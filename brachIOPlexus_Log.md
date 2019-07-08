@@ -52,3 +52,5 @@ to create the port and IP address
 # July 5, 2019 
 - Implemented: save / load camera profiles 
 - Removed: delete / rename specific camera positions 
+
+# July 8, 2019 

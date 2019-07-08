@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.SceneManagement;
+using Valve.VR;
 
 public class Initialization : Singleton<Initialization>
 {
@@ -25,6 +26,7 @@ public class Initialization : Singleton<Initialization>
 
     void Awake()
     {
+        print(SteamVR.instance.GetStringProperty(Valve.VR.ETrackedDeviceProperty.Prop_ManufacturerName_String));
         List<string> supportedDeviceList = new List<string>(XRSettings.supportedDevices);
 
         #if (UNITY_STANDALONE_WIN) && !UNITY_WSA_10_0 //  && !UNITY_EDITOR

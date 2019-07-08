@@ -828,18 +828,21 @@ Todo:
         - how to load a profile
         - how to move camera 
     - SteamVR setup, controller input settings, controller binding
+    - startup process 
 
 *2) Setup the Vive Headset*
-- Create Scene to detect the headset being used and proceed to correct Bento arm scene 
+- Create Scene to detect the headset being used and proceed to correct Bento arm scene (DONE)
 - Create a test scene to test for controller input to test with headset connection -> hand in hand with documentation
 - Run the two scenes (w/ and w/o arm shells) with the htc headset + htc controllers + brachIOplexus running at same time 
     - Have vive controllers control bento arm then leave it **commented** out and do the same with the acer headset 
 - Goes hand in hand with documentation 
+- Basically have it so the Bento arm can be controlled by acer controllers, vive controllers, or brachioplexus input 
+    - comment each part out first, then have it so brachIOplexus can control what input is being taken in
 
 *3) Implement saving data to a file* (DONE)
-- Similar to profiles for brachIOplexus
-- Save camera positions in json file in an accessible folder (maybe consider building the project)
-- Make this easy to understand, easy to access (from file path, parse, from brachIOplexus), easy to re-implement, flexible as to what data is being saved
+- Similar to profiles for brachIOplexus (DONE)
+- Save camera positions in json file in an accessible folder (maybe consider building the project) (DONE)
+- Make this easy to understand, easy to access (from file path, parse, from brachIOplexus), easy to re-implement, flexible as to what data is being saved (DONE)
 - Currently: camera positions and metric data should be saved
 - [link](https://docs.unity3d.com/Manual/JSONSerialization.html)
 
@@ -855,10 +858,13 @@ Todo:
 - startup of either unity / brachioplexus doesnt matter
 - move initialization of camera stuff in on click for unity
 - brachioplexus throws wsa blocking if unity is off and brachioplexus tries to disconnect (after using the comms)
-
+- reflects which headset is connected + scene 
 *6) Improve Unity*
 - Create boundary boxes so ball doesnt fall off 
 - create menu gui and starting scene able to be navigated from vr controllers or brachIOplexus 
+    - menu should be able to control scenes / tasks or brachioplexus
+    - can decide what input is taken in
+    - maybe show a picture of the keymapping 
 - delete dots, unity physics
 - create a scene loader class (singleton behaviour) to queue task scenes together? 
     - can also hold current scene to send to brachIOplexus
@@ -899,5 +905,24 @@ Assets\SteamVR\Scripts\SteamVR_Render.cs(180,40): error CS1061: 'SteamVR_Externa
 
 Assets\SteamVR\Scripts\SteamVR_Render.cs(207,44): error CS1061: 'SteamVR_ExternalCamera' does not contain a definition for 'SetupPose' and no accessible extension method 'SetupPose' accepting a first argument of type 'SteamVR_ExternalCamera' could be found (are you missing a using directive or an assembly reference?)
 
+```
+
+- Got headset detection working 
+- initialization scene detects headset and goes to appropriate scene.
+
+**July 8** 
+*TODO* 
+- 2) Vive setup 
+- Store a json file in brachioplexus so it can read from it to detect the scenes avaialble 
+
+*ERROR*
+```
+Internal: JobTempAlloc has allocations that are more than 4 frames old - this is not allowed and likely a leak
+
+To Debug, enable the define: TLA_DEBUG_STACK_LEAK in ThreadsafeLinearAllocator.cpp. This will output the callstacks of the leaked allocations
 
 ```
+- Recieved these errors this morning, never seen these before, not sure what is causing it either
+- CPU usage is around +20% which is unusual 
+- hard to reproduce, seems to be related to steamvr
+- many threads relating to this, solution that worked for me: reboot lighthouses [link](https://www.reddit.com/r/Unity3D/comments/6wr8b5/internal_jobtempalloc_has_allocations_that_are/)
