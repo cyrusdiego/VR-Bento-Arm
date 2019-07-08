@@ -830,6 +830,7 @@ Todo:
     - SteamVR setup, controller input settings, controller binding
     - startup process 
     - revise input documentation as steamvr can handle both headsets 
+    - SteamVR overall documentation
 
 *2) Setup the Vive Headset*
 - Create Scene to detect the headset being used and proceed to correct Bento arm scene (DONE)
@@ -839,6 +840,14 @@ Todo:
 - Goes hand in hand with documentation 
 - Basically have it so the Bento arm can be controlled by acer controllers, vive controllers, or brachioplexus input 
     - comment each part out first, then have it so brachIOplexus can control what input is being taken in
+
+*2) Setup the Vive Headset Revised: Setup SteamVR*
+- **SteamVR can handle both headsets so there is no need to seperate scenes for the headsets**
+- Create a test scene to test for controller input and have a sample script to use for documentation 
+    - purpose: for future implementation / changing input system fro vr controllers 
+- Implement a way to switch between moving the camera and moving the bento arm 
+- implement a way to move the bento arm with steam controllers vs brachIOplexus 
+    - if brachioplexus is controlling arm, the controllers can only move the camera 
 
 *3) Implement saving data to a file* (DONE)
 - Similar to profiles for brachIOplexus (DONE)
@@ -862,6 +871,8 @@ Todo:
 - move initialization of camera stuff in on click for unity
 - brachioplexus throws wsa blocking if unity is off and brachioplexus tries to disconnect (after using the comms)
 - reflects which headset is connected + scene 
+    - Store a json file in brachioplexus so it can read from it to detect the scenes avaialble and headset
+
 *6) Improve Unity*
 - Create boundary boxes so ball doesnt fall off 
 - create menu gui and starting scene able to be navigated from vr controllers or brachIOplexus 
@@ -932,8 +943,9 @@ To Debug, enable the define: TLA_DEBUG_STACK_LEAK in ThreadsafeLinearAllocator.c
 - conencted WMR to steamvr, so i dont need windows mixed reality play area anymore, everything can be done thru the steam vr system. so i do not need to create multiple scenes anymore as steam vr will be able to read everything under the same system
 *TODO revised* 
 - 2) Vive setup 
-- Store a json file in brachioplexus so it can read from it to detect the scenes avaialble 
 - remove the double scenes, and anywhere the input is taken from unity, take instead
-from steamvr. 
+from steamvr. (DONE)
 - so now i dont need to deal with multiple systems, instead steamvr can automatically
-understand the input being taken in, so i can remove the initailziation scene and scripts 
+understand the input being taken in, so i can remove the initailziation scene and scripts (DONE)
+
+- removed WMR package, and other packages that weren't used 
