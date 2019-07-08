@@ -8,11 +8,13 @@
  */
 using UnityEngine;
 
-
 public class WristFlexion : RotationBase
 {
     public BentoControl bentoControl;
-    
+    private RotationBase rotation;
+    private float direction;
+    private float velocity;
+
     void Start()
     {
         // Wrist flexes about its local x axis
@@ -41,8 +43,8 @@ public class WristFlexion : RotationBase
     void FixedUpdate()
     {
         // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-        float direction = bentoControl.rotationArray[4].Item1;
-        float velocity = bentoControl.rotationArray[4].Item2;
+        direction = bentoControl.rotationArray[4].Item1;
+        velocity = bentoControl.rotationArray[4].Item2;
         switch(direction)
         {
             case 0:
