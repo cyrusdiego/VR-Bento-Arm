@@ -829,6 +829,7 @@ Todo:
         - how to move camera 
     - SteamVR setup, controller input settings, controller binding
     - startup process 
+    - revise input documentation as steamvr can handle both headsets 
 
 *2) Setup the Vive Headset*
 - Create Scene to detect the headset being used and proceed to correct Bento arm scene (DONE)
@@ -850,6 +851,8 @@ Todo:
 - Use ball and cup task
 - Create a start timer and countdown shown in VR and will stop when Ball is in cup or if brachIOplexus stops it 
 - possibly create a logger class (singleton behaviour) to log things in global space (things like error, trial metrics, etc)
+- singleton class to do data logging 
+
 
 *7) Improve BrachIOplexus* 
 - Unity tab should be greyed out if Unity is not being connected 
@@ -865,9 +868,10 @@ Todo:
     - menu should be able to control scenes / tasks or brachioplexus
     - can decide what input is taken in
     - maybe show a picture of the keymapping 
-- delete dots, unity physics
+- delete dots, unity physics (DONE)
 - create a scene loader class (singleton behaviour) to queue task scenes together? 
     - can also hold current scene to send to brachIOplexus
+- singleton class to do data logging 
 - bento control -> vive / acer controllers or brachIOplexus
 - Possible goal for the next inchstone is to have a "beta" version of the project where it is fully built ?
 
@@ -911,9 +915,7 @@ Assets\SteamVR\Scripts\SteamVR_Render.cs(207,44): error CS1061: 'SteamVR_Externa
 - initialization scene detects headset and goes to appropriate scene.
 
 **July 8** 
-*TODO* 
-- 2) Vive setup 
-- Store a json file in brachioplexus so it can read from it to detect the scenes avaialble 
+
 
 *ERROR*
 ```
@@ -926,3 +928,12 @@ To Debug, enable the define: TLA_DEBUG_STACK_LEAK in ThreadsafeLinearAllocator.c
 - CPU usage is around +20% which is unusual 
 - hard to reproduce, seems to be related to steamvr
 - many threads relating to this, solution that worked for me: reboot lighthouses [link](https://www.reddit.com/r/Unity3D/comments/6wr8b5/internal_jobtempalloc_has_allocations_that_are/)
+
+- conencted WMR to steamvr, so i dont need windows mixed reality play area anymore, everything can be done thru the steam vr system. so i do not need to create multiple scenes anymore as steam vr will be able to read everything under the same system
+*TODO revised* 
+- 2) Vive setup 
+- Store a json file in brachioplexus so it can read from it to detect the scenes avaialble 
+- remove the double scenes, and anywhere the input is taken from unity, take instead
+from steamvr. 
+- so now i dont need to deal with multiple systems, instead steamvr can automatically
+understand the input being taken in, so i can remove the initailziation scene and scripts 

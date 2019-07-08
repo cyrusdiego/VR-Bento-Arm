@@ -26,22 +26,30 @@ public class Initialization : Singleton<Initialization>
 
     void Awake()
     {
-        print(SteamVR.instance.GetStringProperty(Valve.VR.ETrackedDeviceProperty.Prop_ManufacturerName_String));
-        List<string> supportedDeviceList = new List<string>(XRSettings.supportedDevices);
+        DontDestroyOnLoad(this);
+        // List<string> supportedDeviceList = new List<string>(XRSettings.supportedDevices);
 
-        #if (UNITY_STANDALONE_WIN) && !UNITY_WSA_10_0 //  && !UNITY_EDITOR
-            if(supportedDeviceList.Contains("OpenVR"))
-            {
-                LoadPlatform(PlatformSelection.VIVE);
-                return;
-            }
-        #elif UNITY_WSA_10_0 // !UNITY_EDITOR && 
-            if(supportedDeviceList.Contains("WindowsMR"))
-            {
-                LoadPlatform(PlatformSelection.ACER);
-                return;
-            }
-        #endif
+        string device = SteamVR.instance.GetStringProperty(Valve.VR.ETrackedDeviceProperty.Prop_ManufacturerName_String);
+        if(device == "WindowsMR")
+        {
+            LoadPlatform(PlatformSelection.ACER);
+        }
+        else{
+            LoadPlatform(PlatformSelection.VIVE);
+        }
+        // #if (UNITY_STANDALONE_WIN) && !UNITY_WSA_10_0 //  && !UNITY_EDITOR
+        //     if(supportedDeviceList.Contains("OpenVR"))
+        //     {
+        //         LoadPlatform(PlatformSelection.VIVE);
+        //         return;
+        //     }
+        // #elif UNITY_WSA_10_0 // !UNITY_EDITOR && 
+        //     if(supportedDeviceList.Contains("WindowsMR"))
+        //     {
+        //         LoadPlatform(PlatformSelection.ACER);
+        //         return;
+        //     }
+        // #endif
 
         if(_platformSelection == PlatformSelection.NULL) 
         {

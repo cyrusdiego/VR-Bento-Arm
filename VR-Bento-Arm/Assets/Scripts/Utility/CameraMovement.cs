@@ -14,20 +14,24 @@ public class CameraMovement : MonoBehaviour
     
     void Start()
     {
-        if(Initialization.Instance.platformSelection == Initialization.PlatformSelection.VIVE)
-        {
+        // if(Initialization.Instance.platformSelection == Initialization.PlatformSelection.VIVE)
+        // {
             string path = "/actions/default/in/Trackpad";
 
             Left = SteamVR_Input_Sources.LeftHand;
             Right = SteamVR_Input_Sources.RightHand;
             action = SteamVR_Action.FindExistingActionForPartialPath(path);
             trackpad = (SteamVR_Action_Vector2)action;
-        }
+            print(action);
+            // print(trackpad);
+            // print(Right);
+        // }
     }
 
     // Update is called once per frame
     void Update()
     {
+        print(trackpad.GetAxis(Right));
         checkJoystick();
         updateX();
         updateY();
@@ -61,23 +65,23 @@ public class CameraMovement : MonoBehaviour
     }
 
     private void checkJoystick(){
-        if(Initialization.Instance.platformSelection == Initialization.PlatformSelection.VIVE)
-        {
+        // if(Initialization.Instance.platformSelection == Initialization.PlatformSelection.VIVE)
+        // {
             if(trackpad != null)
             {
-                print(trackpad.GetAxis(Left));
-
                 camZMovement = checkHold(trackpad.GetAxis(Right).x);
                 camXMovement = checkHold(trackpad.GetAxis(Right).y);
                 camYMovement = checkHold(trackpad.GetAxis(Left).y);
             }
-        }
-        else
-        {
-            camZMovement = checkHold("THUMBSTICK_VERTICAL_RIGHT");
-            camXMovement = checkHold("THUMBSTICK_HORIZONTAL_RIGHT");
-            camYMovement = checkHold("THUMBSTICK_VERTICAL_LEFT");
-        }
+        
+        // else
+        // {
+
+        //     camZMovement = checkHold("THUMBSTICK_VERTICAL_RIGHT");
+        //     print(camZMovement);
+        //     camXMovement = checkHold("THUMBSTICK_HORIZONTAL_RIGHT");
+        //     camYMovement = checkHold("THUMBSTICK_VERTICAL_LEFT");
+        // }
     }
 
     private void updateX()
