@@ -947,5 +947,14 @@ To Debug, enable the define: TLA_DEBUG_STACK_LEAK in ThreadsafeLinearAllocator.c
 from steamvr. (DONE)
 - so now i dont need to deal with multiple systems, instead steamvr can automatically
 understand the input being taken in, so i can remove the initailziation scene and scripts (DONE)
+- Create a few persistent classes to handle:
+    1) UDP Connection
+    2) Scene Queue + Information
+    3) Data Collection 
+    4) Input Logic -> toggle between brachIOplexus and VR controllers (should handle closing the port as well ideally or just block the signals)
+    5) config file for file paths, modes
+- look into making the bento arm a prefab 
+- scriptable objects
+- look into polymorphism for rotation scripts -> this would be worthwhile b/c of further improvements to bento arm(new complicated end effectors like the handi hand)
 
 - removed WMR package, and other packages that weren't used 

@@ -19,6 +19,7 @@ public class cameraController : MonoBehaviour
     private int positionItr = 0;
     private string jsonStoragePath = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
     public Transform headset = null;
+    public CameraControl cameraControl;
 
     void Awake()
     {
@@ -29,7 +30,7 @@ public class cameraController : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            byte val = UDPConnection.udp.cameraArray[i];
+            byte val = cameraControl.cameraArray[i];
             // Test this to see if it will catch the default
             if(val != 255)
             {
@@ -55,7 +56,7 @@ public class cameraController : MonoBehaviour
     private void save()
     {
         positions.Add(headset.position);
-        UDPConnection.udp.cameraArray[0] = 255;
+        cameraControl.cameraArray[0] = 255;
         positionItr = positions.Count - 1;
         saveToJson();
     }
@@ -64,15 +65,14 @@ public class cameraController : MonoBehaviour
     {
         positionItr = ((++positionItr) % positions.Count);
         headset.position = positions[positionItr];
-        UDPConnection.udp.cameraArray[1] = 255;
-
+        cameraControl.cameraArray[1] = 255;
     }
 
     private void clear()
     {
         positions.Clear();
         positionItr = 0;
-        UDPConnection.udp.cameraArray[2] = 255;
+        cameraControl.cameraArray[2] = 255;
         deleteJson();
     }
 
@@ -95,9 +95,9 @@ public class cameraController : MonoBehaviour
         {
             headset.position = positions[0];
         }
-        if(UDPConnection.udp.cameraArray[3] != 255)
+        if(cameraControl.cameraArray[3] != 255)
         {
-            UDPConnection.udp.cameraArray[3] = 255;
+            cameraControl.cameraArray[3] = 255;
         }
     }
 

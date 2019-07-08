@@ -9,46 +9,48 @@
 using System;
 using UnityEngine;
 
-namespace WMR
+public class ShoulderRotation : RotationBase
 {
-    public class ShoulderRotation : RotationBase
+    public BentoControl bentoControl;
+    void Start()
     {
-        void Start()
+        // Shoulder rotates about local y axis
+        setRotationAxis(2);
+
+        cj = gameObject.GetComponent<ConfigurableJoint>();
+        rb = gameObject.GetComponent<Rigidbody>();
+        go = gameObject;
+
+        // Servo motor specs
+        motorTorque = 1319000f;
+        maxSpeedLimit = 0.61f;
+
+        cj.rotationDriveMode = RotationDriveMode.XYAndZ;
+
+    }
+
+    void FixedUpdate()
+    {
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+
+        print(bentoControl.rotationArray[1]);
+                    
+        float direction = bentoControl.rotationArray[1].Item1;
+        float velocity = bentoControl.rotationArray[1].Item2;
+        switch(direction)
         {
-            // Shoulder rotates about local y axis
-            setRotationAxis(2);
+            case 0:
+                getAxis(0,velocity);
+                break;
 
-            cj = gameObject.GetComponent<ConfigurableJoint>();
-            rb = gameObject.GetComponent<Rigidbody>();
-            go = gameObject;
+            case 1:
+                getAxis(-1,velocity);
+                break;
 
-            // Servo motor specs
-            motorTorque = 1319000f;
-            maxSpeedLimit = 0.61f;
-
-            cj.rotationDriveMode = RotationDriveMode.XYAndZ;
-
-        }
-
-        void FixedUpdate()
-        {
-            // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-            float direction = UDPConnection.udp.rotationArray[1].Item1;
-            float velocity = UDPConnection.udp.rotationArray[1].Item2;
-            switch(direction)
-            {
-                case 0:
-                    getAxis(0,velocity);
-                    break;
-
-                case 1:
-                    getAxis(-1,velocity);
-                    break;
-
-                case 2:
-                    getAxis(1,velocity);
-                    break;
-            }
+            case 2:
+                getAxis(1,velocity);
+                break;
         }
     }
 }
+

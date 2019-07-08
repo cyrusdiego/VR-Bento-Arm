@@ -19,13 +19,10 @@ public class UDPConnection : MonoBehaviour
 {
     #region Variables
 
-    // Singleoton pattern
-    public static UDPConnection udp;
-
     // Holds direction and velocity
     // roationArray[0] is undefined
-    public Tuple<float,float>[] rotationArray = new Tuple<float, float>[6]; 
-    public byte[] cameraArray = new byte[4];
+    public BentoControl bentoControl;
+    public CameraControl cameraControl;
 
     // Network information 
     public Int32 portRX = 30004;
@@ -59,10 +56,9 @@ public class UDPConnection : MonoBehaviour
     {
         scene = 0;
         // Singleoton pattern
-        udp = this;
         for(int i = 0; i < 4; i++)
         {
-            cameraArray[i] = 255;
+            cameraControl.cameraArray[i] = 255;
         }
 
         clearRotationArray();
@@ -173,17 +169,17 @@ public class UDPConnection : MonoBehaviour
     */
     void clearRotationArray()
     {
-        for(int i = 0; i < rotationArray.Length; i++)
+        for(int i = 0; i < bentoControl.rotationArray.Length; i++)
         {
-            rotationArray[i] = new Tuple<float,float>(0,0);
+            bentoControl.rotationArray[i] = new Tuple<float,float>(0,0);
         }
     }
 
     void clearCameraArray()
     {
-        for(int i = 0; i < cameraArray.Length; i++)
+        for(int i = 0; i < cameraControl.cameraArray.Length; i++)
         {
-            cameraArray[i] = (byte)255;
+            cameraControl.cameraArray[i] = (byte)255;
         }
     }
 
@@ -292,7 +288,11 @@ public class UDPConnection : MonoBehaviour
                 {
                     float direction = packet[4*i + 3];
                     float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
-                    rotationArray[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+                    bentoControl.rotationArray[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+                    if(i == 1)
+                    {
+                        print(bentoControl.rotationArray[packet[4*i] + 1]);
+                    }
                 }
             }
             else
@@ -305,7 +305,7 @@ public class UDPConnection : MonoBehaviour
 
                 for(int i = 5; i < packet.Length - 1; i++)
                 {
-                    cameraArray[i - 5] = packet[i];
+                    cameraControl.cameraArray[i - 5] = packet[i];
                 }
             }
         }
