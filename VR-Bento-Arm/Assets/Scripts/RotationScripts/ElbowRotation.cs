@@ -10,6 +10,8 @@ using UnityEngine;
 
 public class ElbowRotation : RotationBase
 {
+    public BentoControl bentoControl;
+
     void Start()
     {
         // Elbow rotates about its local x axis
@@ -31,8 +33,8 @@ public class ElbowRotation : RotationBase
     {
         // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
 
-        float direction = UDPConnection.udp.rotationArray[2].Item1;
-        float velocity = UDPConnection.udp.rotationArray[2].Item2;
+        float direction = bentoControl.rotationArray[2].Item1;
+        float velocity = bentoControl.rotationArray[2].Item2;
         switch(direction)
         {
             case 0:
@@ -49,3 +51,4 @@ public class ElbowRotation : RotationBase
         }
     }
 }
+

@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class ShoulderRotation : RotationBase
 {
+    public BentoControl bentoControl;
     void Start()
     {
         // Shoulder rotates about local y axis
@@ -30,9 +31,9 @@ public class ShoulderRotation : RotationBase
 
     void FixedUpdate()
     {
-        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-        float direction = UDPConnection.udp.rotationArray[1].Item1;
-        float velocity = UDPConnection.udp.rotationArray[1].Item2;
+        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));                    
+        float direction = bentoControl.rotationArray[1].Item1;
+        float velocity = bentoControl.rotationArray[1].Item2;
         switch(direction)
         {
             case 0:
@@ -49,3 +50,4 @@ public class ShoulderRotation : RotationBase
         }
     }
 }
+

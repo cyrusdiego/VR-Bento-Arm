@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class WristRotation: RotationBase
 {
+    public BentoControl bentoControl;
     void Start()
     {
         // Wrist rotates about its local x axis
@@ -36,8 +37,8 @@ public class WristRotation: RotationBase
     void FixedUpdate()
     {
         // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-        float direction = UDPConnection.udp.rotationArray[3].Item1;
-        float velocity = UDPConnection.udp.rotationArray[3].Item2;
+        float direction = bentoControl.rotationArray[3].Item1;
+        float velocity = bentoControl.rotationArray[3].Item2;
         switch(direction)
         {
             case 0:
@@ -54,3 +55,4 @@ public class WristRotation: RotationBase
         }
     }
 }
+

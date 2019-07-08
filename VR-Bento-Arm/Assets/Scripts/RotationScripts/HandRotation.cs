@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class HandRotation : RotationBase
 {
-    private float axisValue = 0;
+    public BentoControl bentoControl;
 
     void Start()
     {
@@ -53,8 +53,8 @@ public class HandRotation : RotationBase
     void FixedUpdate()
     {
         // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
-        float direction = UDPConnection.udp.rotationArray[5].Item1;
-        float velocity = UDPConnection.udp.rotationArray[5].Item2;
+        float direction = bentoControl.rotationArray[5].Item1;
+        float velocity = bentoControl.rotationArray[5].Item2;
         switch(direction)
         {
             case 0:
@@ -71,3 +71,4 @@ public class HandRotation : RotationBase
         }
     }
 }
+
