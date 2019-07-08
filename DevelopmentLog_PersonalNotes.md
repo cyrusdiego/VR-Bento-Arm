@@ -948,7 +948,7 @@ from steamvr. (DONE)
 - so now i dont need to deal with multiple systems, instead steamvr can automatically
 understand the input being taken in, so i can remove the initailziation scene and scripts (DONE)
 - Create a few persistent classes to handle:
-    1) UDP Connection
+    1) UDP Connection (DONE)
     2) Scene Queue + Information
     3) Data Collection 
     4) Input Logic -> toggle between brachIOplexus and VR controllers (should handle closing the port as well ideally or just block the signals)
