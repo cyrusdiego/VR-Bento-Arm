@@ -289,10 +289,7 @@ public class UDPConnection : MonoBehaviour
                     float direction = packet[4*i + 3];
                     float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
                     bentoControl.rotationArray[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
-                    if(i == 1)
-                    {
-                        print(bentoControl.rotationArray[packet[4*i] + 1]);
-                    }
+
                 }
             }
             else
