@@ -10,6 +10,7 @@ public class Motor : RotationBase
     public BentoControl bentoControl = null;
     public string rotationAxis = "";
     public int arrayIndex = 255;
+    public float mass;
 
     private float direction;
     private float velocity;
@@ -77,14 +78,16 @@ public class Motor : RotationBase
         }
 
         cj.anchor = Vector3.zero;
-        cj.projectionMode = JointProjectionMode.PositionAndRotation;
-        cj.projectionAngle = 0.1f;
+        cj.enableCollision = true;
+        // cj.projectionMode = JointProjectionMode.PositionAndRotation;
+        // cj.projectionAngle = 0.1f;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
 
     private void configureRB()
     {
         rb.drag = 0;
+        rb.mass = mass;
         rb.angularDrag = 0;
         rb.useGravity = false;
         rb.isKinematic = false;
