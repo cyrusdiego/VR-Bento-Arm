@@ -62,14 +62,17 @@ public class Motor : RotationBase
         {
             case Axis.x:
                 cj.axis = new Vector3(-1,0,0);
+                cj.secondaryAxis = new Vector3(0,-1,0);
             break;
 
             case Axis.y:
                 cj.axis = new Vector3(0,-1,0);
+                cj.secondaryAxis = new Vector3(0, 0, -1);
             break;
 
             case Axis.z:
                 cj.axis = new Vector3(0,0,-1);
+                cj.secondaryAxis = new Vector3(-1, 0, 0);
             break;
         }
 
