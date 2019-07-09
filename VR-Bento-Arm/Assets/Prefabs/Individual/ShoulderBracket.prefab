@@ -93,6 +93,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -108,7 +133,38 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -376.96487
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_XMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_YMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_ZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_AngularYMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_AngularZMotion
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
 --- !u!4 &6330105824474192661 stripped
 Transform:
@@ -126,10 +182,6 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4ed6005edcaa782428ae68f8558bb508, type: 3}
       propertyPath: m_Name
       value: L1_UpperArm_Prox
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 4ed6005edcaa782428ae68f8558bb508, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4ed6005edcaa782428ae68f8558bb508, type: 3}
       propertyPath: m_LocalPosition.x
