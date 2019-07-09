@@ -16,8 +16,8 @@ public class RotationBase : MonoBehaviour
     protected JointDrive motor;
 
     // Motor properties (need to change with brachIOplexus)
-    protected float motorTorque;
-    protected float maxSpeedLimit;
+    public float motorTorque;
+    public float maxSpeedLimit;
     protected Quaternion targetRotation; 
     protected bool target = true;
 
@@ -25,27 +25,7 @@ public class RotationBase : MonoBehaviour
     // different.
     protected enum Axis {x,y,z};
     protected Axis axis;
-
-    /*
-        @breif: stores the rotation axis for later use
-        @param: integer mapping to an axis
-    */
-    protected void setRotationAxis(int x)
-    {
-        if(x == 1)
-        {
-            axis = Axis.x;
-        }
-        else if(x == 2)
-        {
-            axis = Axis.y;
-        }
-        else
-        {
-            axis = Axis.z;
-        }
-    }
-
+    
     /*
         @brief: rotates the arm segment using the configurable joint
         @param: axis value from specifies joystick / button

@@ -10,7 +10,6 @@ public class Motor : RotationBase
     public BentoControl bentoControl = null;
     public string rotationAxis = "";
     public int arrayIndex = 255;
-    public float mass = 0;
 
     private float direction;
     private float velocity;
@@ -82,7 +81,6 @@ public class Motor : RotationBase
 
     private void configureRB()
     {
-        rb.mass = mass;
         rb.drag = 0;
         rb.angularDrag = 0;
         rb.useGravity = false;
