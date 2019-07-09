@@ -1,54 +1,54 @@
-﻿/* 
-    BLINC LAB VIPER Project 
-    ElbowRotation.cs 
-    Created by: Cyrus Diego May 14, 2019 
+﻿// /* 
+//     BLINC LAB VIPER Project 
+//     ElbowRotation.cs 
+//     Created by: Cyrus Diego May 14, 2019 
 
-    Inherits from RotationBase class and controls the arm's elbow 
-    rotation. Attatched to the forearm game object. 
- */
-using UnityEngine;
+//     Inherits from RotationBase class and controls the arm's elbow 
+//     rotation. Attatched to the forearm game object. 
+//  */
+// using UnityEngine;
 
-public class ElbowRotation : RotationBase
-{
-    public BentoControl bentoControl;
+// public class ElbowRotation : RotationBase
+// {
+//     public BentoControl bentoControl;
 
-    void Start()
-    {
-        // Elbow rotates about its local x axis
-        setRotationAxis(1);
+//     void Start()
+//     {
+//         // Elbow rotates about its local x axis
+//         setRotationAxis(1);
 
-        cj = gameObject.GetComponent<ConfigurableJoint>();
-        rb = gameObject.GetComponent<Rigidbody>();
-        go = gameObject;
+//         cj = gameObject.GetComponent<ConfigurableJoint>();
+//         rb = gameObject.GetComponent<Rigidbody>();
+//         go = gameObject;
 
-        // Servo motor specs
-        motorTorque = 2463000f;
-        maxSpeedLimit = 0.537f;
+//         // Servo motor specs
+//         motorTorque = 2463000f;
+//         maxSpeedLimit = 0.537f;
 
-        cj.rotationDriveMode = RotationDriveMode.XYAndZ;
+//         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
 
-    }
+//     }
 
-    void FixedUpdate()
-    {
-        // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
+//     void FixedUpdate()
+//     {
+//         // getAxis(Input.GetAxis("THUMBSTICK_VERTICAL_RIGHT"));
 
-        float direction = bentoControl.rotationArray[2].Item1;
-        float velocity = bentoControl.rotationArray[2].Item2;
-        switch(direction)
-        {
-            case 0:
-                getAxis(0,velocity);
-                break;
+//         float direction = bentoControl.rotationArray[2].Item1;
+//         float velocity = bentoControl.rotationArray[2].Item2;
+//         switch(direction)
+//         {
+//             case 0:
+//                 getAxis(0,velocity);
+//                 break;
 
-            case 1:
-                getAxis(-1,velocity);
-                break;
+//             case 1:
+//                 getAxis(-1,velocity);
+//                 break;
 
-            case 2:
-                getAxis(1,velocity);
-                break;
-        }
-    }
-}
+//             case 2:
+//                 getAxis(1,velocity);
+//                 break;
+//         }
+//     }
+// }
 
