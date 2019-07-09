@@ -91,7 +91,7 @@ public class Motor : RotationBase
         rb.angularDrag = 0;
         rb.useGravity = false;
         rb.isKinematic = false;
-        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        // rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 }
 
