@@ -29,39 +29,40 @@ public class Motor : RotationBase
 
     void FixedUpdate()
     {
-        // if(bentoControl.controlToggle)
-        // {
-        //     direction = bentoControl.brachIOplexusControl[arrayIndex].Item1;
-        //     velocity = bentoControl.brachIOplexusControl[arrayIndex].Item2;
-        // }
-        // else
-        // {
-        //     float value = bentoControl.SteamVRControl[arrayIndex];
-        //     // print(arrayIndex + " " + value);
-        //     if(value != 0)
-        //     {
-        //         direction = value / Math.Abs(value) < 0 ? 1 : 2; 
-        //     }
-        //     else
-        //     {
-        //         direction = 0;
-        //     }
-        //     velocity = value * maxSpeedLimit;
-        // }
-        // switch(direction)
-        // {
-        //     case 0:
-        //         getAxis(0,velocity);
-        //         break;
+        if(bentoControl.controlToggle)
+        {
+            direction = bentoControl.brachIOplexusControl[arrayIndex].Item1;
+            velocity = bentoControl.brachIOplexusControl[arrayIndex].Item2;
+        }
+        else
+        {
+            float value = bentoControl.SteamVRControl[arrayIndex];
+            // print(value / Math.Abs(value) < 0 ? 1 : 2);
+            // print(arrayIndex + " " + value);
+            if(value != 0)
+            {
+                direction = value / Math.Abs(value) < 0 ? 1 : 2; 
+            }
+            else
+            {
+                direction = 0;
+            }
+            velocity = Math.Abs(value) * maxSpeedLimit;
+        }
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
 
-        //     case 1:
-        //         getAxis(-1,velocity);
-        //         break;
+            case 1:
+                getAxis(-1,velocity);
+                break;
 
-        //     case 2:
-        //         getAxis(1,velocity);
-        //         break;
-        // }
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
         
     }
 

@@ -26,16 +26,17 @@ public class VRController : MonoBehaviour
         joystick = SteamVR_Action.FindExistingActionForPartialPath("/actions/default/in/Trackpad");
         trigger = SteamVR_Action.FindExistingActionForPartialPath("/actions/default/in/Squeeze");
         push = SteamVR_Action.FindExistingActionForPartialPath("/actions/default/in/Button");
-        // for(int i = 0; i < 7; i++)
-        // {
-        //     bentoControl.SteamVRControl[i] = 0;
-        // }
+        for(int i = 0; i < 7; i++)
+        {
+            bentoControl.SteamVRControl[i] = 0;
+        }
     }
 
     void Update()
     {
         // if(!bentoControl.controlToggle)
         // {
+            clearRotationArray();
             single = (SteamVR_Action_Single)trigger;
             boolean = (SteamVR_Action_Boolean)push;
             vector2 = (SteamVR_Action_Vector2)joystick;
@@ -45,7 +46,6 @@ public class VRController : MonoBehaviour
 
             if(SteamVR.instance.hmd_ModelNumber == "VIVE_Pro MV")
             {
-                print(single.GetAxis(Right));
                 if(boolean.GetState(Left))
                 {
                     leftJoy = vector2.GetAxis(Left);
@@ -73,6 +73,14 @@ public class VRController : MonoBehaviour
             }
         }
     // }
+
+    void clearRotationArray()
+    {
+        for(int i = 0; i < bentoControl.SteamVRControl.Length; i++)
+        {
+            bentoControl.SteamVRControl[i] = 0;
+        }
+    }
 
 }
 
