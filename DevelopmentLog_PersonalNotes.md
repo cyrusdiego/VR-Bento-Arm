@@ -962,3 +962,6 @@ understand the input being taken in, so i can remove the initailziation scene an
 
 **July 9**
 - created individual prefabs for the bento arm for easier disassmbly 
+- working on vr controller overide 
+    - vive controllers are super finicky if the towers and headset cant detect them
+    - due to their symmetry, the controllers can be left / right 

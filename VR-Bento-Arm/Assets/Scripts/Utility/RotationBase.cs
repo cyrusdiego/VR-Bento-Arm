@@ -48,7 +48,6 @@ public class RotationBase : MonoBehaviour
 
         motor.maximumForce = motorTorque;
         motor.positionSpring = 0;
-    print(axisValue);
         // Rotates CW or CCW based on axis values from joystick / button
         if(axisValue >= 0.5)
         {
