@@ -689,6 +689,12 @@
             this.label158 = new System.Windows.Forms.Label();
             this.label157 = new System.Windows.Forms.Label();
             this.label156 = new System.Windows.Forms.Label();
+            this.doF6 = new brachIOplexus.DoF();
+            this.doF5 = new brachIOplexus.DoF();
+            this.doF4 = new brachIOplexus.DoF();
+            this.doF3 = new brachIOplexus.DoF();
+            this.doF2 = new brachIOplexus.DoF();
+            this.doF1 = new brachIOplexus.DoF();
             this.tabBento = new System.Windows.Forms.TabPage();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.BentoProfileOpen = new System.Windows.Forms.Button();
@@ -797,15 +803,20 @@
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
             this.unityCameraPosition = new System.Windows.Forms.GroupBox();
+            this.unityProfileGroupBox = new System.Windows.Forms.GroupBox();
+            this.unityCameraProfile = new System.Windows.Forms.Label();
+            this.unityLoadProfile = new System.Windows.Forms.Button();
+            this.unitySaveProfile = new System.Windows.Forms.Button();
             this.unityClearCameraPosition = new System.Windows.Forms.Button();
-            this.unityToggleCameraPosition = new System.Windows.Forms.Button();
             this.unitySaveCameraPosition = new System.Windows.Forms.Button();
+            this.unityToggleCameraPosition = new System.Windows.Forms.Button();
             this.unityCurrentCameraPosition = new System.Windows.Forms.GroupBox();
             this.unityCurrentCameraPositionText = new System.Windows.Forms.Label();
             this.unitySceneInformation = new System.Windows.Forms.GroupBox();
             this.unityActiveScene = new System.Windows.Forms.GroupBox();
             this.unityActiveSceneName = new System.Windows.Forms.Label();
             this.unitySceneConfiguration = new System.Windows.Forms.GroupBox();
+            this.unityArmControl = new System.Windows.Forms.Button();
             this.unityArmShells = new System.Windows.Forms.Button();
             this.unitySceneReset = new System.Windows.Forms.Button();
             this.statusPanel1 = new System.Windows.Forms.Panel();
@@ -817,16 +828,7 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
-            this.doF6 = new brachIOplexus.DoF();
-            this.doF5 = new brachIOplexus.DoF();
-            this.doF4 = new brachIOplexus.DoF();
-            this.doF3 = new brachIOplexus.DoF();
-            this.doF2 = new brachIOplexus.DoF();
-            this.doF1 = new brachIOplexus.DoF();
-            this.unitySaveProfile = new System.Windows.Forms.Button();
-            this.unityLoadProfile = new System.Windows.Forms.Button();
-            this.unityProfileGroupBox = new System.Windows.Forms.GroupBox();
-            this.unityCameraProfile = new System.Windows.Forms.Label();
+            this.unityArmControlIndicator = new System.Windows.Forms.GroupBox();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -960,12 +962,12 @@
             this.SLRTgroupBox.SuspendLayout();
             this.tabUnity.SuspendLayout();
             this.unityCameraPosition.SuspendLayout();
+            this.unityProfileGroupBox.SuspendLayout();
             this.unityCurrentCameraPosition.SuspendLayout();
             this.unitySceneInformation.SuspendLayout();
             this.unityActiveScene.SuspendLayout();
             this.unitySceneConfiguration.SuspendLayout();
             this.statusPanel1.SuspendLayout();
-            this.unityProfileGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // tg
@@ -997,7 +999,7 @@
             this.NewToolStripMenuItem,
             this.OpenToolStripMenuItem,
             this.toolStripSeparator,
-            this.SaveAsToolStripMenuItem,
+            //this.SaveAsToolStripMenuItem,
             this.ToolStripMenuItem1,
             this.toolStripSeparator2,
             this.ExitToolStripMenuItem});
@@ -1011,7 +1013,7 @@
             this.NewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
             this.NewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.NewToolStripMenuItem.Text = "&New Profile";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
@@ -1021,39 +1023,39 @@
             this.OpenToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
             this.OpenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.OpenToolStripMenuItem.Text = "&Open Profile";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(212, 6);
             // 
             // SaveAsToolStripMenuItem
             // 
             this.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
             this.SaveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.SaveAsToolStripMenuItem.Text = "&unitySaveProfile As";
             this.SaveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // ToolStripMenuItem1
             // 
             this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
-            this.ToolStripMenuItem1.Size = new System.Drawing.Size(191, 22);
+            this.ToolStripMenuItem1.Size = new System.Drawing.Size(215, 22);
             this.ToolStripMenuItem1.Text = "Set As Default Profile";
             this.ToolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(212, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.ExitToolStripMenuItem.Text = "E&xit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -9679,6 +9681,54 @@
             this.label156.TabIndex = 29;
             this.label156.Text = "Smax";
             // 
+            // doF6
+            // 
+            this.doF6.Location = new System.Drawing.Point(6, 512);
+            this.doF6.Margin = new System.Windows.Forms.Padding(4);
+            this.doF6.Name = "doF6";
+            this.doF6.Size = new System.Drawing.Size(649, 94);
+            this.doF6.TabIndex = 144;
+            // 
+            // doF5
+            // 
+            this.doF5.Location = new System.Drawing.Point(6, 412);
+            this.doF5.Margin = new System.Windows.Forms.Padding(4);
+            this.doF5.Name = "doF5";
+            this.doF5.Size = new System.Drawing.Size(649, 94);
+            this.doF5.TabIndex = 143;
+            // 
+            // doF4
+            // 
+            this.doF4.Location = new System.Drawing.Point(6, 312);
+            this.doF4.Margin = new System.Windows.Forms.Padding(4);
+            this.doF4.Name = "doF4";
+            this.doF4.Size = new System.Drawing.Size(649, 94);
+            this.doF4.TabIndex = 142;
+            // 
+            // doF3
+            // 
+            this.doF3.Location = new System.Drawing.Point(6, 212);
+            this.doF3.Margin = new System.Windows.Forms.Padding(4);
+            this.doF3.Name = "doF3";
+            this.doF3.Size = new System.Drawing.Size(649, 94);
+            this.doF3.TabIndex = 141;
+            // 
+            // doF2
+            // 
+            this.doF2.Location = new System.Drawing.Point(6, 115);
+            this.doF2.Margin = new System.Windows.Forms.Padding(4);
+            this.doF2.Name = "doF2";
+            this.doF2.Size = new System.Drawing.Size(649, 94);
+            this.doF2.TabIndex = 140;
+            // 
+            // doF1
+            // 
+            this.doF1.Location = new System.Drawing.Point(6, 18);
+            this.doF1.Margin = new System.Windows.Forms.Padding(4);
+            this.doF1.Name = "doF1";
+            this.doF1.Size = new System.Drawing.Size(649, 94);
+            this.doF1.TabIndex = 139;
+            // 
             // tabBento
             // 
             this.tabBento.Controls.Add(this.groupBox19);
@@ -11011,6 +11061,45 @@
             this.unityCameraPosition.TabStop = false;
             this.unityCameraPosition.Text = "Scene - Camera Position";
             // 
+            // unityProfileGroupBox
+            // 
+            this.unityProfileGroupBox.Controls.Add(this.unityCameraProfile);
+            this.unityProfileGroupBox.Location = new System.Drawing.Point(6, 84);
+            this.unityProfileGroupBox.Name = "unityProfileGroupBox";
+            this.unityProfileGroupBox.Size = new System.Drawing.Size(254, 58);
+            this.unityProfileGroupBox.TabIndex = 6;
+            this.unityProfileGroupBox.TabStop = false;
+            this.unityProfileGroupBox.Text = "Scene - Current Camera Profile";
+            // 
+            // unityCameraProfile
+            // 
+            this.unityCameraProfile.AutoSize = true;
+            this.unityCameraProfile.Location = new System.Drawing.Point(6, 29);
+            this.unityCameraProfile.Name = "unityCameraProfile";
+            this.unityCameraProfile.Size = new System.Drawing.Size(92, 13);
+            this.unityCameraProfile.TabIndex = 0;
+            this.unityCameraProfile.Text = "No Profile Loaded";
+            // 
+            // unityLoadProfile
+            // 
+            this.unityLoadProfile.Location = new System.Drawing.Point(131, 199);
+            this.unityLoadProfile.Name = "unityLoadProfile";
+            this.unityLoadProfile.Size = new System.Drawing.Size(119, 23);
+            this.unityLoadProfile.TabIndex = 5;
+            this.unityLoadProfile.Text = "Load Profile";
+            this.unityLoadProfile.UseVisualStyleBackColor = true;
+            this.unityLoadProfile.Click += new System.EventHandler(this.unityLoadProfile_Click);
+            // 
+            // unitySaveProfile
+            // 
+            this.unitySaveProfile.Location = new System.Drawing.Point(131, 163);
+            this.unitySaveProfile.Name = "unitySaveProfile";
+            this.unitySaveProfile.Size = new System.Drawing.Size(119, 23);
+            this.unitySaveProfile.TabIndex = 4;
+            this.unitySaveProfile.Text = "Save Profile";
+            this.unitySaveProfile.UseVisualStyleBackColor = true;
+            this.unitySaveProfile.Click += new System.EventHandler(this.unitySaveProfile_Click);
+            // 
             // unityClearCameraPosition
             // 
             this.unityClearCameraPosition.Location = new System.Drawing.Point(6, 209);
@@ -11021,16 +11110,6 @@
             this.unityClearCameraPosition.UseVisualStyleBackColor = true;
             this.unityClearCameraPosition.Click += new System.EventHandler(this.unityClearCameraPosition_Click);
             // 
-            // unityToggleCameraPosition
-            // 
-            this.unityToggleCameraPosition.Location = new System.Drawing.Point(6, 180);
-            this.unityToggleCameraPosition.Name = "unityToggleCameraPosition";
-            this.unityToggleCameraPosition.Size = new System.Drawing.Size(119, 23);
-            this.unityToggleCameraPosition.TabIndex = 2;
-            this.unityToggleCameraPosition.Text = "Next Position";
-            this.unityToggleCameraPosition.UseVisualStyleBackColor = true;
-            this.unityToggleCameraPosition.Click += new System.EventHandler(this.unityNextCameraPosition_Click);
-            // 
             // unitySaveCameraPosition
             // 
             this.unitySaveCameraPosition.Location = new System.Drawing.Point(6, 151);
@@ -11040,6 +11119,16 @@
             this.unitySaveCameraPosition.Text = "Save Position";
             this.unitySaveCameraPosition.UseVisualStyleBackColor = true;
             this.unitySaveCameraPosition.Click += new System.EventHandler(this.unitySaveCameraPosition_Click);
+            // 
+            // unityToggleCameraPosition
+            // 
+            this.unityToggleCameraPosition.Location = new System.Drawing.Point(6, 180);
+            this.unityToggleCameraPosition.Name = "unityToggleCameraPosition";
+            this.unityToggleCameraPosition.Size = new System.Drawing.Size(119, 23);
+            this.unityToggleCameraPosition.TabIndex = 2;
+            this.unityToggleCameraPosition.Text = "Next Position";
+            this.unityToggleCameraPosition.UseVisualStyleBackColor = true;
+            this.unityToggleCameraPosition.Click += new System.EventHandler(this.unityNextCameraPosition_Click);
             // 
             // unityCurrentCameraPosition
             // 
@@ -11062,6 +11151,7 @@
             // 
             // unitySceneInformation
             // 
+            this.unitySceneInformation.Controls.Add(this.unityArmControlIndicator);
             this.unitySceneInformation.Controls.Add(this.unityActiveScene);
             this.unitySceneInformation.Location = new System.Drawing.Point(3, 166);
             this.unitySceneInformation.Name = "unitySceneInformation";
@@ -11090,6 +11180,7 @@
             // 
             // unitySceneConfiguration
             // 
+            this.unitySceneConfiguration.Controls.Add(this.unityArmControl);
             this.unitySceneConfiguration.Controls.Add(this.unityArmShells);
             this.unitySceneConfiguration.Controls.Add(this.unitySceneReset);
             this.unitySceneConfiguration.Location = new System.Drawing.Point(3, 3);
@@ -11098,6 +11189,16 @@
             this.unitySceneConfiguration.TabIndex = 0;
             this.unitySceneConfiguration.TabStop = false;
             this.unitySceneConfiguration.Text = "Scene - Configuration";
+            // 
+            // unityArmControl
+            // 
+            this.unityArmControl.Location = new System.Drawing.Point(6, 78);
+            this.unityArmControl.Name = "unityArmControl";
+            this.unityArmControl.Size = new System.Drawing.Size(110, 23);
+            this.unityArmControl.TabIndex = 3;
+            this.unityArmControl.Text = "Toggle Arm Control";
+            this.unityArmControl.UseVisualStyleBackColor = true;
+            this.unityArmControl.Click += new System.EventHandler(this.unityArmControl_Click);
             // 
             // unityArmShells
             // 
@@ -11206,92 +11307,14 @@
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
             // 
-            // doF6
+            // unityArmControlIndicator
             // 
-            this.doF6.Location = new System.Drawing.Point(6, 512);
-            this.doF6.Margin = new System.Windows.Forms.Padding(4);
-            this.doF6.Name = "doF6";
-            this.doF6.Size = new System.Drawing.Size(649, 94);
-            this.doF6.TabIndex = 144;
-            // 
-            // doF5
-            // 
-            this.doF5.Location = new System.Drawing.Point(6, 412);
-            this.doF5.Margin = new System.Windows.Forms.Padding(4);
-            this.doF5.Name = "doF5";
-            this.doF5.Size = new System.Drawing.Size(649, 94);
-            this.doF5.TabIndex = 143;
-            // 
-            // doF4
-            // 
-            this.doF4.Location = new System.Drawing.Point(6, 312);
-            this.doF4.Margin = new System.Windows.Forms.Padding(4);
-            this.doF4.Name = "doF4";
-            this.doF4.Size = new System.Drawing.Size(649, 94);
-            this.doF4.TabIndex = 142;
-            // 
-            // doF3
-            // 
-            this.doF3.Location = new System.Drawing.Point(6, 212);
-            this.doF3.Margin = new System.Windows.Forms.Padding(4);
-            this.doF3.Name = "doF3";
-            this.doF3.Size = new System.Drawing.Size(649, 94);
-            this.doF3.TabIndex = 141;
-            // 
-            // doF2
-            // 
-            this.doF2.Location = new System.Drawing.Point(6, 115);
-            this.doF2.Margin = new System.Windows.Forms.Padding(4);
-            this.doF2.Name = "doF2";
-            this.doF2.Size = new System.Drawing.Size(649, 94);
-            this.doF2.TabIndex = 140;
-            // 
-            // doF1
-            // 
-            this.doF1.Location = new System.Drawing.Point(6, 18);
-            this.doF1.Margin = new System.Windows.Forms.Padding(4);
-            this.doF1.Name = "doF1";
-            this.doF1.Size = new System.Drawing.Size(649, 94);
-            this.doF1.TabIndex = 139;
-            // 
-            // unitySaveProfile
-            // 
-            this.unitySaveProfile.Location = new System.Drawing.Point(131, 163);
-            this.unitySaveProfile.Name = "unitySaveProfile";
-            this.unitySaveProfile.Size = new System.Drawing.Size(119, 23);
-            this.unitySaveProfile.TabIndex = 4;
-            this.unitySaveProfile.Text = "Save Profile";
-            this.unitySaveProfile.UseVisualStyleBackColor = true;
-            this.unitySaveProfile.Click += new System.EventHandler(this.unitySaveProfile_Click);
-            // 
-            // unityLoadProfile
-            // 
-            this.unityLoadProfile.Location = new System.Drawing.Point(131, 199);
-            this.unityLoadProfile.Name = "unityLoadProfile";
-            this.unityLoadProfile.Size = new System.Drawing.Size(119, 23);
-            this.unityLoadProfile.TabIndex = 5;
-            this.unityLoadProfile.Text = "Load Profile";
-            this.unityLoadProfile.UseVisualStyleBackColor = true;
-            this.unityLoadProfile.Click += new System.EventHandler(this.unityLoadProfile_Click);
-            // 
-            // unityProfileGroupBox
-            // 
-            this.unityProfileGroupBox.Controls.Add(this.unityCameraProfile);
-            this.unityProfileGroupBox.Location = new System.Drawing.Point(6, 84);
-            this.unityProfileGroupBox.Name = "unityProfileGroupBox";
-            this.unityProfileGroupBox.Size = new System.Drawing.Size(254, 58);
-            this.unityProfileGroupBox.TabIndex = 6;
-            this.unityProfileGroupBox.TabStop = false;
-            this.unityProfileGroupBox.Text = "Scene - Current Camera Profile";
-            // 
-            // unityCameraProfile
-            // 
-            this.unityCameraProfile.AutoSize = true;
-            this.unityCameraProfile.Location = new System.Drawing.Point(6, 29);
-            this.unityCameraProfile.Name = "unityCameraProfile";
-            this.unityCameraProfile.Size = new System.Drawing.Size(47, 13);
-            this.unityCameraProfile.TabIndex = 0;
-            this.unityCameraProfile.Text = "No Profile Loaded";
+            this.unityArmControlIndicator.Location = new System.Drawing.Point(7, 83);
+            this.unityArmControlIndicator.Name = "unityArmControlIndicator";
+            this.unityArmControlIndicator.Size = new System.Drawing.Size(253, 60);
+            this.unityArmControlIndicator.TabIndex = 3;
+            this.unityArmControlIndicator.TabStop = false;
+            this.unityArmControlIndicator.Text = "Arm Control";
             // 
             // mainForm
             // 
@@ -11473,6 +11496,8 @@
             this.SLRTgroupBox.ResumeLayout(false);
             this.tabUnity.ResumeLayout(false);
             this.unityCameraPosition.ResumeLayout(false);
+            this.unityProfileGroupBox.ResumeLayout(false);
+            this.unityProfileGroupBox.PerformLayout();
             this.unityCurrentCameraPosition.ResumeLayout(false);
             this.unityCurrentCameraPosition.PerformLayout();
             this.unitySceneInformation.ResumeLayout(false);
@@ -11481,8 +11506,6 @@
             this.unitySceneConfiguration.ResumeLayout(false);
             this.statusPanel1.ResumeLayout(false);
             this.statusPanel1.PerformLayout();
-            this.unityProfileGroupBox.ResumeLayout(false);
-            this.unityProfileGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12287,6 +12310,8 @@
         private System.Windows.Forms.Label unityCameraProfile;
         private System.Windows.Forms.Button unityLoadProfile;
         private System.Windows.Forms.Button unitySaveProfile;
+        private System.Windows.Forms.Button unityArmControl;
+        private System.Windows.Forms.GroupBox unityArmControlIndicator;
     }
 }
 

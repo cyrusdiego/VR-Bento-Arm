@@ -193,6 +193,7 @@ namespace brachIOplexus
         public static int cameraPositionIdx = 0;
         private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
         private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
+        private int armControl = 0;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -9003,6 +9004,24 @@ namespace brachIOplexus
             }
 
         }
+
+        private void unityArmControl_Click(object sender, EventArgs e)
+        {
+            sendUtility(control: 1);
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                if(armControl % 2 == 0)
+                {
+                    unityArmControlIndicator.Text = "VR Controllers";
+                    armControl++;
+                }
+                else
+                {
+                    unityArmControlIndicator.Text = "brachIOplexus";
+                    armControl++;
+                }
+            });
+        }
         #endregion
 
         #region UDP TX
@@ -9140,9 +9159,9 @@ namespace brachIOplexus
          * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
          * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
          */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255)
+        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255)
         {
-            byte[] packet = new byte[10]; // will need to change this when have it finalized 
+            byte[] packet = new byte[11]; // will need to change this when have it finalized 
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
             packet[2] = 1;              // Type: 1
@@ -9152,7 +9171,8 @@ namespace brachIOplexus
             packet[6] = next;           // Next Camera Position
             packet[7] = clear;          // Clear Camera Positions 
             packet[8] = profile;
-            packet[9] = calcCheckSum(ref packet);
+            packet[9] = control;
+            packet[10] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
         #endregion

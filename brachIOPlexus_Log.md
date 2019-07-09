@@ -53,4 +53,5 @@ to create the port and IP address
 - Implemented: save / load camera profiles 
 - Removed: delete / rename specific camera positions 
 
-# July 8, 2019 
+# July 9, 2019
+- commented out `this.SaveAsToolStripMenuItem;`

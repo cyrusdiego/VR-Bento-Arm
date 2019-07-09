@@ -830,7 +830,8 @@ Todo:
     - SteamVR setup, controller input settings, controller binding
     - startup process 
     - revise input documentation as steamvr can handle both headsets 
-    - SteamVR overall documentation
+    - SteamVR overall documentation -> steamvr troubleshoot (task manager)
+    - prefabs, addign new bento arm components, using motor and rotation base script 
 
 *2) Setup the Vive Headset*
 - Create Scene to detect the headset being used and proceed to correct Bento arm scene (DONE)
@@ -958,3 +959,6 @@ understand the input being taken in, so i can remove the initailziation scene an
 - look into polymorphism for rotation scripts -> this would be worthwhile b/c of further improvements to bento arm(new complicated end effectors like the handi hand)
 
 - removed WMR package, and other packages that weren't used 
+
+**July 9**
+- created individual prefabs for the bento arm for easier disassmbly 

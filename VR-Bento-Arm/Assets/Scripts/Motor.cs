@@ -29,23 +29,40 @@ public class Motor : RotationBase
 
     void FixedUpdate()
     {
-        float direction = bentoControl.rotationArray[arrayIndex].Item1;
-        float velocity = bentoControl.rotationArray[arrayIndex].Item2;
+        // if(bentoControl.controlToggle)
+        // {
+        //     direction = bentoControl.brachIOplexusControl[arrayIndex].Item1;
+        //     velocity = bentoControl.brachIOplexusControl[arrayIndex].Item2;
+        // }
+        // else
+        // {
+        //     float value = bentoControl.SteamVRControl[arrayIndex];
+        //     // print(arrayIndex + " " + value);
+        //     if(value != 0)
+        //     {
+        //         direction = value / Math.Abs(value) < 0 ? 1 : 2; 
+        //     }
+        //     else
+        //     {
+        //         direction = 0;
+        //     }
+        //     velocity = value * maxSpeedLimit;
+        // }
+        // switch(direction)
+        // {
+        //     case 0:
+        //         getAxis(0,velocity);
+        //         break;
+
+        //     case 1:
+        //         getAxis(-1,velocity);
+        //         break;
+
+        //     case 2:
+        //         getAxis(1,velocity);
+        //         break;
+        // }
         
-        switch(direction)
-        {
-            case 0:
-                getAxis(0,velocity);
-                break;
-
-            case 1:
-                getAxis(-1,velocity);
-                break;
-
-            case 2:
-                getAxis(1,velocity);
-                break;
-        }
     }
 
     private void configureCJ()
