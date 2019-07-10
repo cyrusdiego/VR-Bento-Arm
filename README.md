@@ -10,7 +10,11 @@ out interaction tasks in a virtual reality environment.
 [Credits](#credits)<br/>
 [License](#licesne)<br/>
 ## Installation
-
+**Required Software:**
+- Steam
+- SteamVR
+- UnityHub
+- Visual Studio (for development) 
 ## Usage 
 
 ## Credits 
