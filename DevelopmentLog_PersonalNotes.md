@@ -889,6 +889,7 @@ Todo:
 - singleton class to do data logging 
 - bento control -> vive / acer controllers or brachIOplexus
 - Possible goal for the next inchstone is to have a "beta" version of the project where it is fully built ?
+- allow for only unity starty up and default to vr controllers 
 
 **July 4**
 *RESOURCES* 
