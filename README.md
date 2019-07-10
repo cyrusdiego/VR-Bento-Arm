@@ -1,4 +1,4 @@
-# **V**irtual **P**rosthesis Syst**E**ms Simulato**R** 
+# Virtual Prosthesis Systems Simulator
 
 ## Description
 Implementation of a simulated [Bento Arm](https://blincdev.ca/the-bento-arm/overview/) to carry 
@@ -14,5 +14,6 @@ out interaction tasks in a virtual reality environment.
 ## Usage 
 
 ## Credits 
+
 
 ## License 
