@@ -5,10 +5,10 @@ Implementation of a simulated [Bento Arm](https://blincdev.ca/the-bento-arm/over
 out interaction tasks in a virtual reality environment. 
 
 ## Table of Contents 
-[Installation](#installation)
-[Usage](#usage)
-[Credits](#credits)
-[License](#licesne)
+[Installation](#installation)<br/>
+[Usage](#usage)<br/>
+[Credits](#credits)<br/>
+[License](#licesne)<br/>
 ## Installation
 
 ## Usage 
