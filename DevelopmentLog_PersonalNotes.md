@@ -797,6 +797,9 @@ Current Status:
         - Explains setup of bento arm and talks about wrapper objects 
         - Explains how to add a GameObject 
 
+readme: 
+    - required software: steam, steamvr, unity hub 
+
 Todo:
     - Chapter 1:
         - setup / outline and will be fully implemented once proejct is completed
