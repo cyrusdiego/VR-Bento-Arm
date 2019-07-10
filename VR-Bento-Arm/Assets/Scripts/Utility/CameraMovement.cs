@@ -14,13 +14,13 @@ public class CameraMovement : MonoBehaviour
     
     void Start()
     {
-            string path = "/actions/default/in/Trackpad";
+        string path = "/actions/default/in/Trackpad";
 
-            Left = SteamVR_Input_Sources.LeftHand;
-            Right = SteamVR_Input_Sources.RightHand;
-            
-            action = SteamVR_Action.FindExistingActionForPartialPath(path);
-            trackpad = (SteamVR_Action_Vector2)action;
+        Left = SteamVR_Input_Sources.LeftHand;
+        Right = SteamVR_Input_Sources.RightHand;
+        
+        action = SteamVR_Action.FindExistingActionForPartialPath(path);
+        trackpad = (SteamVR_Action_Vector2)action;
     }
 
     // Update is called once per frame
