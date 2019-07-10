@@ -2,7 +2,7 @@
 
 ## Description
 Implementation of a simulated [Bento Arm](https://blincdev.ca/the-bento-arm/overview/) to carry 
-out interaction tasks in a virtual reality environment. [link](#linkylink)
+out interaction tasks in a virtual reality environment. [goto](#license)
 
 ## Table of Contents 
 
@@ -13,4 +13,3 @@ out interaction tasks in a virtual reality environment. [link](#linkylink)
 ## Credits 
 
 ## License 
-[here](#linkylink)
