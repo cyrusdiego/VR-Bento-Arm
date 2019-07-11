@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace brachIOplexus
 {
-    internal partial class unityAddCameraProfile : Form
+    internal partial class unitySave : Form
     {
         public string profileName { get; set; }
 
-        public unityAddCameraProfile()
+        public unitySave()
         {
             InitializeComponent();
         }

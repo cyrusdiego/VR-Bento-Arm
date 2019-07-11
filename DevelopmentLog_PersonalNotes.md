@@ -969,3 +969,11 @@ understand the input being taken in, so i can remove the initailziation scene an
 - working on vr controller overide 
     - vive controllers are super finicky if the towers and headset cant detect them
     - due to their symmetry, the controllers can be left / right 
+
+**July 10**
+- documented the whole day
+
+**July 11**
+*TODO*
+- Timer
+- bento arm control toggle 

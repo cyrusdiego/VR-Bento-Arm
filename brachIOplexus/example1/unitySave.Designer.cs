@@ -1,6 +1,6 @@
 ﻿namespace brachIOplexus
 {
-    partial class unityAddCameraProfile
+    partial class unitySave
     {
         /// <summary>
         /// Required designer variable.
@@ -48,7 +48,7 @@
             this.unityProfileName.Name = "unityProfileName";
             this.unityProfileName.Size = new System.Drawing.Size(110, 13);
             this.unityProfileName.TabIndex = 1;
-            this.unityProfileName.Text = "Create a Profile Name";
+            this.unityProfileName.Text = "Save as: ";
             // 
             // Cancel
             // 

@@ -183,8 +183,11 @@ namespace brachIOplexus
         IPEndPoint ipEndPointRX3;
         Stopwatch stopWatch11 = new Stopwatch();
         Stopwatch stopWatch12 = new Stopwatch();
+        Stopwatch taskTimer = new Stopwatch();
         long milliSec11;
         long milliSec12;
+        TimeSpan taskElapsed;
+        bool unityTimerFlag = false;
         bool UDPflag3 = false;
         Process UnityProc = new Process();  // Process to launch VR project 
         bool armShells = false;
@@ -8942,7 +8945,7 @@ namespace brachIOplexus
             string[] files = Directory.GetFiles(unitySavedCameraPositions);
             string profile = string.Empty;
             string pathToProfile = string.Empty;
-            using (var popup = new unityAddCameraProfile())
+            using (var popup = new unitySave())
             {
                 var result = popup.ShowDialog();
                 if(result == DialogResult.OK)
@@ -9022,6 +9025,38 @@ namespace brachIOplexus
                 }
             });
         }
+
+        private void unityStartTimer_Click(object sender, EventArgs e)
+        {
+            if(this.unityStartTimer.Text == "Start Timer")
+            {
+                taskTimer.Start();
+                unityTimerFlag = true;
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityStartTimer.Text = "Stop Timer";
+                });
+            }
+            else
+            {
+                taskTimer.Stop();
+                unityTimerFlag = false;
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityStartTimer.Text = "Start Timer";
+                });
+            }
+        }
+
+        private void unityResetTimer_Click(object sender, EventArgs e)
+        {
+            this.taskElapsed = TimeSpan.Zero;
+        }
+
+        private void unitySaveTime_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
         #region UDP TX
@@ -9041,7 +9076,15 @@ namespace brachIOplexus
             {
                 stopWatch11.Stop();
                 milliSec11 = stopWatch11.ElapsedMilliseconds;
-
+                if(unityTimerFlag)
+                {
+                    taskElapsed = taskTimer.Elapsed;
+                    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", taskElapsed.Hours, taskElapsed.Minutes, taskElapsed.Seconds, taskElapsed.Milliseconds / 10);
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        this.unityTimerText.Text = elapsedTime;
+                    });
+                }
                 byte[] packet = updatePacket();
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 
