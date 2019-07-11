@@ -821,8 +821,8 @@ Todo:
         - Explain unity side and brachIOplexus side
         - Reference packet excel spreadsheet (put excel sheet in project directory and push to repo)
     - Chapter 3: VR Headset Setup
-        - Go into more detail for Acer (add screenshots and walk through it more in detail!)
-        - Add Htc Vive headset setup 
+        - Go into more detail for Acer (add screenshots and walk through it more in detail!) (DONE)
+        - Add Htc Vive headset setup (DONE)
         - include test projects / unity projects to use to see if everything is working fine 
             - maybe create a scene in the unity project to test for input from controllers + detect which headset is connected 
     - Camera Position Profiles:
@@ -830,10 +830,10 @@ Todo:
         - how to create a profile
         - how to load a profile
         - how to move camera 
-    - SteamVR setup, controller input settings, controller binding
+    - SteamVR setup, controller input settings, controller binding (DONE)
     - startup process 
-    - revise input documentation as steamvr can handle both headsets 
-    - SteamVR overall documentation -> steamvr troubleshoot (task manager)
+    - revise input documentation as steamvr can handle both headsets (DONE)
+    - SteamVR overall documentation -> steamvr troubleshoot (task manager) (DONE)
     - prefabs, addign new bento arm components, using motor and rotation base script 
 
 *2) Setup the Vive Headset*
