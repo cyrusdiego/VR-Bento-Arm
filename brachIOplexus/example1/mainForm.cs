@@ -183,8 +183,11 @@ namespace brachIOplexus
         IPEndPoint ipEndPointRX3;
         Stopwatch stopWatch11 = new Stopwatch();
         Stopwatch stopWatch12 = new Stopwatch();
+        Stopwatch taskTimer = new Stopwatch();
         long milliSec11;
         long milliSec12;
+        TimeSpan taskElapsed;
+        bool unityTimerFlag = false;
         bool UDPflag3 = false;
         Process UnityProc = new Process();  // Process to launch VR project 
         bool armShells = false;
@@ -193,6 +196,7 @@ namespace brachIOplexus
         public static int cameraPositionIdx = 0;
         private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
         private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
+        private string unityTimerData = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityTaskTimer";
         private int armControl = 0;
         #endregion
 
@@ -8942,12 +8946,12 @@ namespace brachIOplexus
             string[] files = Directory.GetFiles(unitySavedCameraPositions);
             string profile = string.Empty;
             string pathToProfile = string.Empty;
-            using (var popup = new unityAddCameraProfile())
+            using (var popup = new unitySave())
             {
                 var result = popup.ShowDialog();
                 if(result == DialogResult.OK)
                 {
-                    profile = popup.profileName;
+                    profile = popup.fileName;
                     pathToProfile = Path.Combine(unityCameraProfiles, profile);
                     if(Directory.Exists(pathToProfile))
                     {
@@ -9022,6 +9026,62 @@ namespace brachIOplexus
                 }
             });
         }
+
+        private void unityStartTimer_Click(object sender, EventArgs e)
+        {
+            if(this.unityStartTimer.Text == "Start Timer")
+            {
+                taskTimer.Start();
+                unityTimerFlag = true;
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityStartTimer.Text = "Stop Timer";
+                });
+            }
+            else
+            {
+                taskTimer.Stop();
+                unityTimerFlag = false;
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityStartTimer.Text = "Start Timer";
+                });
+            }
+        }
+
+        private void unityResetTimer_Click(object sender, EventArgs e)
+        {
+            this.taskElapsed = TimeSpan.Zero;
+        }
+
+        private void unitySaveTimer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void unityLoadTimeFile_Click(object sender,EventArgs e)
+        {
+
+        }
+
+        private void unityNewTimeFile_Click(object sender, EventArgs e)
+        {
+            string file = string.Empty;
+            string filePath = string.Empty;
+            using (var popup = new unitySave())
+            {
+                var result = popup.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    file = popup.fileName + ".json";
+                    filePath = Path.Combine(unityTimerData, file);
+                    if(!File.Exists(filePath))
+                    {
+                        File.Create(filePath).Dispose();
+                    }
+                }
+            }
+        }
         #endregion
 
         #region UDP TX
@@ -9041,7 +9101,10 @@ namespace brachIOplexus
             {
                 stopWatch11.Stop();
                 milliSec11 = stopWatch11.ElapsedMilliseconds;
-
+                if(unityTimerFlag)
+                {
+                    startTimer();
+                }
                 byte[] packet = updatePacket();
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 
@@ -9285,6 +9348,16 @@ namespace brachIOplexus
             {
                 return false;
             }
+        }
+
+        private void startTimer()
+        {
+            taskElapsed = taskTimer.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", taskElapsed.Hours, taskElapsed.Minutes, taskElapsed.Seconds, taskElapsed.Milliseconds / 10);
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                this.unityTimerText.Text = elapsedTime;
+            });
         }
         #endregion
 

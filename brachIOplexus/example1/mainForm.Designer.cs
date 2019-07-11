@@ -36,7 +36,6 @@
             this.NewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +48,7 @@
             this.keyboardMultijointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VoiceCoilCommBox = new System.Windows.Forms.GroupBox();
             this.loadDLMButton = new System.Windows.Forms.Button();
             this.model_name = new System.Windows.Forms.Label();
@@ -802,6 +802,15 @@
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
+            this.unityTaskConfiguration = new System.Windows.Forms.GroupBox();
+            this.unitySaveTimer = new System.Windows.Forms.Button();
+            this.unityTimerInformation = new System.Windows.Forms.GroupBox();
+            this.unityTimerFileName = new System.Windows.Forms.Label();
+            this.unityTimerText = new System.Windows.Forms.Label();
+            this.unityLoadTimeFile = new System.Windows.Forms.Button();
+            this.unityNewTimeFile = new System.Windows.Forms.Button();
+            this.unityResetTimer = new System.Windows.Forms.Button();
+            this.unityStartTimer = new System.Windows.Forms.Button();
             this.unityCameraPosition = new System.Windows.Forms.GroupBox();
             this.unityProfileGroupBox = new System.Windows.Forms.GroupBox();
             this.unityCameraProfile = new System.Windows.Forms.Label();
@@ -813,6 +822,7 @@
             this.unityCurrentCameraPosition = new System.Windows.Forms.GroupBox();
             this.unityCurrentCameraPositionText = new System.Windows.Forms.Label();
             this.unitySceneInformation = new System.Windows.Forms.GroupBox();
+            this.unityArmControlIndicator = new System.Windows.Forms.GroupBox();
             this.unityActiveScene = new System.Windows.Forms.GroupBox();
             this.unityActiveSceneName = new System.Windows.Forms.Label();
             this.unitySceneConfiguration = new System.Windows.Forms.GroupBox();
@@ -828,7 +838,6 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
-            this.unityArmControlIndicator = new System.Windows.Forms.GroupBox();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -961,6 +970,8 @@
             this.biopatrecGroupBox.SuspendLayout();
             this.SLRTgroupBox.SuspendLayout();
             this.tabUnity.SuspendLayout();
+            this.unityTaskConfiguration.SuspendLayout();
+            this.unityTimerInformation.SuspendLayout();
             this.unityCameraPosition.SuspendLayout();
             this.unityProfileGroupBox.SuspendLayout();
             this.unityCurrentCameraPosition.SuspendLayout();
@@ -999,7 +1010,6 @@
             this.NewToolStripMenuItem,
             this.OpenToolStripMenuItem,
             this.toolStripSeparator,
-            //this.SaveAsToolStripMenuItem,
             this.ToolStripMenuItem1,
             this.toolStripSeparator2,
             this.ExitToolStripMenuItem});
@@ -1013,7 +1023,7 @@
             this.NewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.NewToolStripMenuItem.Name = "NewToolStripMenuItem";
             this.NewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.NewToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.NewToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.NewToolStripMenuItem.Text = "&New Profile";
             this.NewToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
@@ -1023,39 +1033,31 @@
             this.OpenToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
             this.OpenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.OpenToolStripMenuItem.Text = "&Open Profile";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(212, 6);
-            // 
-            // SaveAsToolStripMenuItem
-            // 
-            this.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
-            this.SaveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.SaveAsToolStripMenuItem.Text = "&unitySaveProfile As";
-            this.SaveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
+            this.toolStripSeparator.Size = new System.Drawing.Size(181, 6);
             // 
             // ToolStripMenuItem1
             // 
             this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
-            this.ToolStripMenuItem1.Size = new System.Drawing.Size(215, 22);
+            this.ToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
             this.ToolStripMenuItem1.Text = "Set As Default Profile";
             this.ToolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(212, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.ExitToolStripMenuItem.Text = "E&xit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -1127,6 +1129,14 @@
             this.AboutToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.AboutToolStripMenuItem.Text = "&About...";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+            // 
+            // SaveAsToolStripMenuItem
+            // 
+            this.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
+            this.SaveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.SaveAsToolStripMenuItem.Text = "&unitySaveProfile As";
+            this.SaveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // VoiceCoilCommBox
             // 
@@ -11035,6 +11045,7 @@
             // 
             // tabUnity
             // 
+            this.tabUnity.Controls.Add(this.unityTaskConfiguration);
             this.tabUnity.Controls.Add(this.unityCameraPosition);
             this.tabUnity.Controls.Add(this.unitySceneInformation);
             this.tabUnity.Controls.Add(this.unitySceneConfiguration);
@@ -11044,6 +11055,100 @@
             this.tabUnity.TabIndex = 5;
             this.tabUnity.Text = "Unity";
             this.tabUnity.UseVisualStyleBackColor = true;
+            // 
+            // unityTaskConfiguration
+            // 
+            this.unityTaskConfiguration.Controls.Add(this.unitySaveTimer);
+            this.unityTaskConfiguration.Controls.Add(this.unityTimerInformation);
+            this.unityTaskConfiguration.Controls.Add(this.unityLoadTimeFile);
+            this.unityTaskConfiguration.Controls.Add(this.unityNewTimeFile);
+            this.unityTaskConfiguration.Controls.Add(this.unityResetTimer);
+            this.unityTaskConfiguration.Controls.Add(this.unityStartTimer);
+            this.unityTaskConfiguration.Location = new System.Drawing.Point(275, 249);
+            this.unityTaskConfiguration.Name = "unityTaskConfiguration";
+            this.unityTaskConfiguration.Size = new System.Drawing.Size(266, 170);
+            this.unityTaskConfiguration.TabIndex = 3;
+            this.unityTaskConfiguration.TabStop = false;
+            this.unityTaskConfiguration.Text = "Task - Timer";
+            // 
+            // unitySaveTimer
+            // 
+            this.unitySaveTimer.Location = new System.Drawing.Point(6, 77);
+            this.unitySaveTimer.Name = "unitySaveTimer";
+            this.unitySaveTimer.Size = new System.Drawing.Size(119, 23);
+            this.unitySaveTimer.TabIndex = 8;
+            this.unitySaveTimer.Text = "Save Time";
+            this.unitySaveTimer.UseVisualStyleBackColor = true;
+            this.unitySaveTimer.Click += new System.EventHandler(this.unitySaveTimer_Click);
+            // 
+            // unityTimerInformation
+            // 
+            this.unityTimerInformation.Controls.Add(this.unityTimerFileName);
+            this.unityTimerInformation.Controls.Add(this.unityTimerText);
+            this.unityTimerInformation.Location = new System.Drawing.Point(131, 19);
+            this.unityTimerInformation.Name = "unityTimerInformation";
+            this.unityTimerInformation.Size = new System.Drawing.Size(129, 139);
+            this.unityTimerInformation.TabIndex = 4;
+            this.unityTimerInformation.TabStop = false;
+            this.unityTimerInformation.Text = "Timer - Info";
+            // 
+            // unityTimerFileName
+            // 
+            this.unityTimerFileName.AutoSize = true;
+            this.unityTimerFileName.Location = new System.Drawing.Point(6, 107);
+            this.unityTimerFileName.Name = "unityTimerFileName";
+            this.unityTimerFileName.Size = new System.Drawing.Size(99, 13);
+            this.unityTimerFileName.TabIndex = 0;
+            this.unityTimerFileName.Text = "No File Loaded";
+            // 
+            // unityTimerText
+            // 
+            this.unityTimerText.AutoSize = true;
+            this.unityTimerText.Location = new System.Drawing.Point(7, 58);
+            this.unityTimerText.Name = "unityTimerText";
+            this.unityTimerText.Size = new System.Drawing.Size(13, 13);
+            this.unityTimerText.TabIndex = 4;
+            this.unityTimerText.Text = "0";
+            // 
+            // unityLoadTimeFile
+            // 
+            this.unityLoadTimeFile.Location = new System.Drawing.Point(6, 135);
+            this.unityLoadTimeFile.Name = "unityLoadTimeFile";
+            this.unityLoadTimeFile.Size = new System.Drawing.Size(119, 23);
+            this.unityLoadTimeFile.TabIndex = 7;
+            this.unityLoadTimeFile.Text = "Load File";
+            this.unityLoadTimeFile.UseVisualStyleBackColor = true;
+            this.unityLoadTimeFile.Click += new System.EventHandler(this.unityLoadTimeFile_Click);
+            // 
+            // unityNewTimeFile
+            // 
+            this.unityNewTimeFile.Location = new System.Drawing.Point(6, 106);
+            this.unityNewTimeFile.Name = "unityNewTimeFile";
+            this.unityNewTimeFile.Size = new System.Drawing.Size(119, 23);
+            this.unityNewTimeFile.TabIndex = 6;
+            this.unityNewTimeFile.Text = "New File";
+            this.unityNewTimeFile.UseVisualStyleBackColor = true;
+            this.unityNewTimeFile.Click += new System.EventHandler(this.unityNewTimeFile_Click);
+            // 
+            // unityResetTimer
+            // 
+            this.unityResetTimer.Location = new System.Drawing.Point(6, 48);
+            this.unityResetTimer.Name = "unityResetTimer";
+            this.unityResetTimer.Size = new System.Drawing.Size(119, 23);
+            this.unityResetTimer.TabIndex = 5;
+            this.unityResetTimer.Text = "Reset Timer";
+            this.unityResetTimer.UseVisualStyleBackColor = true;
+            this.unityResetTimer.Click += new System.EventHandler(this.unityResetTimer_Click);
+            // 
+            // unityStartTimer
+            // 
+            this.unityStartTimer.Location = new System.Drawing.Point(6, 19);
+            this.unityStartTimer.Name = "unityStartTimer";
+            this.unityStartTimer.Size = new System.Drawing.Size(119, 23);
+            this.unityStartTimer.TabIndex = 4;
+            this.unityStartTimer.Text = "Start Timer";
+            this.unityStartTimer.UseVisualStyleBackColor = true;
+            this.unityStartTimer.Click += new System.EventHandler(this.unityStartTimer_Click);
             // 
             // unityCameraPosition
             // 
@@ -11159,6 +11264,15 @@
             this.unitySceneInformation.TabIndex = 1;
             this.unitySceneInformation.TabStop = false;
             this.unitySceneInformation.Text = "Scene - Information";
+            // 
+            // unityArmControlIndicator
+            // 
+            this.unityArmControlIndicator.Location = new System.Drawing.Point(7, 83);
+            this.unityArmControlIndicator.Name = "unityArmControlIndicator";
+            this.unityArmControlIndicator.Size = new System.Drawing.Size(253, 60);
+            this.unityArmControlIndicator.TabIndex = 3;
+            this.unityArmControlIndicator.TabStop = false;
+            this.unityArmControlIndicator.Text = "Arm Control";
             // 
             // unityActiveScene
             // 
@@ -11306,15 +11420,6 @@
             // 
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
-            // 
-            // unityArmControlIndicator
-            // 
-            this.unityArmControlIndicator.Location = new System.Drawing.Point(7, 83);
-            this.unityArmControlIndicator.Name = "unityArmControlIndicator";
-            this.unityArmControlIndicator.Size = new System.Drawing.Size(253, 60);
-            this.unityArmControlIndicator.TabIndex = 3;
-            this.unityArmControlIndicator.TabStop = false;
-            this.unityArmControlIndicator.Text = "Arm Control";
             // 
             // mainForm
             // 
@@ -11495,6 +11600,9 @@
             this.biopatrecGroupBox.PerformLayout();
             this.SLRTgroupBox.ResumeLayout(false);
             this.tabUnity.ResumeLayout(false);
+            this.unityTaskConfiguration.ResumeLayout(false);
+            this.unityTimerInformation.ResumeLayout(false);
+            this.unityTimerInformation.PerformLayout();
             this.unityCameraPosition.ResumeLayout(false);
             this.unityProfileGroupBox.ResumeLayout(false);
             this.unityProfileGroupBox.PerformLayout();
@@ -12312,6 +12420,15 @@
         private System.Windows.Forms.Button unitySaveProfile;
         private System.Windows.Forms.Button unityArmControl;
         private System.Windows.Forms.GroupBox unityArmControlIndicator;
+        private System.Windows.Forms.GroupBox unityTaskConfiguration;
+        private System.Windows.Forms.Button unityNewTimeFile;
+        private System.Windows.Forms.Button unityResetTimer;
+        private System.Windows.Forms.Button unityStartTimer;
+        private System.Windows.Forms.Label unityTimerText;
+        private System.Windows.Forms.GroupBox unityTimerInformation;
+        private System.Windows.Forms.Label unityTimerFileName;
+        private System.Windows.Forms.Button unityLoadTimeFile;
+        private System.Windows.Forms.Button unitySaveTimer;
     }
 }
 
