@@ -44,14 +44,15 @@
             // unityProfileName
             // 
             this.unityProfileName.AutoSize = true;
-            this.unityProfileName.Location = new System.Drawing.Point(83, 101);
+            this.unityProfileName.Location = new System.Drawing.Point(109, 101);
             this.unityProfileName.Name = "unityProfileName";
-            this.unityProfileName.Size = new System.Drawing.Size(110, 13);
+            this.unityProfileName.Size = new System.Drawing.Size(52, 13);
             this.unityProfileName.TabIndex = 1;
             this.unityProfileName.Text = "Save as: ";
             // 
             // Cancel
             // 
+            this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.Location = new System.Drawing.Point(56, 143);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
@@ -59,11 +60,10 @@
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-            this.CancelButton = Cancel;
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             // 
             // Enter
             // 
+            this.Enter.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Enter.Location = new System.Drawing.Point(143, 143);
             this.Enter.Name = "Enter";
             this.Enter.Size = new System.Drawing.Size(75, 23);
@@ -71,17 +71,17 @@
             this.Enter.Text = "Enter";
             this.Enter.UseVisualStyleBackColor = true;
             this.Enter.Click += new System.EventHandler(this.Enter_Click);
-            this.AcceptButton = Enter;
-            this.Enter.DialogResult = System.Windows.Forms.DialogResult.OK;
             // 
-            // unityAddCameraProfile
+            // unitySave
             // 
+            this.AcceptButton = this.Enter;
+            this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.Enter);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.unityProfileName);
             this.Controls.Add(this.textBox1);
-            this.Name = "unityAddCameraProfile";
+            this.Name = "unitySave";
             this.ResumeLayout(false);
             this.PerformLayout();
 

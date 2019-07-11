@@ -977,3 +977,6 @@ understand the input being taken in, so i can remove the initailziation scene an
 *TODO*
 - Timer
 - bento arm control toggle 
+- implement a default behaviour if brachIOplexus is not connected -> in the init screen, it waits for some sort of init packet from brachIOplexus 
+    - if not pack recieved: go with vr controllers to control arm and use keyboard for camera control
+    - if packet recieved: brachioplexus controls arm and vr controllers are camera 

@@ -10,7 +10,7 @@ namespace brachIOplexus
 {
     internal partial class unitySave : Form
     {
-        public string profileName { get; set; }
+        public string fileName { get; set; }
 
         public unitySave()
         {
@@ -22,7 +22,7 @@ namespace brachIOplexus
         }
         private void Enter_Click(object sender, EventArgs e)
         {
-            profileName = this.textBox1.Text;
+            fileName = this.textBox1.Text;
             this.Close();
         }
     }
