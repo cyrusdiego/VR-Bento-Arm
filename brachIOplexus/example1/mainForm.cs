@@ -9073,7 +9073,7 @@ namespace brachIOplexus
                 var result = popup.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    file = popup.fileName;
+                    file = popup.fileName + ".json";
                     filePath = Path.Combine(unityTimerData, file);
                     if(!File.Exists(filePath))
                     {
