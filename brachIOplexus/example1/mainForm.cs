@@ -680,7 +680,6 @@ namespace brachIOplexus
                 // Close Unity communication and thread
                 if(UDPflag3)
                 {
-                    udpRXFlag = false;
                     udpClientTX3.Close();
                     udpClientRX3.Close();
                     t11.Change(Timeout.Infinite, Timeout.Infinite);
@@ -8807,10 +8806,9 @@ namespace brachIOplexus
                 t12 = new System.Threading.Timer(new TimerCallback(recieveFromUnity), null, 0, 15);
 
                 UDPflag3 = true;
-                udpRXFlag = true;
                 unityConnect.Enabled = false;
                 unityDisconnect.Enabled = true;
-
+                sendUtility(control: 1);
                 // Displays camera position if the list is not empty upon opening brachIOplexus
                 //if(unityCameraPositions.Count > 0)
                 //{
@@ -8827,6 +8825,7 @@ namespace brachIOplexus
             if (UDPflag3)
             {
                 sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
+                sendUtility(control: 0);
                 udpClientTX3.Close();
                 udpClientRX3.Close();
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object

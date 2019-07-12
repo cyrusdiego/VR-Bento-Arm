@@ -981,3 +981,7 @@ understand the input being taken in, so i can remove the initailziation scene an
     - if not pack recieved: go with vr controllers to control arm and use keyboard for camera control
     - if packet recieved: brachioplexus controls arm and vr controllers are camera 
 
+**July 12**
+- control toggle is working 
+- startup is sorta working, if unity starts up first then vr controllers are defauilt but then if brachioplexus starts up then it releases control to brachioplexus
+

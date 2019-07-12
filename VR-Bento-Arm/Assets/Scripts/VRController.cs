@@ -35,7 +35,7 @@ public class VRController : MonoBehaviour
         {
             bentoControl.SteamVRControl[i] = 0;
         }
-        bentoControl.controlToggle = true;
+        bentoControl.controlToggle = false;
     }
 
     void Update()
