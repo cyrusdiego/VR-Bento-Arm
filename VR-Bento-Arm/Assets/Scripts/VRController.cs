@@ -53,9 +53,9 @@ public class VRController : MonoBehaviour
             {   
                 bentoControl.SteamVRControl[5] = single.GetAxis(Left);
             }
-            else if(single.GetAxis(Left) != 0 && single.GetAxis(Right) == 0)
+            else if(single.GetAxis(Left) == 0 && single.GetAxis(Right) != 0)
             {
-                bentoControl.SteamVRControl[5] = single.GetAxis(Right);
+                bentoControl.SteamVRControl[5] = -1 * single.GetAxis(Right);
             }
 
             
@@ -64,14 +64,14 @@ public class VRController : MonoBehaviour
                 if(boolean.GetState(Left))
                 {
                     leftJoy = vector2.GetAxis(Left);
-                    bentoControl.SteamVRControl[1] = leftJoy.x;
-                    bentoControl.SteamVRControl[2] = leftJoy.y;
+                    bentoControl.SteamVRControl[1] = -1 * leftJoy.x;
+                    bentoControl.SteamVRControl[2] = -1 * leftJoy.y;
                 }
                 if(boolean.GetState(Right))
                 {
                     rightJoy = vector2.GetAxis(Right);
-                    bentoControl.SteamVRControl[3] = rightJoy.x;
-                    bentoControl.SteamVRControl[4] = rightJoy.y;
+                    bentoControl.SteamVRControl[3] = -1 * rightJoy.x;
+                    bentoControl.SteamVRControl[4] = -1 * rightJoy.y;
                 }
 
             }

@@ -835,6 +835,7 @@ Todo:
     - revise input documentation as steamvr can handle both headsets (DONE)
     - SteamVR overall documentation -> steamvr troubleshoot (task manager) (DONE)
     - prefabs, addign new bento arm components, using motor and rotation base script 
+    - creating assets for scriptable objects
 
 *2) Setup the Vive Headset*
 - Create Scene to detect the headset being used and proceed to correct Bento arm scene (DONE)

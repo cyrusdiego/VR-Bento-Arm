@@ -10,5 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33623686eb4a65b4c92af2de613f2e88, type: 3}
-  m_Name: RotationArray
+  m_Name: BentoControl
   m_EditorClassIdentifier: 
+  SteamVRControl:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  controlToggle: 1

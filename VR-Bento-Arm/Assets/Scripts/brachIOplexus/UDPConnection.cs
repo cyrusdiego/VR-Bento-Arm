@@ -64,7 +64,7 @@ public class UDPConnection : MonoBehaviour
         }
 
         clearRotationArray();
-        if(SceneManager.GetActiveScene().name == "BentoArm_AcerVR")
+        if(SceneManager.GetActiveScene().name == "VIPER_Shells")
         {
             activeScene = 0;
         }
@@ -112,11 +112,11 @@ public class UDPConnection : MonoBehaviour
         clientTX.Close();
         if(scene == 1)
         {
-            SceneManager.LoadScene("BentoArm_AcerVR");
+            SceneManager.LoadScene("VIPER_SHELLS");
         }
         else if(scene == 2)
         {
-            SceneManager.LoadScene("BentoArm_AcerVRNOARMSHELLS");
+            SceneManager.LoadScene("VIPER_NoShells");
         }
         scene = 0;
     }
