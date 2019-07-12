@@ -300,19 +300,6 @@ public class UDPConnection : MonoBehaviour
                 {
                     clearRotationArray();
                 }
-                // if(packet[9] != 255)
-                // {
-                //     armControlToggle++;
-                // }
-
-                // if(armControlToggle % 2 != 0)
-                // {
-                //     bentoControl.controlToggle = false;
-                // }
-                // else
-                // {
-                //     bentoControl.controlToggle = true;
-                // }
 
                 if(packet[9] == 1)
                 {

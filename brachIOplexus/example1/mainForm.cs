@@ -9011,17 +9011,18 @@ namespace brachIOplexus
 
         private void unityArmControl_Click(object sender, EventArgs e)
         {
-            sendUtility(control: 1);
             this.Invoke((MethodInvoker)delegate ()
             {
                 if(armControl % 2 != 0)
                 {
                     unityArmControlIndicator.Text = "VR Controllers";
                     armControl++;
+                    sendUtility(control: 0);
                 }
                 else
                 {
                     unityArmControlIndicator.Text = "brachIOplexus";
+                    sendUtility(control: 1);
                     armControl++;
                 }
             });
