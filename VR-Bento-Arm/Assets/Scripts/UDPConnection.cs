@@ -97,9 +97,9 @@ public class UDPConnection : MonoBehaviour
             updateScene();
         }
 
-        if(feedback.timerTrigger != 0)
+        if(feedback.timerTrigger != 255)
         {
-            Send(feedback.timerTrigger);
+            Send(timer: feedback.timerTrigger);
         }
     }
 
@@ -227,7 +227,7 @@ public class UDPConnection : MonoBehaviour
     {
         try
         {
-            byte[] packet = new byte[4];
+            byte[] packet = new byte[5];
             packet[0] = 255;
             packet[1] = 255;
             packet[2] = scene;

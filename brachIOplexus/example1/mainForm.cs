@@ -9264,7 +9264,7 @@ namespace brachIOplexus
 
         private void parsePacket(ref byte[] packet)
         {
-            if(validate(ref packet, 2,3))
+            if(validate(ref packet, 2,4))
             {
                 if(packet[2] == 0)
                 {

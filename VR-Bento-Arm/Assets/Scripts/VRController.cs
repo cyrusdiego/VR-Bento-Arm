@@ -9,6 +9,7 @@ using System;
 public class VRController : MonoBehaviour
 {
     public BentoControl bentoControl = null;
+    public SceneFeedback feedback = null;
     private SteamVR_Input_Sources Left;
     private SteamVR_Input_Sources Right;
     private SteamVR_Action joystick;
@@ -50,6 +51,7 @@ public class VRController : MonoBehaviour
             if(single.GetAxis(Left) != 0 && single.GetAxis(Right) != 0 || (single.GetAxis(Left) == 0 && single.GetAxis(Right) == 0))
             {
                 bentoControl.SteamVRControl[5] = 0;
+                feedback.timerTrigger = 1;
             }
             else if(single.GetAxis(Left) != 0 && single.GetAxis(Right) == 0)
             {   
