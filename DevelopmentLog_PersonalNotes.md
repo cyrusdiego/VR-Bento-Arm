@@ -836,6 +836,7 @@ Todo:
     - SteamVR overall documentation -> steamvr troubleshoot (task manager) (DONE)
     - prefabs, addign new bento arm components, using motor and rotation base script 
     - creating assets for scriptable objects
+    - Comment
 
 *2) Setup the Vive Headset*
 - Create Scene to detect the headset being used and proceed to correct Bento arm scene (DONE)
@@ -993,6 +994,8 @@ understand the input being taken in, so i can remove the initailziation scene an
 [] The ball will drop out of the cup if flipped
 [] Start timer from brachIOplexus, timer ends when ball is in cup 
 [] Both VR Headset is affected by Arm control toggle
+[] Check Unity ending first
+[] Check brachIOplexus ending first
 *brachIOplexus first + Acer Headset*
 []  Keyboard can control Bento Arm
     [] DOF filter works with random set

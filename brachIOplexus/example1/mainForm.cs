@@ -9282,6 +9282,11 @@ namespace brachIOplexus
                         unityActiveSceneName.Text = "Bento Arm without Arm Shells";
                     });
                 }
+
+                if(packet[3] == 1)
+                {
+                    Console.WriteLine("got a trigger :)");
+                }
             }
         }
         #endregion
