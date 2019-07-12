@@ -33,7 +33,6 @@ public class CameraMovement : MonoBehaviour
 
         if(bentoControl.controlToggle)
         {
-            print("in here bitch");
             checkJoystick();
         }
         else
@@ -81,8 +80,6 @@ public class CameraMovement : MonoBehaviour
     {
         if(trackpad != null)
         {
-                            print("checking");
-
             if(SteamVR.instance.hmd_ModelNumber == "VIVE_Pro MV")
             {
                 if(boolean.GetState(Left))

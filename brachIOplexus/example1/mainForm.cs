@@ -8826,13 +8826,13 @@ namespace brachIOplexus
         {
             if (UDPflag3)
             {
+                sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
                 udpRXFlag = false;
+                udpClientTX3.Close();
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
-                sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
-                udpClientTX3.Close();
-                udpClientRX3.Close();
 
+                
                 UDPflag3 = false;
                 unityConnect.Enabled = true;
                 unityDisconnect.Enabled = false;
@@ -9255,7 +9255,6 @@ namespace brachIOplexus
 
                         byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
                         parsePacket(ref packet);
-                        udpRXFlag = false;
                     }
                 }
                 catch (Exception ex)
@@ -9263,7 +9262,6 @@ namespace brachIOplexus
                     MessageBox.Show(ex.Message);
                 }
             }
-
         }
 
         private void parsePacket(ref byte[] packet)

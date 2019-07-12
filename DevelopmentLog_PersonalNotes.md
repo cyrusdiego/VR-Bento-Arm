@@ -869,7 +869,6 @@ Todo:
 
 
 *7) Improve BrachIOplexus* 
-- Unity tab should be greyed out if Unity is not being connected 
 - Add timer to Unity tab 
 - Control menu screen from brachIOplexus? 
 - startup of either unity / brachioplexus doesnt matter
@@ -888,7 +887,7 @@ Todo:
 - create a scene loader class (singleton behaviour) to queue task scenes together? 
     - can also hold current scene to send to brachIOplexus
 - singleton class to do data logging 
-- bento control -> vive / acer controllers or brachIOplexus
+- bento control -> vive / acer controllers or brachIOplexus (DONE)
 - Possible goal for the next inchstone is to have a "beta" version of the project where it is fully built ?
 - allow for only unity starty up and default to vr controllers 
 
@@ -977,7 +976,7 @@ understand the input being taken in, so i can remove the initailziation scene an
 **July 11**
 *TODO*
 - Timer
-- bento arm control toggle (Almost DONE, need to configure camera control)
+- bento arm control toggle (DONE)
 - implement a default behaviour if brachIOplexus is not connected -> in the init screen, it waits for some sort of init packet from brachIOplexus 
     - if not pack recieved: go with vr controllers to control arm and use keyboard for camera control
     - if packet recieved: brachioplexus controls arm and vr controllers are camera 
