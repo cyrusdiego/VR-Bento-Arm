@@ -26,6 +26,7 @@ public class VRController : MonoBehaviour
         joystick = SteamVR_Action.FindExistingActionForPartialPath("/actions/default/in/Trackpad");
         trigger = SteamVR_Action.FindExistingActionForPartialPath("/actions/default/in/Squeeze");
         push = SteamVR_Action.FindExistingActionForPartialPath("/actions/default/in/Button");
+
         
         Left = SteamVR_Input_Sources.LeftHand;
         Right = SteamVR_Input_Sources.RightHand;
@@ -34,6 +35,7 @@ public class VRController : MonoBehaviour
         {
             bentoControl.SteamVRControl[i] = 0;
         }
+        bentoControl.controlToggle = true;
     }
 
     void Update()
@@ -78,12 +80,12 @@ public class VRController : MonoBehaviour
             else
             {
                 leftJoy = vector2.GetAxis(Left);
-                bentoControl.SteamVRControl[1] = leftJoy.x;
-                bentoControl.SteamVRControl[2] = leftJoy.y;
+                bentoControl.SteamVRControl[1] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
+                bentoControl.SteamVRControl[2] = Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
 
                 rightJoy = vector2.GetAxis(Right);
-                bentoControl.SteamVRControl[3] = rightJoy.x;
-                bentoControl.SteamVRControl[4] = rightJoy.y;
+                bentoControl.SteamVRControl[3] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
+                bentoControl.SteamVRControl[4] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
             
             }
         }

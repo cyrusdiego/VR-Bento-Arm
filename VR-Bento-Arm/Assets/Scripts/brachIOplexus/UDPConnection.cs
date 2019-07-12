@@ -303,6 +303,7 @@ public class UDPConnection : MonoBehaviour
                 if(packet[9] != 255)
                 {
                     armControlToggle++;
+                    print("increased to: " + armControlToggle);
                 }
 
                 if(armControlToggle % 2 != 0)
