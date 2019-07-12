@@ -45,6 +45,8 @@ public class UDPConnection : MonoBehaviour
     private byte scene;
     private byte activeScene;
 
+    private int armControlToggle = 0;
+
     #endregion
 
     #region Unity API
@@ -300,13 +302,18 @@ public class UDPConnection : MonoBehaviour
                 }
                 if(packet[9] != 255)
                 {
+                    armControlToggle++;
+                }
+
+                if(armControlToggle % 2 != 0)
+                {
                     bentoControl.controlToggle = false;
                 }
                 else
                 {
                     bentoControl.controlToggle = true;
                 }
-
+                
                 scene = packet[4];
 
                 for(int i = 5; i < packet.Length - 2; i++)

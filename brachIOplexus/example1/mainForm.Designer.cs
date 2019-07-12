@@ -11272,7 +11272,7 @@
             this.unityArmControlIndicator.Size = new System.Drawing.Size(253, 60);
             this.unityArmControlIndicator.TabIndex = 3;
             this.unityArmControlIndicator.TabStop = false;
-            this.unityArmControlIndicator.Text = "Arm Control";
+            this.unityArmControlIndicator.Text = "brachIOplexus";
             // 
             // unityActiveScene
             // 

@@ -30,7 +30,7 @@ public class VRController : MonoBehaviour
         Left = SteamVR_Input_Sources.LeftHand;
         Right = SteamVR_Input_Sources.RightHand;
 
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < 6; i++)
         {
             bentoControl.SteamVRControl[i] = 0;
         }
@@ -38,8 +38,8 @@ public class VRController : MonoBehaviour
 
     void Update()
     {
-        // if(!bentoControl.controlToggle)
-        // {
+        if(!bentoControl.controlToggle)
+        {
             clearRotationArray();
             single = (SteamVR_Action_Single)trigger;
             boolean = (SteamVR_Action_Boolean)push;
@@ -87,7 +87,7 @@ public class VRController : MonoBehaviour
             
             }
         }
-    // }
+    }
 
     void clearRotationArray()
     {

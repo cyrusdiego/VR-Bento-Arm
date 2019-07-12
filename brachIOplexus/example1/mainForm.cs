@@ -197,7 +197,7 @@ namespace brachIOplexus
         private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
         private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
         private string unityTimerData = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityTaskTimer";
-        private int armControl = 0;
+        private int armControl = 1;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -9014,7 +9014,7 @@ namespace brachIOplexus
             sendUtility(control: 1);
             this.Invoke((MethodInvoker)delegate ()
             {
-                if(armControl % 2 == 0)
+                if(armControl % 2 != 0)
                 {
                     unityArmControlIndicator.Text = "VR Controllers";
                     armControl++;
