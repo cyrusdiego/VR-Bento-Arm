@@ -9015,13 +9015,13 @@ namespace brachIOplexus
             {
                 if(armControl % 2 != 0)
                 {
-                    unityArmControlIndicator.Text = "VR Controllers";
+                    unityArmControlText.Text = "VR Controllers";
                     armControl++;
                     sendUtility(control: 0);
                 }
                 else
                 {
-                    unityArmControlIndicator.Text = "brachIOplexus";
+                    unityArmControlText.Text = "brachIOplexus";
                     sendUtility(control: 1);
                     armControl++;
                 }

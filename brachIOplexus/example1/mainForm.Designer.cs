@@ -838,6 +838,7 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
+            this.unityArmControlText = new System.Windows.Forms.Label();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -976,6 +977,7 @@
             this.unityProfileGroupBox.SuspendLayout();
             this.unityCurrentCameraPosition.SuspendLayout();
             this.unitySceneInformation.SuspendLayout();
+            this.unityArmControlIndicator.SuspendLayout();
             this.unityActiveScene.SuspendLayout();
             this.unitySceneConfiguration.SuspendLayout();
             this.statusPanel1.SuspendLayout();
@@ -11097,7 +11099,7 @@
             this.unityTimerFileName.AutoSize = true;
             this.unityTimerFileName.Location = new System.Drawing.Point(6, 107);
             this.unityTimerFileName.Name = "unityTimerFileName";
-            this.unityTimerFileName.Size = new System.Drawing.Size(99, 13);
+            this.unityTimerFileName.Size = new System.Drawing.Size(79, 13);
             this.unityTimerFileName.TabIndex = 0;
             this.unityTimerFileName.Text = "No File Loaded";
             // 
@@ -11267,12 +11269,13 @@
             // 
             // unityArmControlIndicator
             // 
+            this.unityArmControlIndicator.Controls.Add(this.unityArmControlText);
             this.unityArmControlIndicator.Location = new System.Drawing.Point(7, 83);
             this.unityArmControlIndicator.Name = "unityArmControlIndicator";
             this.unityArmControlIndicator.Size = new System.Drawing.Size(253, 60);
             this.unityArmControlIndicator.TabIndex = 3;
             this.unityArmControlIndicator.TabStop = false;
-            this.unityArmControlIndicator.Text = "brachIOplexus";
+            this.unityArmControlIndicator.Text = "Arm Control";
             // 
             // unityActiveScene
             // 
@@ -11420,6 +11423,15 @@
             // 
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
+            // 
+            // unityArmControlText
+            // 
+            this.unityArmControlText.AutoSize = true;
+            this.unityArmControlText.Location = new System.Drawing.Point(6, 29);
+            this.unityArmControlText.Name = "unityArmControlText";
+            this.unityArmControlText.Size = new System.Drawing.Size(47, 13);
+            this.unityArmControlText.TabIndex = 4;
+            this.unityArmControlText.Text = "brachIOplexus";
             // 
             // mainForm
             // 
@@ -11609,6 +11621,8 @@
             this.unityCurrentCameraPosition.ResumeLayout(false);
             this.unityCurrentCameraPosition.PerformLayout();
             this.unitySceneInformation.ResumeLayout(false);
+            this.unityArmControlIndicator.ResumeLayout(false);
+            this.unityArmControlIndicator.PerformLayout();
             this.unityActiveScene.ResumeLayout(false);
             this.unityActiveScene.PerformLayout();
             this.unitySceneConfiguration.ResumeLayout(false);
@@ -12429,6 +12443,7 @@
         private System.Windows.Forms.Label unityTimerFileName;
         private System.Windows.Forms.Button unityLoadTimeFile;
         private System.Windows.Forms.Button unitySaveTimer;
+        private System.Windows.Forms.Label unityArmControlText;
     }
 }
 

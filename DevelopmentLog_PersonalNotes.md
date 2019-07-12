@@ -985,3 +985,127 @@ understand the input being taken in, so i can remove the initailziation scene an
 - control toggle is working 
 - startup is sorta working, if unity starts up first then vr controllers are defauilt but then if brachioplexus starts up then it releases control to brachioplexus
 
+**2nd Inchstone Checklist**
+[] Both VR Headsets can control the Bento Arm 
+[] Both VR Headset can go around the Bento Arm w/ Room Setup
+[] Both VR Headset can pick up the ball and place in the cup 
+[] Both VR Headset can pick up the cup 
+[] The ball will drop out of the cup if flipped
+[] Start timer from brachIOplexus, timer ends when ball is in cup 
+[] Both VR Headset is affected by Arm control toggle
+*brachIOplexus first + Acer Headset*
+[]  Keyboard can control Bento Arm
+    [] DOF filter works with random set
+[] Xbox can control Bento Arm 
+    []  DOF filter works with random set
+[] (Unity not connected) Connecting / Disconnecting produces no errors
+[] (Unity connected) Connecting / Disconnecting produces no errors 
+[] Reset Scene 
+    [] Current Scene Reflects this
+[] Toggle Arm Shells 
+    [] Current Scene Reflects this 
+[] Toggle Arm Control 
+    [] Label matches this 
+[] With VR control **on** camera moves with keyboard 
+    [] movement matches keystroke
+[] With VR control **off** camera moves with VR controllers 
+    [] movement matches joystick 
+[] Save Position stores .json in folder 
+[] Next Position goes to next position
+    [] If not positions saved, camera will not move
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+    [] If only one position saved, camera will not move 
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+[] Clear Positions clears .json files
+[] Save profile saves a folder 
+[] Load profile loads a profile
+
+*brachIOplexus first + Vive Headset*
+[]  Keyboard can control Bento Arm
+    [] DOF filter works with random set
+[] Xbox can control Bento Arm 
+    []  DOF filter works with random set
+[] (Unity not connected) Connecting / Disconnecting produces no errors
+[] (Unity connected) Connecting / Disconnecting produces no errors 
+[] Reset Scene 
+    [] Current Scene Reflects this
+[] Toggle Arm Shells 
+    [] Current Scene Reflects this 
+[] Toggle Arm Control 
+    [] Label matches this 
+[] With VR control **on** camera moves with keyboard 
+    [] movement matches keystroke
+[] With VR control **off** camera moves with VR controllers 
+    [] movement matches joystick 
+[] Save Position stores .json in folder 
+[] Next Position goes to next position
+    [] If not positions saved, camera will not move
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+    [] If only one position saved, camera will not move 
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+[] Clear Positions clears .json files
+[] Save profile saves a folder 
+[] Load profile loads a profile 
+
+*Unity first + Acer Headset*
+[]  Keyboard can control Bento Arm
+    [] DOF filter works with random set
+[] Xbox can control Bento Arm 
+    []  DOF filter works with random set
+[] (Unity not connected) Connecting / Disconnecting produces no errors
+[] (Unity connected) Connecting / Disconnecting produces no errors 
+[] Reset Scene 
+    [] Current Scene Reflects this
+[] Toggle Arm Shells 
+    [] Current Scene Reflects this 
+[] Toggle Arm Control 
+    [] Label matches this 
+[] With VR control **on** camera moves with keyboard 
+    [] movement matches keystroke
+[] With VR control **off** camera moves with VR controllers 
+    [] movement matches joystick 
+[] Save Position stores .json in folder 
+[] Next Position goes to next position
+    [] If not positions saved, camera will not move
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+    [] If only one position saved, camera will not move 
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+[] Clear Positions clears .json files
+[] Save profile saves a folder 
+[] Load profile loads a profile
+
+*Unity first + Vive Headset*
+[]  Keyboard can control Bento Arm
+    [] DOF filter works with random set
+[] Xbox can control Bento Arm 
+    []  DOF filter works with random set
+[] (Unity not connected) Connecting / Disconnecting produces no errors
+[] (Unity connected) Connecting / Disconnecting produces no errors 
+[] Reset Scene 
+    [] Current Scene Reflects this
+[] Toggle Arm Shells 
+    [] Current Scene Reflects this 
+[] Toggle Arm Control 
+    [] Label matches this 
+[] With VR control **on** camera moves with keyboard 
+    [] movement matches keystroke
+[] With VR control **off** camera moves with VR controllers 
+    [] movement matches joystick 
+[] Save Position stores .json in folder 
+[] Next Position goes to next position
+    [] If not positions saved, camera will not move
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+    [] If only one position saved, camera will not move 
+        [] No errors on brachIOplexus 
+        [] No errors on Unity
+[] Clear Positions clears .json files
+[] Save profile saves a folder 
+[] Load profile loads a profile 
+
