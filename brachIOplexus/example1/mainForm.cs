@@ -191,7 +191,6 @@ namespace brachIOplexus
         bool UDPflag3 = false;
         Process UnityProc = new Process();  // Process to launch VR project 
         bool armShells = false;
-        bool udpRXFlag = true;
         public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
         public static int cameraPositionIdx = 0;
         private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
@@ -8796,6 +8795,7 @@ namespace brachIOplexus
                 portTX3 = Int32.Parse(unityTXPortText.Text);
                 portRX3 = Int32.Parse(unityRXPortText.Text);
                 
+
                 // Initialize UDP connection 
                 udpClientTX3 = new UdpClient();
                 udpClientRX3 = new UdpClient(portRX3);
@@ -8827,10 +8827,11 @@ namespace brachIOplexus
             if (UDPflag3)
             {
                 sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
-                udpRXFlag = false;
                 udpClientTX3.Close();
+                udpClientRX3.Close();
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
+
 
                 
                 UDPflag3 = false;
@@ -9243,24 +9244,21 @@ namespace brachIOplexus
         #region UDP RX
         private void recieveFromUnity(object state)
         {
-            while(udpRXFlag)
+            try
             {
-                try
+                // https://stackoverflow.com/questions/5932204/c-sharp-udp-listener-un-blocking-or-prevent-revceiving-from-being-stuck
+                if (udpClientRX3.Available > 0)
                 {
-                    // https://stackoverflow.com/questions/5932204/c-sharp-udp-listener-un-blocking-or-prevent-revceiving-from-being-stuck
-                    if (udpClientRX3.Available > 0)
-                    {
-                        stopWatch12.Stop();
-                        milliSec12 = stopWatch12.ElapsedMilliseconds;
+                    stopWatch12.Stop();
+                    milliSec12 = stopWatch12.ElapsedMilliseconds;
 
-                        byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
-                        parsePacket(ref packet);
-                    }
+                    byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
+                    parsePacket(ref packet);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
