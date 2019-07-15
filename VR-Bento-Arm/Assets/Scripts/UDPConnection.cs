@@ -46,8 +46,6 @@ public class UDPConnection : MonoBehaviour
     private byte scene;
     private byte activeScene;
 
-    private int armControlToggle = 0;
-
     #endregion
 
     #region Unity API
@@ -223,16 +221,17 @@ public class UDPConnection : MonoBehaviour
 
     #region UDPTX
 
-    void Send(byte scene = 255, byte timer = 255)
+    void Send(byte scene = 255, byte timer = 255, byte acknowdlege = 255)
     {
         try
         {
-            byte[] packet = new byte[5];
+            byte[] packet = new byte[6];
             packet[0] = 255;
             packet[1] = 255;
-            packet[2] = scene;
-            packet[3] = timer;
-            packet[4] = calcCheckSum(ref packet,2,4);
+            packet[2] = acknowdlege;
+            packet[3] = scene;
+            packet[4] = timer;
+            packet[5] = calcCheckSum(ref packet,2,4);
 
             clientTX.Send(packet,packet.Length,endpointTX);
         }
@@ -305,23 +304,31 @@ public class UDPConnection : MonoBehaviour
             }
             else
             {
+
+                if(packet[10] == 1)
+                {
+                    bentoControl.controlToggle = true;
+                    Send(acknowdlege: 1);
+                }
+
                 if(packet[3] == 1)
                 {
                     clearRotationArray();
                 }
 
-                if(packet[9] == 1)
-                {
-                    bentoControl.controlToggle = true;
-                }
-                if(packet[9] == 0)
-                {
-                    bentoControl.controlToggle = false;
-                }
+                bentoControl.controlToggle = Convert.ToBoolean(packet[9]);  
+                // if(packet[9] == 1)
+                // {
+                //     bentoControl.controlToggle = true;
+                // }
+                // if(packet[9] == 0)
+                // {
+                //     bentoControl.controlToggle = false;
+                // }
                 
-                scene = packet[4];
+                scene = packet[4]; 
 
-                for(int i = 5; i < packet.Length - 2; i++)
+                for(int i = 5; i < packet.Length - 3; i++)
                 {
                     cameraControl.cameraArray[i - 5] = packet[i];
                 }

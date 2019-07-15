@@ -987,6 +987,7 @@ understand the input being taken in, so i can remove the initailziation scene an
 - startup is sorta working, if unity starts up first then vr controllers are defauilt but then if brachioplexus starts up then it releases control to brachioplexus
 
 **2nd Inchstone Checklist**
+[] Compile feature list
 [] Both VR Headsets can control the Bento Arm 
 [] Both VR Headset can go around the Bento Arm w/ Room Setup
 [] Both VR Headset can pick up the ball and place in the cup 
@@ -1112,3 +1113,21 @@ understand the input being taken in, so i can remove the initailziation scene an
 [] Save profile saves a folder 
 [] Load profile loads a profile 
 
+
+**July 15**
+*TODO*
+- Fix: if brachIOplexus starts first, then Unity: default is stil VR controllers.
+    - Toggle works but startup is slightly broken
+    - **Solution:** It works now, but if you turn off unity it will not work as expected. I think better handshake protocol or using TCP would 
+    solve this (if it is a big issue?) The main thing is if either program is disconnected aside from what is expected the conenction will not work as expected
+- Implement timer stop when ball is in cup
+
+*Future Todo's*
+- create more formal handshake OR use TCP 
+
+*Features List for 2nd Inchstone*
+- Unity defaults to connected VR controllers 
+    - Once BrachIOplexus connects, BrachIOplexus takes over input
+    - Caveat: if Unity disconnects at a random time and tries to reconnect the connection does not work properly 
+    - Use BrachIOplexus to reset the scene 
+- 

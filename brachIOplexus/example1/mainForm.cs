@@ -197,6 +197,7 @@ namespace brachIOplexus
         private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
         private string unityTimerData = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityTaskTimer";
         private int armControl = 1;
+        private bool unityAcknowledge = false;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -8787,6 +8788,7 @@ namespace brachIOplexus
          */
         private void unityConnect_Click(object sender, EventArgs e)
         {
+            Thread acknowdledge = new Thread(waitForAcknowledge);
             if (!UDPflag3)
             {
                 // Retrieve Ports and IP Address 
@@ -8808,7 +8810,7 @@ namespace brachIOplexus
                 UDPflag3 = true;
                 unityConnect.Enabled = false;
                 unityDisconnect.Enabled = true;
-                sendUtility(control: 1);
+                acknowdledge.Start();
                 // Displays camera position if the list is not empty upon opening brachIOplexus
                 //if(unityCameraPositions.Count > 0)
                 //{
@@ -9030,7 +9032,12 @@ namespace brachIOplexus
 
         private void unityStartTimer_Click(object sender, EventArgs e)
         {
-            if(this.unityStartTimer.Text == "Start Timer")
+            timerToggle();
+        }
+
+        private void timerToggle()
+        {
+            if (this.unityStartTimer.Text == "Start Timer")
             {
                 taskTimer.Start();
                 unityTimerFlag = true;
@@ -9223,9 +9230,9 @@ namespace brachIOplexus
          * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
          * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
          */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255)
+        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255, byte init = 255)
         {
-            byte[] packet = new byte[11]; // will need to change this when have it finalized 
+            byte[] packet = new byte[12]; // will need to change this when have it finalized 
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
             packet[2] = 1;              // Type: 1
@@ -9236,8 +9243,18 @@ namespace brachIOplexus
             packet[7] = clear;          // Clear Camera Positions 
             packet[8] = profile;
             packet[9] = control;
-            packet[10] = calcCheckSum(ref packet);
+            packet[10] = init;
+            packet[11] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        }
+
+        private void waitForAcknowledge()
+        {
+            while (!unityAcknowledge)
+            {
+                sendUtility(init: 1);
+                Thread.Sleep(2000);
+            }
         }
         #endregion
 
@@ -9266,7 +9283,11 @@ namespace brachIOplexus
         {
             if(validate(ref packet, 2,4))
             {
-                if(packet[2] == 0)
+                if(packet[2] == 1)
+                {
+                    unityAcknowledge = true;
+                }
+                if(packet[3] == 0)
                 {
                     // https://social.msdn.microsoft.com/Forums/vstudio/en-US/a83a8655-76b8-4225-b38d-3b33eb67aafc/c-threading-changing-label?forum=csharpgeneral
                     this.Invoke((MethodInvoker)delegate()
@@ -9283,9 +9304,9 @@ namespace brachIOplexus
                     });
                 }
 
-                if(packet[3] == 1)
+                if(packet[4] == 1)
                 {
-                    Console.WriteLine("got a trigger :)");
+                    timerToggle();
                 }
             }
         }
