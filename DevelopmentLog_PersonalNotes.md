@@ -1126,9 +1126,11 @@ understand the input being taken in, so i can remove the initailziation scene an
 - Implement timer stop when ball is in cup (DONE)
 - no arm shells
 
+
 *Future Todo's*
 - create more formal handshake 
     - modulize this so that upon reset / start of new scene / regular startup; the handshake will commence 
+    - will also occur when one of the programs closes
 - organize initialization of packets and variables in one script / object
 - Put all global variables in ONE object / asset
 - go through scripts and double check initialization vals 
