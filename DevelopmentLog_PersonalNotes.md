@@ -976,12 +976,12 @@ understand the input being taken in, so i can remove the initailziation scene an
 
 **July 11**
 *TODO*
-- Timer
+- Timer(DONE)
 - bento arm control toggle (DONE)
 - implement a default behaviour if brachIOplexus is not connected -> in the init screen, it waits for some sort of init packet from brachIOplexus 
     - if not pack recieved: go with vr controllers to control arm and use keyboard for camera control
     - if packet recieved: brachioplexus controls arm and vr controllers are camera 
-- Reset and Arm shell toggle defaults to VR controllers!! 
+- Reset and Arm shell toggle defaults to VR controllers!!  (DONE)
 - reset unityAck with disconnect (DONE)
 
 **July 12**
@@ -1122,7 +1122,8 @@ understand the input being taken in, so i can remove the initailziation scene an
     - Toggle works but startup is slightly broken
     - **Solution:** It works now, but if you turn off unity it will not work as expected. I think better handshake protocol or using TCP would 
     solve this (if it is a big issue?) The main thing is if either program is disconnected aside from what is expected the conenction will not work as expected
-- Implement timer stop when ball is in cup
+- Implement timer stop when ball is in cup (DONE)
+- no arm shells
 
 *Future Todo's*
 - create more formal handshake OR use TCP 
@@ -1135,3 +1136,5 @@ understand the input being taken in, so i can remove the initailziation scene an
     - Caveat: if Unity disconnects at a random time and tries to reconnect the connection does not work properly 
     - Use BrachIOplexus to reset the scene 
 - 
+
+- Disable Audio listener for camera

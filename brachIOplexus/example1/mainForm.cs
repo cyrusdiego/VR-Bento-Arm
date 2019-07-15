@@ -8863,11 +8863,11 @@ namespace brachIOplexus
         {
             if (armShells)
             {
-                sendUtility(stop: 1, reset: 2, control: 1); 
+                sendUtility(stop: 1, reset: 2);
             }
             else
             {
-                sendUtility(stop: 1, reset: 1, control: 1);
+                sendUtility(stop: 1, reset: 1);
             }
         }
 
@@ -8875,12 +8875,12 @@ namespace brachIOplexus
         {
             if(armShells)
             {
-                sendUtility(stop: 1,reset: 1, control: 1);
+                sendUtility(stop: 1,reset: 1);
                 armShells = false;
             }
             else
             {
-                sendUtility(stop: 1,reset: 2, control: 1);
+                sendUtility(stop: 1,reset: 2);
                 armShells = true;
             }
         }

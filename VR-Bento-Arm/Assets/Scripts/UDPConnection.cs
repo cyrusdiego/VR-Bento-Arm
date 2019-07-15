@@ -246,7 +246,6 @@ public class UDPConnection : MonoBehaviour
     #endregion
 
     #region UDPRX
-
     /*
         @brief: recieves and stores incoming packets from brachIOplexus  
     */
@@ -305,7 +304,6 @@ public class UDPConnection : MonoBehaviour
             }
             else
             {
-
                 if(packet[10] == 1)
                 {
                     bentoControl.controlToggle = true;
@@ -333,6 +331,7 @@ public class UDPConnection : MonoBehaviour
                 {
                     cameraControl.cameraArray[i - 5] = packet[i];
                 }
+                print(bentoControl.controlToggle);
             }
         }
     }
