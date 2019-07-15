@@ -8833,11 +8833,10 @@ namespace brachIOplexus
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
 
-
-                
                 UDPflag3 = false;
                 unityConnect.Enabled = true;
                 unityDisconnect.Enabled = false;
+                unityAcknowledge = false;
             }
         }
 
@@ -8864,11 +8863,11 @@ namespace brachIOplexus
         {
             if (armShells)
             {
-                sendUtility(1, 2); 
+                sendUtility(stop: 1, reset: 2, control: 1); 
             }
             else
             {
-                sendUtility(1, 1);
+                sendUtility(stop: 1, reset: 1, control: 1);
             }
         }
 
@@ -8876,12 +8875,12 @@ namespace brachIOplexus
         {
             if(armShells)
             {
-                sendUtility(1, 1);
+                sendUtility(stop: 1,reset: 1, control: 1);
                 armShells = false;
             }
             else
             {
-                sendUtility(1, 2);
+                sendUtility(stop: 1,reset: 2, control: 1);
                 armShells = true;
             }
         }
@@ -9281,7 +9280,7 @@ namespace brachIOplexus
 
         private void parsePacket(ref byte[] packet)
         {
-            if(validate(ref packet, 2,4))
+            if(validate(ref packet, 2,5))
             {
                 if(packet[2] == 1)
                 {
@@ -9306,6 +9305,7 @@ namespace brachIOplexus
 
                 if(packet[4] == 1)
                 {
+                    Console.WriteLine("its triggeringggg");
                     timerToggle();
                 }
             }

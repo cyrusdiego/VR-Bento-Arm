@@ -981,6 +981,8 @@ understand the input being taken in, so i can remove the initailziation scene an
 - implement a default behaviour if brachIOplexus is not connected -> in the init screen, it waits for some sort of init packet from brachIOplexus 
     - if not pack recieved: go with vr controllers to control arm and use keyboard for camera control
     - if packet recieved: brachioplexus controls arm and vr controllers are camera 
+- Reset and Arm shell toggle defaults to VR controllers!! 
+- reset unityAck with disconnect (DONE)
 
 **July 12**
 - control toggle is working 
@@ -1124,7 +1126,9 @@ understand the input being taken in, so i can remove the initailziation scene an
 
 *Future Todo's*
 - create more formal handshake OR use TCP 
-
+- organize initialization of packets and variables in one script / object
+- go through scripts and double check initialization vals 
+- 
 *Features List for 2nd Inchstone*
 - Unity defaults to connected VR controllers 
     - Once BrachIOplexus connects, BrachIOplexus takes over input

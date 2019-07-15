@@ -51,7 +51,6 @@ public class VRController : MonoBehaviour
             if(single.GetAxis(Left) != 0 && single.GetAxis(Right) != 0 || (single.GetAxis(Left) == 0 && single.GetAxis(Right) == 0))
             {
                 bentoControl.SteamVRControl[5] = 0;
-                feedback.timerTrigger = 1;
             }
             else if(single.GetAxis(Left) != 0 && single.GetAxis(Right) == 0)
             {   

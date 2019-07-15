@@ -98,6 +98,7 @@ public class UDPConnection : MonoBehaviour
         if(feedback.timerTrigger != 255)
         {
             Send(timer: feedback.timerTrigger);
+            feedback.timerTrigger = 255;
         }
     }
 
@@ -221,17 +222,17 @@ public class UDPConnection : MonoBehaviour
 
     #region UDPTX
 
-    void Send(byte scene = 255, byte timer = 255, byte acknowdlege = 255)
+    void Send(byte scene = 255, byte timer = 255, byte acknowledge = 255)
     {
         try
         {
             byte[] packet = new byte[6];
             packet[0] = 255;
             packet[1] = 255;
-            packet[2] = acknowdlege;
+            packet[2] = acknowledge;
             packet[3] = scene;
             packet[4] = timer;
-            packet[5] = calcCheckSum(ref packet,2,4);
+            packet[5] = calcCheckSum(ref packet,2,5);
 
             clientTX.Send(packet,packet.Length,endpointTX);
         }
@@ -308,7 +309,7 @@ public class UDPConnection : MonoBehaviour
                 if(packet[10] == 1)
                 {
                     bentoControl.controlToggle = true;
-                    Send(acknowdlege: 1);
+                    Send(acknowledge: 1);
                 }
 
                 if(packet[3] == 1)
