@@ -989,6 +989,7 @@ understand the input being taken in, so i can remove the initailziation scene an
 - startup is sorta working, if unity starts up first then vr controllers are defauilt but then if brachioplexus starts up then it releases control to brachioplexus
 
 **2nd Inchstone Checklist**
+[] Disable unusable buttons for timer 
 [] Compile feature list
 [] Both VR Headsets can control the Bento Arm 
 [] Both VR Headset can go around the Bento Arm w/ Room Setup
@@ -1118,7 +1119,7 @@ understand the input being taken in, so i can remove the initailziation scene an
 
 **July 15**
 *TODO*
-- Fix: if brachIOplexus starts first, then Unity: default is stil VR controllers.
+- Fix: if brachIOplexus starts first, then Unity: default is stil VR controllers. (DONE)
     - Toggle works but startup is slightly broken
     - **Solution:** It works now, but if you turn off unity it will not work as expected. I think better handshake protocol or using TCP would 
     solve this (if it is a big issue?) The main thing is if either program is disconnected aside from what is expected the conenction will not work as expected
@@ -1126,8 +1127,10 @@ understand the input being taken in, so i can remove the initailziation scene an
 - no arm shells
 
 *Future Todo's*
-- create more formal handshake OR use TCP 
+- create more formal handshake 
+    - modulize this so that upon reset / start of new scene / regular startup; the handshake will commence 
 - organize initialization of packets and variables in one script / object
+- Put all global variables in ONE object / asset
 - go through scripts and double check initialization vals 
 - 
 *Features List for 2nd Inchstone*
@@ -1135,6 +1138,20 @@ understand the input being taken in, so i can remove the initailziation scene an
     - Once BrachIOplexus connects, BrachIOplexus takes over input
     - Caveat: if Unity disconnects at a random time and tries to reconnect the connection does not work properly 
     - Use BrachIOplexus to reset the scene 
-- 
+- Control paradigm: VR controller (Bento) + keyboard (camera) OR BrachIOplexus (Bento) + VR controller (camera)
+- Bento Arm can pick up objects but a ball is difficult due to few contact points
+    - Tip: Hold the hand trigger to continue "squeezing" ball
+brachIOplexus can:
+- filter DOF 
+- connect keyboard, xbox, and MYO (in theory)
+- reset the scene
+- toggle Arm Shells
+- toggle between itself or VR controllers to control the Bento Arm
+- Save Camera Positions temporarily 
+- Save Camera Positional Profiles 
+- communicate with Unity (TX/RX) 
 
+- primitive task: place object in cup (w/ timer)
+
+*Changes*
 - Disable Audio listener for camera
