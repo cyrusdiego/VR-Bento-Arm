@@ -11120,6 +11120,7 @@
             this.unityLoadTimeFile.TabIndex = 7;
             this.unityLoadTimeFile.Text = "Load File";
             this.unityLoadTimeFile.UseVisualStyleBackColor = true;
+            this.unityLoadTimeFile.Enabled = false;
             this.unityLoadTimeFile.Click += new System.EventHandler(this.unityLoadTimeFile_Click);
             // 
             // unityNewTimeFile
@@ -11130,6 +11131,7 @@
             this.unityNewTimeFile.TabIndex = 6;
             this.unityNewTimeFile.Text = "New File";
             this.unityNewTimeFile.UseVisualStyleBackColor = true;
+            this.unityNewTimeFile.Enabled = false;
             this.unityNewTimeFile.Click += new System.EventHandler(this.unityNewTimeFile_Click);
             // 
             // unityResetTimer

@@ -989,17 +989,17 @@ understand the input being taken in, so i can remove the initailziation scene an
 - startup is sorta working, if unity starts up first then vr controllers are defauilt but then if brachioplexus starts up then it releases control to brachioplexus
 
 **2nd Inchstone Checklist**
-[] Disable unusable buttons for timer 
-[] Compile feature list
+[X] Disable unusable buttons for timer 
+[X] Compile feature list
 [] Both VR Headsets can control the Bento Arm 
 [] Both VR Headset can go around the Bento Arm w/ Room Setup
 [] Both VR Headset can pick up the ball and place in the cup 
 [] Both VR Headset can pick up the cup 
-[] The ball will drop out of the cup if flipped
-[] Start timer from brachIOplexus, timer ends when ball is in cup 
+[X] The ball will drop out of the cup if flipped
+[X] Start timer from brachIOplexus, timer ends when ball is in cup 
 [] Both VR Headset is affected by Arm control toggle
-[] Check Unity ending first
-[] Check brachIOplexus ending first
+[X] Check Unity ending first
+[X] Check brachIOplexus ending first
 *brachIOplexus first + Acer Headset*
 []  Keyboard can control Bento Arm
     [] DOF filter works with random set
@@ -1134,7 +1134,11 @@ understand the input being taken in, so i can remove the initailziation scene an
 - organize initialization of packets and variables in one script / object
 - Put all global variables in ONE object / asset
 - go through scripts and double check initialization vals 
-- 
+- flesh out brachioplexus further with rory, maybe get a list of feautures he would want 
+    - mapping tab configuration?
+- clean up packet parsing: seperate into utility and control
+    - also re-design the packet 
+
 *Features List for 2nd Inchstone*
 - Unity defaults to connected VR controllers 
     - Once BrachIOplexus connects, BrachIOplexus takes over input
@@ -1157,3 +1161,10 @@ brachIOplexus can:
 
 *Changes*
 - Disable Audio listener for camera
+
+**July 16**
+*TODO*
+- Implement no arm shells (DONE)
+- work on friction a bit more
+- go through packet documentation to show rory
+- Go through checklist 
