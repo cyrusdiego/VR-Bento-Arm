@@ -627,8 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e19cf1c8eca8e041bf3b321f80e9093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bentoControl: {fileID: 11400000, guid: 871243e2ee7bc2740a90ded05de8fc4f, type: 2}
-  feedback: {fileID: 11400000, guid: 149dd5768c46c3746a995ed1f3d24e25, type: 2}
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
 --- !u!1001 &660790082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -940,7 +939,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 25, y: 26.5, z: 52}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!43 &909564725
+--- !u!43 &829361591
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1353,6 +1352,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1018342830}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1031191701
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1039546710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1812,41 +1845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2d483ec97806b41a5cd501903bb976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedback: {fileID: 11400000, guid: 149dd5768c46c3746a995ed1f3d24e25, type: 2}
---- !u!21 &1116118352
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+  global: {fileID: 0}
 --- !u!1 &1126053173
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,11 +2115,11 @@ PrefabInstance:
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1116118352}
+      objectReference: {fileID: 1031191701}
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 909564725}
+      objectReference: {fileID: 829361591}
     - target: {fileID: 20000014031267948, guid: 4d293c8e162f3874b982baadd71153d2,
         type: 3}
       propertyPath: far clip plane
@@ -2741,7 +2740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headset: {fileID: 1234203261}
-  cameraControl: {fileID: 11400000, guid: 0e1956aa7dffbbf47bc7e98dcbf19f12, type: 2}
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
 --- !u!114 &1817310525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2755,7 +2754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraObject: {fileID: 1234203261}
-  bentoControl: {fileID: 11400000, guid: 871243e2ee7bc2740a90ded05de8fc4f, type: 2}
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
 --- !u!1 &1932404733
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,8 +2798,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e32948822e580438cee3a9f8ab3c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bentoControl: {fileID: 11400000, guid: 871243e2ee7bc2740a90ded05de8fc4f, type: 2}
-  cameraControl: {fileID: 11400000, guid: 0e1956aa7dffbbf47bc7e98dcbf19f12, type: 2}
-  feedback: {fileID: 11400000, guid: 149dd5768c46c3746a995ed1f3d24e25, type: 2}
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
   portRX: 30004
   portTX: 30005

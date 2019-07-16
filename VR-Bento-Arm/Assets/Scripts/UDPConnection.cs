@@ -286,7 +286,6 @@ public class UDPConnection : MonoBehaviour
     void parsePacket(ref byte[] packet)
     {
         clearRotationArray();
-        //clearCameraArray();
         if(validate(ref packet, 4, (byte)(packet.Length - 1)))
         {
             if(packet[2] == 0)
@@ -314,14 +313,6 @@ public class UDPConnection : MonoBehaviour
                 }
 
                 global.controlToggle = Convert.ToBoolean(packet[9]);  
-                // if(packet[9] == 1)
-                // {
-                //     global.controlToggle = true;
-                // }
-                // if(packet[9] == 0)
-                // {
-                //     global.controlToggle = false;
-                // }
                 
                 scene = packet[4]; 
 
@@ -329,7 +320,6 @@ public class UDPConnection : MonoBehaviour
                 {
                     global.cameraArray[i - 5] = packet[i];
                 }
-                print(global.controlToggle);
             }
         }
     }

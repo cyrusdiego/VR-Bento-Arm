@@ -11081,6 +11081,7 @@
             this.unitySaveTimer.TabIndex = 8;
             this.unitySaveTimer.Text = "Save Time";
             this.unitySaveTimer.UseVisualStyleBackColor = true;
+            this.unitySaveTimer.Enabled = false;
             this.unitySaveTimer.Click += new System.EventHandler(this.unitySaveTimer_Click);
             // 
             // unityTimerInformation

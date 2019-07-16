@@ -993,8 +993,8 @@ understand the input being taken in, so i can remove the initailziation scene an
 [X] Compile feature list
 [] Both VR Headsets can control the Bento Arm 
 [] Both VR Headset can go around the Bento Arm w/ Room Setup
-[] Both VR Headset can pick up the ball and place in the cup 
-[] Both VR Headset can pick up the cup 
+[X] Both VR Headset can pick up the ball and place in the cup 
+[X] Both VR Headset can pick up the cup 
 [X] The ball will drop out of the cup if flipped
 [X] Start timer from brachIOplexus, timer ends when ball is in cup 
 [] Both VR Headset is affected by Arm control toggle
@@ -1138,7 +1138,8 @@ understand the input being taken in, so i can remove the initailziation scene an
     - mapping tab configuration?
 - clean up packet parsing: seperate into utility and control
     - also re-design the packet 
-
+- delete the temp files for camera posiitons after shutdown 
+- clean up the "scene" control, so that only brachioplexus needs to send over the byte and it will keep a local var of the scene state instead of unity sending it over 
 *Features List for 2nd Inchstone*
 - Unity defaults to connected VR controllers 
     - Once BrachIOplexus connects, BrachIOplexus takes over input
