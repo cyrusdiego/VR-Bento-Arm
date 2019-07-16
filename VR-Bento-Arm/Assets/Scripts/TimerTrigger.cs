@@ -14,7 +14,8 @@ public class TimerTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.name == "Sphere" && sphereTrigger == 0)
+        // cleanup by using interactable tag? 
+        if((other.name == "Cube" || other.name == "Sphere") && sphereTrigger == 0)
         {
             feedback.timerTrigger = 1;
             sphereTrigger++;

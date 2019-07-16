@@ -9305,7 +9305,6 @@ namespace brachIOplexus
 
                 if(packet[4] == 1)
                 {
-                    Console.WriteLine("its triggeringggg");
                     timerToggle();
                 }
             }
