@@ -995,11 +995,11 @@ understand the input being taken in, so i can remove the initailziation scene an
 [] Both VR Headset can go around the Bento Arm w/ Room Setup
 [] Both VR Headset can pick up the ball and place in the cup 
 [] Both VR Headset can pick up the cup 
-[] The ball will drop out of the cup if flipped
-[] Start timer from brachIOplexus, timer ends when ball is in cup 
+[X] The ball will drop out of the cup if flipped
+[X] Start timer from brachIOplexus, timer ends when ball is in cup 
 [] Both VR Headset is affected by Arm control toggle
-[] Check Unity ending first
-[] Check brachIOplexus ending first
+[X] Check Unity ending first
+[X] Check brachIOplexus ending first
 *brachIOplexus first + Acer Headset*
 []  Keyboard can control Bento Arm
     [] DOF filter works with random set
@@ -1136,6 +1136,8 @@ understand the input being taken in, so i can remove the initailziation scene an
 - go through scripts and double check initialization vals 
 - flesh out brachioplexus further with rory, maybe get a list of feautures he would want 
     - mapping tab configuration?
+- clean up packet parsing: seperate into utility and control
+    - also re-design the packet 
 
 *Features List for 2nd Inchstone*
 - Unity defaults to connected VR controllers 
