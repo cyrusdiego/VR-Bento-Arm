@@ -7,7 +7,7 @@ using System;
 public class Motor : RotationBase
 {
     // Inspector values
-    public BentoControl bentoControl = null;
+    public Global global = null;
     public string rotationAxis = "";
     public int arrayIndex = 255;
     public float mass;
@@ -29,14 +29,14 @@ public class Motor : RotationBase
 
     void FixedUpdate()
     {
-        if(bentoControl.controlToggle)
+        if(global.controlToggle)
         {
-            direction = bentoControl.brachIOplexusControl[arrayIndex].Item1;
-            velocity = bentoControl.brachIOplexusControl[arrayIndex].Item2;
+            direction = global.brachIOplexusControl[arrayIndex].Item1;
+            velocity = global.brachIOplexusControl[arrayIndex].Item2;
         }
         else
         {
-            float value = bentoControl.SteamVRControl[arrayIndex];
+            float value = global.SteamVRControl[arrayIndex];
             // print(value / Math.Abs(value) < 0 ? 1 : 2);
             // print(arrayIndex + " " + value);
             if(value != 0)

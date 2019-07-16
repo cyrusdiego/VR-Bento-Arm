@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33623686eb4a65b4c92af2de613f2e88, type: 3}
-  m_Name: BentoControl
+  m_Script: {fileID: 11500000, guid: 99c67838dabbe794ba32a7fcb9a95cde, type: 3}
+  m_Name: Global
   m_EditorClassIdentifier: 
   SteamVRControl:
   - 0
@@ -20,3 +20,5 @@ MonoBehaviour:
   - 0
   - 0
   controlToggle: 0
+  timerTrigger: 255
+  cameraArray: 00000000

@@ -19,7 +19,7 @@ public class cameraSaver : MonoBehaviour
     private int positionItr = 0;
     private string jsonStoragePath = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
     public Transform headset = null;
-    public CameraControl cameraControl;
+    public Global global = null;
 
     void Awake()
     {
@@ -30,7 +30,7 @@ public class cameraSaver : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            byte val = cameraControl.cameraArray[i];
+            byte val = global.cameraArray[i];
             // Test this to see if it will catch the default
             if(val != 255)
             {
@@ -56,7 +56,7 @@ public class cameraSaver : MonoBehaviour
     private void save()
     {
         positions.Add(headset.position);
-        cameraControl.cameraArray[0] = 255;
+        global.cameraArray[0] = 255;
         positionItr = positions.Count - 1;
         saveToJson();
     }
@@ -65,14 +65,14 @@ public class cameraSaver : MonoBehaviour
     {
         positionItr = ((++positionItr) % positions.Count);
         headset.position = positions[positionItr];
-        cameraControl.cameraArray[1] = 255;
+        global.cameraArray[1] = 255;
     }
 
     private void clear()
     {
         positions.Clear();
         positionItr = 0;
-        cameraControl.cameraArray[2] = 255;
+        global.cameraArray[2] = 255;
         deleteJson();
     }
 
@@ -95,9 +95,9 @@ public class cameraSaver : MonoBehaviour
         {
             headset.position = positions[0];
         }
-        if(cameraControl.cameraArray[3] != 255)
+        if(global.cameraArray[3] != 255)
         {
-            cameraControl.cameraArray[3] = 255;
+            global.cameraArray[3] = 255;
         }
     }
 

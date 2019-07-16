@@ -8,8 +8,7 @@ using System;
 
 public class VRController : MonoBehaviour
 {
-    public BentoControl bentoControl = null;
-    public SceneFeedback feedback = null;
+    public Global global = null;
     private SteamVR_Input_Sources Left;
     private SteamVR_Input_Sources Right;
     private SteamVR_Action joystick;
@@ -34,13 +33,13 @@ public class VRController : MonoBehaviour
 
         for(int i = 0; i < 6; i++)
         {
-            bentoControl.SteamVRControl[i] = 0;
+            global.SteamVRControl[i] = 0;
         }
     }
 
     void Update()
     {
-        if(!bentoControl.controlToggle)
+        if(!global.controlToggle)
         {
             clearRotationArray();
             single = (SteamVR_Action_Single)trigger;
@@ -49,15 +48,15 @@ public class VRController : MonoBehaviour
 
             if(single.GetAxis(Left) != 0 && single.GetAxis(Right) != 0 || (single.GetAxis(Left) == 0 && single.GetAxis(Right) == 0))
             {
-                bentoControl.SteamVRControl[5] = 0;
+                global.SteamVRControl[5] = 0;
             }
             else if(single.GetAxis(Left) != 0 && single.GetAxis(Right) == 0)
             {   
-                bentoControl.SteamVRControl[5] = single.GetAxis(Left);
+                global.SteamVRControl[5] = single.GetAxis(Left);
             }
             else if(single.GetAxis(Left) == 0 && single.GetAxis(Right) != 0)
             {
-                bentoControl.SteamVRControl[5] = -1 * single.GetAxis(Right);
+                global.SteamVRControl[5] = -1 * single.GetAxis(Right);
             }
 
             
@@ -66,26 +65,26 @@ public class VRController : MonoBehaviour
                 if(boolean.GetState(Left))
                 {
                     leftJoy = vector2.GetAxis(Left);
-                    bentoControl.SteamVRControl[1] = -1 * leftJoy.x;
-                    bentoControl.SteamVRControl[2] = -1 * leftJoy.y;
+                    global.SteamVRControl[1] = -1 * leftJoy.x;
+                    global.SteamVRControl[2] = -1 * leftJoy.y;
                 }
                 if(boolean.GetState(Right))
                 {
                     rightJoy = vector2.GetAxis(Right);
-                    bentoControl.SteamVRControl[3] = -1 * rightJoy.x;
-                    bentoControl.SteamVRControl[4] = -1 * rightJoy.y;
+                    global.SteamVRControl[3] = -1 * rightJoy.x;
+                    global.SteamVRControl[4] = -1 * rightJoy.y;
                 }
 
             }
             else
             {
                 leftJoy = vector2.GetAxis(Left);
-                bentoControl.SteamVRControl[1] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
-                bentoControl.SteamVRControl[2] = Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
+                global.SteamVRControl[1] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
+                global.SteamVRControl[2] = Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
 
                 rightJoy = vector2.GetAxis(Right);
-                bentoControl.SteamVRControl[3] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
-                bentoControl.SteamVRControl[4] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
+                global.SteamVRControl[3] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
+                global.SteamVRControl[4] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
             
             }
         }
@@ -93,9 +92,9 @@ public class VRController : MonoBehaviour
 
     void clearRotationArray()
     {
-        for(int i = 0; i < bentoControl.SteamVRControl.Length; i++)
+        for(int i = 0; i < global.SteamVRControl.Length; i++)
         {
-            bentoControl.SteamVRControl[i] = 0;
+            global.SteamVRControl[i] = 0;
         }
     }
 

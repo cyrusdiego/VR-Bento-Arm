@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour
     private SteamVR_Action_Boolean boolean;
     private SteamVR_Action push;
     private int camZMovement = 0, camXMovement = 0, camYMovement = 0;
-    public BentoControl bentoControl = null;
+    public Global global = null;
     
     void Start()
     {
@@ -31,7 +31,7 @@ public class CameraMovement : MonoBehaviour
         trackpad = (SteamVR_Action_Vector2)action;
         boolean = (SteamVR_Action_Boolean)push;
 
-        if(bentoControl.controlToggle)
+        if(global.controlToggle)
         {
             checkJoystick();
         }

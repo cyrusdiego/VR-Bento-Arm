@@ -21,9 +21,7 @@ public class UDPConnection : MonoBehaviour
 
     // Holds direction and velocity
     // roationArray[0] is undefined
-    public BentoControl bentoControl;
-    public CameraControl cameraControl;
-    public SceneFeedback feedback;
+    public Global global = null;
 
     // Network information 
     public Int32 portRX = 30004;
@@ -59,7 +57,7 @@ public class UDPConnection : MonoBehaviour
         // Singleoton pattern
         for(int i = 0; i < 4; i++)
         {
-            cameraControl.cameraArray[i] = 255;
+            global.cameraArray[i] = 255;
         }
 
         clearRotationArray();
@@ -72,7 +70,7 @@ public class UDPConnection : MonoBehaviour
             activeScene = 1;
         }
 
-        feedback.timerTrigger = 255;
+        global.timerTrigger = 255;
 
         // Initialize udp connection and seperate thread 
         clientRX = new UdpClient(portRX);
@@ -95,10 +93,10 @@ public class UDPConnection : MonoBehaviour
             updateScene();
         }
 
-        if(feedback.timerTrigger != 255)
+        if(global.timerTrigger != 255)
         {
-            Send(timer: feedback.timerTrigger);
-            feedback.timerTrigger = 255;
+            Send(timer: global.timerTrigger);
+            global.timerTrigger = 255;
         }
     }
 
@@ -178,17 +176,17 @@ public class UDPConnection : MonoBehaviour
     */
     void clearRotationArray()
     {
-        for(int i = 0; i < bentoControl.brachIOplexusControl.Length; i++)
+        for(int i = 0; i < global.brachIOplexusControl.Length; i++)
         {
-            bentoControl.brachIOplexusControl[i] = new Tuple<float,float>(0,0);
+            global.brachIOplexusControl[i] = new Tuple<float,float>(0,0);
         }
     }
 
     void clearCameraArray()
     {
-        for(int i = 0; i < cameraControl.cameraArray.Length; i++)
+        for(int i = 0; i < global.cameraArray.Length; i++)
         {
-            cameraControl.cameraArray[i] = (byte)255;
+            global.cameraArray[i] = (byte)255;
         }
     }
 
@@ -298,7 +296,7 @@ public class UDPConnection : MonoBehaviour
                 {
                     float direction = packet[4*i + 3];
                     float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
-                    bentoControl.brachIOplexusControl[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+                    global.brachIOplexusControl[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
 
                 }
             }
@@ -306,7 +304,7 @@ public class UDPConnection : MonoBehaviour
             {
                 if(packet[10] == 1)
                 {
-                    bentoControl.controlToggle = true;
+                    global.controlToggle = true;
                     Send(acknowledge: 1);
                 }
 
@@ -315,23 +313,23 @@ public class UDPConnection : MonoBehaviour
                     clearRotationArray();
                 }
 
-                bentoControl.controlToggle = Convert.ToBoolean(packet[9]);  
+                global.controlToggle = Convert.ToBoolean(packet[9]);  
                 // if(packet[9] == 1)
                 // {
-                //     bentoControl.controlToggle = true;
+                //     global.controlToggle = true;
                 // }
                 // if(packet[9] == 0)
                 // {
-                //     bentoControl.controlToggle = false;
+                //     global.controlToggle = false;
                 // }
                 
                 scene = packet[4]; 
 
                 for(int i = 5; i < packet.Length - 3; i++)
                 {
-                    cameraControl.cameraArray[i - 5] = packet[i];
+                    global.cameraArray[i - 5] = packet[i];
                 }
-                print(bentoControl.controlToggle);
+                print(global.controlToggle);
             }
         }
     }
