@@ -1089,3 +1089,10 @@ brachIOplexus can:
 - Charge Vive Controllers over night 
 - go through packet documentation to show rory (DONE)
 - Go through checklist 
+
+**July 18**
+*Documentation*
+- room setup
+    - moving bento arm around 
+    - setting up the room
+    - making everything proportional 

@@ -84,12 +84,21 @@ public class CameraMovement : MonoBehaviour
             {
                 if(boolean.GetState(Left))
                 {
-                    camYMovement = checkHold(trackpad.GetAxis(Left).y);
+                    camYMovement = -checkHold(trackpad.GetAxis(Left).y);
+                }
+                else
+                {
+                    camYMovement = 0;
                 }
                 if(boolean.GetState(Right))
                 {
                     camXMovement = checkHold(trackpad.GetAxis(Right).x);
-                    camZMovement = checkHold(trackpad.GetAxis(Right).y);
+                    camZMovement = -checkHold(trackpad.GetAxis(Right).y);
+                }
+                else
+                {
+                    camXMovement = 0;
+                    camZMovement = 0;
                 }
             }
             else

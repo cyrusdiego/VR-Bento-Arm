@@ -21,4 +21,4 @@ MonoBehaviour:
   - 0
   controlToggle: 0
   timerTrigger: 255
-  cameraArray: 00000000
+  cameraArray: ffffffff
