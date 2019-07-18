@@ -66,14 +66,14 @@ public class VRController : MonoBehaviour
                 if(boolean.GetState(Left))
                 {
                     leftJoy = vector2.GetAxis(Left);
-                    global.SteamVRControl[1] = -1 * leftJoy.x;
-                    global.SteamVRControl[2] = -1 * leftJoy.y;
+                    global.SteamVRControl[1] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
+                    global.SteamVRControl[2] =  Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
                 }
                 if(boolean.GetState(Right))
                 {
                     rightJoy = vector2.GetAxis(Right);
-                    global.SteamVRControl[3] = -1 * rightJoy.x;
-                    global.SteamVRControl[4] = -1 * rightJoy.y;
+                    global.SteamVRControl[3] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
+                    global.SteamVRControl[4] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
                 }
 
             }
