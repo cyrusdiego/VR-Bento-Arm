@@ -44,6 +44,7 @@ public class UDPConnection : MonoBehaviour
     private byte scene;
     private byte activeScene;
 
+    public GameObject VRHeadset = null;
     #endregion
 
     #region Unity API
@@ -115,6 +116,7 @@ public class UDPConnection : MonoBehaviour
         exit = true;
         clientRX.Close();
         clientTX.Close();
+        Destroy(VRHeadset);
         if(scene == 1)
         {
             SceneManager.LoadScene("VIPER_SHELLS");

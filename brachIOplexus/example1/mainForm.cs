@@ -8826,8 +8826,12 @@ namespace brachIOplexus
         {
             if (UDPflag3)
             {
-                sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
-                sendUtility(control: 0);
+                if(unityAcknowledge)
+                {
+                    sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
+                    sendUtility(control: 0);
+                }
+
                 udpClientTX3.Close();
                 udpClientRX3.Close();
                 t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
@@ -9058,7 +9062,20 @@ namespace brachIOplexus
 
         private void unityResetTimer_Click(object sender, EventArgs e)
         {
+            taskTimer.Reset();
             this.taskElapsed = TimeSpan.Zero;
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                this.unityTimerText.Text = 0.ToString();
+            });
+            if (this.unityStartTimer.Text == "Stop Timer")
+            {
+                unityTimerFlag = false;
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityStartTimer.Text = "Start Timer";
+                });
+            }
         }
 
         private void unitySaveTimer_Click(object sender, EventArgs e)

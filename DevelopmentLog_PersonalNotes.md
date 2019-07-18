@@ -1000,121 +1000,34 @@ understand the input being taken in, so i can remove the initailziation scene an
 [] Both VR Headset is affected by Arm control toggle
 [X] Check Unity ending first
 [X] Check brachIOplexus ending first
-*brachIOplexus first + Acer Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
+[X]  Keyboard can control Bento Arm
+    [X] DOF filter works with random set
+[X] Xbox can control Bento Arm 
+    [X]  DOF filter works with random set
+[Produces error when disconnecting but brachioplexus should never even try to connect if untiy isnt running] (Unity not connected) Connecting / Disconnecting produces no errors
+[X] (Unity connected) Connecting / Disconnecting produces no errors 
+[X] Reset Scene 
+    [X] Current Scene Reflects this
+[X] Toggle Arm Shells 
+    [X] Current Scene Reflects this 
+[X] Toggle Arm Control 
+    [X] Label matches this 
+[X] With VR control **on** camera moves with keyboard 
+    [X] movement matches keystroke
 [] With VR control **off** camera moves with VR controllers 
     [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile
+[X] Save Position stores .json in folder 
+[X] Next Position goes to next position
+    [X] If not positions saved, camera will not move
+        [X] No errors on brachIOplexus 
+        [X] No errors on Unity
+    [X] If only one position saved, camera will not move 
+        [X] No errors on brachIOplexus 
+        [X] No errors on Unity
+[X] Clear Positions clears .json files
+[X] Save profile saves a folder 
+[X] Load profile loads a profile
 
-*brachIOplexus first + Vive Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
-[] With VR control **off** camera moves with VR controllers 
-    [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile 
-
-*Unity first + Acer Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
-[] With VR control **off** camera moves with VR controllers 
-    [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile
-
-*Unity first + Vive Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
-[] With VR control **off** camera moves with VR controllers 
-    [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile 
 
 
 **July 15**
@@ -1140,6 +1053,7 @@ understand the input being taken in, so i can remove the initailziation scene an
     - also re-design the packet 
 - delete the temp files for camera posiitons after shutdown 
 - clean up the "scene" control, so that only brachioplexus needs to send over the byte and it will keep a local var of the scene state instead of unity sending it over 
+
 *Features List for 2nd Inchstone*
 - Unity defaults to connected VR controllers 
     - Once BrachIOplexus connects, BrachIOplexus takes over input
@@ -1168,4 +1082,10 @@ brachIOplexus can:
 - Implement no arm shells (DONE)
 - work on friction a bit more
 - go through packet documentation to show rory
+- Go through checklist 
+
+**July 17** 
+*TODO*
+- Charge Vive Controllers over night 
+- go through packet documentation to show rory (DONE)
 - Go through checklist 

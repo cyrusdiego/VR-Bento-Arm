@@ -6,18 +6,17 @@ using Valve.VR;
 
 public class test : MonoBehaviour
 {
-    /// <summary>
-    /// OnTriggerEnter is called when the Collider other enters the trigger.
-    /// </summary>
-    /// <param name="other">The other Collider involved in this collision.</param>
-    void OnTriggerEnter(Collider other)
+
+    void OnCollisionStay(Collision other)
     {
-        print("Got a trigger");
+        Collision_force = other.impulse / Time.fixedDeltaTime;
     }
-
-
-    void OnCollisionEnter(Collision other)
+    Vector3 Collision_force;
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
     {
-        print("Got a collision");
+        print(Collision_force);
     }
 }
