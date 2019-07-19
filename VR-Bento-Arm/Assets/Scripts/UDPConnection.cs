@@ -117,7 +117,6 @@ public class UDPConnection : MonoBehaviour
         clientRX.Close();
         clientTX.Close();
         Destroy(VRHeadset);
-        global.controlToggle = true;
         if(scene == 1)
         {
             SceneManager.LoadScene("VIPER_SHELLS");

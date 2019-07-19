@@ -35,7 +35,6 @@ public class VRController : MonoBehaviour
         {
             global.SteamVRControl[i] = 0;
         }
-        global.controlToggle = false;
     }
 
     void Update()

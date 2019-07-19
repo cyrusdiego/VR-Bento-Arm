@@ -1149,7 +1149,67 @@ brachIOplexus can:
 *Questions from Last Inchstone* 
 - Do I continue with the organization of code with brachIOplexus or do I split it up into another file? 
 
-*TODO*
-- Reset button in brachIOplexus resets everything 
-    - Timer
-    - Bento Arm control 
+TODO
+
+Reset button in brachIOplexus resets everything (DONE)
+Timer (DONE)
+Bento Arm control (DONE)
+Questions for July 22 BrachIOplexus Meeting w/ Rory
+
+Q: How does the Bento Arm's forearm stay "up"? Maybe modelling this closer in Unity can help with other aspects of the simulation.
+A:
+Q: What features does he want implemented in brachIOplexus?
+A:
+Q: Is the organization of the code and the GUI okay?
+A:
+Q: What other objects / structs are in his program that may be useful for me to use?
+A:
+Q: Maybe ask for a code review
+A:
+Q: What kind of documentation regarding brachIOplexus would he want to see explicitley?
+A:
+*Notes for July 22 BrachIOplexus Meeting w/ Rory*
+
+Topic: MYO Armband Connection
+Notes:
+Questions for Task Meeting w/ Ahmed
+
+Q: What kind of Tasks needs to be / can be implemented?
+A:
+Q: Would the basic goal be to make adding new tasks as simple as possible by click and dragging objects to the scene, setting a few parameters in the editor or maybe a txt file then my basic classes / code should be able to handle most cases and then more complicated tasks I would document how about you could do it?
+A:
+Q: What kind of data metric need to be collected / can be collected (accurately) from Unity?
+A:
+Q: What kind of structure does he want the data to be in for easy analysis?
+A:
+Q: For each metric, would it be okay to split them to different files and save to a folder for that task with a date attatched
+A:
+Q: Would he want the option (documentation) to collect other kinds of metrics and document a general way to do so?
+A:
+Q: What kind of Documentation does he want to see explicitley?
+A:
+Questions for Riley and Quinn
+
+Q: How does the Bento Arm's forearm stay "up"? Maybe modelling this closer in Unity can help with other aspects of the simulation.
+A:
+Q: For future tasks / additions / bento arm modifications, would it be better to have the entire project (including the executable) with brachIOplexus and in brachIOplexus there could be a button to "add a new task" that will launch the Unity Editor instead of the executable?
+A:
+Q: For adding more tasks, metric, etc how would Riley design / tips for ease of extension instead of creating a very rigid design?
+Creating base classes that can be configured to suit the needs of future tasks
+Creating prefabs of objects with scripts attatched to make adding new interactive objects (like a trigger that sends feedback signals to brachIOplexus)
+Any kind of design that I should try to avoid and how I can avoid them
+A:
+Q: What kind of Documentation does they want to see explicitley?
+A:
+Changes made to Physics Engine
+
+Bounce Threshold (8 to 20)
+Helped with Cup vibrating when you drop an object inside
+Default Contact Offset (0.01 to 0.1 to 1)
+Didn't do anything
+Default Solver Iterations (15 to 30 to 50)
+Didn't do anything
+Video of cube being slammed thru table is at 50
+Multi box pruning made objects go through table for some reason
+Enable Enhanced Determinism
+Didn't do anything
