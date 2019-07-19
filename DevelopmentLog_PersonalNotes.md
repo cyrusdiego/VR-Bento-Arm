@@ -1099,8 +1099,8 @@ brachIOplexus can:
 
 **July 19**
 *Inchstone Results*
-- Improve Physics a bit more
-    - Objects still pass through each other with sufficient force 
+- Improve Physics a bit more (DONE)
+    - Objects still pass through each other with sufficient force (DONE)
     - *Possible Solutions:* increase physics iteration count, increase mass and improve torque values of motors 
     - Implement gravity to the arm? -> this would mean configuring for stall torque to do gravity compensation
 - Rory's Game task 
@@ -1111,9 +1111,9 @@ brachIOplexus can:
     - Cube
     - Ball
     - d20? 
-- Reset button in brachIOplexus resets everything 
-    - Timer
-    - Bento Arm control 
+- Reset button in brachIOplexus resets everything (DONE)
+    - Timer (DONE)
+    - Bento Arm control (DONE)
 - Sound effects
 - Animation of ball squishing 
 - Tasks
@@ -1155,6 +1155,8 @@ brachIOplexus can:
     - Bento Arm control (DONE)
 
 *Questions for July 22 BrachIOplexus Meeting w/ Rory*
+- Q: for both riley, quinn, and rory: is the arm moving realistically? with the changes made
+- A: 
 - Q: How does the Bento Arm's forearm stay "up"? Maybe modelling this closer in Unity can help with other aspects of the simulation.  
 - A:
 - Q: What features does he want implemented in brachIOplexus?
@@ -1165,11 +1167,15 @@ brachIOplexus can:
 - A:
 - Q: Maybe ask for a code review
 - A:
+- Q: Do you want some sort of Unity Demo?
+- A:
+- Q: If I have time can I try making the virtual bento arm design instead of the unity symbol? 
+- A:
 - Q: What kind of documentation regarding brachIOplexus would he want to see explicitley? 
 - A:
 
 *Notes for July 22 BrachIOplexus Meeting w/ Rory*
-- Topic: MYO Armband Connection
+- Topic: MYO Armband Connection (how he fixes it...)
 - Notes: 
     - 
 
@@ -1191,6 +1197,8 @@ brachIOplexus can:
 - A:
 
 *Questions for Riley and Quinn*
+- Q: Ask for a code review? 
+- A:
 - Q: How does the Bento Arm's forearm stay "up"? Maybe modelling this closer in Unity can help with other aspects of the simulation.  
 - A:
 - Q: For future tasks / additions / bento arm modifications, would it be better to have the entire project (including the executable) with brachIOplexus and in brachIOplexus there could be a button to 
@@ -1222,4 +1230,12 @@ brachIOplexus can:
 - Tried changing the table collider to a mesh
     - cube still sank into the table a little 
     - Also cup kept jittering and later the cube
-- *Solution* set fixed time step to 0.002 and put solver iterations to 15 -> higher iterations made arm springy 
+- *Solution* **set fixed time step to 0.002 and put solver iterations to 15 -> higher iterations made arm springy**
+
+*Observations*
+- Seems like **sometimes** the wrist movement is slow going up but fast downwards 
+**July 22**
+*TODO*
+- Git tutorial
+    - create a sample repo to do push / pull / pull requests / branching 
+- Make better box collider for cups
