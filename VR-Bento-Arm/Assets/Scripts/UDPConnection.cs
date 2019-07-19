@@ -44,6 +44,7 @@ public class UDPConnection : MonoBehaviour
     private byte scene;
     private byte activeScene;
 
+    public GameObject VRHeadset = null;
     #endregion
 
     #region Unity API
@@ -115,6 +116,8 @@ public class UDPConnection : MonoBehaviour
         exit = true;
         clientRX.Close();
         clientTX.Close();
+        Destroy(VRHeadset);
+        global.controlToggle = true;
         if(scene == 1)
         {
             SceneManager.LoadScene("VIPER_SHELLS");
@@ -286,7 +289,6 @@ public class UDPConnection : MonoBehaviour
     void parsePacket(ref byte[] packet)
     {
         clearRotationArray();
-        //clearCameraArray();
         if(validate(ref packet, 4, (byte)(packet.Length - 1)))
         {
             if(packet[2] == 0)
@@ -314,14 +316,6 @@ public class UDPConnection : MonoBehaviour
                 }
 
                 global.controlToggle = Convert.ToBoolean(packet[9]);  
-                // if(packet[9] == 1)
-                // {
-                //     global.controlToggle = true;
-                // }
-                // if(packet[9] == 0)
-                // {
-                //     global.controlToggle = false;
-                // }
                 
                 scene = packet[4]; 
 
@@ -329,7 +323,6 @@ public class UDPConnection : MonoBehaviour
                 {
                     global.cameraArray[i - 5] = packet[i];
                 }
-                print(global.controlToggle);
             }
         }
     }

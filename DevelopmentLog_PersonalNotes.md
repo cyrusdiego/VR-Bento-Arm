@@ -993,128 +993,41 @@ understand the input being taken in, so i can remove the initailziation scene an
 [X] Compile feature list
 [] Both VR Headsets can control the Bento Arm 
 [] Both VR Headset can go around the Bento Arm w/ Room Setup
-[] Both VR Headset can pick up the ball and place in the cup 
-[] Both VR Headset can pick up the cup 
+[X] Both VR Headset can pick up the ball and place in the cup 
+[X] Both VR Headset can pick up the cup 
 [X] The ball will drop out of the cup if flipped
 [X] Start timer from brachIOplexus, timer ends when ball is in cup 
 [] Both VR Headset is affected by Arm control toggle
 [X] Check Unity ending first
 [X] Check brachIOplexus ending first
-*brachIOplexus first + Acer Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
+[X]  Keyboard can control Bento Arm
+    [X] DOF filter works with random set
+[X] Xbox can control Bento Arm 
+    [X]  DOF filter works with random set
+[Produces error when disconnecting but brachioplexus should never even try to connect if untiy isnt running] (Unity not connected) Connecting / Disconnecting produces no errors
+[X] (Unity connected) Connecting / Disconnecting produces no errors 
+[X] Reset Scene 
+    [X] Current Scene Reflects this
+[X] Toggle Arm Shells 
+    [X] Current Scene Reflects this 
+[X] Toggle Arm Control 
+    [X] Label matches this 
+[X] With VR control **on** camera moves with keyboard 
+    [X] movement matches keystroke
 [] With VR control **off** camera moves with VR controllers 
     [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile
+[X] Save Position stores .json in folder 
+[X] Next Position goes to next position
+    [X] If not positions saved, camera will not move
+        [X] No errors on brachIOplexus 
+        [X] No errors on Unity
+    [X] If only one position saved, camera will not move 
+        [X] No errors on brachIOplexus 
+        [X] No errors on Unity
+[X] Clear Positions clears .json files
+[X] Save profile saves a folder 
+[X] Load profile loads a profile
 
-*brachIOplexus first + Vive Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
-[] With VR control **off** camera moves with VR controllers 
-    [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile 
-
-*Unity first + Acer Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
-[] With VR control **off** camera moves with VR controllers 
-    [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile
-
-*Unity first + Vive Headset*
-[]  Keyboard can control Bento Arm
-    [] DOF filter works with random set
-[] Xbox can control Bento Arm 
-    []  DOF filter works with random set
-[] (Unity not connected) Connecting / Disconnecting produces no errors
-[] (Unity connected) Connecting / Disconnecting produces no errors 
-[] Reset Scene 
-    [] Current Scene Reflects this
-[] Toggle Arm Shells 
-    [] Current Scene Reflects this 
-[] Toggle Arm Control 
-    [] Label matches this 
-[] With VR control **on** camera moves with keyboard 
-    [] movement matches keystroke
-[] With VR control **off** camera moves with VR controllers 
-    [] movement matches joystick 
-[] Save Position stores .json in folder 
-[] Next Position goes to next position
-    [] If not positions saved, camera will not move
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-    [] If only one position saved, camera will not move 
-        [] No errors on brachIOplexus 
-        [] No errors on Unity
-[] Clear Positions clears .json files
-[] Save profile saves a folder 
-[] Load profile loads a profile 
 
 
 **July 15**
@@ -1138,6 +1051,8 @@ understand the input being taken in, so i can remove the initailziation scene an
     - mapping tab configuration?
 - clean up packet parsing: seperate into utility and control
     - also re-design the packet 
+- delete the temp files for camera posiitons after shutdown 
+- clean up the "scene" control, so that only brachioplexus needs to send over the byte and it will keep a local var of the scene state instead of unity sending it over 
 
 *Features List for 2nd Inchstone*
 - Unity defaults to connected VR controllers 
@@ -1168,3 +1083,73 @@ brachIOplexus can:
 - work on friction a bit more
 - go through packet documentation to show rory
 - Go through checklist 
+
+**July 17** 
+*TODO*
+- Charge Vive Controllers over night 
+- go through packet documentation to show rory (DONE)
+- Go through checklist 
+
+**July 18**
+*Documentation*
+- room setup
+    - moving bento arm around 
+    - setting up the room
+    - making everything proportional 
+
+**July 19**
+*Inchstone Results*
+- Improve Physics a bit more
+    - Objects still pass through each other with sufficient force 
+    - *Possible Solutions:* increase physics iteration count, increase mass and improve torque values of motors 
+    - Implement gravity to the arm? -> this would mean configuring for stall torque to do gravity compensation
+- Rory's Game task 
+    - Two cups with a ball on one 
+    - Move the ball to the other cup
+    - Move the cup on top of the other 
+- Button to switch objects 
+    - Cube
+    - Ball
+    - d20? 
+- Reset button in brachIOplexus resets everything 
+    - Timer
+    - Bento Arm control 
+- Sound effects
+- Animation of ball squishing 
+- Tasks
+    - From previous student's thesis 
+    - Implement 1 (try for 2 or 3) 
+    - Document how to implement more tasks 
+        - make the "how-to" as simple as possible 
+        - try to make it click and drag 
+- Data collection 
+    - Ahmed will go through the data he wants 
+    - The structure of the file 
+    - Saving to one file not multiple 
+- IMU puck integration
+    - Attatch the transform of the bento arm to the IMU
+- Documentation 
+    - With about 1.5 months left, ideally should be as comprehensive as possible 
+    - To allow for future improvements 
+    - Try to make Gifs to visualize complex tasks such as adding a new scene 
+
+*Personal Goals for Last Inchstone* 
+- Implement the Inchstone Results 
+- Build a final executable for the project to show a "clean" product 
+    - Design a control mechanism to choose the scenes and such 
+    - Connecting to Unity will launch the executable and will load an "Init" scene where it will just say:
+        - Welcome... 
+        - "Please Load Scene" 
+        - VR Headset being in use 
+        - Random background, Thinking text is in foreground and backgroun is blurred 
+    - Maybe BrachIOplexus will have a drop down list of the tasks and you pick one, and hit a "launch" button and the unity scene will load
+- Create a version where there's no VR Headset and it's just brachIOplexus controlling, so there will be like 5 saved camera presets and you just cycle thru 
+    - This could be when SteamVR is not viable 
+
+*Questions from Last Inchstone* 
+- Do I continue with the organization of code with brachIOplexus or do I split it up into another file? 
+
+*TODO*
+- Reset button in brachIOplexus resets everything 
+    - Timer
+    - Bento Arm control 

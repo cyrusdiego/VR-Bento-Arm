@@ -37,8 +37,7 @@ public class Motor : RotationBase
         else
         {
             float value = global.SteamVRControl[arrayIndex];
-            // print(value / Math.Abs(value) < 0 ? 1 : 2);
-            // print(arrayIndex + " " + value);
+
             if(value != 0)
             {
                 direction = value / Math.Abs(value) < 0 ? 1 : 2; 
@@ -109,7 +108,7 @@ public class Motor : RotationBase
         rb.angularDrag = 0;
         rb.useGravity = false;
         rb.isKinematic = false;
-        // rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 }
 
