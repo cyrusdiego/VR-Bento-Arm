@@ -1143,6 +1143,8 @@ brachIOplexus can:
         - VR Headset being in use 
         - Random background, Thinking text is in foreground and backgroun is blurred 
     - Maybe BrachIOplexus will have a drop down list of the tasks and you pick one, and hit a "launch" button and the unity scene will load
+- Create a version where there's no VR Headset and it's just brachIOplexus controlling, so there will be like 5 saved camera presets and you just cycle thru 
+    - This could be when SteamVR is not viable 
 
 *Questions from Last Inchstone* 
 - Do I continue with the organization of code with brachIOplexus or do I split it up into another file? 
