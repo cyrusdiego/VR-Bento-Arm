@@ -8865,6 +8865,7 @@ namespace brachIOplexus
         }
         private void unitySceneReset_Click(object sender, EventArgs e)
         {
+            resetTimer();
             if (armShells)
             {
                 sendUtility(stop: 1, reset: 2);
@@ -9061,6 +9062,11 @@ namespace brachIOplexus
         }
 
         private void unityResetTimer_Click(object sender, EventArgs e)
+        {
+            resetTimer();
+        }
+
+        private void resetTimer()
         {
             taskTimer.Reset();
             this.taskElapsed = TimeSpan.Zero;
@@ -9322,6 +9328,7 @@ namespace brachIOplexus
 
                 if(packet[4] == 1)
                 {
+                    Console.WriteLine("got a packetttt");
                     timerToggle();
                 }
             }

@@ -1096,3 +1096,58 @@ brachIOplexus can:
     - moving bento arm around 
     - setting up the room
     - making everything proportional 
+
+**July 19**
+*Inchstone Results*
+- Improve Physics a bit more
+    - Objects still pass through each other with sufficient force 
+    - *Possible Solutions:* increase physics iteration count, increase mass and improve torque values of motors 
+    - Implement gravity to the arm? -> this would mean configuring for stall torque to do gravity compensation
+- Rory's Game task 
+    - Two cups with a ball on one 
+    - Move the ball to the other cup
+    - Move the cup on top of the other 
+- Button to switch objects 
+    - Cube
+    - Ball
+    - d20? 
+- Reset button in brachIOplexus resets everything 
+    - Timer
+    - Bento Arm control 
+- Sound effects
+- Animation of ball squishing 
+- Tasks
+    - From previous student's thesis 
+    - Implement 1 (try for 2 or 3) 
+    - Document how to implement more tasks 
+        - make the "how-to" as simple as possible 
+        - try to make it click and drag 
+- Data collection 
+    - Ahmed will go through the data he wants 
+    - The structure of the file 
+    - Saving to one file not multiple 
+- IMU puck integration
+    - Attatch the transform of the bento arm to the IMU
+- Documentation 
+    - With about 1.5 months left, ideally should be as comprehensive as possible 
+    - To allow for future improvements 
+    - Try to make Gifs to visualize complex tasks such as adding a new scene 
+
+*Personal Goals for Last Inchstone* 
+- Implement the Inchstone Results 
+- Build a final executable for the project to show a "clean" product 
+    - Design a control mechanism to choose the scenes and such 
+    - Connecting to Unity will launch the executable and will load an "Init" scene where it will just say:
+        - Welcome... 
+        - "Please Load Scene" 
+        - VR Headset being in use 
+        - Random background, Thinking text is in foreground and backgroun is blurred 
+    - Maybe BrachIOplexus will have a drop down list of the tasks and you pick one, and hit a "launch" button and the unity scene will load
+
+*Questions from Last Inchstone* 
+- Do I continue with the organization of code with brachIOplexus or do I split it up into another file? 
+
+*TODO*
+- Reset button in brachIOplexus resets everything 
+    - Timer
+    - Bento Arm control 
