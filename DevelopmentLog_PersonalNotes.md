@@ -1155,7 +1155,7 @@ brachIOplexus can:
     - Bento Arm control (DONE)
 
 *Questions for July 22 BrachIOplexus Meeting w/ Rory*
-- Q: for both riley, quinn, and rory: is the arm moving realistically? with the changes made
+- Q: for both riley, quinn, and rory: is the arm moving realistically? (With the changes made) ie) is it going the correct speed, are the oscilliations too much, what other values should we calibrate? 
 - A: 
 - Q: How does the Bento Arm's forearm stay "up"? Maybe modelling this closer in Unity can help with other aspects of the simulation.  
 - A:
