@@ -1157,6 +1157,7 @@ brachIOplexus can:
     - Bento Arm control (DONE)
 
 *Questions for July 22 BrachIOplexus Meeting w/ Rory*
+- Main things: myo, more features in brachioplexus, bento arm realism 
 - Q: for both riley, quinn, and rory: is the arm moving realistically? (With the changes made) ie) is it going the correct speed, are the oscilliations too much, what other values should we calibrate? 
 - A: 
 - Q: How does the Bento Arm's forearm stay "up"? Maybe modelling this closer in Unity can help with other aspects of the simulation.  
@@ -1171,17 +1172,68 @@ brachIOplexus can:
 - A:
 - Q: Do you want some sort of Unity Demo?
 - A:
-- Q: If I have time can I try making the virtual bento arm design instead of the unity symbol? 
-- A:
 - Q: What kind of documentation regarding brachIOplexus would he want to see explicitley? 
 - A:
 
 *Notes for July 22 BrachIOplexus Meeting w/ Rory*
 - Topic: MYO Armband Connection (how he fixes it...)
 - Notes: 
-    - 
-
-
+    - tried opening another version and myo connected (43c2)
+    - tried on version i branched from and worked 
+        - went back and forth between those two and they worked for both 
+    - tried my version and it didnt work 
+    - deleted MyoSharp.dll and Microsoft_Contracts.dll file and copied over from working project 
+        - worked when launching the built exe file but gave same error when opening from visual studio 
+        - tried opening in vs 2015 and gave same error 
+        - could be because of all the different versions of vs being used to compile, code contracts may not be supported? 
+        - or code contracts file may have been corrupted somewhere in the project 
+    - 2015 works fine as code contracts is supported there as long as it is not cross compiled 
+    - now installing code contracts via nuget package manager 
+        - right clicked MTT GUI -> manage NuGet Packages -> search codecontracts in browse
+        - installed the one with igor 
+        - installing it in MYOSharp project 
+        - as of July 22, 2019 : version 1.12.0 
+    - 2017 now works 
+    - link to article [link](https://stackoverflow.com/questions/40767941/does-vs2017-work-with-codecontracts)
+    - description: compiled in 2017, code contracts will break and subsequently not work on 2015 
+        - need to go back that was un-touched and compile in 2015 OR download code contracts via NuGet and it will repair the project in 2017
+    
+- Topic: BrachIOplexus improvements
+- Notes:
+- Connection tab:
+    - graphic: change it, wireframe version of the bento arm from unity screenshot 
+    - shorten the DOF list smae as Bento Arm 
+    - Unity Demo: the buttons just act as a shortcut to make it fast to do startup stuff 
+        - demo and full versions? 
+        - Demo taskbar next to File and Help 
+    - Move Connect button inlign with graphic 
+- Unity tab:
+    - task selection idea in top right (main focus)
+    - "Main Control" to specify task / scene then launch and shutdown button 
+        - shutdown will shutdown executable and close ports 
+    - toggle arm control -> write a little explanation under what it does (confusing name) check box instead of button -> toggle should be checkbox (italicized)
+    - timer as a popup (option to do so) b/c we want it open with other stuff at same time but it doesnt fit with other tabs
+    - ask *Ahmed* on use case, type of control, vs putting it in with scene selection for object type button 
+    - instead of group bax and label inside: just use two labels (label1: label2) like in camera stuff
+        - organize buttons nicer 
+    - for saving camera positions:
+        - no need when using VR headset -> init scene should disable this
+        - if w/o vr headset requires some sort of control for camera and keyboard 
+    - we want option where simulator w/o vr headset
+    - joint position settings 
+        - limits 
+        - look at Bento arm tab
+    - joint feedback
+        - look at Bento arm tab
+    - use bento arm tab as template 
+    - docs:     
+        - adding a new gripper 
+        - adding a new scene / task 
+        - how to deploy on a new computer, overall everything 
+            - for use and nothing to compile
+            - vs make changes and need to rebuild, dependencies and things requried to be installed 
+        - previous simulator to look at for docs 
+            - technical vs non technical levels for documentation 
 *Questions for Task Meeting w/ Ahmed* 
 - Q: What kind of Tasks needs to be / can be implemented? 
 - A:
@@ -1241,4 +1293,4 @@ brachIOplexus can:
 *TODO*
 - Git tutorial
     - create a sample repo to do push / pull / pull requests / branching 
-- Make better box collider for cups (DONE)
+- Make better box collider for cups
