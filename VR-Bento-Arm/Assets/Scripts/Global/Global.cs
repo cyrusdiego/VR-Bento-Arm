@@ -9,4 +9,5 @@ public class Global : ScriptableObject
     public bool controlToggle = true;
     public byte timerTrigger = 255;
     public byte[] cameraArray = new byte[4];
+    public bool armShell = true;
 }

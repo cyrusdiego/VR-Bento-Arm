@@ -27,7 +27,7 @@ namespace MyoSharp.Exceptions
         #region Methods
         public static IMyoErrorHandlerDriver Create(IMyoErrorHandlerBridge myoErrorHandlerBridge)
         {
-            //Contract.Requires<ArgumentNullException>(myoErrorHandlerBridge != null, "myoErrorHandlerBridge");
+            Contract.Requires<ArgumentNullException>(myoErrorHandlerBridge != null, "myoErrorHandlerBridge");
             Contract.Ensures(Contract.Result<IMyoErrorHandlerDriver>() != null);
 
             return new MyoErrorHandlerDriver(myoErrorHandlerBridge);

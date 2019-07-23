@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>56dSOmuBq3yRjX1hb5hTf78K5Nc=</dsig:DigestValue>
+        <dsig:DigestValue>3K+IkA6WPpRgaXFIoFIYGczqjTQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MyoSharp.dll" size="62976">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MyoSharp.dll" size="84992">
       <assemblyIdentity name="MyoSharp" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>mIP3L827esuTn/fpKG8E2kbEcg4=</dsig:DigestValue>
+        <dsig:DigestValue>k6d5DYe3kiNP7YHPKD/QwhJYXkE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -1103,6 +1103,8 @@ brachIOplexus can:
     - Objects still pass through each other with sufficient force (DONE)
     - *Possible Solutions:* increase physics iteration count, increase mass and improve torque values of motors 
     - Implement gravity to the arm? -> this would mean configuring for stall torque to do gravity compensation
+- Bento Arm Motor Model
+    - Movement up / down doesnt seem the same, especially with objects
 - Rory's Game task 
     - Two cups with a ball on one 
     - Move the ball to the other cup
@@ -1231,6 +1233,7 @@ brachIOplexus can:
     - cube still sank into the table a little 
     - Also cup kept jittering and later the cube
 - *Solution* **set fixed time step to 0.002 and put solver iterations to 15 -> higher iterations made arm springy**
+    - Fixed delta Time: The interval in seconds at which physics and other fixed frame rate updates (like MonoBehaviour's FixedUpdate) are performed.
 
 *Observations*
 - Seems like **sometimes** the wrist movement is slow going up but fast downwards 
@@ -1238,4 +1241,4 @@ brachIOplexus can:
 *TODO*
 - Git tutorial
     - create a sample repo to do push / pull / pull requests / branching 
-- Make better box collider for cups
+- Make better box collider for cups (DONE)

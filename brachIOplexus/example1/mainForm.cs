@@ -193,9 +193,9 @@ namespace brachIOplexus
         bool armShells = false;
         public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
         public static int cameraPositionIdx = 0;
-        private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions";
-        private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
-        private string unityTimerData = @"C:\Users\Trillian\Documents\VR-Bento-Arm\brachIOplexus\Example1\resources\unityTaskTimer";
+        private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityCameraPositions";
+        private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
+        private string unityTimerData = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityTaskTimer";
         private int armControl = 1;
         private bool unityAcknowledge = false;
         #endregion
