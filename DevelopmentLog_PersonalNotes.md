@@ -1289,8 +1289,42 @@ brachIOplexus can:
 
 *Observations*
 - Seems like **sometimes** the wrist movement is slow going up but fast downwards 
+
 **July 22**
 *TODO*
-- Git tutorial
+- Git tutorial (DIDNT get a chance)
     - create a sample repo to do push / pull / pull requests / branching 
-- Make better box collider for cups
+- Make better box collider for cups (DONE)
+
+**July 23**
+*TODO*
+- Clean up brachioplexus based on meeting results:
+    - Connection Tab:
+        - Align graphic with connect / disconnect buttons (DONE)
+        - Shorten DOF list, same as Bento Arm(DONE)
+        - Change the graphic to a wirefram of the bento arm 
+    - Unity Tab: 
+        - Task selection in Top Right (main focus) 
+            - Everything else should be greyed out until the task has been created 
+            - "Main Control"
+            - Launch / shutdown button 
+                - shutdown will close executable and close port 
+        - *Ahmed* object selection (need to ask how he want it)
+            - Either a button (array of buttons) in "mid" scene config and pressing one will reset entire scene 
+            - OR it will be in the task selection as a seperate task all together 
+        - Toggle Arm control -> write a little explanation under what it doesn (confusing name) and check box instead of button 
+        - check box instead of button for arm shell toggle 
+        - In Camera stuff, use two labels instead of group boxes (label1: label2)
+            - organize buttons nicer 
+        - Joint position settings 
+            - limits 
+        - Joint feedback 
+            - look at bento arm 
+- Fix arm shell toggle (unity end)
+- hide arm stand 
+
+- unityActiveScene 
+- unitySceneInformation
+- unityARmControlIndicator 
+- unityArmControlText
+- unityActiveSceneName

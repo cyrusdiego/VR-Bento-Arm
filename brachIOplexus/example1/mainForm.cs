@@ -9021,13 +9021,11 @@ namespace brachIOplexus
             {
                 if(armControl % 2 != 0)
                 {
-                    unityArmControlText.Text = "VR Controllers";
                     armControl++;
                     sendUtility(control: 0);
                 }
                 else
                 {
-                    unityArmControlText.Text = "brachIOplexus";
                     sendUtility(control: 1);
                     armControl++;
                 }
@@ -9308,22 +9306,6 @@ namespace brachIOplexus
                 if(packet[2] == 1)
                 {
                     unityAcknowledge = true;
-                }
-                if(packet[3] == 0)
-                {
-                    // https://social.msdn.microsoft.com/Forums/vstudio/en-US/a83a8655-76b8-4225-b38d-3b33eb67aafc/c-threading-changing-label?forum=csharpgeneral
-                    this.Invoke((MethodInvoker)delegate()
-                    {
-                        unityActiveSceneName.Text = "Bento Arm with Arm Shells";
-                    });
-                    
-                }
-                else
-                {
-                    this.Invoke((MethodInvoker)delegate ()
-                    {
-                        unityActiveSceneName.Text = "Bento Arm without Arm Shells";
-                    });
                 }
 
                 if(packet[4] == 1)

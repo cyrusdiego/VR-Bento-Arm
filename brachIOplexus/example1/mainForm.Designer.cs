@@ -821,10 +821,6 @@
             this.unityToggleCameraPosition = new System.Windows.Forms.Button();
             this.unityCurrentCameraPosition = new System.Windows.Forms.GroupBox();
             this.unityCurrentCameraPositionText = new System.Windows.Forms.Label();
-            this.unitySceneInformation = new System.Windows.Forms.GroupBox();
-            this.unityArmControlIndicator = new System.Windows.Forms.GroupBox();
-            this.unityActiveScene = new System.Windows.Forms.GroupBox();
-            this.unityActiveSceneName = new System.Windows.Forms.Label();
             this.unitySceneConfiguration = new System.Windows.Forms.GroupBox();
             this.unityArmControl = new System.Windows.Forms.Button();
             this.unityArmShells = new System.Windows.Forms.Button();
@@ -838,7 +834,6 @@
             this.BentoStatus = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.serialArduinoInput = new System.IO.Ports.SerialPort(this.components);
-            this.unityArmControlText = new System.Windows.Forms.Label();
             this.MenuStrip1.SuspendLayout();
             this.VoiceCoilCommBox.SuspendLayout();
             this.EMGParamBox.SuspendLayout();
@@ -976,9 +971,6 @@
             this.unityCameraPosition.SuspendLayout();
             this.unityProfileGroupBox.SuspendLayout();
             this.unityCurrentCameraPosition.SuspendLayout();
-            this.unitySceneInformation.SuspendLayout();
-            this.unityArmControlIndicator.SuspendLayout();
-            this.unityActiveScene.SuspendLayout();
             this.unitySceneConfiguration.SuspendLayout();
             this.statusPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -8056,7 +8048,7 @@
             // 
             // unityConnect
             // 
-            this.unityConnect.Location = new System.Drawing.Point(17, 18);
+            this.unityConnect.Location = new System.Drawing.Point(6, 18);
             this.unityConnect.Margin = new System.Windows.Forms.Padding(2);
             this.unityConnect.Name = "unityConnect";
             this.unityConnect.Size = new System.Drawing.Size(74, 19);
@@ -8129,7 +8121,7 @@
             // 
             // unityClearAll
             // 
-            this.unityClearAll.Location = new System.Drawing.Point(261, 210);
+            this.unityClearAll.Location = new System.Drawing.Point(259, 141);
             this.unityClearAll.Margin = new System.Windows.Forms.Padding(2);
             this.unityClearAll.Name = "unityClearAll";
             this.unityClearAll.Size = new System.Drawing.Size(66, 19);
@@ -8141,7 +8133,7 @@
             // unityDisconnect
             // 
             this.unityDisconnect.Enabled = false;
-            this.unityDisconnect.Location = new System.Drawing.Point(94, 18);
+            this.unityDisconnect.Location = new System.Drawing.Point(84, 18);
             this.unityDisconnect.Margin = new System.Windows.Forms.Padding(2);
             this.unityDisconnect.Name = "unityDisconnect";
             this.unityDisconnect.Size = new System.Drawing.Size(74, 19);
@@ -8152,7 +8144,7 @@
             // 
             // unitySelectAll
             // 
-            this.unitySelectAll.Location = new System.Drawing.Point(191, 209);
+            this.unitySelectAll.Location = new System.Drawing.Point(189, 141);
             this.unitySelectAll.Margin = new System.Windows.Forms.Padding(2);
             this.unitySelectAll.Name = "unitySelectAll";
             this.unitySelectAll.Size = new System.Drawing.Size(66, 19);
@@ -8178,9 +8170,9 @@
             "Hand Open",
             "Torque On/Off",
             "Run/Suspend"});
-            this.unityCheckList.Location = new System.Drawing.Point(191, 18);
+            this.unityCheckList.Location = new System.Drawing.Point(191, 40);
             this.unityCheckList.Name = "unityCheckList";
-            this.unityCheckList.Size = new System.Drawing.Size(134, 184);
+            this.unityCheckList.Size = new System.Drawing.Size(134, 79);
             this.unityCheckList.TabIndex = 223;
             // 
             // tabMapping
@@ -11049,7 +11041,6 @@
             // 
             this.tabUnity.Controls.Add(this.unityTaskConfiguration);
             this.tabUnity.Controls.Add(this.unityCameraPosition);
-            this.tabUnity.Controls.Add(this.unitySceneInformation);
             this.tabUnity.Controls.Add(this.unitySceneConfiguration);
             this.tabUnity.Location = new System.Drawing.Point(4, 22);
             this.tabUnity.Name = "tabUnity";
@@ -11075,13 +11066,13 @@
             // 
             // unitySaveTimer
             // 
+            this.unitySaveTimer.Enabled = false;
             this.unitySaveTimer.Location = new System.Drawing.Point(6, 77);
             this.unitySaveTimer.Name = "unitySaveTimer";
             this.unitySaveTimer.Size = new System.Drawing.Size(119, 23);
             this.unitySaveTimer.TabIndex = 8;
             this.unitySaveTimer.Text = "Save Time";
             this.unitySaveTimer.UseVisualStyleBackColor = true;
-            this.unitySaveTimer.Enabled = false;
             this.unitySaveTimer.Click += new System.EventHandler(this.unitySaveTimer_Click);
             // 
             // unityTimerInformation
@@ -11115,24 +11106,24 @@
             // 
             // unityLoadTimeFile
             // 
+            this.unityLoadTimeFile.Enabled = false;
             this.unityLoadTimeFile.Location = new System.Drawing.Point(6, 135);
             this.unityLoadTimeFile.Name = "unityLoadTimeFile";
             this.unityLoadTimeFile.Size = new System.Drawing.Size(119, 23);
             this.unityLoadTimeFile.TabIndex = 7;
             this.unityLoadTimeFile.Text = "Load File";
             this.unityLoadTimeFile.UseVisualStyleBackColor = true;
-            this.unityLoadTimeFile.Enabled = false;
             this.unityLoadTimeFile.Click += new System.EventHandler(this.unityLoadTimeFile_Click);
             // 
             // unityNewTimeFile
             // 
+            this.unityNewTimeFile.Enabled = false;
             this.unityNewTimeFile.Location = new System.Drawing.Point(6, 106);
             this.unityNewTimeFile.Name = "unityNewTimeFile";
             this.unityNewTimeFile.Size = new System.Drawing.Size(119, 23);
             this.unityNewTimeFile.TabIndex = 6;
             this.unityNewTimeFile.Text = "New File";
             this.unityNewTimeFile.UseVisualStyleBackColor = true;
-            this.unityNewTimeFile.Enabled = false;
             this.unityNewTimeFile.Click += new System.EventHandler(this.unityNewTimeFile_Click);
             // 
             // unityResetTimer
@@ -11259,51 +11250,12 @@
             this.unityCurrentCameraPositionText.TabIndex = 0;
             this.unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
             // 
-            // unitySceneInformation
-            // 
-            this.unitySceneInformation.Controls.Add(this.unityArmControlIndicator);
-            this.unitySceneInformation.Controls.Add(this.unityActiveScene);
-            this.unitySceneInformation.Location = new System.Drawing.Point(3, 166);
-            this.unitySceneInformation.Name = "unitySceneInformation";
-            this.unitySceneInformation.Size = new System.Drawing.Size(266, 253);
-            this.unitySceneInformation.TabIndex = 1;
-            this.unitySceneInformation.TabStop = false;
-            this.unitySceneInformation.Text = "Scene - Information";
-            // 
-            // unityArmControlIndicator
-            // 
-            this.unityArmControlIndicator.Controls.Add(this.unityArmControlText);
-            this.unityArmControlIndicator.Location = new System.Drawing.Point(7, 83);
-            this.unityArmControlIndicator.Name = "unityArmControlIndicator";
-            this.unityArmControlIndicator.Size = new System.Drawing.Size(253, 60);
-            this.unityArmControlIndicator.TabIndex = 3;
-            this.unityArmControlIndicator.TabStop = false;
-            this.unityArmControlIndicator.Text = "Arm Control";
-            // 
-            // unityActiveScene
-            // 
-            this.unityActiveScene.Controls.Add(this.unityActiveSceneName);
-            this.unityActiveScene.Location = new System.Drawing.Point(7, 19);
-            this.unityActiveScene.Name = "unityActiveScene";
-            this.unityActiveScene.Size = new System.Drawing.Size(253, 58);
-            this.unityActiveScene.TabIndex = 2;
-            this.unityActiveScene.TabStop = false;
-            this.unityActiveScene.Text = "Current Scene";
-            // 
-            // unityActiveSceneName
-            // 
-            this.unityActiveSceneName.AutoSize = true;
-            this.unityActiveSceneName.Location = new System.Drawing.Point(6, 27);
-            this.unityActiveSceneName.Name = "unityActiveSceneName";
-            this.unityActiveSceneName.Size = new System.Drawing.Size(0, 13);
-            this.unityActiveSceneName.TabIndex = 2;
-            // 
             // unitySceneConfiguration
             // 
             this.unitySceneConfiguration.Controls.Add(this.unityArmControl);
             this.unitySceneConfiguration.Controls.Add(this.unityArmShells);
             this.unitySceneConfiguration.Controls.Add(this.unitySceneReset);
-            this.unitySceneConfiguration.Location = new System.Drawing.Point(3, 3);
+            this.unitySceneConfiguration.Location = new System.Drawing.Point(687, 87);
             this.unitySceneConfiguration.Name = "unitySceneConfiguration";
             this.unitySceneConfiguration.Size = new System.Drawing.Size(266, 157);
             this.unitySceneConfiguration.TabIndex = 0;
@@ -11426,15 +11378,6 @@
             // 
             this.serialArduinoInput.RtsEnable = true;
             this.serialArduinoInput.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialArduinoInput_DataReceived);
-            // 
-            // unityArmControlText
-            // 
-            this.unityArmControlText.AutoSize = true;
-            this.unityArmControlText.Location = new System.Drawing.Point(6, 29);
-            this.unityArmControlText.Name = "unityArmControlText";
-            this.unityArmControlText.Size = new System.Drawing.Size(47, 13);
-            this.unityArmControlText.TabIndex = 4;
-            this.unityArmControlText.Text = "brachIOplexus";
             // 
             // mainForm
             // 
@@ -11623,11 +11566,6 @@
             this.unityProfileGroupBox.PerformLayout();
             this.unityCurrentCameraPosition.ResumeLayout(false);
             this.unityCurrentCameraPosition.PerformLayout();
-            this.unitySceneInformation.ResumeLayout(false);
-            this.unityArmControlIndicator.ResumeLayout(false);
-            this.unityArmControlIndicator.PerformLayout();
-            this.unityActiveScene.ResumeLayout(false);
-            this.unityActiveScene.PerformLayout();
             this.unitySceneConfiguration.ResumeLayout(false);
             this.statusPanel1.ResumeLayout(false);
             this.statusPanel1.PerformLayout();
@@ -12422,9 +12360,6 @@
         private System.Windows.Forms.GroupBox unitySceneConfiguration;
         private System.Windows.Forms.Button unitySceneReset;
         private System.Windows.Forms.Button unityArmShells;
-        private System.Windows.Forms.GroupBox unitySceneInformation;
-        private System.Windows.Forms.GroupBox unityActiveScene;
-        private System.Windows.Forms.Label unityActiveSceneName;
         private System.Windows.Forms.GroupBox unityCameraPosition;
         private System.Windows.Forms.Button unityClearCameraPosition;
         private System.Windows.Forms.Button unityToggleCameraPosition;
@@ -12436,7 +12371,6 @@
         private System.Windows.Forms.Button unityLoadProfile;
         private System.Windows.Forms.Button unitySaveProfile;
         private System.Windows.Forms.Button unityArmControl;
-        private System.Windows.Forms.GroupBox unityArmControlIndicator;
         private System.Windows.Forms.GroupBox unityTaskConfiguration;
         private System.Windows.Forms.Button unityNewTimeFile;
         private System.Windows.Forms.Button unityResetTimer;
@@ -12446,7 +12380,6 @@
         private System.Windows.Forms.Label unityTimerFileName;
         private System.Windows.Forms.Button unityLoadTimeFile;
         private System.Windows.Forms.Button unitySaveTimer;
-        private System.Windows.Forms.Label unityArmControlText;
     }
 }
 
