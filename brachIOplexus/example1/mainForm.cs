@@ -602,7 +602,7 @@ namespace brachIOplexus
             {
                 if (contents.Count() > 0)
                 {
-                    unityCurrentCameraPositionText.Text = Path.GetFileName(contents[0]);
+                    unityCameraPositionNumber.Text = Path.GetFileName(contents[0]);
                 }
             });
             this.Invoke((MethodInvoker)delegate ()
@@ -8816,7 +8816,7 @@ namespace brachIOplexus
                 //{
                 //    this.Invoke((MethodInvoker)delegate ()
                 //    {
-                //        unityCurrentCameraPositionText.Text = unityCameraPositions[0];
+                //        unityCameraPositionNumber.Text = unityCameraPositions[0];
                 //    });
                 //}
             }
@@ -8898,7 +8898,7 @@ namespace brachIOplexus
             cameraPositionIdx++;
             this.Invoke((MethodInvoker)delegate ()
             {
-                unityCurrentCameraPositionText.Text = name;
+                unityCameraPositionNumber.Text = name;
             });
             
         }
@@ -8910,7 +8910,7 @@ namespace brachIOplexus
             cameraPositionIdx = 0;
             this.Invoke((MethodInvoker)delegate ()
             {
-                unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
+                unityCameraPositionNumber.Text = "No Saved Camera Positions";
             });
             this.Invoke((MethodInvoker)delegate ()
             {
@@ -8926,7 +8926,7 @@ namespace brachIOplexus
                 cameraPositionIdx = (cameraPositionIdx % unityCameraPositions.Count);
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+                    unityCameraPositionNumber.Text = unityCameraPositions[cameraPositionIdx];
                 });
                 cameraPositionIdx++;
             }
@@ -8934,7 +8934,7 @@ namespace brachIOplexus
             {
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
+                    unityCameraPositionNumber.Text = "No Saved Camera Positions";
                 });
             }
         }
@@ -8943,7 +8943,7 @@ namespace brachIOplexus
         {
             this.Invoke((MethodInvoker)delegate ()
             {
-                unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+                unityCameraPositionNumber.Text = unityCameraPositions[cameraPositionIdx];
             });
         }
 
@@ -9007,7 +9007,7 @@ namespace brachIOplexus
 
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    unityCurrentCameraPositionText.Text = unityCameraPositions[0];
+                    unityCameraPositionNumber.Text = unityCameraPositions[0];
                 });
                 sendUtility(profile: 1);
                 cameraPositionIdx = 1;
@@ -9389,5 +9389,6 @@ namespace brachIOplexus
         #endregion
 
         #endregion
+
     }
 }

@@ -1328,3 +1328,22 @@ brachIOplexus can:
 - unityARmControlIndicator 
 - unityArmControlText
 - unityActiveSceneName
+
+*Button Functionalities*
+- "Launch Task"
+    - based on heighlighted task, sends signal to unity to pick a specific scene 
+- "End Task" 
+    - goes back to 'init' scene and unity will await configuration from brachIOplexus 
+- "Reset Task" 
+    - Resets the scene 
+- "Pause Task"
+    - Pauses the scene 
+    - Pauses the timer if it is running 
+    - Pauses all feedback 
+    - Switches to Resume Task
+- NumericUpDown('s) in Joint Limits
+    - every button press will update the number **then** send it to Unity 
+- Toggle Arm Shells and Toggle Arm Control
+    - Toggles showing the arm shells and what controls the arm respectively 
+    - Checking one **mid** task will reset the task / scene 
+    - if **no task has been loaded** then it does not send a reset, will only act as a parameter 
