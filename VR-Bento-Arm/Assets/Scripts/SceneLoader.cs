@@ -44,7 +44,7 @@ public class SceneLoader : MonoBehaviour
 
     private void loadScene()
     {
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene(scene + 1);
         global.armShell = armShell;
         global.controlToggle = armControl;
         global.VREnabled = VREnabled;

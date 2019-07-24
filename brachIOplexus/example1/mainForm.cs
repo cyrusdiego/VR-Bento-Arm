@@ -198,6 +198,7 @@ namespace brachIOplexus
         private string unityTimerData = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityTaskTimer";
         private int armControl = 1;
         private bool unityAcknowledge = false;
+        private int sceneIndex = 255;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -8826,11 +8827,11 @@ namespace brachIOplexus
         {
             if (UDPflag3)
             {
-                if(unityAcknowledge)
-                {
-                    sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
-                    sendUtility(control: 0);
-                }
+                //if(unityAcknowledge)
+                //{
+                //    sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
+                //    sendUtility(control: 0);
+                //}
 
                 udpClientTX3.Close();
                 udpClientRX3.Close();
@@ -8866,33 +8867,26 @@ namespace brachIOplexus
         private void unitySceneReset_Click(object sender, EventArgs e)
         {
             resetTimer();
-            if (armShells)
-            {
-                sendUtility(stop: 1, reset: 2);
-            }
-            else
-            {
-                sendUtility(stop: 1, reset: 1);
-            }
+            sendSceneCtrl(resetTask: 1);
         }
 
         private void unityArmShellToggle_Click(object sender, EventArgs e)
         {
-            if(armShells)
-            {
-                sendUtility(stop: 1,reset: 1);
-                armShells = false;
-            }
-            else
-            {
-                sendUtility(stop: 1,reset: 2);
-                armShells = true;
-            }
+            //if(armShells)
+            //{
+            //    sendUtility(stop: 1,reset: 1);
+            //    armShells = false;
+            //}
+            //else
+            //{
+            //    sendUtility(stop: 1,reset: 2);
+            //    armShells = true;
+            //}
         }
 
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
-            sendUtility(save: 1);
+            sendCamera(camSave: 1);
             string name = $"Position{unityCameraPositions.Count}";
             unityCameraPositions.Add(name);
             cameraPositionIdx++;
@@ -8905,24 +8899,24 @@ namespace brachIOplexus
 
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
         {
-            sendUtility(clear: 1);
+            sendCamera(camClear: 1);
             unityCameraPositions.Clear();
             cameraPositionIdx = 0;
             this.Invoke((MethodInvoker)delegate ()
             {
                 unityCameraPositionNumber.Text = "No Saved Camera Positions";
             });
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                unityCameraProfile.Text = "No Profile Loaded";
-            });
+            //this.Invoke((MethodInvoker)delegate ()
+            //{
+            //    unityCameraProfile.Text = "No Profile Loaded";
+            //});
         }
 
         private void unityNextCameraPosition_Click(object sender, EventArgs e)
         {
             if(unityCameraPositions.Count > 0)
             {
-                sendUtility(next: 1);
+                sendCamera(camNext: 1);
                 cameraPositionIdx = (cameraPositionIdx % unityCameraPositions.Count);
                 this.Invoke((MethodInvoker)delegate ()
                 {
@@ -8979,57 +8973,57 @@ namespace brachIOplexus
 
         private void unityLoadProfile_Click(object sender, EventArgs e)
         {
-            string profileName = string.Empty;
-            string[] files = null;
-            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
-            {
-                folderDialog.SelectedPath = unityCameraProfiles;
-                DialogResult result = folderDialog.ShowDialog();
-                if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
-                {
-                    profileName = Path.GetFileName(folderDialog.SelectedPath);
-                    files = Directory.GetFiles(folderDialog.SelectedPath);
-                }
-            }
-            if(files != null)
-            {
-                foreach (string str in files)
-                {
-                    string fileName = Path.GetFileName(str);
-                    string destination = Path.Combine(unitySavedCameraPositions, fileName);
-                    File.Copy(str, destination, true);
-                    unityCameraPositions.Add(fileName);
-                }
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCameraProfile.Text = profileName;
-                });
+            //string profileName = string.Empty;
+            //string[] files = null;
+            //using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            //{
+            //    folderDialog.SelectedPath = unityCameraProfiles;
+            //    DialogResult result = folderDialog.ShowDialog();
+            //    if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
+            //    {
+            //        profileName = Path.GetFileName(folderDialog.SelectedPath);
+            //        files = Directory.GetFiles(folderDialog.SelectedPath);
+            //    }
+            //}
+            //if(files != null)
+            //{
+            //    foreach (string str in files)
+            //    {
+            //        string fileName = Path.GetFileName(str);
+            //        string destination = Path.Combine(unitySavedCameraPositions, fileName);
+            //        File.Copy(str, destination, true);
+            //        unityCameraPositions.Add(fileName);
+            //    }
+            //    this.Invoke((MethodInvoker)delegate ()
+            //    {
+            //        unityCameraProfile.Text = profileName;
+            //    });
 
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCameraPositionNumber.Text = unityCameraPositions[0];
-                });
-                sendUtility(profile: 1);
-                cameraPositionIdx = 1;
-            }
+            //    this.Invoke((MethodInvoker)delegate ()
+            //    {
+            //        unityCameraPositionNumber.Text = unityCameraPositions[0];
+            //    });
+            //    sendUtility(profile: 1);
+            //    cameraPositionIdx = 1;
+            //}
 
         }
 
         private void unityArmControl_Click(object sender, EventArgs e)
         {
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                if(armControl % 2 != 0)
-                {
-                    armControl++;
-                    sendUtility(control: 0);
-                }
-                else
-                {
-                    sendUtility(control: 1);
-                    armControl++;
-                }
-            });
+            //this.Invoke((MethodInvoker)delegate ()
+            //{
+            //    if(armControl % 2 != 0)
+            //    {
+            //        armControl++;
+            //        sendUtility(control: 0);
+            //    }
+            //    else
+            //    {
+            //        sendUtility(control: 1);
+            //        armControl++;
+            //    }
+            //});
         }
 
         private void unityStartTimer_Click(object sender, EventArgs e)
@@ -9109,6 +9103,40 @@ namespace brachIOplexus
                     }
                 }
             }
+        }
+
+        private void unityTaskList_Click(object sender, EventArgs e)
+        {
+            sceneIndex = this.unityTaskList.SelectedIndices[0];
+        }
+
+        private void unityLaunchTask_Click(object sender, EventArgs e)
+        {
+            if(sceneIndex == 255)
+            {
+                return;
+            }
+
+            byte armShell;
+            byte armControl;
+            byte VREnabled;
+
+            armShell = Convert.ToByte(this.unityArmShellToggle.Checked);
+            armControl = Convert.ToByte(this.unityArmControlToggle.Checked);
+            VREnabled = Convert.ToByte(this.unityHeadsetModeToggle.Checked);
+
+            byte[] packet = new byte[9];
+            packet[0] = 255;                            // Header
+            packet[1] = 255;                            // Header
+            packet[2] = 0;                              // Type: 0
+            packet[3] = 9;                              // Length of Packet
+            packet[4] = (byte)sceneIndex;               // Task Index 
+            packet[5] = armShell;                       // Arm Shell toggle
+            packet[6] = armControl;                     // brachIOplexus input toggle
+            packet[7] = VREnabled;                      // VR enable toggle 
+            packet[8] = calcCheckSum(ref packet);
+
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
         #endregion
 
@@ -9245,28 +9273,58 @@ namespace brachIOplexus
             return packet;
         }
 
-        /*
-         * @brief: creates a unique packet that is only sent on specific button 
-         * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
-         * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
-         */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255, byte init = 255)
+        private void sendCamera(byte camNext = 255, byte camClear = 255, byte camSave = 255)
         {
-            byte[] packet = new byte[12]; // will need to change this when have it finalized 
+            byte[] packet = new byte[8];
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
-            packet[2] = 1;              // Type: 1
-            packet[3] = stop;           // Stop Signal
-            packet[4] = reset;          // Scene Signal 
-            packet[5] = save;           // Save Camera Position
-            packet[6] = next;           // Next Camera Position
-            packet[7] = clear;          // Clear Camera Positions 
-            packet[8] = profile;
-            packet[9] = control;
-            packet[10] = init;
-            packet[11] = calcCheckSum(ref packet);
+            packet[2] = 5;              // Type: 5
+            packet[3] = 8;              // Length
+            packet[4] = camNext;        // Next camera position
+            packet[5] = camClear;       // Clear saved camera positions
+            packet[6] = camSave;        // Save current camera position
+            packet[7] = calcCheckSum(ref packet);   
+            
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
+
+        private void sendSceneCtrl(byte pauseTask = 0, byte endTask = 0, byte resetTask = 0)
+        {
+            byte[] packet = new byte[8];
+            packet[0] = 255;            // Header
+            packet[1] = 255;            // Header
+            packet[2] = 6;              // Type: 5
+            packet[3] = 8;              // Length
+            packet[4] = pauseTask;        // Next camera position
+            packet[5] = endTask;       // Clear saved camera positions
+            packet[6] = resetTask;        // Save current camera position
+            packet[7] = calcCheckSum(ref packet);
+
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        }
+
+        ///*
+        // * @brief: creates a unique packet that is only sent on specific button 
+        // * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
+        // * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
+        // */
+        //private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255, byte init = 255)
+        //{
+        //    byte[] packet = new byte[12]; // will need to change this when have it finalized 
+        //    packet[0] = 255;            // Header
+        //    packet[1] = 255;            // Header
+        //    packet[2] = 1;              // Type: 1
+        //    packet[3] = stop;           // Stop Signal
+        //    packet[4] = reset;          // Scene Signal 
+        //    packet[5] = save;           // Save Camera Position
+        //    packet[6] = next;           // Next Camera Position
+        //    packet[7] = clear;          // Clear Camera Positions 
+        //    packet[8] = profile;
+        //    packet[9] = control;
+        //    packet[10] = init;
+        //    packet[11] = calcCheckSum(ref packet);
+        //    udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        //}
 
         private void pingUnity()
         {
@@ -9285,21 +9343,8 @@ namespace brachIOplexus
             while (!unityAcknowledge)
             {
                 pingUnity();
-                Console.WriteLine("still waiting for acknowledge");
                 Thread.Sleep(2000);
             }
-            byte[] packet = new byte[9];
-            packet[0] = 255;            
-            packet[1] = 255;            
-            packet[2] = 0;              
-            packet[3] = 9;           
-            packet[4] = 1;          
-            packet[5] = 0;          
-            packet[6] = 1; 
-            packet[7] = 1;           
-            packet[8] = calcCheckSum(ref packet);
-            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
-            Console.WriteLine("sent the loader packet");
         }
         #endregion
 

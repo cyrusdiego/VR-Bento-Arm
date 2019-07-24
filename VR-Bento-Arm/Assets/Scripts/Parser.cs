@@ -45,11 +45,58 @@ public class Parser : MonoBehaviour
                     print("got loader packet");
                     Loader(ref packet);
                     break;
+                case 1:
+                    print("got a control packet");
+                    Control(ref packet);
+                    break;
                 case 2:
                     print("got startup packet");
                     Startup();
                     break;
+                case 4:
+                    print("got a DOF limits packet");
+                    break;
+                case 5:
+                    print("got a camera packet");
+                    Camera(ref packet);
+                    break;
+                case 6:
+                    print("got a scene control packet");
+                    SceneControl(ref packet);
+                    break;
             }
+        }
+    }
+
+    private void Camera(ref byte[] packet)
+    {
+
+    }
+
+    private void SceneControl(ref byte[] packet)
+    {
+        bool pause;
+        bool end;
+        bool reset;
+
+        pause = Convert.ToBoolean(packet[4]);
+        end = Convert.ToBoolean(packet[5]);
+        reset = Convert.ToBoolean(packet[6]);
+        
+        global.pause = pause;
+        global.end = end;
+        global.reset = reset;
+    }
+
+    private void Control(ref byte[] packet)
+    {
+        int length = packet[3] / 4;
+        for(byte i = 1; i < length + 1; i++)
+        {
+            float direction = packet[4*i + 3];
+            float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
+            global.brachIOplexusControl[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+
         }
     }
 

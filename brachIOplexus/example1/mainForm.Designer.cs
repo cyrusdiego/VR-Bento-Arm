@@ -855,7 +855,7 @@
             this.unityArmShellToggle = new System.Windows.Forms.CheckBox();
             this.unityArmControlToggle = new System.Windows.Forms.CheckBox();
             this.unityResetTask = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.unityTaskList = new System.Windows.Forms.ListView();
             this.unityEndTask = new System.Windows.Forms.Button();
             this.unityLaunchTask = new System.Windows.Forms.Button();
             this.unityLoadProfile = new System.Windows.Forms.Button();
@@ -11855,7 +11855,7 @@
             this.unityMainControls.Controls.Add(this.unityArmShellToggle);
             this.unityMainControls.Controls.Add(this.unityArmControlToggle);
             this.unityMainControls.Controls.Add(this.unityResetTask);
-            this.unityMainControls.Controls.Add(this.listView1);
+            this.unityMainControls.Controls.Add(this.unityTaskList);
             this.unityMainControls.Controls.Add(this.unityEndTask);
             this.unityMainControls.Controls.Add(this.unityLaunchTask);
             this.unityMainControls.Location = new System.Drawing.Point(3, 3);
@@ -11883,6 +11883,7 @@
             this.unityHeadsetModeToggle.Size = new System.Drawing.Size(83, 17);
             this.unityHeadsetModeToggle.TabIndex = 12;
             this.unityHeadsetModeToggle.Text = "VR Enabled";
+            this.unityHeadsetModeToggle.Checked = true;
             this.unityHeadsetModeToggle.UseVisualStyleBackColor = true;
             // 
             // unityArmToggleInfo
@@ -11912,6 +11913,7 @@
             this.unityArmShellToggle.Size = new System.Drawing.Size(117, 17);
             this.unityArmShellToggle.TabIndex = 9;
             this.unityArmShellToggle.Text = "Arm Shells Enabled";
+            this.unityArmShellToggle.Checked = true;
             this.unityArmShellToggle.UseVisualStyleBackColor = true;
             // 
             // unityArmControlToggle
@@ -11921,6 +11923,7 @@
             this.unityArmControlToggle.Size = new System.Drawing.Size(107, 42);
             this.unityArmControlToggle.TabIndex = 8;
             this.unityArmControlToggle.Text = "brachIOplexus Input Enabled";
+            this.unityArmControlToggle.Checked = true;
             this.unityArmControlToggle.UseVisualStyleBackColor = true;
             // 
             // unityResetTask
@@ -11933,13 +11936,19 @@
             this.unityResetTask.UseVisualStyleBackColor = true;
             this.unityResetTask.Click += new System.EventHandler(this.unitySceneReset_Click);
             // 
-            // listView1
+            // unityTaskList
             // 
-            this.listView1.Location = new System.Drawing.Point(6, 19);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(202, 252);
-            this.listView1.TabIndex = 7;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.unityTaskList.Location = new System.Drawing.Point(6, 19);
+            this.unityTaskList.Name = "unityTaskList";
+            this.unityTaskList.Size = new System.Drawing.Size(202, 252);
+            this.unityTaskList.TabIndex = 7;
+            this.unityTaskList.UseCompatibleStateImageBehavior = false;
+            this.unityTaskList.Items.Add("Game Task", 0);
+            this.unityTaskList.Items.Add("Next Task", 0);
+            this.unityTaskList.View = System.Windows.Forms.View.List;
+            this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.unityTaskList.MultiSelect = false;
+            this.unityTaskList.Click += new System.EventHandler(this.unityTaskList_Click);
             // 
             // unityEndTask
             // 
@@ -11958,6 +11967,7 @@
             this.unityLaunchTask.TabIndex = 5;
             this.unityLaunchTask.Text = "Launch Task";
             this.unityLaunchTask.UseVisualStyleBackColor = true;
+            this.unityLaunchTask.Click += new System.EventHandler(this.unityLaunchTask_Click);
             // 
             // unityLoadProfile
             // 
@@ -13294,7 +13304,7 @@
         private System.Windows.Forms.Button unityPauseTask;
         private System.Windows.Forms.CheckBox unityArmShellToggle;
         private System.Windows.Forms.CheckBox unityArmControlToggle;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView unityTaskList;
         private System.Windows.Forms.Button unityEndTask;
         private System.Windows.Forms.Button unityLaunchTask;
         private System.Windows.Forms.Label unityCameraPositionTitle;
