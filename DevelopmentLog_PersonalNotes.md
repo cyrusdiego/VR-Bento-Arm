@@ -1347,3 +1347,32 @@ brachIOplexus can:
     - Toggles showing the arm shells and what controls the arm respectively 
     - Checking one **mid** task will reset the task / scene 
     - if **no task has been loaded** then it does not send a reset, will only act as a parameter 
+
+**July 24**
+- weekly meeting, went over tasks. will start implementing after vacation 
+- data structure will be after vacation 
+
+*WORKING*
+- Main Controls
+    - All working except VR Enabled 
+- Timer 
+    - start, reset, save
+- Camera Position (Requires testing)
+    - save, next, clear 
+- Scene initialization and task choosing
+
+*TODO BEFORE VACATION*
+- Test:
+    - Toggling arm control toggle 
+    - Camera Positions (all of it)
+- File I/O:
+    - Save Timer data to a single file (for now just do following File format: task_name_yyyy_mm_dd)
+    - Remove the New and Load file buttons
+    - Save Camera Positions to a single file as well 
+- Cleanup:
+    - Remove unneseccary buttons / gui's 
+    
+*TODO AFTER VACATION*
+- Add radio buttons for the type of object to use 
+- Read over tasks and implement one 
+- Implement Joint limit DOF and constant feedback 
