@@ -11864,6 +11864,7 @@
             this.unityMainControls.TabIndex = 4;
             this.unityMainControls.TabStop = false;
             this.unityMainControls.Text = "Main Controls";
+            this.unityMainControls.Enabled = false;
             // 
             // unityHeadsetModeToggleInfo
             // 
@@ -11995,6 +11996,7 @@
             this.unityTaskConfiguration.TabIndex = 3;
             this.unityTaskConfiguration.TabStop = false;
             this.unityTaskConfiguration.Text = "Task - Timer";
+            this.unityTaskConfiguration.Enabled = false;
             // 
             // unitySaveTimer
             // 
@@ -12101,6 +12103,7 @@
             this.unityCameraPosition.TabIndex = 2;
             this.unityCameraPosition.TabStop = false;
             this.unityCameraPosition.Text = "Scene - Camera Position";
+            this.unityCameraPosition.Enabled = false;
             // 
             // unityCameraPositionNumber
             // 

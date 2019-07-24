@@ -1362,6 +1362,8 @@ brachIOplexus can:
 - Scene initialization and task choosing
 
 *TODO BEFORE VACATION*
+- Have unity tab disable until it connects
+- all dof are by default enabled in connection
 - Test:
     - Toggling arm control toggle 
     - Camera Positions (all of it)
@@ -1371,7 +1373,8 @@ brachIOplexus can:
     - Save Camera Positions to a single file as well 
 - Cleanup:
     - Remove unneseccary buttons / gui's 
-    
+
+
 *TODO AFTER VACATION*
 - Add radio buttons for the type of object to use 
 - Read over tasks and implement one 

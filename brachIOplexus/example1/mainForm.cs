@@ -8811,6 +8811,15 @@ namespace brachIOplexus
                 unityConnect.Enabled = false;
                 unityDisconnect.Enabled = true;
                 acknowdledge.Start();
+                if(unityAcknowledge)
+                {
+                    this.unityMainControls.Enabled = true;
+                    this.unityTaskConfiguration.Enabled = true;
+                    this.unityCameraPosition.Enabled = true;
+                    this.unityRobotParamsBox.Enabled = true;
+                    this.unityFeedbackBox.Enabled = true;
+                }
+
                 // Displays camera position if the list is not empty upon opening brachIOplexus
                 //if(unityCameraPositions.Count > 0)
                 //{

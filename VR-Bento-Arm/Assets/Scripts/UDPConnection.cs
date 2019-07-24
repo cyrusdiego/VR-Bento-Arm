@@ -38,6 +38,7 @@ public class UDPConnection : MonoBehaviour
     public Parser packetParser = null;    
 
     private byte[] outgoing = null;
+    private byte[] feedback = null;
 
     #endregion
 
@@ -67,7 +68,7 @@ public class UDPConnection : MonoBehaviour
     void Update()
     {
         outgoing = packetParser.outgoing;
-
+        feedback = packetParser.feedback;
         // if(scene != 0)
         // {
         //     updateScene();
@@ -105,6 +106,11 @@ public class UDPConnection : MonoBehaviour
                 {
                     clientTX.Send(outgoing, outgoing.Length,endpointTX);
                     packetParser.outgoing = null;
+                }
+                if(feedback != null)
+                {
+                    clientTX.Send(feedback, feedback.Length,endpointTX);
+                    packetParser.feedback = null;
                 }
 
             }

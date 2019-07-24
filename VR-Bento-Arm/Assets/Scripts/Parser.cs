@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
-using Valve.VR;
 
 public class Parser : MonoBehaviour
 {
@@ -23,10 +19,41 @@ public class Parser : MonoBehaviour
     // Destroy(VRHeadset);
 
     public byte[] outgoing = null;
+    public byte[] feedback = null;
+
+    private int startIdx = 4;
 
     void Awake()
     {
         outgoing = null;
+        feedback = new byte[(global.motorCount * 2) + 5];
+        feedback[0] = 255;
+        feedback[1] = 255;
+        feedback[2] = 3;
+        feedback[4] = (byte)feedback.Length;
+    }
+
+    void FixedUpdate()
+    {
+        for(int i = 0; i < global.motorCount; i++)
+        {
+            byte lowP;
+            byte highP;
+            byte lowV;
+            byte highV; 
+
+            lowP = low_byte((UInt16)global.position[i]);
+            highP = high_byte((UInt16)global.position[i]); 
+            lowV = low_byte((UInt16)global.velocity[i]);
+            highV = high_byte((UInt16)global.velocity[i]);
+
+            feedback[startIdx] = lowP;
+            feedback[startIdx + 1] = highP;
+            feedback[startIdx + 2] = lowV;
+            feedback[startIdx + 3] = highV;
+
+            startIdx += 4;
+        }
     }
 
     public void parsePacket(ref byte[] packet)
@@ -46,7 +73,7 @@ public class Parser : MonoBehaviour
                     Loader(ref packet);
                     break;
                 case 1:
-                    print("got a control packet");
+                    // print("got a control packet");
                     Control(ref packet);
                     break;
                 case 2:
@@ -149,6 +176,10 @@ public class Parser : MonoBehaviour
         return (byte)(number & 0xff);
     }
 
+    private byte high_byte(ushort number)
+    {
+        return (byte)(number >> 8);
+    }
     /*
         @brief: checks if the packet recieved is correct:
         double header: 255

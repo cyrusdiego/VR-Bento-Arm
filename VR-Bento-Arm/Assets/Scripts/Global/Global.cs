@@ -19,4 +19,7 @@ public class Global : ScriptableObject
     public bool pause;
     public bool end;
     public bool reset; 
+    public float[] position;
+    public float[] velocity; 
+    public int motorCount = 5;
 }
