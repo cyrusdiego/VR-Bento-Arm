@@ -11,10 +11,7 @@ public class Parser
     private byte[] reqFeedback;
     private byte[] sendFeedback;
 
-    public Parser()
-    {
-        Initialization = new byte[];
-        reqFeedback = new byte[];
-        sendFeedback = new byte[];
-    }
+    public Parser(){}
+
+    
 }
