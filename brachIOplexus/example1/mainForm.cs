@@ -9217,7 +9217,7 @@ namespace brachIOplexus
             byte[] packet = new byte[5 + length];
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
-            packet[2] = 0;              // Type: 0
+            packet[2] = 1;              // Type: 1
             packet[3] = length;         // Length of Data 
 
             int idx = 4;
@@ -9275,6 +9275,18 @@ namespace brachIOplexus
                 sendUtility(init: 1);
                 Thread.Sleep(2000);
             }
+            byte[] packet = new byte[9];
+            packet[0] = 255;            
+            packet[1] = 255;            
+            packet[2] = 0;              
+            packet[3] = 9;           
+            packet[4] = 1;          
+            packet[5] = 1;          
+            packet[6] = 1; 
+            packet[7] = 1;           
+            packet[8] = calcCheckSum(ref packet);
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+            Console.WriteLine("send the loader packet");
         }
         #endregion
 

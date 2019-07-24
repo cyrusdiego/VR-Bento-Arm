@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Global", menuName = "brachIOplexus/GlobalVariables")]
 public class Global : ScriptableObject
@@ -10,4 +10,7 @@ public class Global : ScriptableObject
     public byte timerTrigger = 255;
     public byte[] cameraArray = new byte[4];
     public bool armShell = true;
+
+    // New stuff 
+    public int[] loaderPacket = new int[4];
 }
