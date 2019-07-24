@@ -12,7 +12,11 @@ public class Initialization : MonoBehaviour
             global.loaderPacket[i] = 255;
         }
 
+        global.outgoing = null;
         global.sent = false;
+        global.controlToggle = true;
+        global.armShell = true;
+        global.VREnabled = true;
     }
 
 

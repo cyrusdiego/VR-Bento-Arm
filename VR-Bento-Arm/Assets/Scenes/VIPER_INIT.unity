@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
   VRHeadset: {fileID: 0}
+  outgoing: 
 --- !u!1 &1327295370
 GameObject:
   m_ObjectHideFlags: 0

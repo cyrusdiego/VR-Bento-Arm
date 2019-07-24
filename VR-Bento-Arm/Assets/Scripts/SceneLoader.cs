@@ -35,17 +35,19 @@ public class SceneLoader : MonoBehaviour
             scene = global.loaderPacket[0]; 
             armShell = Convert.ToBoolean(global.loaderPacket[1]);
             armControl = Convert.ToBoolean(global.loaderPacket[2]);
-            VREnabled = Convert.ToBoolean(global.loaderPacket[3]);
+            VREnabled = Convert.ToBoolean(global.loaderPacket[3]);  // currently not in use, not until i make two versions
 
             loadScene();
-            // resetInitPacket();
+            resetInitPacket();
         }
     }
 
     private void loadScene()
     {
         SceneManager.LoadScene(scene);
-
+        global.armShell = armShell;
+        global.controlToggle = armControl;
+        global.VREnabled = VREnabled;
     }
 
     private void resetInitPacket()

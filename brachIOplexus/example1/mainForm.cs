@@ -9294,7 +9294,7 @@ namespace brachIOplexus
             packet[2] = 0;              
             packet[3] = 9;           
             packet[4] = 1;          
-            packet[5] = 1;          
+            packet[5] = 0;          
             packet[6] = 1; 
             packet[7] = 1;           
             packet[8] = calcCheckSum(ref packet);
@@ -9328,8 +9328,7 @@ namespace brachIOplexus
         {
             if (validate(ref packet, 4, (byte)(packet.Length - 1)))
             {
-                
-                if (packet[4] == 1)
+                if (packet[2] == 2 && packet[4] == 1)
                 {
                     unityAcknowledge = true;
                 }

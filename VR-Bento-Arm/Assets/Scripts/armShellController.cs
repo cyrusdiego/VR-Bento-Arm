@@ -8,12 +8,6 @@ public class armShellController : MonoBehaviour
     public GameObject[] armStructure = new GameObject[3];
     public Global global = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        global.armShell = true;    
-    }
-
     // Update is called once per frame
     void Update()
     {
