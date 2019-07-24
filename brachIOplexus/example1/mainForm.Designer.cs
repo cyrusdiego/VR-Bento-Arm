@@ -11904,6 +11904,7 @@
             this.unityPauseTask.TabIndex = 10;
             this.unityPauseTask.Text = "Pause Task";
             this.unityPauseTask.UseVisualStyleBackColor = true;
+            this.unityPauseTask.Click += new System.EventHandler(unityPauseTask_Click);
             // 
             // unityArmShellToggle
             // 

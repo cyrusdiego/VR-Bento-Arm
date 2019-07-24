@@ -8804,8 +8804,7 @@ namespace brachIOplexus
                 ipEndPointTX3 = new IPEndPoint(localAddr3, portTX3);
                 ipEndPointRX3 = new IPEndPoint(localAddr3, portRX3);
 
-                // Start the thread to send packets to Unity 
-                t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+                // Start the thread to recieve packets to Unity 
                 t12 = new System.Threading.Timer(new TimerCallback(recieveFromUnity), null, 0, 15);
 
                 UDPflag3 = true;
@@ -9107,7 +9106,10 @@ namespace brachIOplexus
 
         private void unityTaskList_Click(object sender, EventArgs e)
         {
-            sceneIndex = this.unityTaskList.SelectedIndices[0];
+            if(this.unityTaskList.SelectedIndices.Count > 0)
+            {
+                sceneIndex = this.unityTaskList.SelectedIndices[0];
+            }
         }
 
         private void unityLaunchTask_Click(object sender, EventArgs e)
@@ -9137,11 +9139,33 @@ namespace brachIOplexus
             packet[8] = calcCheckSum(ref packet);
 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+            t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+
         }
 
         private void unityEndTask_Click(object sender, EventArgs e)
         {
             sendSceneCtrl(endTask: 1);
+        }
+
+        private void unityPauseTask_Click(object sender, EventArgs e)
+        {
+            if(this.unityPauseTask.Text == "Pause Task")
+            {
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityPauseTask.Text = "Play Task";
+                });
+                sendSceneCtrl(pauseTask: 1);
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityPauseTask.Text = "Pause Task";
+                });
+                sendSceneCtrl(pauseTask: 0);
+            }
         }
         #endregion
 

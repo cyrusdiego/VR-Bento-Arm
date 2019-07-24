@@ -46,7 +46,7 @@ public class Parser : MonoBehaviour
                     Loader(ref packet);
                     break;
                 case 1:
-                    // print("got a control packet");
+                    print("got a control packet");
                     Control(ref packet);
                     break;
                 case 2:
@@ -90,8 +90,12 @@ public class Parser : MonoBehaviour
 
     private void Control(ref byte[] packet)
     {
+        if(global.pause)
+        {
+            return;
+        }
         clearRotationArray();
-        
+
         int length = packet[3] / 4;
         for(byte i = 1; i < length + 1; i++)
         {
