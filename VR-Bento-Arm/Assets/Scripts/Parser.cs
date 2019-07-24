@@ -45,10 +45,10 @@ public class Parser : MonoBehaviour
                     print("got loader packet");
                     Loader(ref packet);
                     break;
-                case 1:
-                    print("got a control packet");
-                    Control(ref packet);
-                    break;
+                // case 1:
+                //     print("got a control packet");
+                //     Control(ref packet);
+                //     break;
                 case 2:
                     print("got startup packet");
                     Startup();
@@ -82,7 +82,7 @@ public class Parser : MonoBehaviour
         pause = Convert.ToBoolean(packet[4]);
         end = Convert.ToBoolean(packet[5]);
         reset = Convert.ToBoolean(packet[6]);
-        
+
         global.pause = pause;
         global.end = end;
         global.reset = reset;

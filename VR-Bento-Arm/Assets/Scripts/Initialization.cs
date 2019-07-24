@@ -17,6 +17,9 @@ public class Initialization : MonoBehaviour
         global.controlToggle = true;
         global.armShell = true;
         global.VREnabled = true;
+        global.pause = false;
+        global.end = false;
+        global.reset = false;
     }
 
 

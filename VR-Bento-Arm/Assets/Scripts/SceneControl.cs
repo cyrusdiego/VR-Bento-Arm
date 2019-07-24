@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneControl : MonoBehaviour
 {
@@ -17,20 +18,18 @@ public class SceneControl : MonoBehaviour
 
         if(global.end)
         {
-
-        }
-        else
-        {
-            
+            SceneManager.LoadScene(0);
+            global.end = false;
         }
 
         if(global.reset)
         {
-            
-        }
-        else
-        {
-            
+            int index;
+
+            index = SceneManager.GetActiveScene().buildIndex;
+
+            SceneManager.LoadScene(index);
+            global.reset = false;
         }
     }
 }

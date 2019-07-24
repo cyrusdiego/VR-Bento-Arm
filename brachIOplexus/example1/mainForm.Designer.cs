@@ -11958,6 +11958,7 @@
             this.unityEndTask.TabIndex = 6;
             this.unityEndTask.Text = "End Task";
             this.unityEndTask.UseVisualStyleBackColor = true;
+            this.unityEndTask.Click += new System.EventHandler(unityEndTask_Click);
             // 
             // unityLaunchTask
             // 

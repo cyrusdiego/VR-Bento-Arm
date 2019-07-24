@@ -9138,6 +9138,11 @@ namespace brachIOplexus
 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
+
+        private void unityEndTask_Click(object sender, EventArgs e)
+        {
+            sendSceneCtrl(endTask: 1);
+        }
         #endregion
 
         #region UDP TX
