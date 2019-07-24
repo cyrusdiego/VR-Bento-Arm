@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR;
-using UnityEngine.SceneManagement;
-using Valve.VR;
+﻿using UnityEngine;
 
 public class Initialization : MonoBehaviour
 {
@@ -16,5 +11,9 @@ public class Initialization : MonoBehaviour
             global.cameraArray[i] = 255;
             global.loaderPacket[i] = 255;
         }
+
+        global.sent = false;
     }
+
+
 }

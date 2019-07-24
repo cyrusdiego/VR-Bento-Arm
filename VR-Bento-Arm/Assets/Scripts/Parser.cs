@@ -22,7 +22,12 @@ public class Parser : MonoBehaviour
     public GameObject VRHeadset = null;
     // Destroy(VRHeadset);
 
-    public Parser(){}
+    public byte[] outgoing = null;
+
+    void Awake()
+    {
+        outgoing = null;
+    }
 
     public void parsePacket(ref byte[] packet)
     {
@@ -33,21 +38,41 @@ public class Parser : MonoBehaviour
         if(valid)
         {
             type = packet[2];
+
             switch(type)
             {
                 case 0:
-                    Initialization(ref packet);
+                    print("got loader packet");
+                    Loader(ref packet);
+                    break;
+                case 2:
+                    print("got startup packet");
+                    Startup();
                     break;
             }
         }
     }
 
-    private void Initialization(ref byte[] packet)
+    private void Loader(ref byte[] packet)
     {
         for(int i = 4; i < packet.Length - 1; i++)
         {
             global.loaderPacket[i - 4] = (int)packet[i];
         }
+    }
+
+    private void Startup()
+    {
+        outgoing = new byte[6];
+        outgoing[0] = 255;
+        outgoing[1] = 255;
+        outgoing[2] = 2;
+        outgoing[3] = 1;
+        outgoing[4] = 1;
+        outgoing[5] = calcCheckSum(ref outgoing, 4, 5);
+
+        global.sent = true;
+
     }
 
     #region Utilities

@@ -9268,11 +9268,24 @@ namespace brachIOplexus
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
 
+        private void pingUnity()
+        {
+            byte[] packet = new byte[6];
+            packet[0] = 255;
+            packet[1] = 255;
+            packet[2] = 2;
+            packet[3] = 1;
+            packet[4] = 1;
+            packet[5] = calcCheckSum(ref packet);
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        }
+
         private void waitForAcknowledge()
         {
             while (!unityAcknowledge)
             {
-                sendUtility(init: 1);
+                pingUnity();
+                Console.WriteLine("still waiting for acknowledge");
                 Thread.Sleep(2000);
             }
             byte[] packet = new byte[9];
@@ -9286,7 +9299,7 @@ namespace brachIOplexus
             packet[7] = 1;           
             packet[8] = calcCheckSum(ref packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
-            Console.WriteLine("send the loader packet");
+            Console.WriteLine("sent the loader packet");
         }
         #endregion
 
@@ -9313,20 +9326,28 @@ namespace brachIOplexus
 
         private void parsePacket(ref byte[] packet)
         {
-            if(validate(ref packet, 2,5))
+            if (validate(ref packet, 4, (byte)(packet.Length - 1)))
             {
-                if(packet[2] == 1)
+                
+                if (packet[4] == 1)
                 {
                     unityAcknowledge = true;
                 }
-
-                if(packet[4] == 1)
-                {
-                    Console.WriteLine("got a packetttt");
-                    timerToggle();
-                }
             }
-        }
+                //if(validate(ref packet, 2,5))
+                //{
+                //    if(packet[2] == 1)
+                //    {
+                //        unityAcknowledge = true;
+                //    }
+
+                //    if(packet[4] == 1)
+                //    {
+                //        Console.WriteLine("got a packetttt");
+                //        timerToggle();
+                //    }
+                //}
+            }
         #endregion
 
         #region UDP Utilities

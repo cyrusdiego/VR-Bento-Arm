@@ -45,10 +45,7 @@ public class SceneLoader : MonoBehaviour
     private void loadScene()
     {
         SceneManager.LoadScene(scene);
-        if(SceneManager.GetActiveScene().buildIndex == scene)
-        {
-            print("woohooooooo");
-        }
+
     }
 
     private void resetInitPacket()

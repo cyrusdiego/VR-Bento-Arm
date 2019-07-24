@@ -37,6 +37,8 @@ public class UDPConnection : MonoBehaviour
 
     public Parser packetParser = null;    
 
+    private byte[] outgoing = null;
+
     #endregion
 
     #region Unity API
@@ -46,7 +48,6 @@ public class UDPConnection : MonoBehaviour
     */
     void Awake()
     {
-        packetParser = new Parser();
 
         // Initialize udp connection and seperate thread 
         clientRX = new UdpClient(portRX);
@@ -55,16 +56,18 @@ public class UDPConnection : MonoBehaviour
 
         clientTX = new UdpClient();
         endpointTX = new IPEndPoint(local,portTX);
-        // threadTX = new Thread(Send);
+        threadTX = new Thread(Send);
 
         exitTX = false;
         exitRX = false;
         threadRX.Start();
-        // threadTX.Start();
+        threadTX.Start();
     }
 
     void Update()
     {
+        outgoing = packetParser.outgoing;
+
         // if(scene != 0)
         // {
         //     updateScene();
@@ -83,6 +86,7 @@ public class UDPConnection : MonoBehaviour
     void OnDestroy()
     {
         exitRX = true;
+        exitTX = true;
         clientRX.Close();
         clientTX.Close();
     }
@@ -91,26 +95,41 @@ public class UDPConnection : MonoBehaviour
 
     #region UDPTX
 
-    // void Send(byte scene = 255, byte timer = 255, byte acknowledge = 255)
-    // {
-    //     try
-    //     {
-    //         byte[] packet = new byte[6];
-    //         packet[0] = 255;
-    //         packet[1] = 255;
-    //         packet[2] = acknowledge;
-    //         packet[3] = scene;
-    //         packet[4] = timer;
-    //         packet[5] = calcCheckSum(ref packet,2,5);
+    void Send()
+    {
+        while(!exitTX)
+        {
+            try
+            {
+                if(outgoing != null)
+                {
+                    clientTX.Send(outgoing, outgoing.Length,endpointTX);
+                    packetParser.outgoing = null;
+                }
 
-    //         clientTX.Send(packet,packet.Length,endpointTX);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         print(ex.ToString());
-    //     }
+            }
+            catch (Exception err)
+            {
+                print(err.ToString());            
+            }
+        }
+        // try
+        // {
+        //     byte[] packet = new byte[6];
+        //     packet[0] = 255;
+        //     packet[1] = 255;
+        //     packet[2] = acknowledge;
+        //     packet[3] = scene;
+        //     packet[4] = timer;
+        //     packet[5] = calcCheckSum(ref packet,2,5);
 
-    // }
+        //     clientTX.Send(packet,packet.Length,endpointTX);
+        // }
+        // catch (Exception ex)
+        // {
+        //     print(ex.ToString());
+        // }
+    }
 
     #endregion
 
@@ -128,10 +147,6 @@ public class UDPConnection : MonoBehaviour
                 if(clientRX.Available > 0)
                 {
                     byte[] packet = clientRX.Receive(ref endpointRX); 
-                    if(packet[2] == 0)
-                    {
-                        print("got the init packet");
-                    }
                     packetParser.parsePacket(ref packet);
                 }
             }

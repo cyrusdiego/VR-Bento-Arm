@@ -13,4 +13,6 @@ public class Global : ScriptableObject
 
     // New stuff 
     public int[] loaderPacket = new int[4];
+    public bool sent;
+    public byte[] outgoing = null;
 }
