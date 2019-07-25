@@ -18,42 +18,47 @@ public class Parser : MonoBehaviour
     public GameObject VRHeadset = null;
     // Destroy(VRHeadset);
 
-    public byte[] outgoing = null;
-    public byte[] feedback = null;
+    public byte[] outgoing;
+    public byte[] feedback;
 
     private int startIdx = 4;
 
     void Awake()
     {
         outgoing = null;
-        feedback = new byte[(global.motorCount * 2) + 5];
-        feedback[0] = 255;
-        feedback[1] = 255;
-        feedback[2] = 3;
-        feedback[4] = (byte)feedback.Length;
+        feedback = null;
+        // feedback = new byte[(global.motorCount * 2) + 5];
+        // feedback[0] = 255;
+        // feedback[1] = 255;
+        // feedback[2] = 3;
+        // feedback[4] = (byte)feedback.Length;
     }
 
     void FixedUpdate()
     {
-        for(int i = 0; i < global.motorCount; i++)
-        {
-            byte lowP;
-            byte highP;
-            byte lowV;
-            byte highV; 
+        // if(global.sent)
+        // {
+        //     for(int i = 0; i < global.motorCount; i++)
+        //     {
+        //         byte lowP;
+        //         byte highP;
+        //         byte lowV;
+        //         byte highV; 
 
-            lowP = low_byte((UInt16)global.position[i]);
-            highP = high_byte((UInt16)global.position[i]); 
-            lowV = low_byte((UInt16)global.velocity[i]);
-            highV = high_byte((UInt16)global.velocity[i]);
+        //         lowP = low_byte((UInt16)global.position[i]);
+        //         highP = high_byte((UInt16)global.position[i]); 
+        //         lowV = low_byte((UInt16)global.velocity[i]);
+        //         highV = high_byte((UInt16)global.velocity[i]);
 
-            feedback[startIdx] = lowP;
-            feedback[startIdx + 1] = highP;
-            feedback[startIdx + 2] = lowV;
-            feedback[startIdx + 3] = highV;
+        //         feedback[startIdx] = lowP;
+        //         feedback[startIdx + 1] = highP;
+        //         feedback[startIdx + 2] = lowV;
+        //         feedback[startIdx + 3] = highV;
 
-            startIdx += 4;
-        }
+        //         startIdx += 4;
+        //     }
+        // }
+       
     }
 
     public void parsePacket(ref byte[] packet)
@@ -149,7 +154,7 @@ public class Parser : MonoBehaviour
         outgoing[2] = 2;
         outgoing[3] = 1;
         outgoing[4] = 1;
-        outgoing[5] = calcCheckSum(ref outgoing, 4, 5);
+        outgoing[5] = calcCheckSum(ref outgoing);
 
         global.sent = true;
 
@@ -219,11 +224,11 @@ public class Parser : MonoBehaviour
     * 
     * @param: packet to be sent 
     */
-    private byte calcCheckSum(ref byte[] packet, byte start, byte end)
+    private byte calcCheckSum(ref byte[] packet)
     {
         byte checkSum = 0;
 
-        for (byte i = start; i < end; i++)
+        for (byte i = 4; i < packet.Length; i++)
         {
             checkSum += packet[i];
         }

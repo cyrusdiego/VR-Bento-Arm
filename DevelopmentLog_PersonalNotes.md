@@ -1379,3 +1379,9 @@ brachIOplexus can:
 - Add radio buttons for the type of object to use 
 - Read over tasks and implement one 
 - Implement Joint limit DOF and constant feedback 
+
+**July 25**
+- When clicking "end task" after going into a task, brachIOplexus still sends sends startup packets for some reason
+- The enabling of the Unity tab is weird as it only works if Unity is plugged in first and pressing disconnect button breaks it
+- Organize variables that i use in a struct !!!!
+- rename outgoing and sent variables !!!

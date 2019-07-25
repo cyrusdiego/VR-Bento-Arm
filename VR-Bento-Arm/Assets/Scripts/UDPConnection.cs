@@ -37,8 +37,8 @@ public class UDPConnection : MonoBehaviour
 
     public Parser packetParser = null;    
 
-    private byte[] outgoing = null;
-    private byte[] feedback = null;
+    private byte[] outgoing;
+    private byte[] feedback;
 
     #endregion
 
@@ -49,7 +49,8 @@ public class UDPConnection : MonoBehaviour
     */
     void Awake()
     {
-
+        outgoing = null;
+        feedback = null;
         // Initialize udp connection and seperate thread 
         clientRX = new UdpClient(portRX);
         endpointRX = new IPEndPoint(local,portRX);
@@ -95,7 +96,6 @@ public class UDPConnection : MonoBehaviour
     #endregion
 
     #region UDPTX
-
     void Send()
     {
         while(!exitTX)

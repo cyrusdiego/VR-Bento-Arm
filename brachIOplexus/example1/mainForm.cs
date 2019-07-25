@@ -199,6 +199,8 @@ namespace brachIOplexus
         private int armControl = 1;
         private bool unityAcknowledge = false;
         private int sceneIndex = 255;
+        private bool t11Running = false;
+        private bool connected;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -616,6 +618,7 @@ namespace brachIOplexus
                 unityCameraPositions.Add(fileName);
                 cameraPositionIdx++;
             }
+
             #endregion
 
         }
@@ -8810,15 +8813,8 @@ namespace brachIOplexus
                 UDPflag3 = true;
                 unityConnect.Enabled = false;
                 unityDisconnect.Enabled = true;
+                connected = true;
                 acknowdledge.Start();
-                if(unityAcknowledge)
-                {
-                    this.unityMainControls.Enabled = true;
-                    this.unityTaskConfiguration.Enabled = true;
-                    this.unityCameraPosition.Enabled = true;
-                    this.unityRobotParamsBox.Enabled = true;
-                    this.unityFeedbackBox.Enabled = true;
-                }
 
                 // Displays camera position if the list is not empty upon opening brachIOplexus
                 //if(unityCameraPositions.Count > 0)
@@ -8835,16 +8831,20 @@ namespace brachIOplexus
         {
             if (UDPflag3)
             {
+                connected = false;
                 //if(unityAcknowledge)
                 //{
                 //    sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
                 //    sendUtility(control: 0);
                 //}
-
+                if (t11Running)
+                {
+                    t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+                }
+                t12.Change(Timeout.Infinite, Timeout.Infinite);
                 udpClientTX3.Close();
                 udpClientRX3.Close();
-                t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
-                t12.Change(Timeout.Infinite, Timeout.Infinite);
+
 
                 UDPflag3 = false;
                 unityConnect.Enabled = true;
@@ -9149,6 +9149,7 @@ namespace brachIOplexus
 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
             t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+            t11Running = true;
 
         }
 
@@ -9378,11 +9379,39 @@ namespace brachIOplexus
 
         private void waitForAcknowledge()
         {
-            while (!unityAcknowledge)
+            Console.WriteLine("Entering while loop");
+            while (!unityAcknowledge && connected)
             {
                 pingUnity();
+                Console.WriteLine("Waiting for acknowledgement");
                 Thread.Sleep(2000);
             }
+            Console.WriteLine("recieved acknowledgement");
+            enableUnityTab();
+        }
+
+        private void enableUnityTab()
+        {
+            this.unityMainControls.Invoke((MethodInvoker)delegate
+            {
+                this.unityMainControls.Enabled = true;
+            });
+            this.unityTaskConfiguration.Invoke((MethodInvoker)delegate
+            {
+                this.unityTaskConfiguration.Enabled = true;
+            });
+            this.unityCameraPosition.Invoke((MethodInvoker)delegate
+            {
+                this.unityCameraPosition.Enabled = true;
+            });
+            this.unityRobotParamsBox.Invoke((MethodInvoker)delegate
+            {
+                this.unityRobotParamsBox.Enabled = true;
+            });
+            this.unityFeedbackBox.Invoke((MethodInvoker)delegate
+            {
+                this.unityFeedbackBox.Enabled = true;
+            });
         }
         #endregion
 
@@ -9394,6 +9423,7 @@ namespace brachIOplexus
                 // https://stackoverflow.com/questions/5932204/c-sharp-udp-listener-un-blocking-or-prevent-revceiving-from-being-stuck
                 if (udpClientRX3.Available > 0)
                 {
+                    Console.WriteLine("recieved a packet :)");
                     stopWatch12.Stop();
                     milliSec12 = stopWatch12.ElapsedMilliseconds;
 
@@ -9409,12 +9439,18 @@ namespace brachIOplexus
 
         private void parsePacket(ref byte[] packet)
         {
-            if (validate(ref packet, 4, (byte)(packet.Length - 1)))
+            if (validate(ref packet))
             {
                 if (packet[2] == 2 && packet[4] == 1)
                 {
                     unityAcknowledge = true;
                 }
+            }
+            else
+            {
+                Console.WriteLine("not valid");
+                Console.WriteLine("packet[2] == " + packet[2]);
+                Console.WriteLine("checksum == " + calcCheckSum(ref packet));
             }
                 //if(validate(ref packet, 2,5))
                 //{
@@ -9464,9 +9500,11 @@ namespace brachIOplexus
             double header: 255
             checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
         */
-        bool validate(ref byte[] packet, byte start, byte end)
+        bool validate(ref byte[] packet)
         {
             byte checksum = 0;
+            int start = 4;
+            int end = packet.Length - 1;
             for (int i = start; i < end; i++)
             {
                 checksum += packet[i];
