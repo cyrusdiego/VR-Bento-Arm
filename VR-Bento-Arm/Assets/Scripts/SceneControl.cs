@@ -19,6 +19,7 @@ public class SceneControl : MonoBehaviour
         if(global.end)
         {
             SceneManager.LoadScene(0);
+            global.task = false;
             global.end = false;
         }
 

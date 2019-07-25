@@ -8831,6 +8831,7 @@ namespace brachIOplexus
         {
             if (UDPflag3)
             {
+                enableUnityTab(false);
                 connected = false;
                 //if(unityAcknowledge)
                 //{
@@ -9379,38 +9380,35 @@ namespace brachIOplexus
 
         private void waitForAcknowledge()
         {
-            Console.WriteLine("Entering while loop");
             while (!unityAcknowledge && connected)
             {
                 pingUnity();
-                Console.WriteLine("Waiting for acknowledgement");
                 Thread.Sleep(2000);
             }
-            Console.WriteLine("recieved acknowledgement");
-            enableUnityTab();
+            enableUnityTab(true);
         }
 
-        private void enableUnityTab()
+        private void enableUnityTab(bool state)
         {
             this.unityMainControls.Invoke((MethodInvoker)delegate
             {
-                this.unityMainControls.Enabled = true;
+                this.unityMainControls.Enabled = state;
             });
             this.unityTaskConfiguration.Invoke((MethodInvoker)delegate
             {
-                this.unityTaskConfiguration.Enabled = true;
+                this.unityTaskConfiguration.Enabled = state;
             });
             this.unityCameraPosition.Invoke((MethodInvoker)delegate
             {
-                this.unityCameraPosition.Enabled = true;
+                this.unityCameraPosition.Enabled = state;
             });
             this.unityRobotParamsBox.Invoke((MethodInvoker)delegate
             {
-                this.unityRobotParamsBox.Enabled = true;
+                this.unityRobotParamsBox.Enabled = state;
             });
             this.unityFeedbackBox.Invoke((MethodInvoker)delegate
             {
-                this.unityFeedbackBox.Enabled = true;
+                this.unityFeedbackBox.Enabled = state;
             });
         }
         #endregion
@@ -9423,7 +9421,6 @@ namespace brachIOplexus
                 // https://stackoverflow.com/questions/5932204/c-sharp-udp-listener-un-blocking-or-prevent-revceiving-from-being-stuck
                 if (udpClientRX3.Available > 0)
                 {
-                    Console.WriteLine("recieved a packet :)");
                     stopWatch12.Stop();
                     milliSec12 = stopWatch12.ElapsedMilliseconds;
 
@@ -9445,12 +9442,6 @@ namespace brachIOplexus
                 {
                     unityAcknowledge = true;
                 }
-            }
-            else
-            {
-                Console.WriteLine("not valid");
-                Console.WriteLine("packet[2] == " + packet[2]);
-                Console.WriteLine("checksum == " + calcCheckSum(ref packet));
             }
                 //if(validate(ref packet, 2,5))
                 //{

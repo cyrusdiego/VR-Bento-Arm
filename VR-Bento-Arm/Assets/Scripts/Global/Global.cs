@@ -22,4 +22,5 @@ public class Global : ScriptableObject
     public float[] position;
     public float[] velocity; 
     public int motorCount = 5;
+    public bool task;
 }

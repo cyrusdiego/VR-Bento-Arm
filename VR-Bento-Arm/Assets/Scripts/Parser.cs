@@ -20,44 +20,50 @@ public class Parser : MonoBehaviour
 
     public byte[] outgoing;
     public byte[] feedback;
-
-    private int startIdx = 4;
+    public bool task;
 
     void Awake()
     {
         outgoing = null;
-        feedback = null;
-        // feedback = new byte[(global.motorCount * 2) + 5];
-        // feedback[0] = 255;
-        // feedback[1] = 255;
-        // feedback[2] = 3;
-        // feedback[4] = (byte)feedback.Length;
+        feedback = new byte[(global.motorCount * 4) + 5];
+        task = global.task;
     }
 
     void FixedUpdate()
     {
-        // if(global.sent)
-        // {
-        //     for(int i = 0; i < global.motorCount; i++)
-        //     {
-        //         byte lowP;
-        //         byte highP;
-        //         byte lowV;
-        //         byte highV; 
+        task = global.task;
+        if(task)
+        {
+            int startIdx;
 
-        //         lowP = low_byte((UInt16)global.position[i]);
-        //         highP = high_byte((UInt16)global.position[i]); 
-        //         lowV = low_byte((UInt16)global.velocity[i]);
-        //         highV = high_byte((UInt16)global.velocity[i]);
+            feedback[0] = 255;
+            feedback[1] = 255;
+            feedback[2] = 3;
+            feedback[3] = (byte)feedback.Length;
 
-        //         feedback[startIdx] = lowP;
-        //         feedback[startIdx + 1] = highP;
-        //         feedback[startIdx + 2] = lowV;
-        //         feedback[startIdx + 3] = highV;
+            startIdx = 4;
 
-        //         startIdx += 4;
-        //     }
-        // }
+            for(int i = 0; i < global.motorCount; i++)
+            {
+                byte lowP;
+                byte highP;
+                byte lowV;
+                byte highV; 
+
+                lowP = low_byte((UInt16)global.position[i]);
+                highP = high_byte((UInt16)global.position[i]); 
+                lowV = low_byte((UInt16)global.velocity[i]);
+                highV = high_byte((UInt16)global.velocity[i]);
+
+                feedback[startIdx] = lowP;
+                feedback[startIdx + 1] = highP;
+                feedback[startIdx + 2] = lowV;
+                feedback[startIdx + 3] = highV;
+
+                startIdx += 4;
+            }
+            feedback[feedback.Length - 1] = calcCheckSum(ref feedback);
+        }
        
     }
 
@@ -144,6 +150,7 @@ public class Parser : MonoBehaviour
         {
             global.loaderPacket[i - 4] = (int)packet[i];
         }
+        global.task = true;
     }
 
     private void Startup()

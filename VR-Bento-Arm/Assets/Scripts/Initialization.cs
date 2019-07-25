@@ -20,6 +20,7 @@ public class Initialization : MonoBehaviour
         global.pause = false;
         global.end = false;
         global.reset = false;
+        global.task = false;
     }
 
 

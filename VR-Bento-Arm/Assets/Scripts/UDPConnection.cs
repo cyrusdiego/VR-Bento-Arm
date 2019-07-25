@@ -39,6 +39,7 @@ public class UDPConnection : MonoBehaviour
 
     private byte[] outgoing;
     private byte[] feedback;
+    private bool task;
 
     #endregion
 
@@ -51,6 +52,7 @@ public class UDPConnection : MonoBehaviour
     {
         outgoing = null;
         feedback = null;
+        task = false;
         // Initialize udp connection and seperate thread 
         clientRX = new UdpClient(portRX);
         endpointRX = new IPEndPoint(local,portRX);
@@ -66,10 +68,11 @@ public class UDPConnection : MonoBehaviour
         threadTX.Start();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         outgoing = packetParser.outgoing;
         feedback = packetParser.feedback;
+        task = packetParser.task;
         // if(scene != 0)
         // {
         //     updateScene();
@@ -107,10 +110,9 @@ public class UDPConnection : MonoBehaviour
                     clientTX.Send(outgoing, outgoing.Length,endpointTX);
                     packetParser.outgoing = null;
                 }
-                if(feedback != null)
+                if(task)
                 {
                     clientTX.Send(feedback, feedback.Length,endpointTX);
-                    packetParser.feedback = null;
                 }
 
             }

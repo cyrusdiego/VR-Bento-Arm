@@ -1362,8 +1362,7 @@ brachIOplexus can:
 - Scene initialization and task choosing
 
 *TODO BEFORE VACATION*
-- Have unity tab disable until it connects
-- all dof are by default enabled in connection
+- Have unity tab disable until it connects (DONE)
 - Test:
     - Toggling arm control toggle 
     - Camera Positions (all of it)
@@ -1376,6 +1375,7 @@ brachIOplexus can:
 
 
 *TODO AFTER VACATION*
+- When VR Headset connected, destroy it when reseting
 - Add radio buttons for the type of object to use 
 - Read over tasks and implement one 
 - Implement Joint limit DOF and constant feedback 
