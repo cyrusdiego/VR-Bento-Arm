@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Game Task", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Next Task", 0);
             this.tg = new MathWorks.xPCTarget.FrameWork.xPCTargetPC(this.components);
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -11858,13 +11860,13 @@
             this.unityMainControls.Controls.Add(this.unityTaskList);
             this.unityMainControls.Controls.Add(this.unityEndTask);
             this.unityMainControls.Controls.Add(this.unityLaunchTask);
+            this.unityMainControls.Enabled = false;
             this.unityMainControls.Location = new System.Drawing.Point(3, 3);
             this.unityMainControls.Name = "unityMainControls";
             this.unityMainControls.Size = new System.Drawing.Size(339, 288);
             this.unityMainControls.TabIndex = 4;
             this.unityMainControls.TabStop = false;
             this.unityMainControls.Text = "Main Controls";
-            this.unityMainControls.Enabled = false;
             // 
             // unityHeadsetModeToggleInfo
             // 
@@ -11879,12 +11881,13 @@
             // unityHeadsetModeToggle
             // 
             this.unityHeadsetModeToggle.AutoSize = true;
+            this.unityHeadsetModeToggle.Checked = true;
+            this.unityHeadsetModeToggle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.unityHeadsetModeToggle.Location = new System.Drawing.Point(214, 112);
             this.unityHeadsetModeToggle.Name = "unityHeadsetModeToggle";
             this.unityHeadsetModeToggle.Size = new System.Drawing.Size(83, 17);
             this.unityHeadsetModeToggle.TabIndex = 12;
             this.unityHeadsetModeToggle.Text = "VR Enabled";
-            this.unityHeadsetModeToggle.Checked = true;
             this.unityHeadsetModeToggle.UseVisualStyleBackColor = true;
             // 
             // unityArmToggleInfo
@@ -11905,27 +11908,29 @@
             this.unityPauseTask.TabIndex = 10;
             this.unityPauseTask.Text = "Pause Task";
             this.unityPauseTask.UseVisualStyleBackColor = true;
-            this.unityPauseTask.Click += new System.EventHandler(unityPauseTask_Click);
+            this.unityPauseTask.Click += new System.EventHandler(this.unityPauseTask_Click);
             // 
             // unityArmShellToggle
             // 
             this.unityArmShellToggle.AutoSize = true;
+            this.unityArmShellToggle.Checked = true;
+            this.unityArmShellToggle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.unityArmShellToggle.Location = new System.Drawing.Point(214, 23);
             this.unityArmShellToggle.Name = "unityArmShellToggle";
             this.unityArmShellToggle.Size = new System.Drawing.Size(117, 17);
             this.unityArmShellToggle.TabIndex = 9;
             this.unityArmShellToggle.Text = "Arm Shells Enabled";
-            this.unityArmShellToggle.Checked = true;
             this.unityArmShellToggle.UseVisualStyleBackColor = true;
             // 
             // unityArmControlToggle
             // 
+            this.unityArmControlToggle.Checked = true;
+            this.unityArmControlToggle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.unityArmControlToggle.Location = new System.Drawing.Point(214, 39);
             this.unityArmControlToggle.Name = "unityArmControlToggle";
             this.unityArmControlToggle.Size = new System.Drawing.Size(107, 42);
             this.unityArmControlToggle.TabIndex = 8;
             this.unityArmControlToggle.Text = "brachIOplexus Input Enabled";
-            this.unityArmControlToggle.Checked = true;
             this.unityArmControlToggle.UseVisualStyleBackColor = true;
             // 
             // unityResetTask
@@ -11940,16 +11945,17 @@
             // 
             // unityTaskList
             // 
+            this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
             this.unityTaskList.Location = new System.Drawing.Point(6, 19);
+            this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Name = "unityTaskList";
             this.unityTaskList.Size = new System.Drawing.Size(202, 252);
             this.unityTaskList.TabIndex = 7;
             this.unityTaskList.UseCompatibleStateImageBehavior = false;
-            this.unityTaskList.Items.Add("Game Task", 0);
-            this.unityTaskList.Items.Add("Next Task", 0);
             this.unityTaskList.View = System.Windows.Forms.View.List;
-            this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Click += new System.EventHandler(this.unityTaskList_Click);
             // 
             // unityEndTask
@@ -11960,7 +11966,7 @@
             this.unityEndTask.TabIndex = 6;
             this.unityEndTask.Text = "End Task";
             this.unityEndTask.UseVisualStyleBackColor = true;
-            this.unityEndTask.Click += new System.EventHandler(unityEndTask_Click);
+            this.unityEndTask.Click += new System.EventHandler(this.unityEndTask_Click);
             // 
             // unityLaunchTask
             // 
@@ -11990,13 +11996,13 @@
             this.unityTaskConfiguration.Controls.Add(this.unityNewTimeFile);
             this.unityTaskConfiguration.Controls.Add(this.unityResetTimer);
             this.unityTaskConfiguration.Controls.Add(this.unityStartTimer);
+            this.unityTaskConfiguration.Enabled = false;
             this.unityTaskConfiguration.Location = new System.Drawing.Point(348, 3);
             this.unityTaskConfiguration.Name = "unityTaskConfiguration";
             this.unityTaskConfiguration.Size = new System.Drawing.Size(267, 165);
             this.unityTaskConfiguration.TabIndex = 3;
             this.unityTaskConfiguration.TabStop = false;
             this.unityTaskConfiguration.Text = "Task - Timer";
-            this.unityTaskConfiguration.Enabled = false;
             // 
             // unitySaveTimer
             // 
@@ -12023,7 +12029,7 @@
             // unityTimerFileName
             // 
             this.unityTimerFileName.AutoSize = true;
-            this.unityTimerFileName.Location = new System.Drawing.Point(6, 107);
+            this.unityTimerFileName.Location = new System.Drawing.Point(7, 110);
             this.unityTimerFileName.Name = "unityTimerFileName";
             this.unityTimerFileName.Size = new System.Drawing.Size(79, 13);
             this.unityTimerFileName.TabIndex = 0;
@@ -12097,27 +12103,27 @@
             this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);
             this.unityCameraPosition.Controls.Add(this.unitySaveCameraPosition);
             this.unityCameraPosition.Controls.Add(this.unityToggleCameraPosition);
+            this.unityCameraPosition.Enabled = false;
             this.unityCameraPosition.Location = new System.Drawing.Point(348, 174);
             this.unityCameraPosition.Name = "unityCameraPosition";
             this.unityCameraPosition.Size = new System.Drawing.Size(267, 116);
             this.unityCameraPosition.TabIndex = 2;
             this.unityCameraPosition.TabStop = false;
             this.unityCameraPosition.Text = "Scene - Camera Position";
-            this.unityCameraPosition.Enabled = false;
             // 
             // unityCameraPositionNumber
             // 
             this.unityCameraPositionNumber.AutoSize = true;
-            this.unityCameraPositionNumber.Location = new System.Drawing.Point(128, 68);
+            this.unityCameraPositionNumber.Location = new System.Drawing.Point(143, 77);
             this.unityCameraPositionNumber.Name = "unityCameraPositionNumber";
-            this.unityCameraPositionNumber.Size = new System.Drawing.Size(139, 13);
+            this.unityCameraPositionNumber.Size = new System.Drawing.Size(100, 13);
             this.unityCameraPositionNumber.TabIndex = 0;
-            this.unityCameraPositionNumber.Text = "No Camera Positions Saved";
+            this.unityCameraPositionNumber.Text = "No Saved Positions";
             // 
             // unityCameraPositionTitle
             // 
             this.unityCameraPositionTitle.AutoSize = true;
-            this.unityCameraPositionTitle.Location = new System.Drawing.Point(157, 49);
+            this.unityCameraPositionTitle.Location = new System.Drawing.Point(151, 45);
             this.unityCameraPositionTitle.Name = "unityCameraPositionTitle";
             this.unityCameraPositionTitle.Size = new System.Drawing.Size(84, 13);
             this.unityCameraPositionTitle.TabIndex = 6;

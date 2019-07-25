@@ -34,44 +34,15 @@ public class Parser : MonoBehaviour
         task = global.task;
         if(task)
         {
-            int startIdx;
-
-            feedback[0] = 255;
-            feedback[1] = 255;
-            feedback[2] = 3;
-            feedback[3] = (byte)feedback.Length;
-
-            startIdx = 4;
-
-            for(int i = 0; i < global.motorCount; i++)
-            {
-                byte lowP;
-                byte highP;
-                byte lowV;
-                byte highV; 
-
-                lowP = low_byte((UInt16)global.position[i]);
-                highP = high_byte((UInt16)global.position[i]); 
-                lowV = low_byte((UInt16)global.velocity[i]);
-                highV = high_byte((UInt16)global.velocity[i]);
-
-                feedback[startIdx] = lowP;
-                feedback[startIdx + 1] = highP;
-                feedback[startIdx + 2] = lowV;
-                feedback[startIdx + 3] = highV;
-
-                startIdx += 4;
-            }
-            feedback[feedback.Length - 1] = calcCheckSum(ref feedback);
+            sendFeedback();
         }
-       
     }
 
     public void parsePacket(ref byte[] packet)
     {
         bool valid;
         byte type;
-        valid = validate(ref packet, 4, (byte)(packet.Length - 1));
+        valid = validate(ref packet);
 
         if(valid)
         {
@@ -104,6 +75,39 @@ public class Parser : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void sendFeedback()
+    {
+        int startIdx;
+
+        feedback[0] = 255;
+        feedback[1] = 255;
+        feedback[2] = 3;
+        feedback[3] = (byte)feedback.Length;
+
+        startIdx = 4;
+
+        for(int i = 0; i < global.motorCount; i++)
+        {
+            byte lowP;
+            byte highP;
+            byte lowV;
+            byte highV; 
+
+            lowP = low_byte((UInt16)global.position[i]);
+            highP = high_byte((UInt16)global.position[i]); 
+            lowV = low_byte((UInt16)global.velocity[i]);
+            highV = high_byte((UInt16)global.velocity[i]);
+
+            feedback[startIdx] = lowP;
+            feedback[startIdx + 1] = highP;
+            feedback[startIdx + 2] = lowV;
+            feedback[startIdx + 3] = highV;
+
+            startIdx += 4;
+        }
+        feedback[feedback.Length - 1] = calcCheckSum(ref feedback);
     }
 
     private void Camera(ref byte[] packet)
@@ -197,25 +201,28 @@ public class Parser : MonoBehaviour
         double header: 255
         checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
     */
-    private bool validate(ref byte[] packet, byte start, byte end)
+    private bool validate(ref byte[] packet)
     {
         byte checksum = 0;
-        for(int i = start; i < end; i++)
-        {
-            checksum += packet[i];
-        }
+        checksum = calcCheckSum(ref packet);
+        // int start = 4;
+        // int end = packet.Length - 1;
+        // for (int i = start; i < end; i++)
+        // {
+        //     checksum += packet[i];
+        // }
 
-        if((byte)~checksum > 255)
-        {
-            checksum = low_byte((UInt16)~checksum);
-        }
-        else
-        {
-            checksum = (byte)~checksum;
-        }
+        // if ((byte)~checksum > 255)
+        // {
+        //     checksum = low_byte((UInt16)~checksum);
+        // }
+        // else
+        // {
+        //     checksum = (byte)~checksum;
+        // }
 
 
-        if(checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
+        if (checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
         {
             return true;
         }
@@ -235,7 +242,7 @@ public class Parser : MonoBehaviour
     {
         byte checkSum = 0;
 
-        for (byte i = 4; i < packet.Length; i++)
+        for (byte i = 4; i < packet.Length - 1; i++)
         {
             checkSum += packet[i];
         }

@@ -31,25 +31,25 @@ public class Feedback : MonoBehaviour
                     velocity = rb.angularVelocity.y;
                     break;
                 case 1:
-                    position = tf.rotation.x;
+                    position = tf.localRotation.eulerAngles.x;
                     velocity = rb.angularVelocity.x;
                     break;
                 case 2:
-                    position = tf.rotation.z;
+                    position = tf.localRotation.eulerAngles.z;
                     velocity = rb.angularVelocity.z;
                     break;
                 case 3:
-                    position = tf.rotation.x;
+                    position = tf.localRotation.eulerAngles.x;
                     velocity = rb.angularVelocity.x;
                     break;
                 case 4:
-                    position = tf.rotation.y;
+                    position = tf.localRotation.eulerAngles.y;
                     velocity = rb.angularVelocity.y;
                     break;
             }
 
             global.position[i] = position;
             global.velocity[i] = velocity;
-        }       
+        }
     }
 }

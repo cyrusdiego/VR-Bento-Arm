@@ -201,6 +201,7 @@ namespace brachIOplexus
         private int sceneIndex = 255;
         private bool t11Running = false;
         private bool connected;
+        private static System.Timers.Timer unityFeedback = new System.Timers.Timer(10);
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -9146,7 +9147,7 @@ namespace brachIOplexus
             packet[5] = armShell;                       // Arm Shell toggle
             packet[6] = armControl;                     // brachIOplexus input toggle
             packet[7] = VREnabled;                      // VR enable toggle 
-            packet[8] = calcCheckSum(ref packet);
+            packet[8] = calcCheckSum(packet);
 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
             t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
@@ -9308,7 +9309,7 @@ namespace brachIOplexus
                 }
             }
 
-            packet[packet.Length - 1] = calcCheckSum(ref packet);
+            packet[packet.Length - 1] = calcCheckSum(packet);
 
             return packet;
         }
@@ -9323,7 +9324,7 @@ namespace brachIOplexus
             packet[4] = camNext;        // Next camera position
             packet[5] = camClear;       // Clear saved camera positions
             packet[6] = camSave;        // Save current camera position
-            packet[7] = calcCheckSum(ref packet);   
+            packet[7] = calcCheckSum(packet);   
             
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
@@ -9338,7 +9339,7 @@ namespace brachIOplexus
             packet[4] = pauseTask;        // Next camera position
             packet[5] = endTask;       // Clear saved camera positions
             packet[6] = resetTask;        // Save current camera position
-            packet[7] = calcCheckSum(ref packet);
+            packet[7] = calcCheckSum(packet);
 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
@@ -9374,7 +9375,7 @@ namespace brachIOplexus
             packet[2] = 2;
             packet[3] = 1;
             packet[4] = 1;
-            packet[5] = calcCheckSum(ref packet);
+            packet[5] = calcCheckSum(packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
 
@@ -9425,7 +9426,7 @@ namespace brachIOplexus
                     milliSec12 = stopWatch12.ElapsedMilliseconds;
 
                     byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
-                    parsePacket(ref packet);
+                    parsePacket(packet);
                 }
             }
             catch (Exception ex)
@@ -9434,15 +9435,25 @@ namespace brachIOplexus
             }
         }
 
-        private void parsePacket(ref byte[] packet)
+        private void parsePacket(byte[] packet)
         {
-            if (validate(ref packet))
+            if (validate(packet))
             {
                 if (packet[2] == 2 && packet[4] == 1)
                 {
                     unityAcknowledge = true;
                 }
+                if(packet[2] == 3)
+                {
+                    //https://stackoverflow.com/questions/22895710/how-i-send-2-integer-arguments-using-a-timer-tick-event-handler
+                    unityFeedback.Elapsed += (sender, e) => printFeedback(sender, e, packet);
+                    unityFeedback.Start();
+                }
             }
+            //else
+            //{
+            //    Console.WriteLine("not valid");
+            //}
                 //if(validate(ref packet, 2,5))
                 //{
                 //    if(packet[2] == 1)
@@ -9456,7 +9467,85 @@ namespace brachIOplexus
                 //        timerToggle();
                 //    }
                 //}
+        }
+
+        private void printFeedback(object s, EventArgs e, byte[] packet)
+        {
+            float[] position;
+            float[] velocity;
+
+            position = getPosition(packet);
+            velocity = getVelocity(packet);
+            Console.WriteLine("shoulder position: " + position[0]);
+            //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
+            //{
+            //    //Console.WriteLine("should be repeating");
+            //    this.unityShoulderPositionFeedback.Text = position[0].ToString();
+            //});
+            //this.Invoke((MethodInvoker)delegate ()
+            //{
+            //    unityShoulderPositionFeedback.Text = position[0].ToString();
+            //    unityElbowPositionFeedback.Text = position[1].ToString();
+            //    unityWristRotPositionFeedback.Text = position[2].ToString();
+            //    unityWristExtPositionFeedback.Text = position[3].ToString();
+            //    unityHandPositionFeedback.Text = position[4].ToString();
+
+            //    unityShoulderVelocityFeedback.Text = velocity[0].ToString();
+            //    unityElbowVelocityFeedback.Text = velocity[1].ToString();
+            //    unityWristRotVelocityFeedback.Text = velocity[2].ToString();
+            //    unityWristExtVelocityFeedback.Text = velocity[3].ToString();
+            //    unityHandVelocityFeedback.Text = velocity[4].ToString();
+            //});
+        }
+
+        private float[] getPosition(byte[] packet)
+        {
+            float[] position;
+            int startIdx;
+
+            position = new float[5];
+            startIdx = 4;
+
+            for(int i = 0; i < BENTO_NUM; i++)
+            {
+                byte low;
+                byte high;
+                ushort combined;
+
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
+                combined = (ushort)(low | (high << 8));
+
+                position[i] = combined;
+                startIdx += 4;
             }
+            return position;
+        }
+
+        private float[] getVelocity(byte[] packet)
+        {
+            float[] velocity;
+            int startIdx;
+
+            velocity = new float[5];
+            startIdx = 6;
+
+            for (int i = 0; i < BENTO_NUM; i++)
+            {
+                byte low;
+                byte high;
+                ushort combined;
+
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
+                combined = (ushort)(low | (high << 8));
+
+                velocity[i] = combined;
+                startIdx += 4;
+            }
+
+            return velocity;
+        }
         #endregion
 
         #region UDP Utilities
@@ -9466,11 +9555,11 @@ namespace brachIOplexus
          * 
          * @param: packet to be sent 
          */
-        private byte calcCheckSum(ref byte[] packet)
+        private byte calcCheckSum(byte[] packet)
         {
             byte checkSum = 0;
 
-            for (byte i = 4; i < packet.Length; i++)
+            for (byte i = 4; i < packet.Length - 1; i++)
             {
                 checkSum += packet[i];
             }
@@ -9491,25 +9580,25 @@ namespace brachIOplexus
             double header: 255
             checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
         */
-        bool validate(ref byte[] packet)
+        bool validate(byte[] packet)
         {
             byte checksum = 0;
-            int start = 4;
-            int end = packet.Length - 1;
-            for (int i = start; i < end; i++)
-            {
-                checksum += packet[i];
-            }
+            checksum = calcCheckSum(packet);
+            //int start = 4;
+            //int end = packet.Length - 1;
+            //for (int i = start; i < end; i++)
+            //{
+            //    checksum += packet[i];
+            //}
 
-            if ((byte)~checksum > 255)
-            {
-                checksum = low_byte((UInt16)~checksum);
-            }
-            else
-            {
-                checksum = (byte)~checksum;
-            }
-
+            //if ((byte)~checksum > 255)
+            //{
+            //    checksum = low_byte((UInt16)~checksum);
+            //}
+            //else
+            //{
+            //    checksum = (byte)~checksum;
+            //}
 
             if (checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
             {

@@ -108,6 +108,7 @@ public class UDPConnection : MonoBehaviour
                 if(outgoing != null)
                 {
                     clientTX.Send(outgoing, outgoing.Length,endpointTX);
+                    outgoing = null;
                     packetParser.outgoing = null;
                 }
                 if(task)
