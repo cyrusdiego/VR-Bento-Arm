@@ -9582,6 +9582,12 @@ namespace brachIOplexus
                 byte high;
                 UInt16 combined;
 
+                int length = packet[3] / 4;
+                Console.WriteLine("packet length " + packet[3]);
+                if(length == 0)
+                {
+                    break;
+                }
                 low = packet[startIdx];
                 high = packet[startIdx + 1];
                 combined = (UInt16)(low | (high << 8));
@@ -9610,7 +9616,11 @@ namespace brachIOplexus
                 byte low;
                 byte high;
                 ushort combined;
-
+                int length = packet[3] / 4;
+                if (length == 0)
+                {
+                    break;
+                }
                 low = packet[startIdx];
                 high = packet[startIdx + 1];
                 combined = (ushort)(low | (high << 8));
