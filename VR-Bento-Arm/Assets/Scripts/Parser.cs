@@ -104,7 +104,10 @@ public class Parser : MonoBehaviour
             feedback[startIdx + 1] = highP;
             feedback[startIdx + 2] = lowV;
             feedback[startIdx + 3] = highV;
-
+            if(i == 0)
+            {
+                print(lowP + " " + highP);
+            }
             startIdx += 4;
         }
         feedback[feedback.Length - 1] = calcCheckSum(ref feedback);

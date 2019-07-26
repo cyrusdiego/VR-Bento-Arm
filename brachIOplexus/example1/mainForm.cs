@@ -174,6 +174,7 @@ namespace brachIOplexus
         // Unity UDP connection 
         static System.Threading.Timer t11;
         static System.Threading.Timer t12;
+        static System.Threading.Timer t13;
         static Int32 portTX3;  // Send
         static Int32 portRX3;  // Recieve 
         static IPAddress localAddr3;  // Local address
@@ -201,7 +202,8 @@ namespace brachIOplexus
         private int sceneIndex = 255;
         private bool t11Running = false;
         private bool connected;
-        private static System.Timers.Timer unityFeedback = new System.Timers.Timer(10);
+        private static System.Timers.Timer unityFeedback = new System.Timers.Timer();
+        private byte[] feedback;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -8844,6 +8846,7 @@ namespace brachIOplexus
                     t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 }
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
+                t13.Change(Timeout.Infinite, Timeout.Infinite);
                 udpClientTX3.Close();
                 udpClientRX3.Close();
 
@@ -9151,8 +9154,8 @@ namespace brachIOplexus
 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
             t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+            t13 = new System.Threading.Timer(new TimerCallback(processFeedback), null, 0, 15);
             t11Running = true;
-
         }
 
         private void unityEndTask_Click(object sender, EventArgs e)
@@ -9446,106 +9449,15 @@ namespace brachIOplexus
                 if(packet[2] == 3)
                 {
                     //https://stackoverflow.com/questions/22895710/how-i-send-2-integer-arguments-using-a-timer-tick-event-handler
-                    unityFeedback.Elapsed += (sender, e) => printFeedback(sender, e, packet);
-                    unityFeedback.Start();
+                    //unityFeedback.Interval = 1000;
+                    //Console.WriteLine("Starting timer");
+                    //unityFeedback.Elapsed += (sender, e) => printFeedback(sender, e, packet);
+                    //unityFeedback.Start();
+                    this.feedback = packet;
                 }
             }
-            //else
-            //{
-            //    Console.WriteLine("not valid");
-            //}
-                //if(validate(ref packet, 2,5))
-                //{
-                //    if(packet[2] == 1)
-                //    {
-                //        unityAcknowledge = true;
-                //    }
-
-                //    if(packet[4] == 1)
-                //    {
-                //        Console.WriteLine("got a packetttt");
-                //        timerToggle();
-                //    }
-                //}
         }
 
-        private void printFeedback(object s, EventArgs e, byte[] packet)
-        {
-            float[] position;
-            float[] velocity;
-
-            position = getPosition(packet);
-            velocity = getVelocity(packet);
-            Console.WriteLine("shoulder position: " + position[0]);
-            //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
-            //{
-            //    //Console.WriteLine("should be repeating");
-            //    this.unityShoulderPositionFeedback.Text = position[0].ToString();
-            //});
-            //this.Invoke((MethodInvoker)delegate ()
-            //{
-            //    unityShoulderPositionFeedback.Text = position[0].ToString();
-            //    unityElbowPositionFeedback.Text = position[1].ToString();
-            //    unityWristRotPositionFeedback.Text = position[2].ToString();
-            //    unityWristExtPositionFeedback.Text = position[3].ToString();
-            //    unityHandPositionFeedback.Text = position[4].ToString();
-
-            //    unityShoulderVelocityFeedback.Text = velocity[0].ToString();
-            //    unityElbowVelocityFeedback.Text = velocity[1].ToString();
-            //    unityWristRotVelocityFeedback.Text = velocity[2].ToString();
-            //    unityWristExtVelocityFeedback.Text = velocity[3].ToString();
-            //    unityHandVelocityFeedback.Text = velocity[4].ToString();
-            //});
-        }
-
-        private float[] getPosition(byte[] packet)
-        {
-            float[] position;
-            int startIdx;
-
-            position = new float[5];
-            startIdx = 4;
-
-            for(int i = 0; i < BENTO_NUM; i++)
-            {
-                byte low;
-                byte high;
-                ushort combined;
-
-                low = packet[startIdx];
-                high = packet[startIdx + 1];
-                combined = (ushort)(low | (high << 8));
-
-                position[i] = combined;
-                startIdx += 4;
-            }
-            return position;
-        }
-
-        private float[] getVelocity(byte[] packet)
-        {
-            float[] velocity;
-            int startIdx;
-
-            velocity = new float[5];
-            startIdx = 6;
-
-            for (int i = 0; i < BENTO_NUM; i++)
-            {
-                byte low;
-                byte high;
-                ushort combined;
-
-                low = packet[startIdx];
-                high = packet[startIdx + 1];
-                combined = (ushort)(low | (high << 8));
-
-                velocity[i] = combined;
-                startIdx += 4;
-            }
-
-            return velocity;
-        }
         #endregion
 
         #region UDP Utilities
@@ -9621,6 +9533,94 @@ namespace brachIOplexus
         }
         #endregion
 
+        private void processFeedback(object state)
+        {
+            if(feedback != null)
+            {
+                printFeedback(feedback);
+            }
+        }
+
+        private void printFeedback(byte[] packet)
+        {
+            float[] position;
+            float[] velocity;
+
+            position = getPosition(packet);
+            velocity = getVelocity(packet);
+            this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
+            {
+                this.unityShoulderPositionFeedback.Text = position[0].ToString();
+            });
+            //this.Invoke((MethodInvoker)delegate ()
+            //{
+            //    unityShoulderPositionFeedback.Text = position[0].ToString();
+            //    unityElbowPositionFeedback.Text = position[1].ToString();
+            //    unityWristRotPositionFeedback.Text = position[2].ToString();
+            //    unityWristExtPositionFeedback.Text = position[3].ToString();
+            //    unityHandPositionFeedback.Text = position[4].ToString();
+
+            //    unityShoulderVelocityFeedback.Text = velocity[0].ToString();
+            //    unityElbowVelocityFeedback.Text = velocity[1].ToString();
+            //    unityWristRotVelocityFeedback.Text = velocity[2].ToString();
+            //    unityWristExtVelocityFeedback.Text = velocity[3].ToString();
+            //    unityHandVelocityFeedback.Text = velocity[4].ToString();
+            //});
+        }
+
+        private float[] getPosition(byte[] packet)
+        {
+            float[] position;
+            int startIdx;
+
+            position = new float[5];
+            startIdx = 4;
+
+            for (int i = 0; i < BENTO_NUM; i++)
+            {
+                byte low;
+                byte high;
+                UInt16 combined;
+
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
+                combined = (UInt16)(low | (high << 8));
+
+                position[i] = combined;
+                if(i == 0)
+                {
+                    Console.WriteLine(low + " " + high);
+                    Console.WriteLine("packet length: " + packet[3]);
+                }
+                startIdx += 4;
+            }
+            return position;
+        }
+
+        private float[] getVelocity(byte[] packet)
+        {
+            float[] velocity;
+            int startIdx;
+
+            velocity = new float[5];
+            startIdx = 6;
+
+            for (int i = 0; i < BENTO_NUM; i++)
+            {
+                byte low;
+                byte high;
+                ushort combined;
+
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
+                combined = (ushort)(low | (high << 8));
+
+                velocity[i] = combined;
+                startIdx += 4;
+            }
+
+            return velocity;
+        }
         #endregion
 
     }

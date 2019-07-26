@@ -214,6 +214,8 @@ MonoBehaviour:
   global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
   VRHeadset: {fileID: 0}
   outgoing: 
+  feedback: 
+  task: 0
 --- !u!1 &1327295370
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1406199617
 AudioListener:
   m_ObjectHideFlags: 0

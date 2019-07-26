@@ -122,22 +122,6 @@ public class UDPConnection : MonoBehaviour
                 print(err.ToString());            
             }
         }
-        // try
-        // {
-        //     byte[] packet = new byte[6];
-        //     packet[0] = 255;
-        //     packet[1] = 255;
-        //     packet[2] = acknowledge;
-        //     packet[3] = scene;
-        //     packet[4] = timer;
-        //     packet[5] = calcCheckSum(ref packet,2,5);
-
-        //     clientTX.Send(packet,packet.Length,endpointTX);
-        // }
-        // catch (Exception ex)
-        // {
-        //     print(ex.ToString());
-        // }
     }
 
     #endregion
