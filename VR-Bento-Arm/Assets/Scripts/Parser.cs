@@ -88,13 +88,6 @@ public class Parser : MonoBehaviour
 
         for(int i = 0; i < global.motorCount; i++)
         {
-            if(i == 0){
-            print("currentPosition[0] == " + currentPosition[0]);
-            print("global.position[0] == " + (int)global.position[0]);
-            print("currentVelocity[0] == " + currentVelocity[0]);
-            print("global.velocity[0] == " + (int)global.velocity[0]);
-            }
-
             if(currentPosition[i] != (int)global.position[i] || currentVelocity[i] != (int)global.velocity[i])
             {
                 length += 4;
