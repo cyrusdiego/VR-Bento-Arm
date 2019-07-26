@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Parser : MonoBehaviour
 {
@@ -23,12 +22,12 @@ public class Parser : MonoBehaviour
     public byte[] feedback;
     public bool task;
 
-    public Text feedbackText;
+    private float[] currentPosition = new float[5];
+    private float[] currentVelocity = new float[5];
 
     void Awake()
     {
         outgoing = null;
-        feedback = new byte[global.motorCount*4 + 5];
         task = global.task;
     }
 
@@ -37,7 +36,6 @@ public class Parser : MonoBehaviour
         task = global.task;
         if(task)
         {
-            feedbackText = FindObjectOfType<Text>();
             sendFeedback();
         }
     }
@@ -84,16 +82,34 @@ public class Parser : MonoBehaviour
     private void sendFeedback()
     {
         int startIdx;
+        int length;
 
+        length = 0;
+
+        for(int i = 0; i < global.motorCount; i++)
+        {
+            if(currentPosition[i] != (int)global.position[i] || currentVelocity[i] != (int)global.velocity[i])
+            {
+                length += 4;
+                currentPosition[i] = (int)global.position[i];
+                currentVelocity[i] = (int)global.velocity[i];
+            }
+        }
+        feedback = new byte[length + 5];
         feedback[0] = 255;
         feedback[1] = 255;
         feedback[2] = 3;
-        feedback[3] = (byte)(global.motorCount*4);
+        feedback[3] = (byte)(length);
 
         startIdx = 4;
 
         for(int i = 0; i < global.motorCount; i++)
         {
+            if(currentPosition[i] == (int)global.position[i] && currentVelocity[i] == (int)global.velocity[i])
+            {
+                continue;
+            }
+
             byte lowP;
             byte highP;
             byte lowV;
@@ -108,16 +124,14 @@ public class Parser : MonoBehaviour
             feedback[startIdx + 1] = highP;
             feedback[startIdx + 2] = lowV;
             feedback[startIdx + 3] = highV;
-
-
             if(i == 0)
             {
-            feedbackText.text = highP.ToString();
+                print(lowP + " " + highP);
             }
             startIdx += 4;
         }
         feedback[feedback.Length - 1] = calcCheckSum(ref feedback);
-        print(feedback[feedback.Length - 1]);
+        print("length: " + feedback.Length);
     }
 
     private void Camera(ref byte[] packet)

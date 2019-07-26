@@ -203,9 +203,7 @@ namespace brachIOplexus
         private bool t11Running = false;
         private bool connected;
         private static System.Timers.Timer unityFeedback = new System.Timers.Timer();
-        private Queue<byte[]> feedbackQueue = new Queue<byte[]>();
         private byte[] feedback;
-        private String shoulderPosition;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -5806,11 +5804,6 @@ namespace brachIOplexus
                 stopWatch1.Reset();
                 stopWatch1.Start();
 
-                if(unityAcknowledge && shoulderPosition != null)
-                {
-                    this.unityShoulderPositionFeedback.Text = shoulderPosition;
-                }
-
                 #region "Initialize Input/Output Arrays"
                 // Initialize input mapping array
                 int[,] InputMap = new int[6, 25];
@@ -9135,7 +9128,6 @@ namespace brachIOplexus
 
         private void unityLaunchTask_Click(object sender, EventArgs e)
         {
-            feedbackQueue.Clear();
             if(sceneIndex == 255)
             {
                 return;
@@ -9437,7 +9429,6 @@ namespace brachIOplexus
                     milliSec12 = stopWatch12.ElapsedMilliseconds;
 
                     byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
-                    Console.WriteLine("Got a packet");
                     parsePacket(packet);
                 }
             }
@@ -9462,8 +9453,7 @@ namespace brachIOplexus
                     //Console.WriteLine("Starting timer");
                     //unityFeedback.Elapsed += (sender, e) => printFeedback(sender, e, packet);
                     //unityFeedback.Start();
-                    Console.WriteLine("got a valid feedback packet");
-                    feedbackQueue.Enqueue(packet);
+                    this.feedback = packet;
                 }
             }
         }
@@ -9528,15 +9518,6 @@ namespace brachIOplexus
             }
             else
             {
-                if(checksum != packet[packet.Length - 1])
-                {
-                    Console.WriteLine("checksum doenst equal");
-                    Console.WriteLine("calculated: " + checksum);
-                    Console.WriteLine("packet: " + packet[packet.Length - 1]);
-          
-                }
-                if(!(packet[0] == 255 && packet[1] == 255)) Console.WriteLine("headers are fucked");
-
                 return false;
             }
         }
@@ -9554,29 +9535,23 @@ namespace brachIOplexus
 
         private void processFeedback(object state)
         {
-            if(feedbackQueue.Count > 0)
+            if(feedback != null)
             {
-                printFeedback();
+                printFeedback(feedback);
             }
         }
 
-        private void printFeedback()
+        private void printFeedback(byte[] packet)
         {
             float[] position;
             float[] velocity;
 
-            if(feedbackQueue.Count > 0)
+            position = getPosition(packet);
+            velocity = getVelocity(packet);
+            this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
             {
-                feedback = feedbackQueue.Dequeue();
-            }
-            position = getPosition();
-            velocity = getVelocity();
-            Console.WriteLine(position[0].ToString());
-            shoulderPosition = position[0].ToString();
-            //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
-            //{
-            //    this.unityShoulderPositionFeedback.Text = position[0].ToString();
-            //});
+                this.unityShoulderPositionFeedback.Text = position[0].ToString();
+            });
             //this.Invoke((MethodInvoker)delegate ()
             //{
             //    unityShoulderPositionFeedback.Text = position[0].ToString();
@@ -9593,7 +9568,7 @@ namespace brachIOplexus
             //});
         }
 
-        private float[] getPosition()
+        private float[] getPosition(byte[] packet)
         {
             float[] position;
             int startIdx;
@@ -9607,21 +9582,32 @@ namespace brachIOplexus
                 byte high;
                 UInt16 combined;
 
-                low = feedback[startIdx];
-                high = feedback[startIdx + 1];
+                int length = packet[3] / 4;
+                Console.WriteLine("packet length " + packet[3]);
+                if(length == 0)
+                {
+                    break;
+                }
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
                 combined = (UInt16)(low | (high << 8));
 
                 position[i] = combined;
+                if(i == 0)
+                {
+                    Console.WriteLine(low + " " + high);
+                    Console.WriteLine("packet length: " + packet[3]);
+                }
                 startIdx += 4;
             }
             return position;
         }
 
-        private float[] getVelocity()
+        private float[] getVelocity(byte[] packet)
         {
             float[] velocity;
             int startIdx;
-            
+
             velocity = new float[5];
             startIdx = 6;
 
@@ -9630,8 +9616,13 @@ namespace brachIOplexus
                 byte low;
                 byte high;
                 ushort combined;
-                low = feedback[startIdx];
-                high = feedback[startIdx + 1];
+                int length = packet[3] / 4;
+                if (length == 0)
+                {
+                    break;
+                }
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
                 combined = (ushort)(low | (high << 8));
 
                 velocity[i] = combined;
