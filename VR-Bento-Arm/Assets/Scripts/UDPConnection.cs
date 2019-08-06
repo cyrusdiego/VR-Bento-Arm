@@ -113,7 +113,6 @@ public class UDPConnection : MonoBehaviour
                 }
                 if(task)
                 {
-                    print("feedback length == " + feedback[3]);
                     clientTX.Send(feedback, feedback.Length,endpointTX);
                 }
 

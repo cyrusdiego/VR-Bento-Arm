@@ -847,8 +847,6 @@
             this.unityPMax = new System.Windows.Forms.Label();
             this.unityVMin = new System.Windows.Forms.Label();
             this.unityVMax = new System.Windows.Forms.Label();
-            this.unityProfileGroupBox = new System.Windows.Forms.GroupBox();
-            this.unityCameraProfile = new System.Windows.Forms.Label();
             this.unityMainControls = new System.Windows.Forms.GroupBox();
             this.unityHeadsetModeToggleInfo = new System.Windows.Forms.Label();
             this.unityHeadsetModeToggle = new System.Windows.Forms.CheckBox();
@@ -860,7 +858,6 @@
             this.unityTaskList = new System.Windows.Forms.ListView();
             this.unityEndTask = new System.Windows.Forms.Button();
             this.unityLaunchTask = new System.Windows.Forms.Button();
-            this.unityLoadProfile = new System.Windows.Forms.Button();
             this.unityTaskConfiguration = new System.Windows.Forms.GroupBox();
             this.unitySaveTimer = new System.Windows.Forms.Button();
             this.unityTimerInformation = new System.Windows.Forms.GroupBox();
@@ -870,17 +867,12 @@
             this.unityNewTimeFile = new System.Windows.Forms.Button();
             this.unityResetTimer = new System.Windows.Forms.Button();
             this.unityStartTimer = new System.Windows.Forms.Button();
-            this.unitySaveProfile = new System.Windows.Forms.Button();
             this.unityCameraPosition = new System.Windows.Forms.GroupBox();
             this.unityCameraPositionNumber = new System.Windows.Forms.Label();
             this.unityCameraPositionTitle = new System.Windows.Forms.Label();
             this.unityClearCameraPosition = new System.Windows.Forms.Button();
             this.unitySaveCameraPosition = new System.Windows.Forms.Button();
             this.unityToggleCameraPosition = new System.Windows.Forms.Button();
-            this.unitySceneConfiguration = new System.Windows.Forms.GroupBox();
-            this.unityArmControl = new System.Windows.Forms.Button();
-            this.unityArmShells = new System.Windows.Forms.Button();
-            this.unityCurrentCameraPosition = new System.Windows.Forms.GroupBox();
             this.statusPanel1 = new System.Windows.Forms.Panel();
             this.MYOstatus = new System.Windows.Forms.Label();
             this.BentoErrorText = new System.Windows.Forms.Label();
@@ -1044,12 +1036,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMax)).BeginInit();
-            this.unityProfileGroupBox.SuspendLayout();
             this.unityMainControls.SuspendLayout();
             this.unityTaskConfiguration.SuspendLayout();
             this.unityTimerInformation.SuspendLayout();
             this.unityCameraPosition.SuspendLayout();
-            this.unitySceneConfiguration.SuspendLayout();
             this.statusPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -11119,14 +11109,9 @@
             // 
             this.tabUnity.Controls.Add(this.unityFeedbackBox);
             this.tabUnity.Controls.Add(this.unityRobotParamsBox);
-            this.tabUnity.Controls.Add(this.unityProfileGroupBox);
             this.tabUnity.Controls.Add(this.unityMainControls);
-            this.tabUnity.Controls.Add(this.unityLoadProfile);
             this.tabUnity.Controls.Add(this.unityTaskConfiguration);
-            this.tabUnity.Controls.Add(this.unitySaveProfile);
             this.tabUnity.Controls.Add(this.unityCameraPosition);
-            this.tabUnity.Controls.Add(this.unitySceneConfiguration);
-            this.tabUnity.Controls.Add(this.unityCurrentCameraPosition);
             this.tabUnity.Location = new System.Drawing.Point(4, 22);
             this.tabUnity.Name = "tabUnity";
             this.tabUnity.Size = new System.Drawing.Size(1162, 642);
@@ -11829,25 +11814,6 @@
             this.unityVMax.TabIndex = 122;
             this.unityVMax.Text = "Vmax:";
             // 
-            // unityProfileGroupBox
-            // 
-            this.unityProfileGroupBox.Controls.Add(this.unityCameraProfile);
-            this.unityProfileGroupBox.Location = new System.Drawing.Point(880, 103);
-            this.unityProfileGroupBox.Name = "unityProfileGroupBox";
-            this.unityProfileGroupBox.Size = new System.Drawing.Size(254, 58);
-            this.unityProfileGroupBox.TabIndex = 6;
-            this.unityProfileGroupBox.TabStop = false;
-            this.unityProfileGroupBox.Text = "Scene - Current Camera Profile";
-            // 
-            // unityCameraProfile
-            // 
-            this.unityCameraProfile.AutoSize = true;
-            this.unityCameraProfile.Location = new System.Drawing.Point(6, 29);
-            this.unityCameraProfile.Name = "unityCameraProfile";
-            this.unityCameraProfile.Size = new System.Drawing.Size(92, 13);
-            this.unityCameraProfile.TabIndex = 0;
-            this.unityCameraProfile.Text = "No Profile Loaded";
-            // 
             // unityMainControls
             // 
             this.unityMainControls.Controls.Add(this.unityHeadsetModeToggleInfo);
@@ -11978,16 +11944,6 @@
             this.unityLaunchTask.UseVisualStyleBackColor = true;
             this.unityLaunchTask.Click += new System.EventHandler(this.unityLaunchTask_Click);
             // 
-            // unityLoadProfile
-            // 
-            this.unityLoadProfile.Location = new System.Drawing.Point(959, 219);
-            this.unityLoadProfile.Name = "unityLoadProfile";
-            this.unityLoadProfile.Size = new System.Drawing.Size(119, 23);
-            this.unityLoadProfile.TabIndex = 5;
-            this.unityLoadProfile.Text = "Load Profile";
-            this.unityLoadProfile.UseVisualStyleBackColor = true;
-            this.unityLoadProfile.Click += new System.EventHandler(this.unityLoadProfile_Click);
-            // 
             // unityTaskConfiguration
             // 
             this.unityTaskConfiguration.Controls.Add(this.unitySaveTimer);
@@ -12086,16 +12042,6 @@
             this.unityStartTimer.UseVisualStyleBackColor = true;
             this.unityStartTimer.Click += new System.EventHandler(this.unityStartTimer_Click);
             // 
-            // unitySaveProfile
-            // 
-            this.unitySaveProfile.Location = new System.Drawing.Point(959, 190);
-            this.unitySaveProfile.Name = "unitySaveProfile";
-            this.unitySaveProfile.Size = new System.Drawing.Size(119, 23);
-            this.unitySaveProfile.TabIndex = 4;
-            this.unitySaveProfile.Text = "Save Profile";
-            this.unitySaveProfile.UseVisualStyleBackColor = true;
-            this.unitySaveProfile.Click += new System.EventHandler(this.unitySaveProfile_Click);
-            // 
             // unityCameraPosition
             // 
             this.unityCameraPosition.Controls.Add(this.unityCameraPositionNumber);
@@ -12158,46 +12104,6 @@
             this.unityToggleCameraPosition.Text = "Next Position";
             this.unityToggleCameraPosition.UseVisualStyleBackColor = true;
             this.unityToggleCameraPosition.Click += new System.EventHandler(this.unityNextCameraPosition_Click);
-            // 
-            // unitySceneConfiguration
-            // 
-            this.unitySceneConfiguration.Controls.Add(this.unityArmControl);
-            this.unitySceneConfiguration.Controls.Add(this.unityArmShells);
-            this.unitySceneConfiguration.Location = new System.Drawing.Point(850, 349);
-            this.unitySceneConfiguration.Name = "unitySceneConfiguration";
-            this.unitySceneConfiguration.Size = new System.Drawing.Size(266, 157);
-            this.unitySceneConfiguration.TabIndex = 0;
-            this.unitySceneConfiguration.TabStop = false;
-            this.unitySceneConfiguration.Text = "Scene - Configuration";
-            // 
-            // unityArmControl
-            // 
-            this.unityArmControl.Location = new System.Drawing.Point(6, 78);
-            this.unityArmControl.Name = "unityArmControl";
-            this.unityArmControl.Size = new System.Drawing.Size(110, 23);
-            this.unityArmControl.TabIndex = 3;
-            this.unityArmControl.Text = "Toggle Arm Control";
-            this.unityArmControl.UseVisualStyleBackColor = true;
-            this.unityArmControl.Click += new System.EventHandler(this.unityArmControl_Click);
-            // 
-            // unityArmShells
-            // 
-            this.unityArmShells.Location = new System.Drawing.Point(7, 49);
-            this.unityArmShells.Name = "unityArmShells";
-            this.unityArmShells.Size = new System.Drawing.Size(109, 23);
-            this.unityArmShells.TabIndex = 1;
-            this.unityArmShells.Text = "Toggle Arm Shells";
-            this.unityArmShells.UseVisualStyleBackColor = true;
-            this.unityArmShells.Click += new System.EventHandler(this.unityArmShellToggle_Click);
-            // 
-            // unityCurrentCameraPosition
-            // 
-            this.unityCurrentCameraPosition.Location = new System.Drawing.Point(880, 35);
-            this.unityCurrentCameraPosition.Name = "unityCurrentCameraPosition";
-            this.unityCurrentCameraPosition.Size = new System.Drawing.Size(254, 58);
-            this.unityCurrentCameraPosition.TabIndex = 0;
-            this.unityCurrentCameraPosition.TabStop = false;
-            this.unityCurrentCameraPosition.Text = "Current Camera Position";
             // 
             // statusPanel1
             // 
@@ -12488,8 +12394,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMax)).EndInit();
-            this.unityProfileGroupBox.ResumeLayout(false);
-            this.unityProfileGroupBox.PerformLayout();
             this.unityMainControls.ResumeLayout(false);
             this.unityMainControls.PerformLayout();
             this.unityTaskConfiguration.ResumeLayout(false);
@@ -12497,7 +12401,6 @@
             this.unityTimerInformation.PerformLayout();
             this.unityCameraPosition.ResumeLayout(false);
             this.unityCameraPosition.PerformLayout();
-            this.unitySceneConfiguration.ResumeLayout(false);
             this.statusPanel1.ResumeLayout(false);
             this.statusPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -13288,20 +13191,12 @@
         private System.Windows.Forms.Label unityRXPort;
         private System.Windows.Forms.Button unityConnect;
         private System.Windows.Forms.TabPage tabUnity;
-        private System.Windows.Forms.GroupBox unitySceneConfiguration;
         private System.Windows.Forms.Button unityResetTask;
-        private System.Windows.Forms.Button unityArmShells;
         private System.Windows.Forms.GroupBox unityCameraPosition;
         private System.Windows.Forms.Button unityClearCameraPosition;
         private System.Windows.Forms.Button unityToggleCameraPosition;
         private System.Windows.Forms.Button unitySaveCameraPosition;
-        private System.Windows.Forms.GroupBox unityCurrentCameraPosition;
         private System.Windows.Forms.Label unityCameraPositionNumber;
-        private System.Windows.Forms.GroupBox unityProfileGroupBox;
-        private System.Windows.Forms.Label unityCameraProfile;
-        private System.Windows.Forms.Button unityLoadProfile;
-        private System.Windows.Forms.Button unitySaveProfile;
-        private System.Windows.Forms.Button unityArmControl;
         private System.Windows.Forms.GroupBox unityTaskConfiguration;
         private System.Windows.Forms.Button unityNewTimeFile;
         private System.Windows.Forms.Button unityResetTimer;

@@ -611,10 +611,6 @@ namespace brachIOplexus
                     unityCameraPositionNumber.Text = Path.GetFileName(contents[0]);
                 }
             });
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                unityCameraProfile.Text = "No Profile Loaded";
-            });
             for (int i = 0; i < contents.Length; i++)
             {
                 string fileName = Path.GetFileName(contents[i]);
@@ -5789,20 +5785,29 @@ namespace brachIOplexus
         {
             try
             {
-                // Stop stopwatch and record how long everything in the main loop took to execute as well as how long it took to retrigger the main loop
-                stopWatch1.Stop();
-                milliSec1 = stopWatch1.ElapsedMilliseconds;
-                delay.Text = Convert.ToString(milliSec1);
+                //// Stop stopwatch and record how long everything in the main loop took to execute as well as how long it took to retrigger the main loop
+                //stopWatch1.Stop();
+                //milliSec1 = stopWatch1.ElapsedMilliseconds;
+                //delay.Text = Convert.ToString(milliSec1);
 
-                // Check to see if the previous delay is the new maximum delay
-                if (milliSec1 > Convert.ToDecimal(delay_max.Text))
+                //// Check to see if the previous delay is the new maximum delay
+                //if (milliSec1 > Convert.ToDecimal(delay_max.Text))
+                //{
+                //    delay_max.Text = Convert.ToString(milliSec1);
+                //}
+
+                //// Reset and start the stop watch
+                //stopWatch1.Reset();
+                //stopWatch1.Start();
+
+
+                Console.WriteLine(positionQueue.Count);
+                if(positionQueue.Count > 0)
                 {
-                    delay_max.Text = Convert.ToString(milliSec1);
+                    float[] position = positionQueue.Dequeue();
+                    unityShoulderPositionFeedback.Text = position[0].ToString();
+       
                 }
-
-                // Reset and start the stop watch
-                stopWatch1.Reset();
-                stopWatch1.Start();
 
                 #region "Initialize Input/Output Arrays"
                 // Initialize input mapping array
@@ -9541,6 +9546,8 @@ namespace brachIOplexus
             }
         }
 
+        private Queue<float[]> positionQueue = new Queue<float[]>();
+
         private void printFeedback(byte[] packet)
         {
             float[] position;
@@ -9548,10 +9555,12 @@ namespace brachIOplexus
 
             position = getPosition(packet);
             velocity = getVelocity(packet);
-            this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
-            {
-                this.unityShoulderPositionFeedback.Text = position[0].ToString();
-            });
+
+            positionQueue.Enqueue(position);
+            //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
+            //{
+            //    this.unityShoulderPositionFeedback.Text = position[0].ToString();
+            //});
             //this.Invoke((MethodInvoker)delegate ()
             //{
             //    unityShoulderPositionFeedback.Text = position[0].ToString();
@@ -9582,22 +9591,12 @@ namespace brachIOplexus
                 byte high;
                 UInt16 combined;
 
-                int length = packet[3] / 4;
-                Console.WriteLine("packet length " + packet[3]);
-                if(length == 0)
-                {
-                    break;
-                }
                 low = packet[startIdx];
                 high = packet[startIdx + 1];
                 combined = (UInt16)(low | (high << 8));
 
                 position[i] = combined;
-                if(i == 0)
-                {
-                    Console.WriteLine(low + " " + high);
-                    Console.WriteLine("packet length: " + packet[3]);
-                }
+
                 startIdx += 4;
             }
             return position;
@@ -9616,11 +9615,7 @@ namespace brachIOplexus
                 byte low;
                 byte high;
                 ushort combined;
-                int length = packet[3] / 4;
-                if (length == 0)
-                {
-                    break;
-                }
+                
                 low = packet[startIdx];
                 high = packet[startIdx + 1];
                 combined = (ushort)(low | (high << 8));

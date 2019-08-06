@@ -1385,3 +1385,32 @@ brachIOplexus can:
 - The enabling of the Unity tab is weird as it only works if Unity is plugged in first and pressing disconnect button breaks it
 - Organize variables that i use in a struct !!!!
 - rename outgoing and sent variables !!!
+
+**Aug 6 - 9 todo: create a task**
+- Add name in Main - Controls 
+    - Document how to do this 
+- Add scene in build 
+    - Document how to do this
+- Task Timer 
+    - Save: if not already made, create a file with date + task being run and save timer infor there 
+    - Remove new file and load file
+- *Goal:* have a ready made scene by **Friday** or **Monday** 
+- **Test:** 
+    - Arm shells enabled (WORKS)
+    - brachIOplexus input enabled (WORKS)
+    - VR Enabled 
+        - Keyboard moves the camera and brachIOplexus will control arm
+    - Main Controls Buttons (WORKS)
+    - Task Timer (WORKS)
+        - Start + Reset (WORKS)
+            - Will show in Timer box (WORKS)
+    - camera positions:
+        - only enabled if vr is disabled
+        - test if it works 
+        - save to a folder or file? 
+        - will always carry over between launches 
+
+**August 6**
+*TODO*
+- Continue with cts feedback and printing to brachIOplexus 
+- Meeting with Riley / Quinn 
