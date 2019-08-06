@@ -1,3 +1,11 @@
+/* 
+    BLINC LAB VIPER Project 
+    Parser.cs 
+    Created by: Cyrus Diego July 23, 2019 
+
+    This class acts as an intermediate between the UDP connection pipeline and 
+    the game objects within the task
+ */
 using System;
 using UnityEngine;
 

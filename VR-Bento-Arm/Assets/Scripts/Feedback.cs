@@ -1,4 +1,11 @@
-using System;
+/* 
+    BLINC LAB VIPER Project 
+    Feedback.cs
+    Created by: Cyrus Diego July 24, 2019
+
+    This class takes the motors of the bento arm and fills position and 
+    velovity arrays to be sent to brachIOplexus 
+ */
 using UnityEngine;
 
 
@@ -12,7 +19,7 @@ public class Feedback : MonoBehaviour
     private Rigidbody rb;
     private Transform tf;
 
-    void Start()
+    void Awake()
     {
         global.position = new float[global.motorCount];
         global.velocity = new float[global.motorCount];

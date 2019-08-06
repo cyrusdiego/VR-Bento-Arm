@@ -1,6 +1,9 @@
 /* 
     BLINC LAB VIPER Project 
+    VRController.cs
+    Created by: Cyrus Diego July 12, 2019
 
+    This class is used to control the bento arm using the VR Controllers
  */
 using UnityEngine;
 using Valve.VR;
@@ -39,7 +42,7 @@ public class VRController : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Will only use VR Controller input if the control toggle from brachIOplexus is disabled
         if(!global.controlToggle)
