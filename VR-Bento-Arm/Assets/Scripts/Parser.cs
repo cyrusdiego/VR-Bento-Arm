@@ -216,6 +216,8 @@ public class Parser : MonoBehaviour
         timerFeedback[2] = 6;
         timerFeedback[3] = 1;
         timerFeedback[4] = calcCheckSum(ref timerFeedback);
+
+        global.timer = false;
     }
     #region Utilities
 

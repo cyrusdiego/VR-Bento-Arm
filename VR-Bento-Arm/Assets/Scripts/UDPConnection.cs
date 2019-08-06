@@ -79,6 +79,7 @@ public class UDPConnection : MonoBehaviour
         task = packetParser.task;
         timerFeedback = packetParser.timerFeedback;
         timer = packetParser.timer;
+        print(counter);
     }
 
     /*
@@ -93,7 +94,7 @@ public class UDPConnection : MonoBehaviour
     }
 
     #endregion
-
+    private int counter = 0;
     void Send()
     {
         while(!exitTX)
@@ -112,9 +113,11 @@ public class UDPConnection : MonoBehaviour
                 // }
                 if(timer)
                 {
-                    print("send timer");
                     clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
+                    timer = false;
+                    packetParser.timer = false;
                 }
+
 
             }
             catch (Exception err)

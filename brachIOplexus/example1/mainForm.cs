@@ -9443,14 +9443,7 @@ namespace brachIOplexus
                 MessageBox.Show(ex.Message);
             }
         }
-        //private void recv(IAsyncResult res)
-        //{
-            
-        //    byte[] received = udpClientRX3.EndReceive(res, ref ipEndPointRX3);
 
-        //    parsePacket(received);
-
-        //}
         private void parsePacket(byte[] packet)
         {
             if (validate(packet))
@@ -9465,6 +9458,7 @@ namespace brachIOplexus
                 //}
                 if(packet[2] == 6)
                 {
+                    Console.WriteLine("Is this repeating??");
                     timerToggle();
                 }
             }

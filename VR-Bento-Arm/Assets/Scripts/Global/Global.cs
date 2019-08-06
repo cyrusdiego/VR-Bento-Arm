@@ -16,7 +16,6 @@ using UnityEngine;
 public class Global : ScriptableObject
 {
     public float[] SteamVRControl = new float[6];
-    public byte timerTrigger = 255;
     public byte[] cameraArray = new byte[4];
 
     // Array holds direction and velocity respectively for each motor (Motor.cs)

@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.vrbentoarm.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\Trillian\\Documents\\VR-Bento-Arm\\VR-Bento-Arm\\actions.json",
+      "action_manifest_path": "C:\\Users\\Trillian\\Documents\\VRBentoArm\\VR-Bento-Arm\\actions.json",
       "strings": {
         "en_us": {
           "name": "VR-Bento-Arm [Testing]"
