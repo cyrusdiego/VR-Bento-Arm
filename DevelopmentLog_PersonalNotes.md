@@ -1410,6 +1410,7 @@ brachIOplexus can:
         - save to a folder or file? 
         - will always carry over between launches 
     - When VR headset is connected, (especially vive), if theres any problems when reloading the scene (check Parser.cs Line 12);
+- documentation: standard coding (fixedupate and using awake)
 
 **August 6**
 *TODO*
