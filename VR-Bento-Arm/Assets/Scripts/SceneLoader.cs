@@ -28,7 +28,7 @@ public class SceneLoader : MonoBehaviour
         // scene = 0;
 
 
-    void Update()
+    void FixedUpdate()
     {
         if(global.loaderPacket[0] != 255)
         {

@@ -8,20 +8,18 @@ public class Parser : MonoBehaviour
 
     public Global global = null;
 
-    // Scene triggers
-    // Used to hold what scene to switch to 
-    // obselete i believe 
-    private byte scene;
-    private byte activeScene;
-
     // Used to destroy headset whenever the scene is reloaded
     public GameObject VRHeadset = null;
     // Destroy(VRHeadset);
 
+    // Acknowledgement array used to send to brachIOplexus
     public byte[] outgoing;
+    // Feedback array used to send to brachIOplexus
     public byte[] feedback;
+    // Flag used to see if a task has been loaded
     public bool task;
 
+    // Array's to hold positions and velocity of bento arm
     private float[] currentPosition = new float[5];
     private float[] currentVelocity = new float[5];
 
@@ -38,9 +36,12 @@ public class Parser : MonoBehaviour
         {
             sendFeedback();
         }
-        print("shoulder position: " + global.position[0]);
     }
 
+    /*
+        @brief: UDPConnection.cs calls this method to parse the incoming 
+        packets from brachIOplexus and determines the course of action
+    */
     public void parsePacket(ref byte[] packet)
     {
         bool valid;
@@ -53,25 +54,31 @@ public class Parser : MonoBehaviour
 
             switch(type)
             {
+                // packet will load the task specified 
                 case 0:
                     print("got loader packet");
                     Loader(ref packet);
                     break;
+                // packet will control the arm 
                 case 1:
                     // print("got a control packet");
                     Control(ref packet);
                     break;
+                // packet will initialize startup sequence
                 case 2:
                     print("got startup packet");
                     Startup();
                     break;
+                // packet will setup DOF limits of arm
                 case 4:
                     print("got a DOF limits packet");
                     break;
+                // packet will save / move camera positions 
                 case 5:
                     print("got a camera packet");
                     Camera(ref packet);
                     break;
+                // packet will end / reset / pause scene 
                 case 6:
                     print("got a scene control packet");
                     SceneControl(ref packet);
@@ -123,6 +130,7 @@ public class Parser : MonoBehaviour
 
     }
 
+    // Fills global variables to handle scene control (SceneControl.cs)
     private void SceneControl(ref byte[] packet)
     {
         bool pause;
@@ -138,6 +146,7 @@ public class Parser : MonoBehaviour
         global.reset = reset;
     }
 
+    // Fills global variables to handle controlling the arm (Motor.cs)
     private void Control(ref byte[] packet)
     {
         if(global.pause)
@@ -156,6 +165,7 @@ public class Parser : MonoBehaviour
         }
     }
 
+    // Fills global variables to handle loading the correct task (SceneLoader.cs)
     private void Loader(ref byte[] packet)
     {
         for(int i = 4; i < packet.Length - 1; i++)

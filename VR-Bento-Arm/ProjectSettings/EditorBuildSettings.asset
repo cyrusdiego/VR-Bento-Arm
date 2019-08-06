@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/VIPER_Game.unity
     guid: e3845c8641e6f354d95d99baf434f0f3
   - enabled: 0
-    path: Assets/Scenes/VIPER_NoShells.unity
+    path: Assets/Scenes/Obselete/VIPER_NoShells.unity
     guid: 60ea280a203ef114fbc47508d5d4d9d1
   m_configObjects: {}

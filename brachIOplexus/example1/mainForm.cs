@@ -5777,7 +5777,7 @@ namespace brachIOplexus
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -5801,7 +5801,6 @@ namespace brachIOplexus
                 //stopWatch1.Start();
 
 
-                Console.WriteLine(positionQueue.Count);
                 if(positionQueue.Count > 0)
                 {
                     float[] position = positionQueue.Dequeue();
@@ -8815,7 +8814,7 @@ namespace brachIOplexus
                 ipEndPointTX3 = new IPEndPoint(localAddr3, portTX3);
                 ipEndPointRX3 = new IPEndPoint(localAddr3, portRX3);
 
-                // Start the thread to recieve packets to Unity 
+                // Start the thread to recieve packets from Unity 
                 t12 = new System.Threading.Timer(new TimerCallback(recieveFromUnity), null, 0, 15);
 
                 UDPflag3 = true;
@@ -9436,13 +9435,22 @@ namespace brachIOplexus
                     byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
                     parsePacket(packet);
                 }
+
+                //udpClientRX3.BeginReceive(new AsyncCallback(recv), null);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
+        //private void recv(IAsyncResult res)
+        //{
+            
+        //    byte[] received = udpClientRX3.EndReceive(res, ref ipEndPointRX3);
 
+        //    parsePacket(received);
+
+        //}
         private void parsePacket(byte[] packet)
         {
             if (validate(packet))
@@ -9453,11 +9461,6 @@ namespace brachIOplexus
                 }
                 if(packet[2] == 3)
                 {
-                    //https://stackoverflow.com/questions/22895710/how-i-send-2-integer-arguments-using-a-timer-tick-event-handler
-                    //unityFeedback.Interval = 1000;
-                    //Console.WriteLine("Starting timer");
-                    //unityFeedback.Elapsed += (sender, e) => printFeedback(sender, e, packet);
-                    //unityFeedback.Start();
                     this.feedback = packet;
                 }
             }
@@ -9555,7 +9558,7 @@ namespace brachIOplexus
 
             position = getPosition(packet);
             velocity = getVelocity(packet);
-
+            Console.WriteLine(position[0]);
             positionQueue.Enqueue(position);
             //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
             //{

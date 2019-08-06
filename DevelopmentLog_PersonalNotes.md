@@ -1409,8 +1409,16 @@ brachIOplexus can:
         - test if it works 
         - save to a folder or file? 
         - will always carry over between launches 
+    - When VR headset is connected, (especially vive), if theres any problems when reloading the scene (check Parser.cs Line 12);
 
 **August 6**
 *TODO*
 - Continue with cts feedback and printing to brachIOplexus 
+    - I don't think i can get cts feedback
 - Meeting with Riley / Quinn 
+
+*Rory's Game Task* 
+- Place cube on cup
+- Place cup on cube 
+- Start timer once arm moves
+- End timer once cup covers both cube and first cup
