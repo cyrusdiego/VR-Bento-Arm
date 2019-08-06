@@ -26,6 +26,10 @@ public class Parser : MonoBehaviour
     public byte[] feedback;
     // Flag used to see if a task has been loaded
     public bool task;
+    // Flag to start / stop timer
+    public bool timer;
+    // byte array to send timer feedback
+    public byte[] timerFeedback;
 
     // Array's to hold positions and velocity of bento arm
     private float[] currentPosition = new float[5];
@@ -40,9 +44,14 @@ public class Parser : MonoBehaviour
     void FixedUpdate()
     {
         task = global.task;
+        timer = global.timer;
         if(task)
         {
             sendFeedback();
+        }
+        if(timer)
+        {
+            timerToggle();
         }
     }
 
@@ -199,6 +208,15 @@ public class Parser : MonoBehaviour
 
     }
 
+    private void timerToggle()
+    {
+        timerFeedback = new byte[5];
+        timerFeedback[0] = 255;
+        timerFeedback[1] = 255;
+        timerFeedback[2] = 6;
+        timerFeedback[3] = 1;
+        timerFeedback[4] = calcCheckSum(ref timerFeedback);
+    }
     #region Utilities
 
     /*

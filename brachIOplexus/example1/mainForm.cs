@@ -9459,9 +9459,13 @@ namespace brachIOplexus
                 {
                     unityAcknowledge = true;
                 }
-                if(packet[2] == 3)
+                //if(packet[2] == 3)
+                //{
+                //    this.feedback = packet;
+                //}
+                if(packet[2] == 6)
                 {
-                    this.feedback = packet;
+                    timerToggle();
                 }
             }
         }

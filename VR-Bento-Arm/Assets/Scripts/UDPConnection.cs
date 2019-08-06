@@ -41,6 +41,9 @@ public class UDPConnection : MonoBehaviour
     private byte[] feedback;
     private bool task;
 
+    private byte[] timerFeedback;
+    private bool timer;
+
     #endregion
 
     #region Unity API
@@ -53,6 +56,7 @@ public class UDPConnection : MonoBehaviour
         outgoing = null;
         feedback = null;
         task = false;
+        timer = false;
         // Initialize udp connection and seperate thread 
         clientRX = new UdpClient(portRX);
         endpointRX = new IPEndPoint(local,portRX);
@@ -73,6 +77,8 @@ public class UDPConnection : MonoBehaviour
         outgoing = packetParser.outgoing;
         feedback = packetParser.feedback;
         task = packetParser.task;
+        timerFeedback = packetParser.timerFeedback;
+        timer = packetParser.timer;
     }
 
     /*
@@ -100,9 +106,14 @@ public class UDPConnection : MonoBehaviour
                     outgoing = null;
                     packetParser.outgoing = null;
                 }
-                if(task)
+                // if(task)
+                // {
+                //     clientTX.Send(feedback, feedback.Length,endpointTX);
+                // }
+                if(timer)
                 {
-                    clientTX.Send(feedback, feedback.Length,endpointTX);
+                    print("send timer");
+                    clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
                 }
 
             }
