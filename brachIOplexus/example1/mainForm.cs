@@ -8840,11 +8840,7 @@ namespace brachIOplexus
             {
                 enableUnityTab(false);
                 connected = false;
-                //if(unityAcknowledge)
-                //{
-                //    sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
-                //    sendUtility(control: 0);
-                //}
+
                 if (t11Running)
                 {
                     t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
@@ -8887,20 +8883,6 @@ namespace brachIOplexus
             sendSceneCtrl(resetTask: 1);
         }
 
-        private void unityArmShellToggle_Click(object sender, EventArgs e)
-        {
-            //if(armShells)
-            //{
-            //    sendUtility(stop: 1,reset: 1);
-            //    armShells = false;
-            //}
-            //else
-            //{
-            //    sendUtility(stop: 1,reset: 2);
-            //    armShells = true;
-            //}
-        }
-
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
             sendCamera(camSave: 1);
@@ -8923,10 +8905,6 @@ namespace brachIOplexus
             {
                 unityCameraPositionNumber.Text = "No Saved Camera Positions";
             });
-            //this.Invoke((MethodInvoker)delegate ()
-            //{
-            //    unityCameraProfile.Text = "No Profile Loaded";
-            //});
         }
 
         private void unityNextCameraPosition_Click(object sender, EventArgs e)
@@ -9026,23 +9004,6 @@ namespace brachIOplexus
 
         }
 
-        private void unityArmControl_Click(object sender, EventArgs e)
-        {
-            //this.Invoke((MethodInvoker)delegate ()
-            //{
-            //    if(armControl % 2 != 0)
-            //    {
-            //        armControl++;
-            //        sendUtility(control: 0);
-            //    }
-            //    else
-            //    {
-            //        sendUtility(control: 1);
-            //        armControl++;
-            //    }
-            //});
-        }
-
         private void unityStartTimer_Click(object sender, EventArgs e)
         {
             timerToggle();
@@ -9095,29 +9056,33 @@ namespace brachIOplexus
 
         private void unitySaveTimer_Click(object sender, EventArgs e)
         {
+            // https://stackoverflow.com/questions/9907682/create-a-txt-file-if-doesnt-exist-and-if-it-does-append-a-new-line
 
-        }
+            DateTime todayDate;
+            String date;
+            String taskName;
+            String filename;    //File format: dd-MM-yyyy-TaskName
+            String filepath;
 
-        private void unityLoadTimeFile_Click(object sender,EventArgs e)
-        {
+            todayDate = DateTime.Today;
+            date = todayDate.ToString("dd/MM/yyyy");
+            taskName = this.unityTaskList.Items[sceneIndex].Text;
+            filename = date + "-" + taskName + ".txt";
+            filepath = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityTaskTimer";
+            filepath += "\\" + filename;
 
-        }
-
-        private void unityNewTimeFile_Click(object sender, EventArgs e)
-        {
-            string file = string.Empty;
-            string filePath = string.Empty;
-            using (var popup = new unitySave())
+            if(!File.Exists(filepath))
             {
-                var result = popup.ShowDialog();
-                if (result == DialogResult.OK)
+                File.Create(filepath);
+                TextWriter tw = new StreamWriter(filepath);
+                tw.WriteLine(this.unityTimerText.Text);
+                tw.Close();
+            }
+            else
+            {
+                using (TextWriter tw = new StreamWriter(filepath, true))
                 {
-                    file = popup.fileName + ".json";
-                    filePath = Path.Combine(unityTimerData, file);
-                    if(!File.Exists(filePath))
-                    {
-                        File.Create(filePath).Dispose();
-                    }
+                    tw.WriteLine(this.unityTimerText.Text);
                 }
             }
         }
@@ -9160,6 +9125,11 @@ namespace brachIOplexus
             t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
             t13 = new System.Threading.Timer(new TimerCallback(processFeedback), null, 0, 15);
             t11Running = true;
+
+            unityTaskConfiguration.Enabled = true;
+            unityCameraPosition.Enabled = true;
+            unityFeedbackBox.Enabled = true;
+            unityRobotParamsBox.Enabled = true;
         }
 
         private void unityEndTask_Click(object sender, EventArgs e)
@@ -9401,22 +9371,6 @@ namespace brachIOplexus
             this.unityMainControls.Invoke((MethodInvoker)delegate
             {
                 this.unityMainControls.Enabled = state;
-            });
-            this.unityTaskConfiguration.Invoke((MethodInvoker)delegate
-            {
-                this.unityTaskConfiguration.Enabled = state;
-            });
-            this.unityCameraPosition.Invoke((MethodInvoker)delegate
-            {
-                this.unityCameraPosition.Enabled = state;
-            });
-            this.unityRobotParamsBox.Invoke((MethodInvoker)delegate
-            {
-                this.unityRobotParamsBox.Enabled = state;
-            });
-            this.unityFeedbackBox.Invoke((MethodInvoker)delegate
-            {
-                this.unityFeedbackBox.Enabled = state;
             });
         }
         #endregion

@@ -861,10 +861,7 @@
             this.unityTaskConfiguration = new System.Windows.Forms.GroupBox();
             this.unitySaveTimer = new System.Windows.Forms.Button();
             this.unityTimerInformation = new System.Windows.Forms.GroupBox();
-            this.unityTimerFileName = new System.Windows.Forms.Label();
             this.unityTimerText = new System.Windows.Forms.Label();
-            this.unityLoadTimeFile = new System.Windows.Forms.Button();
-            this.unityNewTimeFile = new System.Windows.Forms.Button();
             this.unityResetTimer = new System.Windows.Forms.Button();
             this.unityStartTimer = new System.Windows.Forms.Button();
             this.unityCameraPosition = new System.Windows.Forms.GroupBox();
@@ -11948,8 +11945,6 @@
             // 
             this.unityTaskConfiguration.Controls.Add(this.unitySaveTimer);
             this.unityTaskConfiguration.Controls.Add(this.unityTimerInformation);
-            this.unityTaskConfiguration.Controls.Add(this.unityLoadTimeFile);
-            this.unityTaskConfiguration.Controls.Add(this.unityNewTimeFile);
             this.unityTaskConfiguration.Controls.Add(this.unityResetTimer);
             this.unityTaskConfiguration.Controls.Add(this.unityStartTimer);
             this.unityTaskConfiguration.Enabled = false;
@@ -11962,8 +11957,7 @@
             // 
             // unitySaveTimer
             // 
-            this.unitySaveTimer.Enabled = false;
-            this.unitySaveTimer.Location = new System.Drawing.Point(6, 77);
+            this.unitySaveTimer.Location = new System.Drawing.Point(6, 106);
             this.unitySaveTimer.Name = "unitySaveTimer";
             this.unitySaveTimer.Size = new System.Drawing.Size(119, 23);
             this.unitySaveTimer.TabIndex = 8;
@@ -11973,7 +11967,6 @@
             // 
             // unityTimerInformation
             // 
-            this.unityTimerInformation.Controls.Add(this.unityTimerFileName);
             this.unityTimerInformation.Controls.Add(this.unityTimerText);
             this.unityTimerInformation.Location = new System.Drawing.Point(131, 19);
             this.unityTimerInformation.Name = "unityTimerInformation";
@@ -11982,49 +11975,18 @@
             this.unityTimerInformation.TabStop = false;
             this.unityTimerInformation.Text = "Timer - Info";
             // 
-            // unityTimerFileName
-            // 
-            this.unityTimerFileName.AutoSize = true;
-            this.unityTimerFileName.Location = new System.Drawing.Point(7, 110);
-            this.unityTimerFileName.Name = "unityTimerFileName";
-            this.unityTimerFileName.Size = new System.Drawing.Size(79, 13);
-            this.unityTimerFileName.TabIndex = 0;
-            this.unityTimerFileName.Text = "No File Loaded";
-            // 
             // unityTimerText
             // 
             this.unityTimerText.AutoSize = true;
-            this.unityTimerText.Location = new System.Drawing.Point(7, 58);
+            this.unityTimerText.Location = new System.Drawing.Point(6, 63);
             this.unityTimerText.Name = "unityTimerText";
             this.unityTimerText.Size = new System.Drawing.Size(13, 13);
             this.unityTimerText.TabIndex = 4;
             this.unityTimerText.Text = "0";
             // 
-            // unityLoadTimeFile
-            // 
-            this.unityLoadTimeFile.Enabled = false;
-            this.unityLoadTimeFile.Location = new System.Drawing.Point(6, 135);
-            this.unityLoadTimeFile.Name = "unityLoadTimeFile";
-            this.unityLoadTimeFile.Size = new System.Drawing.Size(119, 23);
-            this.unityLoadTimeFile.TabIndex = 7;
-            this.unityLoadTimeFile.Text = "Load File";
-            this.unityLoadTimeFile.UseVisualStyleBackColor = true;
-            this.unityLoadTimeFile.Click += new System.EventHandler(this.unityLoadTimeFile_Click);
-            // 
-            // unityNewTimeFile
-            // 
-            this.unityNewTimeFile.Enabled = false;
-            this.unityNewTimeFile.Location = new System.Drawing.Point(6, 106);
-            this.unityNewTimeFile.Name = "unityNewTimeFile";
-            this.unityNewTimeFile.Size = new System.Drawing.Size(119, 23);
-            this.unityNewTimeFile.TabIndex = 6;
-            this.unityNewTimeFile.Text = "New File";
-            this.unityNewTimeFile.UseVisualStyleBackColor = true;
-            this.unityNewTimeFile.Click += new System.EventHandler(this.unityNewTimeFile_Click);
-            // 
             // unityResetTimer
             // 
-            this.unityResetTimer.Location = new System.Drawing.Point(6, 48);
+            this.unityResetTimer.Location = new System.Drawing.Point(6, 77);
             this.unityResetTimer.Name = "unityResetTimer";
             this.unityResetTimer.Size = new System.Drawing.Size(119, 23);
             this.unityResetTimer.TabIndex = 5;
@@ -12034,7 +11996,7 @@
             // 
             // unityStartTimer
             // 
-            this.unityStartTimer.Location = new System.Drawing.Point(6, 19);
+            this.unityStartTimer.Location = new System.Drawing.Point(6, 48);
             this.unityStartTimer.Name = "unityStartTimer";
             this.unityStartTimer.Size = new System.Drawing.Size(119, 23);
             this.unityStartTimer.TabIndex = 4;
@@ -13198,13 +13160,10 @@
         private System.Windows.Forms.Button unitySaveCameraPosition;
         private System.Windows.Forms.Label unityCameraPositionNumber;
         private System.Windows.Forms.GroupBox unityTaskConfiguration;
-        private System.Windows.Forms.Button unityNewTimeFile;
         private System.Windows.Forms.Button unityResetTimer;
         private System.Windows.Forms.Button unityStartTimer;
         private System.Windows.Forms.Label unityTimerText;
         private System.Windows.Forms.GroupBox unityTimerInformation;
-        private System.Windows.Forms.Label unityTimerFileName;
-        private System.Windows.Forms.Button unityLoadTimeFile;
         private System.Windows.Forms.Button unitySaveTimer;
         private System.Windows.Forms.GroupBox unityMainControls;
         private System.Windows.Forms.Button unityPauseTask;
