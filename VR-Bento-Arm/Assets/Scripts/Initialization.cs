@@ -1,4 +1,13 @@
-﻿using UnityEngine;
+﻿/* 
+    BLINC LAB VIPER Project 
+    Initialization.cs
+    Created by: Cyrus Diego July 12, 2019
+
+    This class reset the values for all the global variables. Removes 
+    Awake() in multiple files and makes it easy to initialize global varaibles 
+    in a single place
+ */
+using UnityEngine;
 
 public class Initialization : MonoBehaviour
 {
@@ -21,6 +30,7 @@ public class Initialization : MonoBehaviour
         global.end = false;
         global.reset = false;
         global.task = false;
+        global.timer = false;
     }
 
 

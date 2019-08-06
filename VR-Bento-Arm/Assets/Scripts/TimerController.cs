@@ -5,11 +5,6 @@ public class TimerController : MonoBehaviour
 {
     public Global global = null;
 
-    void Awake()
-    {
-        global.timer = false;
-    }
-
     void FixedUpdate()
     {
         if(!global.timer)

@@ -1,3 +1,14 @@
+/* 
+    BLINC LAB VIPER Project 
+    Global.cs
+    Created by: Cyrus Diego July 16, 2019
+
+    This class holds all global variables that are required to be accessed across 
+    game objects in the task. By creating this class as an asset, the same instance 
+    will be carried over to all objects using this class. Cleaner way than using the 
+    SendMessage() method in Unity considering the large amount of control signals 
+    from brachIOplexus 
+ */
 using System;
 using UnityEngine;
 

@@ -1,3 +1,12 @@
+/* 
+    BLINC LAB VIPER Project 
+    Initialization.cs
+    Created by: Cyrus Diego July 24, 2019
+
+    Loads the correct task with the specified details: arm shells, arm control,
+    and VR Headset connection. Also deals with clean up of VRHeadset when reseting 
+    scenes
+ */
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
