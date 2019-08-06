@@ -87,6 +87,7 @@ public class Parser : MonoBehaviour
         }
     }
 
+    // Using global position and velocity array's fills feedback byte array to send to brachIOplexus
     private void sendFeedback()
     {
         int startIdx;
@@ -175,6 +176,7 @@ public class Parser : MonoBehaviour
         global.task = true;
     }
 
+    // Fills acknowledgement packet to send to brachIOplexus 
     private void Startup()
     {
         outgoing = new byte[6];
@@ -190,6 +192,7 @@ public class Parser : MonoBehaviour
     }
 
     #region Utilities
+
     /*
         @brief: sets the rotation array to zero's 
     */
@@ -214,6 +217,7 @@ public class Parser : MonoBehaviour
     {
         return (byte)(number >> 8);
     }
+
     /*
         @brief: checks if the packet recieved is correct:
         double header: 255
@@ -223,22 +227,6 @@ public class Parser : MonoBehaviour
     {
         byte checksum = 0;
         checksum = calcCheckSum(ref packet);
-        // int start = 4;
-        // int end = packet.Length - 1;
-        // for (int i = start; i < end; i++)
-        // {
-        //     checksum += packet[i];
-        // }
-
-        // if ((byte)~checksum > 255)
-        // {
-        //     checksum = low_byte((UInt16)~checksum);
-        // }
-        // else
-        // {
-        //     checksum = (byte)~checksum;
-        // }
-
 
         if (checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
         {
@@ -251,10 +239,10 @@ public class Parser : MonoBehaviour
     }
 
     /*
-    * @brief: calculates the checksum value based on packet recieved
-    * formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
-    * 
-    * @param: packet to be sent 
+        @brief: calculates the checksum value based on packet recieved
+        formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
+
+        @param: packet to be sent 
     */
     private byte calcCheckSum(ref byte[] packet)
     {
@@ -277,8 +265,8 @@ public class Parser : MonoBehaviour
     }
 
     /*
-    @brief: combines low and high byte values and converts to rad /s velocity
-    value
+        @brief: combines low and high byte values and converts to rad /s velocity
+        value
     */
     float getVelocity(byte low, byte hi)
     {
@@ -287,5 +275,6 @@ public class Parser : MonoBehaviour
         float velocity = combined * rpmToRads;
         return velocity;
     }
+
 #endregion
 }

@@ -73,16 +73,6 @@ public class UDPConnection : MonoBehaviour
         outgoing = packetParser.outgoing;
         feedback = packetParser.feedback;
         task = packetParser.task;
-        // if(scene != 0)
-        // {
-        //     updateScene();
-        // }
-
-        // if(global.timerTrigger != 255)
-        // {
-        //     Send(timer: global.timerTrigger);
-        //     global.timerTrigger = 255;
-        // }
     }
 
     /*
@@ -98,7 +88,6 @@ public class UDPConnection : MonoBehaviour
 
     #endregion
 
-    #region UDPTX
     void Send()
     {
         while(!exitTX)
@@ -124,9 +113,6 @@ public class UDPConnection : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region UDPRX
     /*
         @brief: recieves and stores incoming packets from brachIOplexus  
     */
@@ -149,53 +135,4 @@ public class UDPConnection : MonoBehaviour
             }
         }
     }
-
-
-    /*
-        @brief: using the packet recieved from BrachIOplexus, fill the 
-        rotationArray array with velocity and direction values. rotationArray
-        is globally accessible to the rotation classes. 
-    */
-    // void parsePacket(ref byte[] packet)
-    // {
-    //     clearRotationArray();
-    //     if(validate(ref packet, 4, (byte)(packet.Length - 1)))
-    //     {
-    //         if(packet[2] == 0)
-    //         {
-    //             int length = packet[3] / 4;
-    //             for(byte i = 1; i < length + 1; i++)
-    //             {
-    //                 float direction = packet[4*i + 3];
-    //                 float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
-    //                 global.brachIOplexusControl[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
-
-    //             }
-    //         }
-    //         else
-    //         {
-    //             if(packet[10] == 1)
-    //             {
-    //                 global.controlToggle = true;
-    //                 Send(acknowledge: 1);
-    //             }
-
-    //             if(packet[3] == 1)
-    //             {
-    //                 clearRotationArray();
-    //             }
-
-    //             global.controlToggle = Convert.ToBoolean(packet[9]);  
-                
-    //             scene = packet[4]; 
-
-    //             for(int i = 5; i < packet.Length - 3; i++)
-    //             {
-    //                 global.cameraArray[i - 5] = packet[i];
-    //             }
-    //         }
-    //     }
-    // }
-
-    #endregion
 }
