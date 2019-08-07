@@ -11646,7 +11646,7 @@
             this.unityShoulderPMin.Size = new System.Drawing.Size(48, 20);
             this.unityShoulderPMin.TabIndex = 131;
             this.unityShoulderPMin.Value = new decimal(new int[] {
-            1028,
+            1664,
             0,
             0,
             0});
@@ -11664,7 +11664,7 @@
             this.unityShoulderPMax.Size = new System.Drawing.Size(48, 20);
             this.unityShoulderPMax.TabIndex = 132;
             this.unityShoulderPMax.Value = new decimal(new int[] {
-            3073,
+            2432,
             0,
             0,
             0});
