@@ -1426,3 +1426,11 @@ brachIOplexus can:
 - Place cup on cube 
 - Start timer once arm moves
 - End timer once cup covers both cube and first cup
+
+**August 7**
+*TODO*
+- Document + comment + clean up code 
+- Weekly meeting, discuss tasks 
+- **TODO** finish DOF packet and control of the arm 
+- **TODO** Camera saving 
+**the above two todo are the only things not done in the GUI right now** 

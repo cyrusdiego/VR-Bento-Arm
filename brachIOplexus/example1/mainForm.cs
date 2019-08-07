@@ -9178,7 +9178,7 @@ namespace brachIOplexus
             packet[0] = 255;                            // Header
             packet[1] = 255;                            // Header
             packet[2] = 0;                              // Type: 0
-            packet[3] = 9;                              // Length of Packet
+            packet[3] = 4;                              // Length of Data
             packet[4] = (byte)sceneIndex;               // Task Index 
             packet[5] = armShell;                       // Arm Shell toggle
             packet[6] = armControl;                     // brachIOplexus input toggle
@@ -9449,8 +9449,8 @@ namespace brachIOplexus
             packet = new byte[8];
             packet[0] = 255;                    // Header
             packet[1] = 255;                    // Header
-            packet[2] = 6;                      // Type: 5
-            packet[3] = 8;                      // Length
+            packet[2] = 6;                      // Type: 6
+            packet[3] = 3;                      // Length of Data 
             packet[4] = pauseTask;              // Next camera position
             packet[5] = endTask;                // Clear saved camera positions
             packet[6] = resetTask;              // Save current camera position
@@ -9472,7 +9472,7 @@ namespace brachIOplexus
             packet[0] = 255;                    // Header
             packet[1] = 255;                    // Header
             packet[2] = 2;                      // Type: 2
-            packet[3] = 1;                      // Length 
+            packet[3] = 1;                      // Length of Data 
             packet[4] = 1;                      // Send a 1 
             packet[5] = calcCheckSum(packet);   // Calculate Checksum
 
@@ -9589,7 +9589,7 @@ namespace brachIOplexus
                 //}
 
                 // Starts / Stops the timer based on "in-task" stimulus (moving the arm or reaching the goal) 
-                if(packet[2] == 6)
+                if(packet[2] == 7)
                 {
                     timerToggle();
                 }

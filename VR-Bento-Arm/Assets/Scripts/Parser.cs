@@ -210,12 +210,13 @@ public class Parser : MonoBehaviour
 
     private void timerToggle()
     {
-        timerFeedback = new byte[5];
+        timerFeedback = new byte[6];
         timerFeedback[0] = 255;
         timerFeedback[1] = 255;
-        timerFeedback[2] = 6;
+        timerFeedback[2] = 7;
         timerFeedback[3] = 1;
-        timerFeedback[4] = calcCheckSum(ref timerFeedback);
+        timerFeedback[4] = 1;
+        timerFeedback[5] = calcCheckSum(ref timerFeedback);
 
         global.timer = false;
     }
