@@ -1391,9 +1391,9 @@ brachIOplexus can:
     - Document how to do this 
 - Add scene in build 
     - Document how to do this
-- Task Timer 
-    - Save: if not already made, create a file with date + task being run and save timer infor there 
-    - Remove new file and load file
+- Task Timer (DONE)
+    - Save: if not already made, create a file with date + task being run and save timer infor there (DONE)
+    - Remove new file and load file (DONE)
 - *Goal:* have a ready made scene by **Friday** or **Monday** 
 - **Test:** 
     - Arm shells enabled (WORKS)
@@ -1417,6 +1417,9 @@ brachIOplexus can:
 - Continue with cts feedback and printing to brachIOplexus 
     - I don't think i can get cts feedback
 - Meeting with Riley / Quinn 
+    - Met with Ewen and walked through how to setup the vive puck 
+    - It is possible to connect the bento arm to the puck but will require intensive calibration 
+        - ideally a programatic way to calibrate per person would be nice 
 
 *Rory's Game Task* 
 - Place cube on cup
