@@ -1434,3 +1434,37 @@ brachIOplexus can:
 - **TODO** finish DOF packet and control of the arm 
 - **TODO** Camera saving 
 **the above two todo are the only things not done in the GUI right now** 
+
+*Meeting Outcome*
+- Finish Game task
+    - start / stop at top left 
+    - start timer when arm moves
+    - stop timer when arm moves back to position 
+    - requires cup model
+    - try out with ball
+- Box and Blocks
+    - Rory will send files by friday (hopefully)
+    - Quinn will send cup model soon
+- CTS feedback
+    - will try to meet with rory to discuss 
+    - cannot get feedback from tasks otherwise 
+- Get Joint limit working 
+    - Change ranges so its deg or rad 
+    - have a button so its the same as bento arm but convert appropriatley 
+- Puck
+    - research / work on calibration 
+    - elbow should be at proper location
+    - no shoulder rotation 
+    - measure arm diameter 
+    - figure out offset / calibration (programatically) 
+    - either read from file or from text field in application 
+- goal: 1 - 2 more tasks (game + box and blocks), work on puck 
+- documentation: continuously work on documentation! 
+    - need to create formal way to create a new task 
+- Still work on no VR headset connected (as per Rory's requirement) 
+    - camera position
+    - vr enabled check works 
+    - keyboard will move camera and brachioplexus will control arm (cannot interfere with keyboard control of arm)
+        - need to make sure when vr is connected, camera cannot be moved!!! 
+    - WIll need to either make seperate scene OR delete the steamvr objects 
+    
