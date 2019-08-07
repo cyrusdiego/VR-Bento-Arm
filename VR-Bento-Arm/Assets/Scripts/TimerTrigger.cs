@@ -17,7 +17,7 @@ public class TimerTrigger : MonoBehaviour
         // cleanup by using interactable tag? 
         if((other.name == "Cube" || other.name == "Sphere") && sphereTrigger == 0)
         {
-            global.timerTrigger = 1;
+            global.timer = true;
             sphereTrigger++;
         }
     }

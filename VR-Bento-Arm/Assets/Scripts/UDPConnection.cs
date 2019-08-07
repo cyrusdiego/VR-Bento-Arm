@@ -18,11 +18,6 @@ using UnityEngine.SceneManagement;
 public class UDPConnection : MonoBehaviour
 {
     #region Variables
-
-    // Holds direction and velocity
-    // roationArray[0] is undefined
-    public Global global = null;
-
     // Network information 
     public Int32 portRX = 30004;
     public Int32 portTX = 30005;
@@ -35,16 +30,20 @@ public class UDPConnection : MonoBehaviour
     private Thread threadTX;
     private IPEndPoint endpointRX;
     private IPEndPoint endpointTX;
-    private bool exit;
 
-    // convert servo vals -> rpm -> rad/s
-    private float rpmToRads = 0.11f * Mathf.PI / 30;   
+    // Used to stop threads 
+    private bool exitTX;
+    private bool exitRX;
 
-    // Scene triggers
-    private byte scene;
-    private byte activeScene;
+    public Parser packetParser = null;    
 
-    public GameObject VRHeadset = null;
+    private byte[] outgoing;
+    private byte[] feedback;
+    private bool task;
+
+    private byte[] timerFeedback;
+    private bool timer;
+
     #endregion
 
     #region Unity API
@@ -54,25 +53,10 @@ public class UDPConnection : MonoBehaviour
     */
     void Awake()
     {
-        scene = 0;
-        // Singleoton pattern
-        for(int i = 0; i < 4; i++)
-        {
-            global.cameraArray[i] = 255;
-        }
-
-        clearRotationArray();
-        if(SceneManager.GetActiveScene().name == "VIPER_Shells")
-        {
-            activeScene = 0;
-        }
-        else
-        {
-            activeScene = 1;
-        }
-
-        global.timerTrigger = 255;
-
+        outgoing = null;
+        feedback = null;
+        task = false;
+        timer = false;
         // Initialize udp connection and seperate thread 
         clientRX = new UdpClient(portRX);
         endpointRX = new IPEndPoint(local,portRX);
@@ -80,25 +64,22 @@ public class UDPConnection : MonoBehaviour
 
         clientTX = new UdpClient();
         endpointTX = new IPEndPoint(local,portTX);
-        threadTX = new Thread(() => Send(activeScene));
+        threadTX = new Thread(Send);
 
-        exit = false;
+        exitTX = false;
+        exitRX = false;
         threadRX.Start();
         threadTX.Start();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if(scene != 0)
-        {
-            updateScene();
-        }
-
-        if(global.timerTrigger != 255)
-        {
-            Send(timer: global.timerTrigger);
-            global.timerTrigger = 255;
-        }
+        outgoing = packetParser.outgoing;
+        feedback = packetParser.feedback;
+        task = packetParser.task;
+        timerFeedback = packetParser.timerFeedback;
+        timer = packetParser.timer;
+        print(counter);
     }
 
     /*
@@ -106,152 +87,52 @@ public class UDPConnection : MonoBehaviour
     */
     void OnDestroy()
     {
-        exit = true;
+        exitRX = true;
+        exitTX = true;
         clientRX.Close();
         clientTX.Close();
     }
 
-    void updateScene()
-    {
-        exit = true;
-        clientRX.Close();
-        clientTX.Close();
-        Destroy(VRHeadset);
-        if(scene == 1)
-        {
-            SceneManager.LoadScene("VIPER_SHELLS");
-        }
-        else if(scene == 2)
-        {
-            SceneManager.LoadScene("VIPER_NoShells");
-        }
-        scene = 0;
-    }
-
     #endregion
-
-    #region Utilities
-
-    /*
-        @brief: retrieves the lower byte of a UInt16 number
-    */
-    byte low_byte(ushort number)
+    private int counter = 0;
+    void Send()
     {
-        return (byte)(number & 0xff);
-    }
-
-    /*
-        @brief: checks if the packet recieved is correct:
-        double header: 255
-        checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
-    */
-    bool validate(ref byte[] packet, byte start, byte end)
-    {
-        byte checksum = 0;
-        for(int i = start; i < end; i++)
+        while(!exitTX)
         {
-            checksum += packet[i];
-        }
-
-        if((byte)~checksum > 255)
-        {
-            checksum = low_byte((UInt16)~checksum);
-        }
-        else
-        {
-            checksum = (byte)~checksum;
-        }
+            try
+            {
+                if(outgoing != null)
+                {
+                    clientTX.Send(outgoing, outgoing.Length,endpointTX);
+                    outgoing = null;
+                    packetParser.outgoing = null;
+                }
+                // if(task)
+                // {
+                //     clientTX.Send(feedback, feedback.Length,endpointTX);
+                // }
+                if(timer)
+                {
+                    clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
+                    timer = false;
+                    packetParser.timer = false;
+                }
 
 
-        if(checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            }
+            catch (Exception err)
+            {
+                print(err.ToString());            
+            }
         }
     }
 
-    /*
-        @brief: sets the rotation array to zero's 
-    */
-    void clearRotationArray()
-    {
-        for(int i = 0; i < global.brachIOplexusControl.Length; i++)
-        {
-            global.brachIOplexusControl[i] = new Tuple<float,float>(0,0);
-        }
-    }
-
-    void clearCameraArray()
-    {
-        for(int i = 0; i < global.cameraArray.Length; i++)
-        {
-            global.cameraArray[i] = (byte)255;
-        }
-    }
-
-    /*
-    * @brief: calculates the checksum value based on packet recieved
-    * formula: ~foreach Servo ID(ID + Vel_Lo + Vel_Hi + State) 
-    * 
-    * @param: packet to be sent 
-    */
-    private byte calcCheckSum(ref byte[] packet, byte start, byte end)
-    {
-        byte checkSum = 0;
-
-        for (byte i = start; i < end; i++)
-        {
-            checkSum += packet[i];
-        }
-
-        if ((byte)~checkSum >= 255)
-        {
-            checkSum = low_byte((UInt16)~checkSum);
-        }
-        else
-        {
-            checkSum = (byte)~checkSum;
-        }
-        return checkSum;
-    }
-
-    #endregion
-
-    #region UDPTX
-
-    void Send(byte scene = 255, byte timer = 255, byte acknowledge = 255)
-    {
-        try
-        {
-            byte[] packet = new byte[6];
-            packet[0] = 255;
-            packet[1] = 255;
-            packet[2] = acknowledge;
-            packet[3] = scene;
-            packet[4] = timer;
-            packet[5] = calcCheckSum(ref packet,2,5);
-
-            clientTX.Send(packet,packet.Length,endpointTX);
-        }
-        catch (Exception ex)
-        {
-            print(ex.ToString());
-        }
-
-    }
-
-    #endregion
-
-    #region UDPRX
     /*
         @brief: recieves and stores incoming packets from brachIOplexus  
     */
     void Recieve()
     {
-        while(!exit)
+        while(!exitRX)
         {
             try
             {
@@ -259,7 +140,7 @@ public class UDPConnection : MonoBehaviour
                 if(clientRX.Available > 0)
                 {
                     byte[] packet = clientRX.Receive(ref endpointRX); 
-                    parsePacket(ref packet);
+                    packetParser.parsePacket(ref packet);
                 }
             }
             catch (Exception err)
@@ -268,63 +149,4 @@ public class UDPConnection : MonoBehaviour
             }
         }
     }
-    /*
-        @brief: combines low and high byte values and converts to rad /s velocity
-        value
-    */
-    float getVelocity(byte low, byte hi)
-    {
-        UInt16 combined = (UInt16)((low) | (hi << 8));
-
-        float velocity = combined * rpmToRads;
-        return velocity;
-    }
-
-    /*
-        @brief: using the packet recieved from BrachIOplexus, fill the 
-        rotationArray array with velocity and direction values. rotationArray
-        is globally accessible to the rotation classes. 
-    */
-    void parsePacket(ref byte[] packet)
-    {
-        clearRotationArray();
-        if(validate(ref packet, 4, (byte)(packet.Length - 1)))
-        {
-            if(packet[2] == 0)
-            {
-                int length = packet[3] / 4;
-                for(byte i = 1; i < length + 1; i++)
-                {
-                    float direction = packet[4*i + 3];
-                    float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
-                    global.brachIOplexusControl[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
-
-                }
-            }
-            else
-            {
-                if(packet[10] == 1)
-                {
-                    global.controlToggle = true;
-                    Send(acknowledge: 1);
-                }
-
-                if(packet[3] == 1)
-                {
-                    clearRotationArray();
-                }
-
-                global.controlToggle = Convert.ToBoolean(packet[9]);  
-                
-                scene = packet[4]; 
-
-                for(int i = 5; i < packet.Length - 3; i++)
-                {
-                    global.cameraArray[i - 5] = packet[i];
-                }
-            }
-        }
-    }
-
-    #endregion
 }

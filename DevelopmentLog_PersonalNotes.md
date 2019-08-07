@@ -1328,3 +1328,101 @@ brachIOplexus can:
 - unityARmControlIndicator 
 - unityArmControlText
 - unityActiveSceneName
+
+*Button Functionalities*
+- "Launch Task"
+    - based on heighlighted task, sends signal to unity to pick a specific scene 
+- "End Task" 
+    - goes back to 'init' scene and unity will await configuration from brachIOplexus 
+- "Reset Task" 
+    - Resets the scene 
+- "Pause Task"
+    - Pauses the scene 
+    - Pauses the timer if it is running 
+    - Pauses all feedback 
+    - Switches to Resume Task
+- NumericUpDown('s) in Joint Limits
+    - every button press will update the number **then** send it to Unity 
+- Toggle Arm Shells and Toggle Arm Control
+    - Toggles showing the arm shells and what controls the arm respectively 
+    - Checking one **mid** task will reset the task / scene 
+    - if **no task has been loaded** then it does not send a reset, will only act as a parameter 
+
+**July 24**
+- weekly meeting, went over tasks. will start implementing after vacation 
+- data structure will be after vacation 
+
+*WORKING*
+- Main Controls
+    - All working except VR Enabled 
+- Timer 
+    - start, reset, save
+- Camera Position (Requires testing)
+    - save, next, clear 
+- Scene initialization and task choosing
+
+*TODO BEFORE VACATION*
+- Have unity tab disable until it connects (DONE)
+- Test:
+    - Toggling arm control toggle 
+    - Camera Positions (all of it)
+- File I/O:
+    - Save Timer data to a single file (for now just do following File format: task_name_yyyy_mm_dd)
+    - Remove the New and Load file buttons
+    - Save Camera Positions to a single file as well 
+- Cleanup:
+    - Remove unneseccary buttons / gui's 
+
+
+*TODO AFTER VACATION*
+- When VR Headset connected, destroy it when reseting
+- Add radio buttons for the type of object to use 
+- Read over tasks and implement one 
+- Implement Joint limit DOF and constant feedback 
+
+**July 25**
+- When clicking "end task" after going into a task, brachIOplexus still sends sends startup packets for some reason
+- The enabling of the Unity tab is weird as it only works if Unity is plugged in first and pressing disconnect button breaks it
+- Organize variables that i use in a struct !!!!
+- rename outgoing and sent variables !!!
+
+**Aug 6 - 9 todo: create a task**
+- Add name in Main - Controls 
+    - Document how to do this 
+- Add scene in build 
+    - Document how to do this
+- Task Timer (DONE)
+    - Save: if not already made, create a file with date + task being run and save timer infor there (DONE)
+    - Remove new file and load file (DONE)
+- *Goal:* have a ready made scene by **Friday** or **Monday** 
+- **Test:** 
+    - Arm shells enabled (WORKS)
+    - brachIOplexus input enabled (WORKS)
+    - VR Enabled 
+        - Keyboard moves the camera and brachIOplexus will control arm
+    - Main Controls Buttons (WORKS)
+    - Task Timer (WORKS)
+        - Start + Reset (WORKS)
+            - Will show in Timer box (WORKS)
+    - camera positions:
+        - only enabled if vr is disabled
+        - test if it works 
+        - save to a folder or file? 
+        - will always carry over between launches 
+    - When VR headset is connected, (especially vive), if theres any problems when reloading the scene (check Parser.cs Line 12);
+- documentation: standard coding (fixedupate and using awake), commenting style and file headers
+
+**August 6**
+*TODO*
+- Continue with cts feedback and printing to brachIOplexus 
+    - I don't think i can get cts feedback
+- Meeting with Riley / Quinn 
+    - Met with Ewen and walked through how to setup the vive puck 
+    - It is possible to connect the bento arm to the puck but will require intensive calibration 
+        - ideally a programatic way to calibrate per person would be nice 
+
+*Rory's Game Task* 
+- Place cube on cup
+- Place cup on cube 
+- Start timer once arm moves
+- End timer once cup covers both cube and first cup

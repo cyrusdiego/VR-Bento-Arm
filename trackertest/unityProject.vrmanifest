@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.trackertest.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\Trillian\\Documents\\VRBentoArm\\trackertest\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "trackertest [Testing]"
+        }
+      }
+    }
+  ]
+}

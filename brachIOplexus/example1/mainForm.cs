@@ -174,6 +174,7 @@ namespace brachIOplexus
         // Unity UDP connection 
         static System.Threading.Timer t11;
         static System.Threading.Timer t12;
+        static System.Threading.Timer t13;
         static Int32 portTX3;  // Send
         static Int32 portRX3;  // Recieve 
         static IPAddress localAddr3;  // Local address
@@ -198,6 +199,11 @@ namespace brachIOplexus
         private string unityTimerData = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityTaskTimer";
         private int armControl = 1;
         private bool unityAcknowledge = false;
+        private int sceneIndex = 255;
+        private bool t11Running = false;
+        private bool connected;
+        private static System.Timers.Timer unityFeedback = new System.Timers.Timer();
+        private byte[] feedback;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -602,12 +608,8 @@ namespace brachIOplexus
             {
                 if (contents.Count() > 0)
                 {
-                    unityCurrentCameraPositionText.Text = Path.GetFileName(contents[0]);
+                    unityCameraPositionNumber.Text = Path.GetFileName(contents[0]);
                 }
-            });
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                unityCameraProfile.Text = "No Profile Loaded";
             });
             for (int i = 0; i < contents.Length; i++)
             {
@@ -615,6 +617,7 @@ namespace brachIOplexus
                 unityCameraPositions.Add(fileName);
                 cameraPositionIdx++;
             }
+
             #endregion
 
         }
@@ -5774,7 +5777,7 @@ namespace brachIOplexus
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -5782,20 +5785,28 @@ namespace brachIOplexus
         {
             try
             {
-                // Stop stopwatch and record how long everything in the main loop took to execute as well as how long it took to retrigger the main loop
-                stopWatch1.Stop();
-                milliSec1 = stopWatch1.ElapsedMilliseconds;
-                delay.Text = Convert.ToString(milliSec1);
+                //// Stop stopwatch and record how long everything in the main loop took to execute as well as how long it took to retrigger the main loop
+                //stopWatch1.Stop();
+                //milliSec1 = stopWatch1.ElapsedMilliseconds;
+                //delay.Text = Convert.ToString(milliSec1);
 
-                // Check to see if the previous delay is the new maximum delay
-                if (milliSec1 > Convert.ToDecimal(delay_max.Text))
+                //// Check to see if the previous delay is the new maximum delay
+                //if (milliSec1 > Convert.ToDecimal(delay_max.Text))
+                //{
+                //    delay_max.Text = Convert.ToString(milliSec1);
+                //}
+
+                //// Reset and start the stop watch
+                //stopWatch1.Reset();
+                //stopWatch1.Start();
+
+
+                if(positionQueue.Count > 0)
                 {
-                    delay_max.Text = Convert.ToString(milliSec1);
+                    float[] position = positionQueue.Dequeue();
+                    unityShoulderPositionFeedback.Text = position[0].ToString();
+       
                 }
-
-                // Reset and start the stop watch
-                stopWatch1.Reset();
-                stopWatch1.Start();
 
                 #region "Initialize Input/Output Arrays"
                 // Initialize input mapping array
@@ -8803,20 +8814,21 @@ namespace brachIOplexus
                 ipEndPointTX3 = new IPEndPoint(localAddr3, portTX3);
                 ipEndPointRX3 = new IPEndPoint(localAddr3, portRX3);
 
-                // Start the thread to send packets to Unity 
-                t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+                // Start the thread to recieve packets from Unity 
                 t12 = new System.Threading.Timer(new TimerCallback(recieveFromUnity), null, 0, 15);
 
                 UDPflag3 = true;
                 unityConnect.Enabled = false;
                 unityDisconnect.Enabled = true;
+                connected = true;
                 acknowdledge.Start();
+
                 // Displays camera position if the list is not empty upon opening brachIOplexus
                 //if(unityCameraPositions.Count > 0)
                 //{
                 //    this.Invoke((MethodInvoker)delegate ()
                 //    {
-                //        unityCurrentCameraPositionText.Text = unityCameraPositions[0];
+                //        unityCameraPositionNumber.Text = unityCameraPositions[0];
                 //    });
                 //}
             }
@@ -8826,16 +8838,18 @@ namespace brachIOplexus
         {
             if (UDPflag3)
             {
-                if(unityAcknowledge)
-                {
-                    sendUtility(1);  // Should disconnecting brachIOplexus only stop the arm, or should it also stop the simulation / app??
-                    sendUtility(control: 0);
-                }
+                enableUnityTab(false);
+                connected = false;
 
+                if (t11Running)
+                {
+                    t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+                }
+                t12.Change(Timeout.Infinite, Timeout.Infinite);
+                t13.Change(Timeout.Infinite, Timeout.Infinite);
                 udpClientTX3.Close();
                 udpClientRX3.Close();
-                t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
-                t12.Change(Timeout.Infinite, Timeout.Infinite);
+
 
                 UDPflag3 = false;
                 unityConnect.Enabled = true;
@@ -8866,55 +8880,30 @@ namespace brachIOplexus
         private void unitySceneReset_Click(object sender, EventArgs e)
         {
             resetTimer();
-            if (armShells)
-            {
-                sendUtility(stop: 1, reset: 2);
-            }
-            else
-            {
-                sendUtility(stop: 1, reset: 1);
-            }
-        }
-
-        private void unityArmShellToggle_Click(object sender, EventArgs e)
-        {
-            if(armShells)
-            {
-                sendUtility(stop: 1,reset: 1);
-                armShells = false;
-            }
-            else
-            {
-                sendUtility(stop: 1,reset: 2);
-                armShells = true;
-            }
+            sendSceneCtrl(resetTask: 1);
         }
 
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
-            sendUtility(save: 1);
+            sendCamera(camSave: 1);
             string name = $"Position{unityCameraPositions.Count}";
             unityCameraPositions.Add(name);
             cameraPositionIdx++;
             this.Invoke((MethodInvoker)delegate ()
             {
-                unityCurrentCameraPositionText.Text = name;
+                unityCameraPositionNumber.Text = name;
             });
             
         }
 
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
         {
-            sendUtility(clear: 1);
+            sendCamera(camClear: 1);
             unityCameraPositions.Clear();
             cameraPositionIdx = 0;
             this.Invoke((MethodInvoker)delegate ()
             {
-                unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
-            });
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                unityCameraProfile.Text = "No Profile Loaded";
+                unityCameraPositionNumber.Text = "No Saved Camera Positions";
             });
         }
 
@@ -8922,11 +8911,11 @@ namespace brachIOplexus
         {
             if(unityCameraPositions.Count > 0)
             {
-                sendUtility(next: 1);
+                sendCamera(camNext: 1);
                 cameraPositionIdx = (cameraPositionIdx % unityCameraPositions.Count);
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+                    unityCameraPositionNumber.Text = unityCameraPositions[cameraPositionIdx];
                 });
                 cameraPositionIdx++;
             }
@@ -8934,7 +8923,7 @@ namespace brachIOplexus
             {
                 this.Invoke((MethodInvoker)delegate ()
                 {
-                    unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
+                    unityCameraPositionNumber.Text = "No Saved Camera Positions";
                 });
             }
         }
@@ -8943,7 +8932,7 @@ namespace brachIOplexus
         {
             this.Invoke((MethodInvoker)delegate ()
             {
-                unityCurrentCameraPositionText.Text = unityCameraPositions[cameraPositionIdx];
+                unityCameraPositionNumber.Text = unityCameraPositions[cameraPositionIdx];
             });
         }
 
@@ -8979,57 +8968,40 @@ namespace brachIOplexus
 
         private void unityLoadProfile_Click(object sender, EventArgs e)
         {
-            string profileName = string.Empty;
-            string[] files = null;
-            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
-            {
-                folderDialog.SelectedPath = unityCameraProfiles;
-                DialogResult result = folderDialog.ShowDialog();
-                if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
-                {
-                    profileName = Path.GetFileName(folderDialog.SelectedPath);
-                    files = Directory.GetFiles(folderDialog.SelectedPath);
-                }
-            }
-            if(files != null)
-            {
-                foreach (string str in files)
-                {
-                    string fileName = Path.GetFileName(str);
-                    string destination = Path.Combine(unitySavedCameraPositions, fileName);
-                    File.Copy(str, destination, true);
-                    unityCameraPositions.Add(fileName);
-                }
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCameraProfile.Text = profileName;
-                });
+            //string profileName = string.Empty;
+            //string[] files = null;
+            //using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            //{
+            //    folderDialog.SelectedPath = unityCameraProfiles;
+            //    DialogResult result = folderDialog.ShowDialog();
+            //    if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
+            //    {
+            //        profileName = Path.GetFileName(folderDialog.SelectedPath);
+            //        files = Directory.GetFiles(folderDialog.SelectedPath);
+            //    }
+            //}
+            //if(files != null)
+            //{
+            //    foreach (string str in files)
+            //    {
+            //        string fileName = Path.GetFileName(str);
+            //        string destination = Path.Combine(unitySavedCameraPositions, fileName);
+            //        File.Copy(str, destination, true);
+            //        unityCameraPositions.Add(fileName);
+            //    }
+            //    this.Invoke((MethodInvoker)delegate ()
+            //    {
+            //        unityCameraProfile.Text = profileName;
+            //    });
 
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    unityCurrentCameraPositionText.Text = unityCameraPositions[0];
-                });
-                sendUtility(profile: 1);
-                cameraPositionIdx = 1;
-            }
+            //    this.Invoke((MethodInvoker)delegate ()
+            //    {
+            //        unityCameraPositionNumber.Text = unityCameraPositions[0];
+            //    });
+            //    sendUtility(profile: 1);
+            //    cameraPositionIdx = 1;
+            //}
 
-        }
-
-        private void unityArmControl_Click(object sender, EventArgs e)
-        {
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                if(armControl % 2 != 0)
-                {
-                    armControl++;
-                    sendUtility(control: 0);
-                }
-                else
-                {
-                    sendUtility(control: 1);
-                    armControl++;
-                }
-            });
         }
 
         private void unityStartTimer_Click(object sender, EventArgs e)
@@ -9084,30 +9056,104 @@ namespace brachIOplexus
 
         private void unitySaveTimer_Click(object sender, EventArgs e)
         {
+            // https://stackoverflow.com/questions/9907682/create-a-txt-file-if-doesnt-exist-and-if-it-does-append-a-new-line
 
-        }
+            DateTime todayDate;
+            String date;
+            String taskName;
+            String filename;    //File format: dd-MM-yyyy-TaskName
+            String filepath;
 
-        private void unityLoadTimeFile_Click(object sender,EventArgs e)
-        {
+            todayDate = DateTime.Today;
+            date = todayDate.ToString("dd/MM/yyyy");
+            taskName = this.unityTaskList.Items[sceneIndex].Text;
+            filename = date + "-" + taskName + ".txt";
+            filepath = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityTaskTimer";
+            filepath += "\\" + filename;
 
-        }
-
-        private void unityNewTimeFile_Click(object sender, EventArgs e)
-        {
-            string file = string.Empty;
-            string filePath = string.Empty;
-            using (var popup = new unitySave())
+            if(!File.Exists(filepath))
             {
-                var result = popup.ShowDialog();
-                if (result == DialogResult.OK)
+                File.Create(filepath);
+                TextWriter tw = new StreamWriter(filepath);
+                tw.WriteLine(this.unityTimerText.Text);
+                tw.Close();
+            }
+            else
+            {
+                using (TextWriter tw = new StreamWriter(filepath, true))
                 {
-                    file = popup.fileName + ".json";
-                    filePath = Path.Combine(unityTimerData, file);
-                    if(!File.Exists(filePath))
-                    {
-                        File.Create(filePath).Dispose();
-                    }
+                    tw.WriteLine(this.unityTimerText.Text);
                 }
+            }
+        }
+
+        private void unityTaskList_Click(object sender, EventArgs e)
+        {
+            if(this.unityTaskList.SelectedIndices.Count > 0)
+            {
+                sceneIndex = this.unityTaskList.SelectedIndices[0];
+            }
+        }
+
+        private void unityLaunchTask_Click(object sender, EventArgs e)
+        {
+            if(sceneIndex == 255)
+            {
+                return;
+            }
+
+            byte armShell;
+            byte armControl;
+            byte VREnabled;
+
+            armShell = Convert.ToByte(this.unityArmShellToggle.Checked);
+            armControl = Convert.ToByte(this.unityArmControlToggle.Checked);
+            VREnabled = Convert.ToByte(this.unityHeadsetModeToggle.Checked);
+
+            byte[] packet = new byte[9];
+            packet[0] = 255;                            // Header
+            packet[1] = 255;                            // Header
+            packet[2] = 0;                              // Type: 0
+            packet[3] = 9;                              // Length of Packet
+            packet[4] = (byte)sceneIndex;               // Task Index 
+            packet[5] = armShell;                       // Arm Shell toggle
+            packet[6] = armControl;                     // brachIOplexus input toggle
+            packet[7] = VREnabled;                      // VR enable toggle 
+            packet[8] = calcCheckSum(packet);
+
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+            t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+            t13 = new System.Threading.Timer(new TimerCallback(processFeedback), null, 0, 15);
+            t11Running = true;
+
+            unityTaskConfiguration.Enabled = true;
+            unityCameraPosition.Enabled = true;
+            unityFeedbackBox.Enabled = true;
+            unityRobotParamsBox.Enabled = true;
+        }
+
+        private void unityEndTask_Click(object sender, EventArgs e)
+        {
+            sendSceneCtrl(endTask: 1);
+        }
+
+        private void unityPauseTask_Click(object sender, EventArgs e)
+        {
+            if(this.unityPauseTask.Text == "Pause Task")
+            {
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityPauseTask.Text = "Play Task";
+                });
+                sendSceneCtrl(pauseTask: 1);
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    this.unityPauseTask.Text = "Pause Task";
+                });
+                sendSceneCtrl(pauseTask: 0);
             }
         }
         #endregion
@@ -9217,7 +9263,7 @@ namespace brachIOplexus
             byte[] packet = new byte[5 + length];
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
-            packet[2] = 0;              // Type: 0
+            packet[2] = 1;              // Type: 1
             packet[3] = length;         // Length of Data 
 
             int idx = 4;
@@ -9240,41 +9286,92 @@ namespace brachIOplexus
                 }
             }
 
-            packet[packet.Length - 1] = calcCheckSum(ref packet);
+            packet[packet.Length - 1] = calcCheckSum(packet);
 
             return packet;
         }
 
-        /*
-         * @brief: creates a unique packet that is only sent on specific button 
-         * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
-         * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
-         */
-        private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255, byte init = 255)
+        private void sendCamera(byte camNext = 255, byte camClear = 255, byte camSave = 255)
         {
-            byte[] packet = new byte[12]; // will need to change this when have it finalized 
+            byte[] packet = new byte[8];
             packet[0] = 255;            // Header
             packet[1] = 255;            // Header
-            packet[2] = 1;              // Type: 1
-            packet[3] = stop;           // Stop Signal
-            packet[4] = reset;          // Scene Signal 
-            packet[5] = save;           // Save Camera Position
-            packet[6] = next;           // Next Camera Position
-            packet[7] = clear;          // Clear Camera Positions 
-            packet[8] = profile;
-            packet[9] = control;
-            packet[10] = init;
-            packet[11] = calcCheckSum(ref packet);
+            packet[2] = 5;              // Type: 5
+            packet[3] = 8;              // Length
+            packet[4] = camNext;        // Next camera position
+            packet[5] = camClear;       // Clear saved camera positions
+            packet[6] = camSave;        // Save current camera position
+            packet[7] = calcCheckSum(packet);   
+            
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        }
+
+        private void sendSceneCtrl(byte pauseTask = 0, byte endTask = 0, byte resetTask = 0)
+        {
+            byte[] packet = new byte[8];
+            packet[0] = 255;            // Header
+            packet[1] = 255;            // Header
+            packet[2] = 6;              // Type: 5
+            packet[3] = 8;              // Length
+            packet[4] = pauseTask;        // Next camera position
+            packet[5] = endTask;       // Clear saved camera positions
+            packet[6] = resetTask;        // Save current camera position
+            packet[7] = calcCheckSum(packet);
+
+            udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        }
+
+        ///*
+        // * @brief: creates a unique packet that is only sent on specific button 
+        // * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
+        // * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
+        // */
+        //private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255, byte init = 255)
+        //{
+        //    byte[] packet = new byte[12]; // will need to change this when have it finalized 
+        //    packet[0] = 255;            // Header
+        //    packet[1] = 255;            // Header
+        //    packet[2] = 1;              // Type: 1
+        //    packet[3] = stop;           // Stop Signal
+        //    packet[4] = reset;          // Scene Signal 
+        //    packet[5] = save;           // Save Camera Position
+        //    packet[6] = next;           // Next Camera Position
+        //    packet[7] = clear;          // Clear Camera Positions 
+        //    packet[8] = profile;
+        //    packet[9] = control;
+        //    packet[10] = init;
+        //    packet[11] = calcCheckSum(ref packet);
+        //    udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+        //}
+
+        private void pingUnity()
+        {
+            byte[] packet = new byte[6];
+            packet[0] = 255;
+            packet[1] = 255;
+            packet[2] = 2;
+            packet[3] = 1;
+            packet[4] = 1;
+            packet[5] = calcCheckSum(packet);
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
 
         private void waitForAcknowledge()
         {
-            while (!unityAcknowledge)
+            while (!unityAcknowledge && connected)
             {
-                sendUtility(init: 1);
+                pingUnity();
                 Thread.Sleep(2000);
             }
+            enableUnityTab(true);
+        }
+
+        private void enableUnityTab(bool state)
+        {
+            this.unityMainControls.Invoke((MethodInvoker)delegate
+            {
+                this.unityMainControls.Enabled = state;
+            });
         }
         #endregion
 
@@ -9290,8 +9387,10 @@ namespace brachIOplexus
                     milliSec12 = stopWatch12.ElapsedMilliseconds;
 
                     byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
-                    parsePacket(ref packet);
+                    parsePacket(packet);
                 }
+
+                //udpClientRX3.BeginReceive(new AsyncCallback(recv), null);
             }
             catch (Exception ex)
             {
@@ -9299,22 +9398,26 @@ namespace brachIOplexus
             }
         }
 
-        private void parsePacket(ref byte[] packet)
+        private void parsePacket(byte[] packet)
         {
-            if(validate(ref packet, 2,5))
+            if (validate(packet))
             {
-                if(packet[2] == 1)
+                if (packet[2] == 2 && packet[4] == 1)
                 {
                     unityAcknowledge = true;
                 }
-
-                if(packet[4] == 1)
+                //if(packet[2] == 3)
+                //{
+                //    this.feedback = packet;
+                //}
+                if(packet[2] == 6)
                 {
-                    Console.WriteLine("got a packetttt");
+                    Console.WriteLine("Is this repeating??");
                     timerToggle();
                 }
             }
         }
+
         #endregion
 
         #region UDP Utilities
@@ -9324,11 +9427,11 @@ namespace brachIOplexus
          * 
          * @param: packet to be sent 
          */
-        private byte calcCheckSum(ref byte[] packet)
+        private byte calcCheckSum(byte[] packet)
         {
             byte checkSum = 0;
 
-            for (byte i = 4; i < packet.Length; i++)
+            for (byte i = 4; i < packet.Length - 1; i++)
             {
                 checkSum += packet[i];
             }
@@ -9349,23 +9452,25 @@ namespace brachIOplexus
             double header: 255
             checksum = ~foreach_servo(id + velocity(l) + velocity(h) + state) 
         */
-        bool validate(ref byte[] packet, byte start, byte end)
+        bool validate(byte[] packet)
         {
             byte checksum = 0;
-            for (int i = start; i < end; i++)
-            {
-                checksum += packet[i];
-            }
+            checksum = calcCheckSum(packet);
+            //int start = 4;
+            //int end = packet.Length - 1;
+            //for (int i = start; i < end; i++)
+            //{
+            //    checksum += packet[i];
+            //}
 
-            if ((byte)~checksum > 255)
-            {
-                checksum = low_byte((UInt16)~checksum);
-            }
-            else
-            {
-                checksum = (byte)~checksum;
-            }
-
+            //if ((byte)~checksum > 255)
+            //{
+            //    checksum = low_byte((UInt16)~checksum);
+            //}
+            //else
+            //{
+            //    checksum = (byte)~checksum;
+            //}
 
             if (checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
             {
@@ -9388,6 +9493,95 @@ namespace brachIOplexus
         }
         #endregion
 
+        private void processFeedback(object state)
+        {
+            if(feedback != null)
+            {
+                printFeedback(feedback);
+            }
+        }
+
+        private Queue<float[]> positionQueue = new Queue<float[]>();
+
+        private void printFeedback(byte[] packet)
+        {
+            float[] position;
+            float[] velocity;
+
+            position = getPosition(packet);
+            velocity = getVelocity(packet);
+            Console.WriteLine(position[0]);
+            positionQueue.Enqueue(position);
+            //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
+            //{
+            //    this.unityShoulderPositionFeedback.Text = position[0].ToString();
+            //});
+            //this.Invoke((MethodInvoker)delegate ()
+            //{
+            //    unityShoulderPositionFeedback.Text = position[0].ToString();
+            //    unityElbowPositionFeedback.Text = position[1].ToString();
+            //    unityWristRotPositionFeedback.Text = position[2].ToString();
+            //    unityWristExtPositionFeedback.Text = position[3].ToString();
+            //    unityHandPositionFeedback.Text = position[4].ToString();
+
+            //    unityShoulderVelocityFeedback.Text = velocity[0].ToString();
+            //    unityElbowVelocityFeedback.Text = velocity[1].ToString();
+            //    unityWristRotVelocityFeedback.Text = velocity[2].ToString();
+            //    unityWristExtVelocityFeedback.Text = velocity[3].ToString();
+            //    unityHandVelocityFeedback.Text = velocity[4].ToString();
+            //});
+        }
+
+        private float[] getPosition(byte[] packet)
+        {
+            float[] position;
+            int startIdx;
+
+            position = new float[5];
+            startIdx = 4;
+
+            for (int i = 0; i < BENTO_NUM; i++)
+            {
+                byte low;
+                byte high;
+                UInt16 combined;
+
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
+                combined = (UInt16)(low | (high << 8));
+
+                position[i] = combined;
+
+                startIdx += 4;
+            }
+            return position;
+        }
+
+        private float[] getVelocity(byte[] packet)
+        {
+            float[] velocity;
+            int startIdx;
+
+            velocity = new float[5];
+            startIdx = 6;
+
+            for (int i = 0; i < BENTO_NUM; i++)
+            {
+                byte low;
+                byte high;
+                ushort combined;
+                
+                low = packet[startIdx];
+                high = packet[startIdx + 1];
+                combined = (ushort)(low | (high << 8));
+
+                velocity[i] = combined;
+                startIdx += 4;
+            }
+
+            return velocity;
+        }
         #endregion
+
     }
 }

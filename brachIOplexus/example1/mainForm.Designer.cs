@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Game Task", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Next Task", 0);
             this.tg = new MathWorks.xPCTarget.FrameWork.xPCTargetPC(this.components);
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -802,29 +804,72 @@
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
+            this.unityFeedbackBox = new System.Windows.Forms.GroupBox();
+            this.unityHandVelocityFeedback = new System.Windows.Forms.Label();
+            this.unityHandPositionFeedback = new System.Windows.Forms.Label();
+            this.unityWristRotVelocityFeedback = new System.Windows.Forms.Label();
+            this.unityWristRotPositionFeedback = new System.Windows.Forms.Label();
+            this.unityElbowVelocityFeedback = new System.Windows.Forms.Label();
+            this.unityElbowPositionFeedback = new System.Windows.Forms.Label();
+            this.unityShoulderVelocityFeedback = new System.Windows.Forms.Label();
+            this.unityShoulderPositionFeedback = new System.Windows.Forms.Label();
+            this.label268 = new System.Windows.Forms.Label();
+            this.label269 = new System.Windows.Forms.Label();
+            this.unityWristExtVelocityFeedback = new System.Windows.Forms.Label();
+            this.unityWristExtPositionFeedback = new System.Windows.Forms.Label();
+            this.unityRobotParamsBox = new System.Windows.Forms.GroupBox();
+            this.unityHandVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityHandVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityHandPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityHandPMax = new System.Windows.Forms.NumericUpDown();
+            this.unityHandParams = new System.Windows.Forms.Label();
+            this.unityWristRotVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityWristRotVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristRotParams = new System.Windows.Forms.Label();
+            this.unityWristRotPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristRotPMax = new System.Windows.Forms.NumericUpDown();
+            this.unityElbowVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityElbowVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityElbowPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityElbowPMax = new System.Windows.Forms.NumericUpDown();
+            this.unityElbowParams = new System.Windows.Forms.Label();
+            this.unityShoulderVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderPMax = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderParams = new System.Windows.Forms.Label();
+            this.unityWristExtParams = new System.Windows.Forms.Label();
+            this.unityWristExtVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityWristExtVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristExtPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristExtPMax = new System.Windows.Forms.NumericUpDown();
+            this.unityPMin = new System.Windows.Forms.Label();
+            this.unityPMax = new System.Windows.Forms.Label();
+            this.unityVMin = new System.Windows.Forms.Label();
+            this.unityVMax = new System.Windows.Forms.Label();
+            this.unityMainControls = new System.Windows.Forms.GroupBox();
+            this.unityHeadsetModeToggleInfo = new System.Windows.Forms.Label();
+            this.unityHeadsetModeToggle = new System.Windows.Forms.CheckBox();
+            this.unityArmToggleInfo = new System.Windows.Forms.Label();
+            this.unityPauseTask = new System.Windows.Forms.Button();
+            this.unityArmShellToggle = new System.Windows.Forms.CheckBox();
+            this.unityArmControlToggle = new System.Windows.Forms.CheckBox();
+            this.unityResetTask = new System.Windows.Forms.Button();
+            this.unityTaskList = new System.Windows.Forms.ListView();
+            this.unityEndTask = new System.Windows.Forms.Button();
+            this.unityLaunchTask = new System.Windows.Forms.Button();
             this.unityTaskConfiguration = new System.Windows.Forms.GroupBox();
             this.unitySaveTimer = new System.Windows.Forms.Button();
             this.unityTimerInformation = new System.Windows.Forms.GroupBox();
-            this.unityTimerFileName = new System.Windows.Forms.Label();
             this.unityTimerText = new System.Windows.Forms.Label();
-            this.unityLoadTimeFile = new System.Windows.Forms.Button();
-            this.unityNewTimeFile = new System.Windows.Forms.Button();
             this.unityResetTimer = new System.Windows.Forms.Button();
             this.unityStartTimer = new System.Windows.Forms.Button();
             this.unityCameraPosition = new System.Windows.Forms.GroupBox();
-            this.unityProfileGroupBox = new System.Windows.Forms.GroupBox();
-            this.unityCameraProfile = new System.Windows.Forms.Label();
-            this.unityLoadProfile = new System.Windows.Forms.Button();
-            this.unitySaveProfile = new System.Windows.Forms.Button();
+            this.unityCameraPositionNumber = new System.Windows.Forms.Label();
+            this.unityCameraPositionTitle = new System.Windows.Forms.Label();
             this.unityClearCameraPosition = new System.Windows.Forms.Button();
             this.unitySaveCameraPosition = new System.Windows.Forms.Button();
             this.unityToggleCameraPosition = new System.Windows.Forms.Button();
-            this.unityCurrentCameraPosition = new System.Windows.Forms.GroupBox();
-            this.unityCurrentCameraPositionText = new System.Windows.Forms.Label();
-            this.unitySceneConfiguration = new System.Windows.Forms.GroupBox();
-            this.unityArmControl = new System.Windows.Forms.Button();
-            this.unityArmShells = new System.Windows.Forms.Button();
-            this.unitySceneReset = new System.Windows.Forms.Button();
             this.statusPanel1 = new System.Windows.Forms.Panel();
             this.MYOstatus = new System.Windows.Forms.Label();
             this.BentoErrorText = new System.Windows.Forms.Label();
@@ -966,12 +1011,32 @@
             this.biopatrecGroupBox.SuspendLayout();
             this.SLRTgroupBox.SuspendLayout();
             this.tabUnity.SuspendLayout();
+            this.unityFeedbackBox.SuspendLayout();
+            this.unityRobotParamsBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMax)).BeginInit();
+            this.unityMainControls.SuspendLayout();
             this.unityTaskConfiguration.SuspendLayout();
             this.unityTimerInformation.SuspendLayout();
             this.unityCameraPosition.SuspendLayout();
-            this.unityProfileGroupBox.SuspendLayout();
-            this.unityCurrentCameraPosition.SuspendLayout();
-            this.unitySceneConfiguration.SuspendLayout();
             this.statusPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -8051,7 +8116,7 @@
             this.unityConnect.Location = new System.Drawing.Point(6, 18);
             this.unityConnect.Margin = new System.Windows.Forms.Padding(2);
             this.unityConnect.Name = "unityConnect";
-            this.unityConnect.Size = new System.Drawing.Size(74, 19);
+            this.unityConnect.Size = new System.Drawing.Size(56, 19);
             this.unityConnect.TabIndex = 226;
             this.unityConnect.Text = "Connect";
             this.unityConnect.UseVisualStyleBackColor = true;
@@ -8110,7 +8175,7 @@
             // 
             // pictureBox13
             // 
-            this.pictureBox13.Image = global::brachIOplexus.Properties.Resources._1280px_Unity_Technologies_logo_svg;
+            this.pictureBox13.Image = global::brachIOplexus.Properties.Resources.vrbento;
             this.pictureBox13.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox13.InitialImage")));
             this.pictureBox13.Location = new System.Drawing.Point(6, 40);
             this.pictureBox13.Name = "pictureBox13";
@@ -8133,7 +8198,7 @@
             // unityDisconnect
             // 
             this.unityDisconnect.Enabled = false;
-            this.unityDisconnect.Location = new System.Drawing.Point(84, 18);
+            this.unityDisconnect.Location = new System.Drawing.Point(66, 18);
             this.unityDisconnect.Margin = new System.Windows.Forms.Padding(2);
             this.unityDisconnect.Name = "unityDisconnect";
             this.unityDisconnect.Size = new System.Drawing.Size(74, 19);
@@ -11039,9 +11104,11 @@
             // 
             // tabUnity
             // 
+            this.tabUnity.Controls.Add(this.unityFeedbackBox);
+            this.tabUnity.Controls.Add(this.unityRobotParamsBox);
+            this.tabUnity.Controls.Add(this.unityMainControls);
             this.tabUnity.Controls.Add(this.unityTaskConfiguration);
             this.tabUnity.Controls.Add(this.unityCameraPosition);
-            this.tabUnity.Controls.Add(this.unitySceneConfiguration);
             this.tabUnity.Location = new System.Drawing.Point(4, 22);
             this.tabUnity.Name = "tabUnity";
             this.tabUnity.Size = new System.Drawing.Size(1162, 642);
@@ -11049,25 +11116,848 @@
             this.tabUnity.Text = "Unity";
             this.tabUnity.UseVisualStyleBackColor = true;
             // 
+            // unityFeedbackBox
+            // 
+            this.unityFeedbackBox.Controls.Add(this.unityHandVelocityFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityHandPositionFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityWristRotVelocityFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityWristRotPositionFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityElbowVelocityFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityElbowPositionFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityShoulderVelocityFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityShoulderPositionFeedback);
+            this.unityFeedbackBox.Controls.Add(this.label268);
+            this.unityFeedbackBox.Controls.Add(this.label269);
+            this.unityFeedbackBox.Controls.Add(this.unityWristExtVelocityFeedback);
+            this.unityFeedbackBox.Controls.Add(this.unityWristExtPositionFeedback);
+            this.unityFeedbackBox.Enabled = false;
+            this.unityFeedbackBox.Location = new System.Drawing.Point(376, 295);
+            this.unityFeedbackBox.Margin = new System.Windows.Forms.Padding(2);
+            this.unityFeedbackBox.Name = "unityFeedbackBox";
+            this.unityFeedbackBox.Padding = new System.Windows.Forms.Padding(2);
+            this.unityFeedbackBox.Size = new System.Drawing.Size(239, 152);
+            this.unityFeedbackBox.TabIndex = 142;
+            this.unityFeedbackBox.TabStop = false;
+            this.unityFeedbackBox.Text = "Feedback";
+            // 
+            // unityHandVelocityFeedback
+            // 
+            this.unityHandVelocityFeedback.AutoSize = true;
+            this.unityHandVelocityFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityHandVelocityFeedback.Location = new System.Drawing.Point(58, 127);
+            this.unityHandVelocityFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityHandVelocityFeedback.Name = "unityHandVelocityFeedback";
+            this.unityHandVelocityFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityHandVelocityFeedback.TabIndex = 166;
+            this.unityHandVelocityFeedback.Text = "--";
+            // 
+            // unityHandPositionFeedback
+            // 
+            this.unityHandPositionFeedback.AutoSize = true;
+            this.unityHandPositionFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityHandPositionFeedback.Location = new System.Drawing.Point(5, 127);
+            this.unityHandPositionFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityHandPositionFeedback.Name = "unityHandPositionFeedback";
+            this.unityHandPositionFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityHandPositionFeedback.TabIndex = 165;
+            this.unityHandPositionFeedback.Text = "--";
+            // 
+            // unityWristRotVelocityFeedback
+            // 
+            this.unityWristRotVelocityFeedback.AutoSize = true;
+            this.unityWristRotVelocityFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristRotVelocityFeedback.Location = new System.Drawing.Point(58, 79);
+            this.unityWristRotVelocityFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristRotVelocityFeedback.Name = "unityWristRotVelocityFeedback";
+            this.unityWristRotVelocityFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityWristRotVelocityFeedback.TabIndex = 160;
+            this.unityWristRotVelocityFeedback.Text = "--";
+            // 
+            // unityWristRotPositionFeedback
+            // 
+            this.unityWristRotPositionFeedback.AutoSize = true;
+            this.unityWristRotPositionFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristRotPositionFeedback.Location = new System.Drawing.Point(5, 79);
+            this.unityWristRotPositionFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristRotPositionFeedback.Name = "unityWristRotPositionFeedback";
+            this.unityWristRotPositionFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityWristRotPositionFeedback.TabIndex = 159;
+            this.unityWristRotPositionFeedback.Text = "--";
+            // 
+            // unityElbowVelocityFeedback
+            // 
+            this.unityElbowVelocityFeedback.AutoSize = true;
+            this.unityElbowVelocityFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityElbowVelocityFeedback.Location = new System.Drawing.Point(57, 55);
+            this.unityElbowVelocityFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityElbowVelocityFeedback.Name = "unityElbowVelocityFeedback";
+            this.unityElbowVelocityFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityElbowVelocityFeedback.TabIndex = 154;
+            this.unityElbowVelocityFeedback.Text = "--";
+            // 
+            // unityElbowPositionFeedback
+            // 
+            this.unityElbowPositionFeedback.AutoSize = true;
+            this.unityElbowPositionFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityElbowPositionFeedback.Location = new System.Drawing.Point(4, 55);
+            this.unityElbowPositionFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityElbowPositionFeedback.Name = "unityElbowPositionFeedback";
+            this.unityElbowPositionFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityElbowPositionFeedback.TabIndex = 153;
+            this.unityElbowPositionFeedback.Text = "--";
+            // 
+            // unityShoulderVelocityFeedback
+            // 
+            this.unityShoulderVelocityFeedback.AutoSize = true;
+            this.unityShoulderVelocityFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityShoulderVelocityFeedback.Location = new System.Drawing.Point(57, 32);
+            this.unityShoulderVelocityFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityShoulderVelocityFeedback.Name = "unityShoulderVelocityFeedback";
+            this.unityShoulderVelocityFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityShoulderVelocityFeedback.TabIndex = 148;
+            this.unityShoulderVelocityFeedback.Text = "--";
+            // 
+            // unityShoulderPositionFeedback
+            // 
+            this.unityShoulderPositionFeedback.AutoSize = true;
+            this.unityShoulderPositionFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityShoulderPositionFeedback.Location = new System.Drawing.Point(4, 32);
+            this.unityShoulderPositionFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityShoulderPositionFeedback.Name = "unityShoulderPositionFeedback";
+            this.unityShoulderPositionFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityShoulderPositionFeedback.TabIndex = 147;
+            this.unityShoulderPositionFeedback.Text = "--";
+            // 
+            // label268
+            // 
+            this.label268.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label268.Location = new System.Drawing.Point(57, 12);
+            this.label268.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label268.Name = "label268";
+            this.label268.Size = new System.Drawing.Size(49, 20);
+            this.label268.TabIndex = 142;
+            this.label268.Text = "Velocity:";
+            // 
+            // label269
+            // 
+            this.label269.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label269.Location = new System.Drawing.Point(4, 12);
+            this.label269.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label269.Name = "label269";
+            this.label269.Size = new System.Drawing.Size(49, 20);
+            this.label269.TabIndex = 140;
+            this.label269.Text = "Position:";
+            // 
+            // unityWristExtVelocityFeedback
+            // 
+            this.unityWristExtVelocityFeedback.AutoSize = true;
+            this.unityWristExtVelocityFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristExtVelocityFeedback.Location = new System.Drawing.Point(58, 103);
+            this.unityWristExtVelocityFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristExtVelocityFeedback.Name = "unityWristExtVelocityFeedback";
+            this.unityWristExtVelocityFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityWristExtVelocityFeedback.TabIndex = 122;
+            this.unityWristExtVelocityFeedback.Text = "--";
+            // 
+            // unityWristExtPositionFeedback
+            // 
+            this.unityWristExtPositionFeedback.AutoSize = true;
+            this.unityWristExtPositionFeedback.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristExtPositionFeedback.Location = new System.Drawing.Point(5, 103);
+            this.unityWristExtPositionFeedback.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristExtPositionFeedback.Name = "unityWristExtPositionFeedback";
+            this.unityWristExtPositionFeedback.Size = new System.Drawing.Size(13, 13);
+            this.unityWristExtPositionFeedback.TabIndex = 117;
+            this.unityWristExtPositionFeedback.Text = "--";
+            // 
+            // unityRobotParamsBox
+            // 
+            this.unityRobotParamsBox.Controls.Add(this.unityHandVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityVMax);
+            this.unityRobotParamsBox.Enabled = false;
+            this.unityRobotParamsBox.Location = new System.Drawing.Point(3, 296);
+            this.unityRobotParamsBox.Margin = new System.Windows.Forms.Padding(2);
+            this.unityRobotParamsBox.Name = "unityRobotParamsBox";
+            this.unityRobotParamsBox.Padding = new System.Windows.Forms.Padding(2);
+            this.unityRobotParamsBox.Size = new System.Drawing.Size(369, 152);
+            this.unityRobotParamsBox.TabIndex = 139;
+            this.unityRobotParamsBox.TabStop = false;
+            this.unityRobotParamsBox.Text = "Joint Limits (Position, Velocity)";
+            // 
+            // unityHandVMax
+            // 
+            this.unityHandVMax.Location = new System.Drawing.Point(314, 124);
+            this.unityHandVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityHandVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityHandVMax.Name = "unityHandVMax";
+            this.unityHandVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityHandVMax.TabIndex = 149;
+            this.unityHandVMax.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
+            // unityHandVMin
+            // 
+            this.unityHandVMin.Location = new System.Drawing.Point(258, 124);
+            this.unityHandVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityHandVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityHandVMin.Name = "unityHandVMin";
+            this.unityHandVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityHandVMin.TabIndex = 148;
+            this.unityHandVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityHandPMin
+            // 
+            this.unityHandPMin.Location = new System.Drawing.Point(148, 124);
+            this.unityHandPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandPMin.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityHandPMin.Name = "unityHandPMin";
+            this.unityHandPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityHandPMin.TabIndex = 146;
+            this.unityHandPMin.Value = new decimal(new int[] {
+            1928,
+            0,
+            0,
+            0});
+            // 
+            // unityHandPMax
+            // 
+            this.unityHandPMax.Location = new System.Drawing.Point(203, 124);
+            this.unityHandPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandPMax.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityHandPMax.Name = "unityHandPMax";
+            this.unityHandPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityHandPMax.TabIndex = 147;
+            this.unityHandPMax.Value = new decimal(new int[] {
+            2800,
+            0,
+            0,
+            0});
+            // 
+            // unityHandParams
+            // 
+            this.unityHandParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityHandParams.Location = new System.Drawing.Point(4, 126);
+            this.unityHandParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityHandParams.Name = "unityHandParams";
+            this.unityHandParams.Size = new System.Drawing.Size(100, 15);
+            this.unityHandParams.TabIndex = 145;
+            this.unityHandParams.Text = "Hand Open/Close:";
+            // 
+            // unityWristRotVMax
+            // 
+            this.unityWristRotVMax.Location = new System.Drawing.Point(314, 77);
+            this.unityWristRotVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityWristRotVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristRotVMax.Name = "unityWristRotVMax";
+            this.unityWristRotVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotVMax.TabIndex = 144;
+            this.unityWristRotVMax.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
+            // unityWristRotVMin
+            // 
+            this.unityWristRotVMin.Location = new System.Drawing.Point(258, 77);
+            this.unityWristRotVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityWristRotVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristRotVMin.Name = "unityWristRotVMin";
+            this.unityWristRotVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotVMin.TabIndex = 143;
+            this.unityWristRotVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityWristRotParams
+            // 
+            this.unityWristRotParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristRotParams.Location = new System.Drawing.Point(4, 79);
+            this.unityWristRotParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristRotParams.Name = "unityWristRotParams";
+            this.unityWristRotParams.Size = new System.Drawing.Size(130, 15);
+            this.unityWristRotParams.TabIndex = 142;
+            this.unityWristRotParams.Text = "Wrist Rotation CCW/CW:";
+            // 
+            // unityWristRotPMin
+            // 
+            this.unityWristRotPMin.Location = new System.Drawing.Point(148, 77);
+            this.unityWristRotPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotPMin.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityWristRotPMin.Name = "unityWristRotPMin";
+            this.unityWristRotPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotPMin.TabIndex = 140;
+            this.unityWristRotPMin.Value = new decimal(new int[] {
+            1028,
+            0,
+            0,
+            0});
+            // 
+            // unityWristRotPMax
+            // 
+            this.unityWristRotPMax.Location = new System.Drawing.Point(203, 77);
+            this.unityWristRotPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotPMax.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityWristRotPMax.Name = "unityWristRotPMax";
+            this.unityWristRotPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotPMax.TabIndex = 141;
+            this.unityWristRotPMax.Value = new decimal(new int[] {
+            3073,
+            0,
+            0,
+            0});
+            // 
+            // unityElbowVMax
+            // 
+            this.unityElbowVMax.Location = new System.Drawing.Point(314, 52);
+            this.unityElbowVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityElbowVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityElbowVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityElbowVMax.Name = "unityElbowVMax";
+            this.unityElbowVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityElbowVMax.TabIndex = 139;
+            this.unityElbowVMax.Value = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            // 
+            // unityElbowVMin
+            // 
+            this.unityElbowVMin.Location = new System.Drawing.Point(258, 53);
+            this.unityElbowVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityElbowVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityElbowVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityElbowVMin.Name = "unityElbowVMin";
+            this.unityElbowVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityElbowVMin.TabIndex = 138;
+            this.unityElbowVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityElbowPMin
+            // 
+            this.unityElbowPMin.Location = new System.Drawing.Point(148, 54);
+            this.unityElbowPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityElbowPMin.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityElbowPMin.Name = "unityElbowPMin";
+            this.unityElbowPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityElbowPMin.TabIndex = 136;
+            this.unityElbowPMin.Value = new decimal(new int[] {
+            1784,
+            0,
+            0,
+            0});
+            // 
+            // unityElbowPMax
+            // 
+            this.unityElbowPMax.Location = new System.Drawing.Point(203, 54);
+            this.unityElbowPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityElbowPMax.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityElbowPMax.Name = "unityElbowPMax";
+            this.unityElbowPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityElbowPMax.TabIndex = 137;
+            this.unityElbowPMax.Value = new decimal(new int[] {
+            2570,
+            0,
+            0,
+            0});
+            // 
+            // unityElbowParams
+            // 
+            this.unityElbowParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityElbowParams.Location = new System.Drawing.Point(4, 55);
+            this.unityElbowParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityElbowParams.Name = "unityElbowParams";
+            this.unityElbowParams.Size = new System.Drawing.Size(128, 15);
+            this.unityElbowParams.TabIndex = 135;
+            this.unityElbowParams.Text = "Elbow Extension/Flexion:";
+            // 
+            // unityShoulderVMax
+            // 
+            this.unityShoulderVMax.Location = new System.Drawing.Point(314, 30);
+            this.unityShoulderVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityShoulderVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityShoulderVMax.Name = "unityShoulderVMax";
+            this.unityShoulderVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderVMax.TabIndex = 134;
+            this.unityShoulderVMax.Value = new decimal(new int[] {
+            67,
+            0,
+            0,
+            0});
+            // 
+            // unityShoulderVMin
+            // 
+            this.unityShoulderVMin.Location = new System.Drawing.Point(258, 30);
+            this.unityShoulderVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityShoulderVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityShoulderVMin.Name = "unityShoulderVMin";
+            this.unityShoulderVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderVMin.TabIndex = 133;
+            this.unityShoulderVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityShoulderPMin
+            // 
+            this.unityShoulderPMin.Location = new System.Drawing.Point(148, 30);
+            this.unityShoulderPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderPMin.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityShoulderPMin.Name = "unityShoulderPMin";
+            this.unityShoulderPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderPMin.TabIndex = 131;
+            this.unityShoulderPMin.Value = new decimal(new int[] {
+            1028,
+            0,
+            0,
+            0});
+            // 
+            // unityShoulderPMax
+            // 
+            this.unityShoulderPMax.Location = new System.Drawing.Point(203, 30);
+            this.unityShoulderPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderPMax.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityShoulderPMax.Name = "unityShoulderPMax";
+            this.unityShoulderPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderPMax.TabIndex = 132;
+            this.unityShoulderPMax.Value = new decimal(new int[] {
+            3073,
+            0,
+            0,
+            0});
+            // 
+            // unityShoulderParams
+            // 
+            this.unityShoulderParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityShoulderParams.Location = new System.Drawing.Point(4, 32);
+            this.unityShoulderParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityShoulderParams.Name = "unityShoulderParams";
+            this.unityShoulderParams.Size = new System.Drawing.Size(149, 15);
+            this.unityShoulderParams.TabIndex = 130;
+            this.unityShoulderParams.Text = "Shoulder Rotation CCW/CW:";
+            // 
+            // unityWristExtParams
+            // 
+            this.unityWristExtParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristExtParams.Location = new System.Drawing.Point(4, 103);
+            this.unityWristExtParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristExtParams.Name = "unityWristExtParams";
+            this.unityWristExtParams.Size = new System.Drawing.Size(130, 15);
+            this.unityWristExtParams.TabIndex = 129;
+            this.unityWristExtParams.Text = "Wrist Extension/Flexion";
+            // 
+            // unityWristExtVMax
+            // 
+            this.unityWristExtVMax.Location = new System.Drawing.Point(314, 102);
+            this.unityWristExtVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristExtVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityWristExtVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristExtVMax.Name = "unityWristExtVMax";
+            this.unityWristExtVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityWristExtVMax.TabIndex = 128;
+            this.unityWristExtVMax.Value = new decimal(new int[] {
+            67,
+            0,
+            0,
+            0});
+            // 
+            // unityWristExtVMin
+            // 
+            this.unityWristExtVMin.Location = new System.Drawing.Point(258, 102);
+            this.unityWristExtVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristExtVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityWristExtVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristExtVMin.Name = "unityWristExtVMin";
+            this.unityWristExtVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityWristExtVMin.TabIndex = 127;
+            this.unityWristExtVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityWristExtPMin
+            // 
+            this.unityWristExtPMin.Location = new System.Drawing.Point(148, 102);
+            this.unityWristExtPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristExtPMin.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityWristExtPMin.Name = "unityWristExtPMin";
+            this.unityWristExtPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityWristExtPMin.TabIndex = 125;
+            this.unityWristExtPMin.Value = new decimal(new int[] {
+            790,
+            0,
+            0,
+            0});
+            // 
+            // unityWristExtPMax
+            // 
+            this.unityWristExtPMax.Location = new System.Drawing.Point(203, 102);
+            this.unityWristExtPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristExtPMax.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityWristExtPMax.Name = "unityWristExtPMax";
+            this.unityWristExtPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityWristExtPMax.TabIndex = 126;
+            this.unityWristExtPMax.Value = new decimal(new int[] {
+            3328,
+            0,
+            0,
+            0});
+            // 
+            // unityPMin
+            // 
+            this.unityPMin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityPMin.Location = new System.Drawing.Point(145, 12);
+            this.unityPMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityPMin.Name = "unityPMin";
+            this.unityPMin.Size = new System.Drawing.Size(35, 15);
+            this.unityPMin.TabIndex = 123;
+            this.unityPMin.Text = "Pmin:";
+            // 
+            // unityPMax
+            // 
+            this.unityPMax.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityPMax.Location = new System.Drawing.Point(200, 12);
+            this.unityPMax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityPMax.Name = "unityPMax";
+            this.unityPMax.Size = new System.Drawing.Size(51, 15);
+            this.unityPMax.TabIndex = 124;
+            this.unityPMax.Text = "Pmax:";
+            // 
+            // unityVMin
+            // 
+            this.unityVMin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityVMin.Location = new System.Drawing.Point(256, 12);
+            this.unityVMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityVMin.Name = "unityVMin";
+            this.unityVMin.Size = new System.Drawing.Size(50, 15);
+            this.unityVMin.TabIndex = 121;
+            this.unityVMin.Text = "Vmin:";
+            // 
+            // unityVMax
+            // 
+            this.unityVMax.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityVMax.Location = new System.Drawing.Point(311, 12);
+            this.unityVMax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityVMax.Name = "unityVMax";
+            this.unityVMax.Size = new System.Drawing.Size(41, 15);
+            this.unityVMax.TabIndex = 122;
+            this.unityVMax.Text = "Vmax:";
+            // 
+            // unityMainControls
+            // 
+            this.unityMainControls.Controls.Add(this.unityHeadsetModeToggleInfo);
+            this.unityMainControls.Controls.Add(this.unityHeadsetModeToggle);
+            this.unityMainControls.Controls.Add(this.unityArmToggleInfo);
+            this.unityMainControls.Controls.Add(this.unityPauseTask);
+            this.unityMainControls.Controls.Add(this.unityArmShellToggle);
+            this.unityMainControls.Controls.Add(this.unityArmControlToggle);
+            this.unityMainControls.Controls.Add(this.unityResetTask);
+            this.unityMainControls.Controls.Add(this.unityTaskList);
+            this.unityMainControls.Controls.Add(this.unityEndTask);
+            this.unityMainControls.Controls.Add(this.unityLaunchTask);
+            this.unityMainControls.Enabled = false;
+            this.unityMainControls.Location = new System.Drawing.Point(3, 3);
+            this.unityMainControls.Name = "unityMainControls";
+            this.unityMainControls.Size = new System.Drawing.Size(339, 288);
+            this.unityMainControls.TabIndex = 4;
+            this.unityMainControls.TabStop = false;
+            this.unityMainControls.Text = "Main Controls";
+            // 
+            // unityHeadsetModeToggleInfo
+            // 
+            this.unityHeadsetModeToggleInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unityHeadsetModeToggleInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.unityHeadsetModeToggleInfo.Location = new System.Drawing.Point(208, 132);
+            this.unityHeadsetModeToggleInfo.Name = "unityHeadsetModeToggleInfo";
+            this.unityHeadsetModeToggleInfo.Size = new System.Drawing.Size(122, 29);
+            this.unityHeadsetModeToggleInfo.TabIndex = 11;
+            this.unityHeadsetModeToggleInfo.Text = "Uncheck to disable VR";
+            // 
+            // unityHeadsetModeToggle
+            // 
+            this.unityHeadsetModeToggle.AutoSize = true;
+            this.unityHeadsetModeToggle.Checked = true;
+            this.unityHeadsetModeToggle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.unityHeadsetModeToggle.Location = new System.Drawing.Point(214, 112);
+            this.unityHeadsetModeToggle.Name = "unityHeadsetModeToggle";
+            this.unityHeadsetModeToggle.Size = new System.Drawing.Size(83, 17);
+            this.unityHeadsetModeToggle.TabIndex = 12;
+            this.unityHeadsetModeToggle.Text = "VR Enabled";
+            this.unityHeadsetModeToggle.UseVisualStyleBackColor = true;
+            // 
+            // unityArmToggleInfo
+            // 
+            this.unityArmToggleInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unityArmToggleInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.unityArmToggleInfo.Location = new System.Drawing.Point(211, 77);
+            this.unityArmToggleInfo.Name = "unityArmToggleInfo";
+            this.unityArmToggleInfo.Size = new System.Drawing.Size(110, 29);
+            this.unityArmToggleInfo.TabIndex = 7;
+            this.unityArmToggleInfo.Text = "Uncheck to have VR Controllers move arm";
+            // 
+            // unityPauseTask
+            // 
+            this.unityPauseTask.Location = new System.Drawing.Point(214, 248);
+            this.unityPauseTask.Name = "unityPauseTask";
+            this.unityPauseTask.Size = new System.Drawing.Size(116, 23);
+            this.unityPauseTask.TabIndex = 10;
+            this.unityPauseTask.Text = "Pause Task";
+            this.unityPauseTask.UseVisualStyleBackColor = true;
+            this.unityPauseTask.Click += new System.EventHandler(this.unityPauseTask_Click);
+            // 
+            // unityArmShellToggle
+            // 
+            this.unityArmShellToggle.AutoSize = true;
+            this.unityArmShellToggle.Checked = true;
+            this.unityArmShellToggle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.unityArmShellToggle.Location = new System.Drawing.Point(214, 23);
+            this.unityArmShellToggle.Name = "unityArmShellToggle";
+            this.unityArmShellToggle.Size = new System.Drawing.Size(117, 17);
+            this.unityArmShellToggle.TabIndex = 9;
+            this.unityArmShellToggle.Text = "Arm Shells Enabled";
+            this.unityArmShellToggle.UseVisualStyleBackColor = true;
+            // 
+            // unityArmControlToggle
+            // 
+            this.unityArmControlToggle.Checked = true;
+            this.unityArmControlToggle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.unityArmControlToggle.Location = new System.Drawing.Point(214, 39);
+            this.unityArmControlToggle.Name = "unityArmControlToggle";
+            this.unityArmControlToggle.Size = new System.Drawing.Size(107, 42);
+            this.unityArmControlToggle.TabIndex = 8;
+            this.unityArmControlToggle.Text = "brachIOplexus Input Enabled";
+            this.unityArmControlToggle.UseVisualStyleBackColor = true;
+            // 
+            // unityResetTask
+            // 
+            this.unityResetTask.Location = new System.Drawing.Point(214, 219);
+            this.unityResetTask.Name = "unityResetTask";
+            this.unityResetTask.Size = new System.Drawing.Size(116, 23);
+            this.unityResetTask.TabIndex = 0;
+            this.unityResetTask.Text = "Reset Task";
+            this.unityResetTask.UseVisualStyleBackColor = true;
+            this.unityResetTask.Click += new System.EventHandler(this.unitySceneReset_Click);
+            // 
+            // unityTaskList
+            // 
+            this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
+            this.unityTaskList.Location = new System.Drawing.Point(6, 19);
+            this.unityTaskList.MultiSelect = false;
+            this.unityTaskList.Name = "unityTaskList";
+            this.unityTaskList.Size = new System.Drawing.Size(202, 252);
+            this.unityTaskList.TabIndex = 7;
+            this.unityTaskList.UseCompatibleStateImageBehavior = false;
+            this.unityTaskList.View = System.Windows.Forms.View.List;
+            this.unityTaskList.Click += new System.EventHandler(this.unityTaskList_Click);
+            // 
+            // unityEndTask
+            // 
+            this.unityEndTask.Location = new System.Drawing.Point(214, 190);
+            this.unityEndTask.Name = "unityEndTask";
+            this.unityEndTask.Size = new System.Drawing.Size(116, 23);
+            this.unityEndTask.TabIndex = 6;
+            this.unityEndTask.Text = "End Task";
+            this.unityEndTask.UseVisualStyleBackColor = true;
+            this.unityEndTask.Click += new System.EventHandler(this.unityEndTask_Click);
+            // 
+            // unityLaunchTask
+            // 
+            this.unityLaunchTask.Location = new System.Drawing.Point(214, 161);
+            this.unityLaunchTask.Name = "unityLaunchTask";
+            this.unityLaunchTask.Size = new System.Drawing.Size(117, 23);
+            this.unityLaunchTask.TabIndex = 5;
+            this.unityLaunchTask.Text = "Launch Task";
+            this.unityLaunchTask.UseVisualStyleBackColor = true;
+            this.unityLaunchTask.Click += new System.EventHandler(this.unityLaunchTask_Click);
+            // 
             // unityTaskConfiguration
             // 
             this.unityTaskConfiguration.Controls.Add(this.unitySaveTimer);
             this.unityTaskConfiguration.Controls.Add(this.unityTimerInformation);
-            this.unityTaskConfiguration.Controls.Add(this.unityLoadTimeFile);
-            this.unityTaskConfiguration.Controls.Add(this.unityNewTimeFile);
             this.unityTaskConfiguration.Controls.Add(this.unityResetTimer);
             this.unityTaskConfiguration.Controls.Add(this.unityStartTimer);
-            this.unityTaskConfiguration.Location = new System.Drawing.Point(275, 249);
+            this.unityTaskConfiguration.Enabled = false;
+            this.unityTaskConfiguration.Location = new System.Drawing.Point(348, 3);
             this.unityTaskConfiguration.Name = "unityTaskConfiguration";
-            this.unityTaskConfiguration.Size = new System.Drawing.Size(266, 170);
+            this.unityTaskConfiguration.Size = new System.Drawing.Size(267, 165);
             this.unityTaskConfiguration.TabIndex = 3;
             this.unityTaskConfiguration.TabStop = false;
             this.unityTaskConfiguration.Text = "Task - Timer";
             // 
             // unitySaveTimer
             // 
-            this.unitySaveTimer.Enabled = false;
-            this.unitySaveTimer.Location = new System.Drawing.Point(6, 77);
+            this.unitySaveTimer.Location = new System.Drawing.Point(6, 106);
             this.unitySaveTimer.Name = "unitySaveTimer";
             this.unitySaveTimer.Size = new System.Drawing.Size(119, 23);
             this.unitySaveTimer.TabIndex = 8;
@@ -11077,7 +11967,6 @@
             // 
             // unityTimerInformation
             // 
-            this.unityTimerInformation.Controls.Add(this.unityTimerFileName);
             this.unityTimerInformation.Controls.Add(this.unityTimerText);
             this.unityTimerInformation.Location = new System.Drawing.Point(131, 19);
             this.unityTimerInformation.Name = "unityTimerInformation";
@@ -11086,49 +11975,18 @@
             this.unityTimerInformation.TabStop = false;
             this.unityTimerInformation.Text = "Timer - Info";
             // 
-            // unityTimerFileName
-            // 
-            this.unityTimerFileName.AutoSize = true;
-            this.unityTimerFileName.Location = new System.Drawing.Point(6, 107);
-            this.unityTimerFileName.Name = "unityTimerFileName";
-            this.unityTimerFileName.Size = new System.Drawing.Size(79, 13);
-            this.unityTimerFileName.TabIndex = 0;
-            this.unityTimerFileName.Text = "No File Loaded";
-            // 
             // unityTimerText
             // 
             this.unityTimerText.AutoSize = true;
-            this.unityTimerText.Location = new System.Drawing.Point(7, 58);
+            this.unityTimerText.Location = new System.Drawing.Point(6, 63);
             this.unityTimerText.Name = "unityTimerText";
             this.unityTimerText.Size = new System.Drawing.Size(13, 13);
             this.unityTimerText.TabIndex = 4;
             this.unityTimerText.Text = "0";
             // 
-            // unityLoadTimeFile
-            // 
-            this.unityLoadTimeFile.Enabled = false;
-            this.unityLoadTimeFile.Location = new System.Drawing.Point(6, 135);
-            this.unityLoadTimeFile.Name = "unityLoadTimeFile";
-            this.unityLoadTimeFile.Size = new System.Drawing.Size(119, 23);
-            this.unityLoadTimeFile.TabIndex = 7;
-            this.unityLoadTimeFile.Text = "Load File";
-            this.unityLoadTimeFile.UseVisualStyleBackColor = true;
-            this.unityLoadTimeFile.Click += new System.EventHandler(this.unityLoadTimeFile_Click);
-            // 
-            // unityNewTimeFile
-            // 
-            this.unityNewTimeFile.Enabled = false;
-            this.unityNewTimeFile.Location = new System.Drawing.Point(6, 106);
-            this.unityNewTimeFile.Name = "unityNewTimeFile";
-            this.unityNewTimeFile.Size = new System.Drawing.Size(119, 23);
-            this.unityNewTimeFile.TabIndex = 6;
-            this.unityNewTimeFile.Text = "New File";
-            this.unityNewTimeFile.UseVisualStyleBackColor = true;
-            this.unityNewTimeFile.Click += new System.EventHandler(this.unityNewTimeFile_Click);
-            // 
             // unityResetTimer
             // 
-            this.unityResetTimer.Location = new System.Drawing.Point(6, 48);
+            this.unityResetTimer.Location = new System.Drawing.Point(6, 77);
             this.unityResetTimer.Name = "unityResetTimer";
             this.unityResetTimer.Size = new System.Drawing.Size(119, 23);
             this.unityResetTimer.TabIndex = 5;
@@ -11138,7 +11996,7 @@
             // 
             // unityStartTimer
             // 
-            this.unityStartTimer.Location = new System.Drawing.Point(6, 19);
+            this.unityStartTimer.Location = new System.Drawing.Point(6, 48);
             this.unityStartTimer.Name = "unityStartTimer";
             this.unityStartTimer.Size = new System.Drawing.Size(119, 23);
             this.unityStartTimer.TabIndex = 4;
@@ -11148,62 +12006,40 @@
             // 
             // unityCameraPosition
             // 
-            this.unityCameraPosition.Controls.Add(this.unityProfileGroupBox);
-            this.unityCameraPosition.Controls.Add(this.unityLoadProfile);
-            this.unityCameraPosition.Controls.Add(this.unitySaveProfile);
+            this.unityCameraPosition.Controls.Add(this.unityCameraPositionNumber);
+            this.unityCameraPosition.Controls.Add(this.unityCameraPositionTitle);
             this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);
             this.unityCameraPosition.Controls.Add(this.unitySaveCameraPosition);
             this.unityCameraPosition.Controls.Add(this.unityToggleCameraPosition);
-            this.unityCameraPosition.Controls.Add(this.unityCurrentCameraPosition);
-            this.unityCameraPosition.Location = new System.Drawing.Point(275, 3);
+            this.unityCameraPosition.Enabled = false;
+            this.unityCameraPosition.Location = new System.Drawing.Point(348, 174);
             this.unityCameraPosition.Name = "unityCameraPosition";
-            this.unityCameraPosition.Size = new System.Drawing.Size(266, 240);
+            this.unityCameraPosition.Size = new System.Drawing.Size(267, 116);
             this.unityCameraPosition.TabIndex = 2;
             this.unityCameraPosition.TabStop = false;
             this.unityCameraPosition.Text = "Scene - Camera Position";
             // 
-            // unityProfileGroupBox
+            // unityCameraPositionNumber
             // 
-            this.unityProfileGroupBox.Controls.Add(this.unityCameraProfile);
-            this.unityProfileGroupBox.Location = new System.Drawing.Point(6, 84);
-            this.unityProfileGroupBox.Name = "unityProfileGroupBox";
-            this.unityProfileGroupBox.Size = new System.Drawing.Size(254, 58);
-            this.unityProfileGroupBox.TabIndex = 6;
-            this.unityProfileGroupBox.TabStop = false;
-            this.unityProfileGroupBox.Text = "Scene - Current Camera Profile";
+            this.unityCameraPositionNumber.AutoSize = true;
+            this.unityCameraPositionNumber.Location = new System.Drawing.Point(143, 77);
+            this.unityCameraPositionNumber.Name = "unityCameraPositionNumber";
+            this.unityCameraPositionNumber.Size = new System.Drawing.Size(100, 13);
+            this.unityCameraPositionNumber.TabIndex = 0;
+            this.unityCameraPositionNumber.Text = "No Saved Positions";
             // 
-            // unityCameraProfile
+            // unityCameraPositionTitle
             // 
-            this.unityCameraProfile.AutoSize = true;
-            this.unityCameraProfile.Location = new System.Drawing.Point(6, 29);
-            this.unityCameraProfile.Name = "unityCameraProfile";
-            this.unityCameraProfile.Size = new System.Drawing.Size(92, 13);
-            this.unityCameraProfile.TabIndex = 0;
-            this.unityCameraProfile.Text = "No Profile Loaded";
-            // 
-            // unityLoadProfile
-            // 
-            this.unityLoadProfile.Location = new System.Drawing.Point(131, 199);
-            this.unityLoadProfile.Name = "unityLoadProfile";
-            this.unityLoadProfile.Size = new System.Drawing.Size(119, 23);
-            this.unityLoadProfile.TabIndex = 5;
-            this.unityLoadProfile.Text = "Load Profile";
-            this.unityLoadProfile.UseVisualStyleBackColor = true;
-            this.unityLoadProfile.Click += new System.EventHandler(this.unityLoadProfile_Click);
-            // 
-            // unitySaveProfile
-            // 
-            this.unitySaveProfile.Location = new System.Drawing.Point(131, 163);
-            this.unitySaveProfile.Name = "unitySaveProfile";
-            this.unitySaveProfile.Size = new System.Drawing.Size(119, 23);
-            this.unitySaveProfile.TabIndex = 4;
-            this.unitySaveProfile.Text = "Save Profile";
-            this.unitySaveProfile.UseVisualStyleBackColor = true;
-            this.unitySaveProfile.Click += new System.EventHandler(this.unitySaveProfile_Click);
+            this.unityCameraPositionTitle.AutoSize = true;
+            this.unityCameraPositionTitle.Location = new System.Drawing.Point(151, 45);
+            this.unityCameraPositionTitle.Name = "unityCameraPositionTitle";
+            this.unityCameraPositionTitle.Size = new System.Drawing.Size(84, 13);
+            this.unityCameraPositionTitle.TabIndex = 6;
+            this.unityCameraPositionTitle.Text = "Current Position:";
             // 
             // unityClearCameraPosition
             // 
-            this.unityClearCameraPosition.Location = new System.Drawing.Point(6, 209);
+            this.unityClearCameraPosition.Location = new System.Drawing.Point(6, 77);
             this.unityClearCameraPosition.Name = "unityClearCameraPosition";
             this.unityClearCameraPosition.Size = new System.Drawing.Size(119, 23);
             this.unityClearCameraPosition.TabIndex = 3;
@@ -11213,7 +12049,7 @@
             // 
             // unitySaveCameraPosition
             // 
-            this.unitySaveCameraPosition.Location = new System.Drawing.Point(6, 151);
+            this.unitySaveCameraPosition.Location = new System.Drawing.Point(6, 19);
             this.unitySaveCameraPosition.Name = "unitySaveCameraPosition";
             this.unitySaveCameraPosition.Size = new System.Drawing.Size(119, 23);
             this.unitySaveCameraPosition.TabIndex = 1;
@@ -11223,74 +12059,13 @@
             // 
             // unityToggleCameraPosition
             // 
-            this.unityToggleCameraPosition.Location = new System.Drawing.Point(6, 180);
+            this.unityToggleCameraPosition.Location = new System.Drawing.Point(6, 48);
             this.unityToggleCameraPosition.Name = "unityToggleCameraPosition";
             this.unityToggleCameraPosition.Size = new System.Drawing.Size(119, 23);
             this.unityToggleCameraPosition.TabIndex = 2;
             this.unityToggleCameraPosition.Text = "Next Position";
             this.unityToggleCameraPosition.UseVisualStyleBackColor = true;
             this.unityToggleCameraPosition.Click += new System.EventHandler(this.unityNextCameraPosition_Click);
-            // 
-            // unityCurrentCameraPosition
-            // 
-            this.unityCurrentCameraPosition.Controls.Add(this.unityCurrentCameraPositionText);
-            this.unityCurrentCameraPosition.Location = new System.Drawing.Point(6, 20);
-            this.unityCurrentCameraPosition.Name = "unityCurrentCameraPosition";
-            this.unityCurrentCameraPosition.Size = new System.Drawing.Size(254, 58);
-            this.unityCurrentCameraPosition.TabIndex = 0;
-            this.unityCurrentCameraPosition.TabStop = false;
-            this.unityCurrentCameraPosition.Text = "Current Camera Position";
-            // 
-            // unityCurrentCameraPositionText
-            // 
-            this.unityCurrentCameraPositionText.AutoSize = true;
-            this.unityCurrentCameraPositionText.Location = new System.Drawing.Point(6, 29);
-            this.unityCurrentCameraPositionText.Name = "unityCurrentCameraPositionText";
-            this.unityCurrentCameraPositionText.Size = new System.Drawing.Size(139, 13);
-            this.unityCurrentCameraPositionText.TabIndex = 0;
-            this.unityCurrentCameraPositionText.Text = "No Saved Camera Positions";
-            // 
-            // unitySceneConfiguration
-            // 
-            this.unitySceneConfiguration.Controls.Add(this.unityArmControl);
-            this.unitySceneConfiguration.Controls.Add(this.unityArmShells);
-            this.unitySceneConfiguration.Controls.Add(this.unitySceneReset);
-            this.unitySceneConfiguration.Location = new System.Drawing.Point(687, 87);
-            this.unitySceneConfiguration.Name = "unitySceneConfiguration";
-            this.unitySceneConfiguration.Size = new System.Drawing.Size(266, 157);
-            this.unitySceneConfiguration.TabIndex = 0;
-            this.unitySceneConfiguration.TabStop = false;
-            this.unitySceneConfiguration.Text = "Scene - Configuration";
-            // 
-            // unityArmControl
-            // 
-            this.unityArmControl.Location = new System.Drawing.Point(6, 78);
-            this.unityArmControl.Name = "unityArmControl";
-            this.unityArmControl.Size = new System.Drawing.Size(110, 23);
-            this.unityArmControl.TabIndex = 3;
-            this.unityArmControl.Text = "Toggle Arm Control";
-            this.unityArmControl.UseVisualStyleBackColor = true;
-            this.unityArmControl.Click += new System.EventHandler(this.unityArmControl_Click);
-            // 
-            // unityArmShells
-            // 
-            this.unityArmShells.Location = new System.Drawing.Point(7, 49);
-            this.unityArmShells.Name = "unityArmShells";
-            this.unityArmShells.Size = new System.Drawing.Size(109, 23);
-            this.unityArmShells.TabIndex = 1;
-            this.unityArmShells.Text = "Toggle Arm Shells";
-            this.unityArmShells.UseVisualStyleBackColor = true;
-            this.unityArmShells.Click += new System.EventHandler(this.unityArmShellToggle_Click);
-            // 
-            // unitySceneReset
-            // 
-            this.unitySceneReset.Location = new System.Drawing.Point(7, 20);
-            this.unitySceneReset.Name = "unitySceneReset";
-            this.unitySceneReset.Size = new System.Drawing.Size(109, 23);
-            this.unitySceneReset.TabIndex = 0;
-            this.unitySceneReset.Text = "Reset Scene";
-            this.unitySceneReset.UseVisualStyleBackColor = true;
-            this.unitySceneReset.Click += new System.EventHandler(this.unitySceneReset_Click);
             // 
             // statusPanel1
             // 
@@ -11558,15 +12333,36 @@
             this.biopatrecGroupBox.PerformLayout();
             this.SLRTgroupBox.ResumeLayout(false);
             this.tabUnity.ResumeLayout(false);
+            this.unityFeedbackBox.ResumeLayout(false);
+            this.unityFeedbackBox.PerformLayout();
+            this.unityRobotParamsBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMax)).EndInit();
+            this.unityMainControls.ResumeLayout(false);
+            this.unityMainControls.PerformLayout();
             this.unityTaskConfiguration.ResumeLayout(false);
             this.unityTimerInformation.ResumeLayout(false);
             this.unityTimerInformation.PerformLayout();
             this.unityCameraPosition.ResumeLayout(false);
-            this.unityProfileGroupBox.ResumeLayout(false);
-            this.unityProfileGroupBox.PerformLayout();
-            this.unityCurrentCameraPosition.ResumeLayout(false);
-            this.unityCurrentCameraPosition.PerformLayout();
-            this.unitySceneConfiguration.ResumeLayout(false);
+            this.unityCameraPosition.PerformLayout();
             this.statusPanel1.ResumeLayout(false);
             this.statusPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -12357,29 +13153,72 @@
         private System.Windows.Forms.Label unityRXPort;
         private System.Windows.Forms.Button unityConnect;
         private System.Windows.Forms.TabPage tabUnity;
-        private System.Windows.Forms.GroupBox unitySceneConfiguration;
-        private System.Windows.Forms.Button unitySceneReset;
-        private System.Windows.Forms.Button unityArmShells;
+        private System.Windows.Forms.Button unityResetTask;
         private System.Windows.Forms.GroupBox unityCameraPosition;
         private System.Windows.Forms.Button unityClearCameraPosition;
         private System.Windows.Forms.Button unityToggleCameraPosition;
         private System.Windows.Forms.Button unitySaveCameraPosition;
-        private System.Windows.Forms.GroupBox unityCurrentCameraPosition;
-        private System.Windows.Forms.Label unityCurrentCameraPositionText;
-        private System.Windows.Forms.GroupBox unityProfileGroupBox;
-        private System.Windows.Forms.Label unityCameraProfile;
-        private System.Windows.Forms.Button unityLoadProfile;
-        private System.Windows.Forms.Button unitySaveProfile;
-        private System.Windows.Forms.Button unityArmControl;
+        private System.Windows.Forms.Label unityCameraPositionNumber;
         private System.Windows.Forms.GroupBox unityTaskConfiguration;
-        private System.Windows.Forms.Button unityNewTimeFile;
         private System.Windows.Forms.Button unityResetTimer;
         private System.Windows.Forms.Button unityStartTimer;
         private System.Windows.Forms.Label unityTimerText;
         private System.Windows.Forms.GroupBox unityTimerInformation;
-        private System.Windows.Forms.Label unityTimerFileName;
-        private System.Windows.Forms.Button unityLoadTimeFile;
         private System.Windows.Forms.Button unitySaveTimer;
+        private System.Windows.Forms.GroupBox unityMainControls;
+        private System.Windows.Forms.Button unityPauseTask;
+        private System.Windows.Forms.CheckBox unityArmShellToggle;
+        private System.Windows.Forms.CheckBox unityArmControlToggle;
+        private System.Windows.Forms.ListView unityTaskList;
+        private System.Windows.Forms.Button unityEndTask;
+        private System.Windows.Forms.Button unityLaunchTask;
+        private System.Windows.Forms.Label unityCameraPositionTitle;
+        private System.Windows.Forms.GroupBox unityFeedbackBox;
+        internal System.Windows.Forms.Label unityHandVelocityFeedback;
+        internal System.Windows.Forms.Label unityHandPositionFeedback;
+        internal System.Windows.Forms.Label unityWristRotVelocityFeedback;
+        internal System.Windows.Forms.Label unityWristRotPositionFeedback;
+        internal System.Windows.Forms.Label unityElbowVelocityFeedback;
+        internal System.Windows.Forms.Label unityElbowPositionFeedback;
+        internal System.Windows.Forms.Label unityShoulderVelocityFeedback;
+        internal System.Windows.Forms.Label unityShoulderPositionFeedback;
+        internal System.Windows.Forms.Label label268;
+        internal System.Windows.Forms.Label label269;
+        internal System.Windows.Forms.Label unityWristExtVelocityFeedback;
+        internal System.Windows.Forms.Label unityWristExtPositionFeedback;
+        private System.Windows.Forms.GroupBox unityRobotParamsBox;
+        internal System.Windows.Forms.NumericUpDown unityHandVMax;
+        internal System.Windows.Forms.NumericUpDown unityHandVMin;
+        internal System.Windows.Forms.NumericUpDown unityHandPMin;
+        internal System.Windows.Forms.NumericUpDown unityHandPMax;
+        internal System.Windows.Forms.Label unityHandParams;
+        internal System.Windows.Forms.NumericUpDown unityWristRotVMax;
+        internal System.Windows.Forms.NumericUpDown unityWristRotVMin;
+        internal System.Windows.Forms.Label unityWristRotParams;
+        internal System.Windows.Forms.NumericUpDown unityWristRotPMin;
+        internal System.Windows.Forms.NumericUpDown unityWristRotPMax;
+        internal System.Windows.Forms.NumericUpDown unityElbowVMax;
+        internal System.Windows.Forms.NumericUpDown unityElbowVMin;
+        internal System.Windows.Forms.NumericUpDown unityElbowPMin;
+        internal System.Windows.Forms.NumericUpDown unityElbowPMax;
+        internal System.Windows.Forms.Label unityElbowParams;
+        internal System.Windows.Forms.NumericUpDown unityShoulderVMax;
+        internal System.Windows.Forms.NumericUpDown unityShoulderVMin;
+        internal System.Windows.Forms.NumericUpDown unityShoulderPMin;
+        internal System.Windows.Forms.NumericUpDown unityShoulderPMax;
+        internal System.Windows.Forms.Label unityShoulderParams;
+        internal System.Windows.Forms.Label unityWristExtParams;
+        internal System.Windows.Forms.NumericUpDown unityWristExtVMax;
+        internal System.Windows.Forms.NumericUpDown unityWristExtVMin;
+        internal System.Windows.Forms.NumericUpDown unityWristExtPMin;
+        internal System.Windows.Forms.NumericUpDown unityWristExtPMax;
+        internal System.Windows.Forms.Label unityPMin;
+        internal System.Windows.Forms.Label unityPMax;
+        internal System.Windows.Forms.Label unityVMin;
+        internal System.Windows.Forms.Label unityVMax;
+        private System.Windows.Forms.Label unityArmToggleInfo;
+        private System.Windows.Forms.Label unityHeadsetModeToggleInfo;
+        private System.Windows.Forms.CheckBox unityHeadsetModeToggle;
     }
 }
 
