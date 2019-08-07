@@ -201,7 +201,6 @@ namespace brachIOplexus
         private bool unityAcknowledge = false;
         private int sceneIndex = 255;
         private bool t11Running = false;
-        private bool connected;
         private static System.Timers.Timer unityFeedback = new System.Timers.Timer();
         private byte[] feedback;
         #endregion
@@ -8797,9 +8796,16 @@ namespace brachIOplexus
         /*
          * Function below handle click events with added Unity buttons in BrachIOplexus GUI 
          */
+
+        /*
+         * @brief: Connects brachIOplexus with Unity
+         */
         private void unityConnect_Click(object sender, EventArgs e)
         {
-            Thread acknowdledge = new Thread(waitForAcknowledge);
+            // Declare a new thread for acknowledgement process 
+            Thread acknowdledge;
+
+            acknowdledge = new Thread(waitForAcknowledge);
             if (!UDPflag3)
             {
                 // Retrieve Ports and IP Address 
@@ -8817,11 +8823,17 @@ namespace brachIOplexus
                 // Start the thread to recieve packets from Unity 
                 t12 = new System.Threading.Timer(new TimerCallback(recieveFromUnity), null, 0, 15);
 
+                // Flag to notify the UDP connection has been created
                 UDPflag3 = true;
+
+                // Disables the connect button
                 unityConnect.Enabled = false;
+
+                // Enables the disconnect button
                 unityDisconnect.Enabled = true;
-                connected = true;
-                acknowdledge.Start();
+
+                // Start the handshake process between brachIOplexus and Unity 
+                acknowdledge.Start();  
 
                 // Displays camera position if the list is not empty upon opening brachIOplexus
                 //if(unityCameraPositions.Count > 0)
@@ -8834,30 +8846,47 @@ namespace brachIOplexus
             }
         }
 
+        /*
+         * @brief: Disconnects brachIOplexus and Unity
+         */
         private void unityDisconnect_Click(object sender, EventArgs e)
         {
             if (UDPflag3)
             {
+                // Disables all group boxes in the Unity tab in brachIOplexus 
                 enableUnityTab(false);
-                connected = false;
 
+                // Stops thread 11 (Send to Unity) 
                 if (t11Running)
                 {
                     t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
                 }
+
+                // Stops threads 
                 t12.Change(Timeout.Infinite, Timeout.Infinite);
                 t13.Change(Timeout.Infinite, Timeout.Infinite);
+
+                // Closes udp clients
                 udpClientTX3.Close();
                 udpClientRX3.Close();
 
-
+                // UDP connection flag set to false 
                 UDPflag3 = false;
+
+                // Enables the connect button
                 unityConnect.Enabled = true;
+
+                // Disables disconnect button
                 unityDisconnect.Enabled = false;
+
+                // Resets the acknowledgement flag to allow for re - connection 
                 unityAcknowledge = false;
             }
         }
 
+        /*
+         * @brief: Selects all directions for each motor 
+         */ 
         private void unitySelectAll_Click(object sender, EventArgs e)
         {
             // Select all of the items in the checkedListBox
@@ -8867,9 +8896,12 @@ namespace brachIOplexus
 
             }
         }
+
+        /*
+         * @brief: Clears all directions for each motor
+         */
         private void unityClearAll_Click(object sender, EventArgs e)
         {
-
             // Select all of the items in the checkedListBox
             for (int i = 0; i < unityCheckList.Items.Count; i++)
             {
@@ -8877,18 +8909,38 @@ namespace brachIOplexus
 
             }
         }
+
+        /*
+         * @brief: Resets the current task 
+         */
         private void unitySceneReset_Click(object sender, EventArgs e)
         {
+            // If the timer is running, stops and resets 
             resetTimer();
+
+            // Sends packet to Unity to reset 
             sendSceneCtrl(resetTask: 1);
         }
 
+        /*
+         * @brief: Saves the current camera position (VR disabled) 
+         */
         private void unitySaveCameraPosition_Click(object sender, EventArgs e)
         {
+            string name;
+            // Sends packet to Unity to save the current camera transform 
             sendCamera(camSave: 1);
-            string name = $"Position{unityCameraPositions.Count}";
+
+            // Saves the current camera positions as a string and displays on GUI
+            name = $"Position{unityCameraPositions.Count}";
+
+            // Adds the position name to a list 
             unityCameraPositions.Add(name);
-            cameraPositionIdx++;
+
+            // Increases index (for looping through the list) 
+            cameraPositionIdx++; 
+
+            // Changes the GUI to display the current camera position 
             this.Invoke((MethodInvoker)delegate ()
             {
                 unityCameraPositionNumber.Text = name;
@@ -8896,27 +8948,47 @@ namespace brachIOplexus
             
         }
 
+        /*
+         * @brief: Clears all saved camera positions 
+         */
         private void unityClearCameraPosition_Click(object sender, EventArgs e)
         {
+            // Sends packet to Unity to clear saved camera positions 
             sendCamera(camClear: 1);
+
+            // Clears list 
             unityCameraPositions.Clear();
+
+            // Reset index 
             cameraPositionIdx = 0;
+
+            // Resets GUI 
             this.Invoke((MethodInvoker)delegate ()
             {
                 unityCameraPositionNumber.Text = "No Saved Camera Positions";
             });
         }
 
+        /*
+         * @brief: Loops through the saved camera positions
+         */
         private void unityNextCameraPosition_Click(object sender, EventArgs e)
         {
+            // Checks first if there are any saved camera positions 
             if(unityCameraPositions.Count > 0)
             {
+                // Sends packet to Unity to cycle through saved positions 
                 sendCamera(camNext: 1);
+
+                // Calculate new index 
                 cameraPositionIdx = (cameraPositionIdx % unityCameraPositions.Count);
+
+                // Updates GUI 
                 this.Invoke((MethodInvoker)delegate ()
                 {
                     unityCameraPositionNumber.Text = unityCameraPositions[cameraPositionIdx];
                 });
+
                 cameraPositionIdx++;
             }
             else
@@ -8928,93 +9000,28 @@ namespace brachIOplexus
             }
         }
 
-        public void updateCurrentPosition()
-        {
-            this.Invoke((MethodInvoker)delegate ()
-            {
-                unityCameraPositionNumber.Text = unityCameraPositions[cameraPositionIdx];
-            });
-        }
-
-        private void unitySaveProfile_Click(object sender, EventArgs e)
-        {
-            string[] files = Directory.GetFiles(unitySavedCameraPositions);
-            string profile = string.Empty;
-            string pathToProfile = string.Empty;
-            using (var popup = new unitySave())
-            {
-                var result = popup.ShowDialog();
-                if(result == DialogResult.OK)
-                {
-                    profile = popup.fileName;
-                    pathToProfile = Path.Combine(unityCameraProfiles, profile);
-                    if(Directory.Exists(pathToProfile))
-                    {
-                        MessageBox.Show("That profile name already exists, please rename or delete the profile.");
-                    }
-
-                    Directory.CreateDirectory(pathToProfile);
-                }
-            }
-            foreach(string str in files)
-            {
-                string fileName = Path.GetFileName(str);
-                string destination = Path.Combine(pathToProfile,fileName);
-                File.Copy(str, destination, true);
-            }
-
-
-        }
-
-        private void unityLoadProfile_Click(object sender, EventArgs e)
-        {
-            //string profileName = string.Empty;
-            //string[] files = null;
-            //using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
-            //{
-            //    folderDialog.SelectedPath = unityCameraProfiles;
-            //    DialogResult result = folderDialog.ShowDialog();
-            //    if(result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderDialog.SelectedPath))
-            //    {
-            //        profileName = Path.GetFileName(folderDialog.SelectedPath);
-            //        files = Directory.GetFiles(folderDialog.SelectedPath);
-            //    }
-            //}
-            //if(files != null)
-            //{
-            //    foreach (string str in files)
-            //    {
-            //        string fileName = Path.GetFileName(str);
-            //        string destination = Path.Combine(unitySavedCameraPositions, fileName);
-            //        File.Copy(str, destination, true);
-            //        unityCameraPositions.Add(fileName);
-            //    }
-            //    this.Invoke((MethodInvoker)delegate ()
-            //    {
-            //        unityCameraProfile.Text = profileName;
-            //    });
-
-            //    this.Invoke((MethodInvoker)delegate ()
-            //    {
-            //        unityCameraPositionNumber.Text = unityCameraPositions[0];
-            //    });
-            //    sendUtility(profile: 1);
-            //    cameraPositionIdx = 1;
-            //}
-
-        }
-
+        /*
+         * @brief: Calls the timer function
+         */
         private void unityStartTimer_Click(object sender, EventArgs e)
         {
             timerToggle();
         }
 
+        /*
+         * @brief: Starts or Stops the timer depending on state
+         */
         private void timerToggle()
         {
             if (this.unityStartTimer.Text == "Start Timer")
             {
+                // Starts the timer object
                 taskTimer.Start();
+
+                // Sets timer flag
                 unityTimerFlag = true;
+
+                // Updates the button 
                 this.Invoke((MethodInvoker)delegate ()
                 {
                     this.unityStartTimer.Text = "Stop Timer";
@@ -9022,8 +9029,13 @@ namespace brachIOplexus
             }
             else
             {
+                // Stops the timer object
                 taskTimer.Stop();
+
+                // Sets the timer flag 
                 unityTimerFlag = false;
+
+                // Updates the button 
                 this.Invoke((MethodInvoker)delegate ()
                 {
                     this.unityStartTimer.Text = "Start Timer";
@@ -9031,22 +9043,36 @@ namespace brachIOplexus
             }
         }
 
+        /*
+         * @brief: Calls reset timer function
+         */
         private void unityResetTimer_Click(object sender, EventArgs e)
         {
             resetTimer();
         }
 
+        /*
+         * @brief: Resets the timer object
+         */ 
         private void resetTimer()
         {
+            // Reset timer object 
             taskTimer.Reset();
+
+            // Resets the elapsed time 
             this.taskElapsed = TimeSpan.Zero;
+
+            // Reset the GUI 
             this.Invoke((MethodInvoker)delegate ()
             {
                 this.unityTimerText.Text = 0.ToString();
             });
+
+            // If the timer was already running, will stop and reset the timer 
             if (this.unityStartTimer.Text == "Stop Timer")
             {
                 unityTimerFlag = false;
+
                 this.Invoke((MethodInvoker)delegate ()
                 {
                     this.unityStartTimer.Text = "Start Timer";
@@ -9057,22 +9083,43 @@ namespace brachIOplexus
         private void unitySaveTimer_Click(object sender, EventArgs e)
         {
             // https://stackoverflow.com/questions/9907682/create-a-txt-file-if-doesnt-exist-and-if-it-does-append-a-new-line
+            //File format: dd-MM-yyyy-TaskName
+            //Time stamp format: hh:mm:ss:msms
 
+            // Object to store the current Date 
             DateTime todayDate;
+
+            // String to store current date 
             String date;
+
+            // String to store current task 
             String taskName;
-            String filename;    //File format: dd-MM-yyyy-TaskName
+
+            // String to store the associated file to store time data 
+            String filename;
+
+            // String dictating filepath to store the time data 
             String filepath;
 
             todayDate = DateTime.Today;
+
+            // stores current date in specified format 
             date = todayDate.ToString("dd/MM/yyyy");
+
+            // Retrieves current task from the GUI list 
             taskName = this.unityTaskList.Items[sceneIndex].Text;
+
+            // Concatenates the date and taskname to create the file name 
             filename = date + "-" + taskName + ".txt";
+
+            // Hard-coded the filepath and concatenate together with the filename 
             filepath = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityTaskTimer";
             filepath += "\\" + filename;
 
+            // Checks first if the file exists 
             if(!File.Exists(filepath))
             {
+                // Create the file and write the timer data 
                 File.Create(filepath);
                 TextWriter tw = new StreamWriter(filepath);
                 tw.WriteLine(this.unityTimerText.Text);
@@ -9080,6 +9127,7 @@ namespace brachIOplexus
             }
             else
             {
+                // Appends the timer data if the file already exists 
                 using (TextWriter tw = new StreamWriter(filepath, true))
                 {
                     tw.WriteLine(this.unityTimerText.Text);
@@ -9087,58 +9135,90 @@ namespace brachIOplexus
             }
         }
 
+        /*
+         * @brief: Stores the selected item index from unityTaskList 
+         */
         private void unityTaskList_Click(object sender, EventArgs e)
         {
+            // Ensures that there is at least one item selected from the list 
             if(this.unityTaskList.SelectedIndices.Count > 0)
             {
                 sceneIndex = this.unityTaskList.SelectedIndices[0];
             }
         }
 
+        /*
+         * @brief: Using the selected task, will send a packet to Unity to launch the 
+         * specified task
+         */ 
         private void unityLaunchTask_Click(object sender, EventArgs e)
         {
+            // Checks first if a task was actually selected 
             if(sceneIndex == 255)
             {
                 return;
             }
 
+            // Show / hide arm shells 
             byte armShell;
+
+            // Enable / disable VR Controllers controlling the arm 
             byte armControl;
+
+            // Is there a VR headset connected? 
             byte VREnabled;
 
+            // Either 1 or 0 if the checkboxes were selected 
             armShell = Convert.ToByte(this.unityArmShellToggle.Checked);
             armControl = Convert.ToByte(this.unityArmControlToggle.Checked);
             VREnabled = Convert.ToByte(this.unityHeadsetModeToggle.Checked);
 
+            // Builds the Initialization packet to be sent to Unity 
             byte[] packet = new byte[9];
             packet[0] = 255;                            // Header
             packet[1] = 255;                            // Header
             packet[2] = 0;                              // Type: 0
-            packet[3] = 9;                              // Length of Packet
+            packet[3] = 4;                              // Length of Data
             packet[4] = (byte)sceneIndex;               // Task Index 
             packet[5] = armShell;                       // Arm Shell toggle
             packet[6] = armControl;                     // brachIOplexus input toggle
             packet[7] = VREnabled;                      // VR enable toggle 
-            packet[8] = calcCheckSum(packet);
+            packet[8] = calcCheckSum(packet);           // Checksum 
 
+            // Sends the packet to Unity via UDP 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
+
+            // Starts background thread to continuously send to Unity 
             t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
+
+            // Starts background thread to process feedback from Unity 
             t13 = new System.Threading.Timer(new TimerCallback(processFeedback), null, 0, 15);
+
+            // Flag indicating thread 11 is now running 
             t11Running = true;
 
+            // Enables all other group boxes in Unity Tab 
             unityTaskConfiguration.Enabled = true;
             unityCameraPosition.Enabled = true;
             unityFeedbackBox.Enabled = true;
             unityRobotParamsBox.Enabled = true;
         }
 
+        /*
+         * @brief: Sends packet to Unity to end the current task
+         */
         private void unityEndTask_Click(object sender, EventArgs e)
         {
             sendSceneCtrl(endTask: 1);
         }
 
+        /*
+         * @brief: Sends packet to Unity to either pause or play the current task
+         */
         private void unityPauseTask_Click(object sender, EventArgs e)
         {
+            // Will either play or pause depending on the state 
+
             if(this.unityPauseTask.Text == "Pause Task")
             {
                 this.Invoke((MethodInvoker)delegate ()
@@ -9162,7 +9242,7 @@ namespace brachIOplexus
         /*
          * Implements and controls UDP communication with Unity 
          * Adapted from "Suprise Demo"
-         * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
+         * Refer to Project Wiki for packet breakdown
          */
 
         /*
@@ -9171,15 +9251,25 @@ namespace brachIOplexus
          */
         private void sendToUnity(object state)
         {
+            // Packet to be sent to Unity 
+            byte[] packet; 
             try
             {
-                stopWatch11.Stop();
-                milliSec11 = stopWatch11.ElapsedMilliseconds;
+                // Used for debugging to ensure the thread is running accordingly (uncomment to use)
+                //stopWatch11.Stop();
+                //milliSec11 = stopWatch11.ElapsedMilliseconds;
+
+                // I used this thread to start the task timer (rationale: because this thread continuously runs
+                // I can constantly check if the timer flag is true or false and start / stop the timer accordingly)
                 if(unityTimerFlag)
                 {
                     startTimer();
                 }
-                byte[] packet = updatePacket();
+
+                // Fills the packet appropriatley 
+                packet = updatePacket();
+
+                // Sends the packet to Unity 
                 udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 
             }
@@ -9189,12 +9279,100 @@ namespace brachIOplexus
             }
         }
 
+        /*
+         * @brief: Iterates through existing objects to determine state and 
+         * velocity of bento arm. Uses values to send commands to Unity
+         * Bento Arm
+         */
+        private byte[] updatePacket()
+        {
+            // Length of the data portion of the packet 
+            byte length;
+
+            // Temporary variable to store low byte of motor state 
+            byte lowByte;
+
+            // Temporary variable to store high byte of motore state 
+            byte hiByte;
+
+            // CW or CCW state of motore 
+            byte state;
+
+            // Motor index 
+            byte ID;
+
+            // Packet to be filled 
+            byte[] packet;
+
+            // Index of packet to start filling data 
+            int idx; 
+
+            // Resets length 
+            length = 0;
+
+            // Iterates through existing objects to see if any of the motors should be moving CW or CCW 
+            for (int i = 0; i < BENTO_NUM; i++)
+            {
+                state = (byte)stateObj.motorState[i];
+                
+                // Only interested if the state is 0 or 3 
+                if (state != 0 && state != 3 && checkList(i, state))
+                {
+                    // Increment length for each motor that is in an active state (CW or CCW) 
+                    length++;
+                }
+            }
+
+            // Each motor will have 4 pieces of data associated with them 
+            length *= 4;
+
+            // Builds the packet 
+            packet = new byte[5 + length];
+            packet[0] = 255;            // Header
+            packet[1] = 255;            // Header
+            packet[2] = 1;              // Type: 1
+            packet[3] = length;         // Length of Data 
+
+            // Starting index starts at 4 
+            idx = 4;
+
+            // Again iterate through the object to get the state and motor information
+            for (byte i = 0; i < BENTO_NUM; i++)
+            {
+                // CW or CCW 
+                state = (byte)stateObj.motorState[i];
+
+                // Checks if the state is valid && if the direction is valid based on the unityChecklist
+                if (state != 0 && state != 3 && checkList(i, state))
+                {
+                    // Gets motor ID, low/hi byte of the motor 
+                    ID = i;
+                    lowByte = low_byte((UInt16)robotObj.Motor[i].w);
+                    hiByte = high_byte((UInt16)robotObj.Motor[i].w);
+
+                    // Fills remainder of packet 
+                    packet[idx] = ID;               // Servo ID
+                    packet[idx + 1] = lowByte;      // Velocity Low
+                    packet[idx + 2] = hiByte;       // Velocity Hi
+                    packet[idx + 3] = state;        // CW / CCW 
+
+                    // increment the index to go to next "section" 
+                    idx += 4;
+                }
+            }
+
+            // Calculate the check sum
+            packet[packet.Length - 1] = calcCheckSum(packet);
+
+            return packet;
+        }
+
         // Note: i am not sure what the Run/Suspend && Torque On/Off booleans do 
         /*
          * @brief: Checks the DOF check box list in Unity Bento Arm section of BrachIOplexus 
          * to determine if a DOF has been locked
          * 
-         * @brief: 
+         * @param: 
          *      idx: Servo ID being checked 
          *      state: CW / CCW direction of the joint 
          */
@@ -9234,159 +9412,152 @@ namespace brachIOplexus
                     }
                     break;
             }
+
             return valid;
         }
 
         /*
-         * @brief: iterates through existing objects to determine state and 
-         * velocity of bento arm. Uses values to send commands to Unity
-         * Bento Arm
+         * @brief: Send packet to Unity to save, clear, or iterate through camera positions
          */
-        private byte[] updatePacket()
-        {
-            byte length = 0;
-            byte lowByte;
-            byte hiByte;
-            byte state;
-            byte ID;
-
-            for (int i = 0; i < BENTO_NUM; i++)
-            {
-                state = (byte)stateObj.motorState[i];
-                if (state != 0 && state != 3 && checkList(i, state))
-                {
-                    length++;
-                }
-            }
-
-            length *= 4;
-            byte[] packet = new byte[5 + length];
-            packet[0] = 255;            // Header
-            packet[1] = 255;            // Header
-            packet[2] = 1;              // Type: 1
-            packet[3] = length;         // Length of Data 
-
-            int idx = 4;
-            for (byte i = 0; i < BENTO_NUM; i++)
-            {
-                state = (byte)stateObj.motorState[i];
-
-                if (state != 0 && state != 3 && checkList(i, state))
-                {
-
-                    ID = i;
-                    lowByte = low_byte((UInt16)robotObj.Motor[i].w);
-                    hiByte = high_byte((UInt16)robotObj.Motor[i].w);
-
-                    packet[idx] = ID;               // Servo ID
-                    packet[idx + 1] = lowByte;      // Velocity Low
-                    packet[idx + 2] = hiByte;       // Velocity Hi
-                    packet[idx + 3] = state;        // CW / CCW 
-                    idx += 4;
-                }
-            }
-
-            packet[packet.Length - 1] = calcCheckSum(packet);
-
-            return packet;
-        }
-
         private void sendCamera(byte camNext = 255, byte camClear = 255, byte camSave = 255)
         {
-            byte[] packet = new byte[8];
-            packet[0] = 255;            // Header
-            packet[1] = 255;            // Header
-            packet[2] = 5;              // Type: 5
-            packet[3] = 8;              // Length
-            packet[4] = camNext;        // Next camera position
-            packet[5] = camClear;       // Clear saved camera positions
-            packet[6] = camSave;        // Save current camera position
-            packet[7] = calcCheckSum(packet);   
+            // Packet to hold and send camera information 
+            byte[] packet;
             
+            packet = new byte[8];
+            packet[0] = 255;                    // Header
+            packet[1] = 255;                    // Header
+            packet[2] = 5;                      // Type: 5
+            packet[3] = 8;                      // Length
+            packet[4] = camNext;                // Next camera position
+            packet[5] = camClear;               // Clear saved camera positions
+            packet[6] = camSave;                // Save current camera position
+            packet[7] = calcCheckSum(packet);   // Calculate Checksum
+            
+            // Sends the packet to Unity 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
 
+        /*
+         * @brief: Send packet to Unity to pause, end, or reset task
+         */
         private void sendSceneCtrl(byte pauseTask = 0, byte endTask = 0, byte resetTask = 0)
         {
-            byte[] packet = new byte[8];
-            packet[0] = 255;            // Header
-            packet[1] = 255;            // Header
-            packet[2] = 6;              // Type: 5
-            packet[3] = 8;              // Length
-            packet[4] = pauseTask;        // Next camera position
-            packet[5] = endTask;       // Clear saved camera positions
-            packet[6] = resetTask;        // Save current camera position
-            packet[7] = calcCheckSum(packet);
+            // Packet to hold and send scene control information 
+            byte[] packet;
+            
+            packet = new byte[8];
+            packet[0] = 255;                    // Header
+            packet[1] = 255;                    // Header
+            packet[2] = 6;                      // Type: 6
+            packet[3] = 3;                      // Length of Data 
+            packet[4] = pauseTask;              // Next camera position
+            packet[5] = endTask;                // Clear saved camera positions
+            packet[6] = resetTask;              // Save current camera position
+            packet[7] = calcCheckSum(packet);   // Calculate Checksum
 
+            // Send packet to Unity 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
 
-        ///*
-        // * @brief: creates a unique packet that is only sent on specific button 
-        // * presses in GUI to stop the arm, reset the scene, and/or cycle between scenes
-        // * Refer to UDP_Comm_VIPER_rev#.xlsx file for packet breakdown
-        // */
-        //private void sendUtility(byte stop = 0, byte reset = 0, byte save = 255, byte next = 255, byte clear = 255, byte profile = 255, byte control = 255, byte init = 255)
-        //{
-        //    byte[] packet = new byte[12]; // will need to change this when have it finalized 
-        //    packet[0] = 255;            // Header
-        //    packet[1] = 255;            // Header
-        //    packet[2] = 1;              // Type: 1
-        //    packet[3] = stop;           // Stop Signal
-        //    packet[4] = reset;          // Scene Signal 
-        //    packet[5] = save;           // Save Camera Position
-        //    packet[6] = next;           // Next Camera Position
-        //    packet[7] = clear;          // Clear Camera Positions 
-        //    packet[8] = profile;
-        //    packet[9] = control;
-        //    packet[10] = init;
-        //    packet[11] = calcCheckSum(ref packet);
-        //    udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
-        //}
-
+        /*
+         * @brief: Handshake packet that is being sent to Unity at startup
+         */ 
         private void pingUnity()
         {
-            byte[] packet = new byte[6];
-            packet[0] = 255;
-            packet[1] = 255;
-            packet[2] = 2;
-            packet[3] = 1;
-            packet[4] = 1;
-            packet[5] = calcCheckSum(packet);
+            // Packet to hold and send handshake information 
+            byte[] packet;
+            
+            packet = new byte[6];
+            packet[0] = 255;                    // Header
+            packet[1] = 255;                    // Header
+            packet[2] = 2;                      // Type: 2
+            packet[3] = 1;                      // Length of Data 
+            packet[4] = 1;                      // Send a 1 
+            packet[5] = calcCheckSum(packet);   // Calculate Checksum
+
+            // Send packet to Unity 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
         }
 
+        /*
+         * @brief: Handshake protocol, continuously pings Unity until Unity sends an acknowledgment 
+         */
         private void waitForAcknowledge()
         {
-            while (!unityAcknowledge && connected)
+            // This thread will terminate once brachIOplexus recieves the acknowledgment 
+            // And by default, the UDP connection is established
+            while (!unityAcknowledge && UDPflag3)
             {
                 pingUnity();
+
+                // Sleeps thread for 2 seconds (just so it's not continuously sending too fast)
                 Thread.Sleep(2000);
             }
-            enableUnityTab(true);
+
+            // Once the acknowledgement was recieved, enable the task selection group box 
+            this.unityMainControls.Invoke((MethodInvoker)delegate
+            {
+                this.unityMainControls.Enabled = true;
+            });
         }
 
+        /*
+         * @brief: Helper function to enable / disable the group boxes in the Unity tab
+         */ 
         private void enableUnityTab(bool state)
         {
             this.unityMainControls.Invoke((MethodInvoker)delegate
             {
                 this.unityMainControls.Enabled = state;
             });
+            this.unityMainControls.Invoke((MethodInvoker)delegate
+            {
+                unityTaskConfiguration.Enabled = state;
+            });
+            this.unityMainControls.Invoke((MethodInvoker)delegate
+            {
+                unityCameraPosition.Enabled = state;
+            });
+            this.unityMainControls.Invoke((MethodInvoker)delegate
+            {
+                unityFeedbackBox.Enabled = state;
+            });
+            this.unityMainControls.Invoke((MethodInvoker)delegate
+            {
+                unityRobotParamsBox.Enabled = state;
+            });
         }
         #endregion
 
         #region UDP RX
+        /*
+         * Implements the recieving UDP connection from Unity 
+         */
+        
+        /*
+         * @brief: Background thread will continuously see if there is anything available 
+         * in the udp client then parse the packet accordingly
+         */ 
         private void recieveFromUnity(object state)
         {
+            // Stores the recieved byte array from Unity 
+            byte[] packet;
+
             try
             {
                 // https://stackoverflow.com/questions/5932204/c-sharp-udp-listener-un-blocking-or-prevent-revceiving-from-being-stuck
+                // Checks if there is a byte available in the buffer 
                 if (udpClientRX3.Available > 0)
                 {
-                    stopWatch12.Stop();
-                    milliSec12 = stopWatch12.ElapsedMilliseconds;
+                    // Used for debugging to ensure the thread is running accordingly (uncomment to use)
+                    //stopWatch12.Stop();
+                    //milliSec12 = stopWatch12.ElapsedMilliseconds;
 
-                    byte[] packet = udpClientRX3.Receive(ref ipEndPointRX3);
+                    // Fills byte array from Unity 
+                    packet = udpClientRX3.Receive(ref ipEndPointRX3);
+
+                    // Parses the packet accordingly 
                     parsePacket(packet);
                 }
 
@@ -9398,21 +9569,28 @@ namespace brachIOplexus
             }
         }
 
+        /*
+         * @brief: Using the recieved packet from Unity, parses the type and acts accordingly
+         */ 
         private void parsePacket(byte[] packet)
         {
+            // First validate the packet 
             if (validate(packet))
             {
+                // Type: 2 is the acknowledgement 
                 if (packet[2] == 2 && packet[4] == 1)
                 {
                     unityAcknowledge = true;
                 }
+
                 //if(packet[2] == 3)
                 //{
                 //    this.feedback = packet;
                 //}
-                if(packet[2] == 6)
+
+                // Starts / Stops the timer based on "in-task" stimulus (moving the arm or reaching the goal) 
+                if(packet[2] == 7)
                 {
-                    Console.WriteLine("Is this repeating??");
                     timerToggle();
                 }
             }
@@ -9429,13 +9607,19 @@ namespace brachIOplexus
          */
         private byte calcCheckSum(byte[] packet)
         {
-            byte checkSum = 0;
+            // Stores calculated check sum 
+            byte checkSum;
+                
+            // Reset check sum
+            checkSum = 0;
 
+            // Iterates through the data portion of the packet 
             for (byte i = 4; i < packet.Length - 1; i++)
             {
                 checkSum += packet[i];
             }
 
+            // Will only take lower byte if the check sum is less than -1 
             if ((byte)~checkSum >= 255)
             {
                 checkSum = low_byte((UInt16)~checkSum);
@@ -9444,6 +9628,7 @@ namespace brachIOplexus
             {
                 checkSum = (byte)~checkSum;
             }
+
             return checkSum;
         }
 
@@ -9454,24 +9639,15 @@ namespace brachIOplexus
         */
         bool validate(byte[] packet)
         {
-            byte checksum = 0;
+            // Stores calcualted check sum
+            byte checksum;
+                
+            // Resets checksum value 
+            checksum = 0;
+
             checksum = calcCheckSum(packet);
-            //int start = 4;
-            //int end = packet.Length - 1;
-            //for (int i = start; i < end; i++)
-            //{
-            //    checksum += packet[i];
-            //}
 
-            //if ((byte)~checksum > 255)
-            //{
-            //    checksum = low_byte((UInt16)~checksum);
-            //}
-            //else
-            //{
-            //    checksum = (byte)~checksum;
-            //}
-
+            // Valid if the checksum's equal and there are 2 headers 
             if (checksum == packet[packet.Length - 1] && packet[0] == 255 && packet[1] == 255)
             {
                 return true;
@@ -9482,10 +9658,20 @@ namespace brachIOplexus
             }
         }
 
+        /*
+         * @brief: Using the Stopwatch object, continuously updates the timer GUI 
+         */ 
         private void startTimer()
         {
+            string elapsedTime; 
+
+            // Gets elapsed time 
             taskElapsed = taskTimer.Elapsed;
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", taskElapsed.Hours, taskElapsed.Minutes, taskElapsed.Seconds, taskElapsed.Milliseconds / 10);
+
+            // Gets the formated string of the elapsed time 
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", taskElapsed.Hours, taskElapsed.Minutes, taskElapsed.Seconds, taskElapsed.Milliseconds / 10);
+
+            // Updates the GUI 
             this.Invoke((MethodInvoker)delegate ()
             {
                 this.unityTimerText.Text = elapsedTime;
