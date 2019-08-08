@@ -9216,7 +9216,9 @@ namespace brachIOplexus
                 idxV += 2;
 
             }
-            
+
+            Console.WriteLine(packet[12]);
+
             packet[48] = calcCheckSum(packet);           // Checksum 
 
             // Sends the packet to Unity via UDP 

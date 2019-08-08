@@ -11121,7 +11121,7 @@
             this.unityShoulderPMin.Location = new System.Drawing.Point(148, 29);
             this.unityShoulderPMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityShoulderPMin.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11129,7 +11129,7 @@
             this.unityShoulderPMin.Size = new System.Drawing.Size(48, 20);
             this.unityShoulderPMin.TabIndex = 131;
             this.unityShoulderPMin.Value = new decimal(new int[] {
-            1664,
+            146,
             0,
             0,
             0});
@@ -11139,7 +11139,7 @@
             this.unityShoulderPMax.Location = new System.Drawing.Point(203, 28);
             this.unityShoulderPMax.Margin = new System.Windows.Forms.Padding(2);
             this.unityShoulderPMax.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11147,7 +11147,7 @@
             this.unityShoulderPMax.Size = new System.Drawing.Size(48, 20);
             this.unityShoulderPMax.TabIndex = 132;
             this.unityShoulderPMax.Value = new decimal(new int[] {
-            2432,
+            214,
             0,
             0,
             0});
@@ -11398,7 +11398,7 @@
             this.unityHandPMin.Location = new System.Drawing.Point(148, 124);
             this.unityHandPMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityHandPMin.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11406,7 +11406,7 @@
             this.unityHandPMin.Size = new System.Drawing.Size(48, 20);
             this.unityHandPMin.TabIndex = 146;
             this.unityHandPMin.Value = new decimal(new int[] {
-            1928,
+            193,
             0,
             0,
             0});
@@ -11416,7 +11416,7 @@
             this.unityHandPMax.Location = new System.Drawing.Point(203, 124);
             this.unityHandPMax.Margin = new System.Windows.Forms.Padding(2);
             this.unityHandPMax.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11424,7 +11424,7 @@
             this.unityHandPMax.Size = new System.Drawing.Size(48, 20);
             this.unityHandPMax.TabIndex = 147;
             this.unityHandPMax.Value = new decimal(new int[] {
-            2800,
+            263,
             0,
             0,
             0});
@@ -11500,7 +11500,7 @@
             this.unityWristRotPMin.Location = new System.Drawing.Point(148, 77);
             this.unityWristRotPMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityWristRotPMin.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11508,7 +11508,7 @@
             this.unityWristRotPMin.Size = new System.Drawing.Size(48, 20);
             this.unityWristRotPMin.TabIndex = 140;
             this.unityWristRotPMin.Value = new decimal(new int[] {
-            1028,
+            90,
             0,
             0,
             0});
@@ -11518,7 +11518,7 @@
             this.unityWristRotPMax.Location = new System.Drawing.Point(203, 77);
             this.unityWristRotPMax.Margin = new System.Windows.Forms.Padding(2);
             this.unityWristRotPMax.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11526,7 +11526,7 @@
             this.unityWristRotPMax.Size = new System.Drawing.Size(48, 20);
             this.unityWristRotPMax.TabIndex = 141;
             this.unityWristRotPMax.Value = new decimal(new int[] {
-            3073,
+            270,
             0,
             0,
             0});
@@ -11582,7 +11582,7 @@
             this.unityElbowPMin.Location = new System.Drawing.Point(148, 54);
             this.unityElbowPMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityElbowPMin.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11590,7 +11590,7 @@
             this.unityElbowPMin.Size = new System.Drawing.Size(48, 20);
             this.unityElbowPMin.TabIndex = 136;
             this.unityElbowPMin.Value = new decimal(new int[] {
-            1784,
+            156,
             0,
             0,
             0});
@@ -11600,7 +11600,7 @@
             this.unityElbowPMax.Location = new System.Drawing.Point(203, 54);
             this.unityElbowPMax.Margin = new System.Windows.Forms.Padding(2);
             this.unityElbowPMax.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11608,7 +11608,7 @@
             this.unityElbowPMax.Size = new System.Drawing.Size(48, 20);
             this.unityElbowPMax.TabIndex = 137;
             this.unityElbowPMax.Value = new decimal(new int[] {
-            2570,
+            226,
             0,
             0,
             0});
@@ -11740,7 +11740,7 @@
             this.unityWristExtPMin.Location = new System.Drawing.Point(148, 102);
             this.unityWristExtPMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityWristExtPMin.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11748,7 +11748,7 @@
             this.unityWristExtPMin.Size = new System.Drawing.Size(48, 20);
             this.unityWristExtPMin.TabIndex = 125;
             this.unityWristExtPMin.Value = new decimal(new int[] {
-            790,
+            70,
             0,
             0,
             0});
@@ -11758,7 +11758,7 @@
             this.unityWristExtPMax.Location = new System.Drawing.Point(203, 102);
             this.unityWristExtPMax.Margin = new System.Windows.Forms.Padding(2);
             this.unityWristExtPMax.Maximum = new decimal(new int[] {
-            4095,
+            360,
             0,
             0,
             0});
@@ -11766,7 +11766,7 @@
             this.unityWristExtPMax.Size = new System.Drawing.Size(48, 20);
             this.unityWristExtPMax.TabIndex = 126;
             this.unityWristExtPMax.Value = new decimal(new int[] {
-            3328,
+            299,
             0,
             0,
             0});

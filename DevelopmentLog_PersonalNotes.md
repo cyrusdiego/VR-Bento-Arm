@@ -1468,3 +1468,9 @@ brachIOplexus can:
         - need to make sure when vr is connected, camera cannot be moved!!! 
     - WIll need to either make seperate scene OR delete the steamvr objects 
     
+**August 8**
+*TODO*
+- Implement joint limits
+- comment motor.cs
+- try to use motorCount to make it more extendable
+- go thru all files and clean up style (declraration and definition seperate)

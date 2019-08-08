@@ -24,6 +24,7 @@ public class Motor : RotationBase
         go = gameObject;
 
         configureCJ();
+        configureJointLimits();
         configureRB();
     }
 
@@ -71,7 +72,7 @@ public class Motor : RotationBase
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
 
-        cj.angularXMotion = ConfigurableJointMotion.Free;
+        cj.angularXMotion = ConfigurableJointMotion.Limited;
         cj.angularYMotion = ConfigurableJointMotion.Locked;
         cj.angularZMotion = ConfigurableJointMotion.Locked;
 
@@ -109,6 +110,35 @@ public class Motor : RotationBase
         rb.useGravity = false;
         rb.isKinematic = false;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+    }
+
+    private void configureJointLimits()
+    {
+        byte lowPMin;
+        byte lowPMax;
+        byte hiPMin;
+        byte hiPMax;
+        ushort PMin;
+        ushort PMax;
+        SoftJointLimit min;
+        SoftJointLimit max;
+
+        lowPMin = global.jointLimits[(4 * arrayIndex) + 0];
+        hiPMin = global.jointLimits[(4 * arrayIndex) + 1];
+        lowPMax = global.jointLimits[(4 * arrayIndex) + 2];
+        hiPMax = global.jointLimits[(4 * arrayIndex) + 3];
+
+        PMin = (ushort)((lowPMin) | (hiPMin << 8));
+        PMax = (ushort)((lowPMax) | (hiPMax << 8));
+
+        min = new SoftJointLimit();
+        max = new SoftJointLimit();
+
+        min.limit = PMin;
+        max.limit = PMax;
+
+        cj.lowAngularXLimit = min;
+        cj.highAngularXLimit = max;
     }
 }
 
