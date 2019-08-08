@@ -9154,7 +9154,7 @@ namespace brachIOplexus
         private void unityLaunchTask_Click(object sender, EventArgs e)
         {
             // Checks first if a task was actually selected 
-            if(sceneIndex == 255)
+            if (sceneIndex == 255)
             {
                 return;
             }
@@ -9167,14 +9167,33 @@ namespace brachIOplexus
 
             // Is there a VR headset connected? 
             byte VREnabled;
+       
+            // Packet to hold and send initialization data
+            byte[] packet;
+
+            // array's holding position (min / max) and velocity (min / max)
+            List<ushort> position;
+            List<ushort> velocity;
+
+            // Starting indices for position and velocity values in packet
+            int idxP;
+            int idxV;
+
+            // Indices start at 8 and 8 + (BENTO_NUM * 2) respectively 
+            idxP = 8;
+            idxV = idxP + (BENTO_NUM * 2);
 
             // Either 1 or 0 if the checkboxes were selected 
             armShell = Convert.ToByte(this.unityArmShellToggle.Checked);
             armControl = Convert.ToByte(this.unityArmControlToggle.Checked);
             VREnabled = Convert.ToByte(this.unityHeadsetModeToggle.Checked);
 
+            // Get position and velocity limits for the arm from GUI
+            position = positionMinMax();
+            velocity = velocityMinMax();
+
             // Builds the Initialization packet to be sent to Unity 
-            byte[] packet = new byte[9];
+            packet = new byte[49];
             packet[0] = 255;                            // Header
             packet[1] = 255;                            // Header
             packet[2] = 0;                              // Type: 0
@@ -9183,7 +9202,24 @@ namespace brachIOplexus
             packet[5] = armShell;                       // Arm Shell toggle
             packet[6] = armControl;                     // brachIOplexus input toggle
             packet[7] = VREnabled;                      // VR enable toggle 
-            packet[8] = calcCheckSum(packet);           // Checksum 
+
+            // Fill remainder of packet with low and high bytes of the position and velocity limits for the joints
+            // Not hardcoded to allow easier expandability with more motors in VR 
+            for(int i = 0; i < BENTO_NUM * 2; i++)
+            {
+                packet[idxP + 0] = low_byte(position[i]);       
+                packet[idxP + 1] = high_byte(position[i]);      
+                packet[idxV + 0] = low_byte(velocity[i]);
+                packet[idxV + 1] = high_byte(velocity[i]);
+
+                idxP += 2;
+                idxV += 2;
+
+            }
+
+            Console.WriteLine(packet[12]);
+
+            packet[48] = calcCheckSum(packet);           // Checksum 
 
             // Sends the packet to Unity via UDP 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
@@ -9202,6 +9238,42 @@ namespace brachIOplexus
             unityCameraPosition.Enabled = true;
             unityFeedbackBox.Enabled = true;
             unityRobotParamsBox.Enabled = true;
+        }
+
+        private List<ushort> positionMinMax()
+        {
+            List<ushort> position;
+
+            position = new List<ushort>();
+
+            foreach(Control box in this.unityRobotParamsBox.Controls)
+            {
+                if(box is NumericUpDown && box.Name.Contains("P"))
+                {
+                    var upDown = (NumericUpDown)box;
+                    position.Add((ushort)(upDown.Value));
+                }
+            }
+
+            return position;
+        }
+
+        private List<ushort> velocityMinMax()
+        {
+            List<ushort> velocity;
+
+            velocity = new List<ushort>();
+
+            foreach (Control box in this.unityRobotParamsBox.Controls)
+            {
+                if (box is NumericUpDown && box.Name.Contains("V"))
+                {
+                    var upDown = (NumericUpDown)box;
+                    velocity.Add((ushort)(upDown.Value));
+                }
+            }
+
+            return velocity;
         }
 
         /*
@@ -9768,6 +9840,5 @@ namespace brachIOplexus
             return velocity;
         }
         #endregion
-
     }
 }

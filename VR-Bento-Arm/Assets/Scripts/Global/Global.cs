@@ -18,10 +18,14 @@ public class Global : ScriptableObject
     public float[] SteamVRControl = new float[6];
     public byte[] cameraArray = new byte[4];
 
+    // Number of motors in virtual bento arm (Feedback.cs)
+    public int motorCount;
     // Array holds direction and velocity respectively for each motor (Motor.cs)
-    public Tuple<float,float>[] brachIOplexusControl = new Tuple<float, float>[6]; 
+    public Tuple<float,float>[] brachIOplexusControl; 
     // Array holds information to load a specific scene / task (SceneLoader.cs)
     public int[] loaderPacket = new int[4];
+    // Array holds the joint limits for the bento arm
+    public byte[] jointLimits;
     // Flag that ensures the acknowledgement packet from Unity has been sent to brachIOplexus (Parser.cs)
     public bool sent;
     // Acknowledgement packet to be sent from Unity to BrachIOplexus (Parser.cs)
@@ -42,10 +46,16 @@ public class Global : ScriptableObject
     public float[] position;
     // Feedback array to send back velocity of arm (Feedback.cs)
     public float[] velocity; 
-    // Number of motors in virtual bento arm (Feedback.cs)
-    public int motorCount = 5;
     // Toggle if task has been loaded (Parser.cs)
     public bool task;
     // Toggle to start / stop timer in brachIOplexus
     public bool timer;
+
+    public Global()
+    {
+        // This value needs to be changed if more motors were to be added 
+        motorCount = 5;
+        brachIOplexusControl = new Tuple<float, float>[motorCount];
+        jointLimits = new byte[motorCount * 8];
+    }
 }

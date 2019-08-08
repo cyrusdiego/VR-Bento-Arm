@@ -14,9 +14,13 @@ public class Motor : RotationBase
 
     private float direction;
     private float velocity;
+    private SoftJointLimit min;
+    private SoftJointLimit max;
 
     void Start()
     {
+        Tuple<ushort,ushort> limits; 
+
         axis = ((Axis)Enum.Parse(typeof(Axis),rotationAxis));
 
         cj = gameObject.GetComponent<ConfigurableJoint>();
@@ -25,6 +29,17 @@ public class Motor : RotationBase
 
         configureCJ();
         configureRB();
+        limits = configureJointLimits();
+
+        min.limit = limits.Item1;
+        max.limit = limits.Item2;
+
+        cj.lowAngularXLimit = min;
+        cj.highAngularXLimit = max;
+
+        SoftJointLimit minP = new SoftJointLimit();
+        minP.limit = 10;
+        cj.lowAngularXLimit = minP;
     }
 
     void FixedUpdate()
@@ -71,7 +86,7 @@ public class Motor : RotationBase
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
 
-        cj.angularXMotion = ConfigurableJointMotion.Free;
+        cj.angularXMotion = ConfigurableJointMotion.Limited;
         cj.angularYMotion = ConfigurableJointMotion.Locked;
         cj.angularZMotion = ConfigurableJointMotion.Locked;
 
@@ -109,6 +124,29 @@ public class Motor : RotationBase
         rb.useGravity = false;
         rb.isKinematic = false;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+    }
+
+    private Tuple<ushort,ushort> configureJointLimits()
+    {
+        byte lowPMin;
+        byte lowPMax;
+        byte hiPMin;
+        byte hiPMax;
+        ushort PMin;
+        ushort PMax;
+        Tuple<ushort,ushort> limits;
+
+        lowPMin = global.jointLimits[(4 * arrayIndex) + 0];
+        hiPMin = global.jointLimits[(4 * arrayIndex) + 1];
+        lowPMax = global.jointLimits[(4 * arrayIndex) + 2];
+        hiPMax = global.jointLimits[(4 * arrayIndex) + 3];
+
+        PMin = (ushort)((lowPMin) | (hiPMin << 8));
+        PMax = (ushort)((lowPMax) | (hiPMax << 8));
+
+        limits = new Tuple<ushort, ushort>(10, 190);
+
+        return limits;
     }
 }
 
