@@ -804,6 +804,8 @@
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
+            this.unityShoulderPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderPMax = new System.Windows.Forms.NumericUpDown();
             this.unityFeedbackBox = new System.Windows.Forms.GroupBox();
             this.unityHandVelocityFeedback = new System.Windows.Forms.Label();
             this.unityHandPositionFeedback = new System.Windows.Forms.Label();
@@ -835,8 +837,6 @@
             this.unityElbowParams = new System.Windows.Forms.Label();
             this.unityShoulderVMax = new System.Windows.Forms.NumericUpDown();
             this.unityShoulderVMin = new System.Windows.Forms.NumericUpDown();
-            this.unityShoulderPMin = new System.Windows.Forms.NumericUpDown();
-            this.unityShoulderPMax = new System.Windows.Forms.NumericUpDown();
             this.unityShoulderParams = new System.Windows.Forms.Label();
             this.unityWristExtParams = new System.Windows.Forms.Label();
             this.unityWristExtVMax = new System.Windows.Forms.NumericUpDown();
@@ -1011,6 +1011,8 @@
             this.biopatrecGroupBox.SuspendLayout();
             this.SLRTgroupBox.SuspendLayout();
             this.tabUnity.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).BeginInit();
             this.unityFeedbackBox.SuspendLayout();
             this.unityRobotParamsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unityHandVMax)).BeginInit();
@@ -1027,8 +1029,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).BeginInit();
@@ -11116,6 +11116,42 @@
             this.tabUnity.Text = "Unity";
             this.tabUnity.UseVisualStyleBackColor = true;
             // 
+            // unityShoulderPMin
+            // 
+            this.unityShoulderPMin.Location = new System.Drawing.Point(148, 29);
+            this.unityShoulderPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderPMin.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityShoulderPMin.Name = "unityShoulderPMin";
+            this.unityShoulderPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderPMin.TabIndex = 131;
+            this.unityShoulderPMin.Value = new decimal(new int[] {
+            1664,
+            0,
+            0,
+            0});
+            // 
+            // unityShoulderPMax
+            // 
+            this.unityShoulderPMax.Location = new System.Drawing.Point(203, 28);
+            this.unityShoulderPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderPMax.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.unityShoulderPMax.Name = "unityShoulderPMax";
+            this.unityShoulderPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderPMax.TabIndex = 132;
+            this.unityShoulderPMax.Value = new decimal(new int[] {
+            2432,
+            0,
+            0,
+            0});
+            // 
             // unityFeedbackBox
             // 
             this.unityFeedbackBox.Controls.Add(this.unityHandVelocityFeedback);
@@ -11272,33 +11308,33 @@
             // 
             // unityRobotParamsBox
             // 
-            this.unityRobotParamsBox.Controls.Add(this.unityHandVMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityHandVMin);
-            this.unityRobotParamsBox.Controls.Add(this.unityHandPMin);
-            this.unityRobotParamsBox.Controls.Add(this.unityHandPMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityHandParams);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristRotVMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristRotVMin);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristRotParams);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristRotPMin);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristRotPMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityElbowVMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityElbowVMin);
-            this.unityRobotParamsBox.Controls.Add(this.unityElbowPMin);
-            this.unityRobotParamsBox.Controls.Add(this.unityElbowPMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityElbowParams);
-            this.unityRobotParamsBox.Controls.Add(this.unityShoulderVMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityShoulderVMin);
             this.unityRobotParamsBox.Controls.Add(this.unityShoulderPMin);
             this.unityRobotParamsBox.Controls.Add(this.unityShoulderPMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityShoulderParams);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristExtParams);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristExtVMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityWristExtVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotPMax);
             this.unityRobotParamsBox.Controls.Add(this.unityWristExtPMin);
             this.unityRobotParamsBox.Controls.Add(this.unityWristExtPMax);
-            this.unityRobotParamsBox.Controls.Add(this.unityPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtVMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandVMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandVMax);
             this.unityRobotParamsBox.Controls.Add(this.unityPMax);
+            this.unityRobotParamsBox.Controls.Add(this.unityPMin);
+            this.unityRobotParamsBox.Controls.Add(this.unityHandParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristRotParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityElbowParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityShoulderParams);
+            this.unityRobotParamsBox.Controls.Add(this.unityWristExtParams);
             this.unityRobotParamsBox.Controls.Add(this.unityVMin);
             this.unityRobotParamsBox.Controls.Add(this.unityVMax);
             this.unityRobotParamsBox.Enabled = false;
@@ -11633,42 +11669,6 @@
             0,
             0});
             // 
-            // unityShoulderPMin
-            // 
-            this.unityShoulderPMin.Location = new System.Drawing.Point(148, 30);
-            this.unityShoulderPMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityShoulderPMin.Maximum = new decimal(new int[] {
-            4095,
-            0,
-            0,
-            0});
-            this.unityShoulderPMin.Name = "unityShoulderPMin";
-            this.unityShoulderPMin.Size = new System.Drawing.Size(48, 20);
-            this.unityShoulderPMin.TabIndex = 131;
-            this.unityShoulderPMin.Value = new decimal(new int[] {
-            1664,
-            0,
-            0,
-            0});
-            // 
-            // unityShoulderPMax
-            // 
-            this.unityShoulderPMax.Location = new System.Drawing.Point(203, 30);
-            this.unityShoulderPMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityShoulderPMax.Maximum = new decimal(new int[] {
-            4095,
-            0,
-            0,
-            0});
-            this.unityShoulderPMax.Name = "unityShoulderPMax";
-            this.unityShoulderPMax.Size = new System.Drawing.Size(48, 20);
-            this.unityShoulderPMax.TabIndex = 132;
-            this.unityShoulderPMax.Value = new decimal(new int[] {
-            2432,
-            0,
-            0,
-            0});
-            // 
             // unityShoulderParams
             // 
             this.unityShoulderParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -11784,7 +11784,7 @@
             // unityPMax
             // 
             this.unityPMax.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.unityPMax.Location = new System.Drawing.Point(200, 12);
+            this.unityPMax.Location = new System.Drawing.Point(200, 11);
             this.unityPMax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.unityPMax.Name = "unityPMax";
             this.unityPMax.Size = new System.Drawing.Size(51, 15);
@@ -12333,6 +12333,8 @@
             this.biopatrecGroupBox.PerformLayout();
             this.SLRTgroupBox.ResumeLayout(false);
             this.tabUnity.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).EndInit();
             this.unityFeedbackBox.ResumeLayout(false);
             this.unityFeedbackBox.PerformLayout();
             this.unityRobotParamsBox.ResumeLayout(false);
@@ -12350,8 +12352,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).EndInit();
