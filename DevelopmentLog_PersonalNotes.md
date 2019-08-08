@@ -1474,6 +1474,7 @@ brachIOplexus can:
 - comment motor.cs
 - try to use motorCount to make it more extendable
 - go thru all files and clean up style (declraration and definition seperate)
-
+- Need to go thru shutdown properly...
+    - if connected and try to hit "x" it does error 
 *Documentation*
 - need to do the VR disabled so i can know how to do the documentation!!!

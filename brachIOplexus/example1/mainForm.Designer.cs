@@ -11907,10 +11907,12 @@
             // unityTaskList
             // 
             System.Windows.Forms.ListViewItem task0 = new System.Windows.Forms.ListViewItem("Game Task", 0);
+            System.Windows.Forms.ListViewItem task1 = new System.Windows.Forms.ListViewItem("Test", 0); 
             // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0); 
             this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            task0});
+            task0,
+            task1});
             this.unityTaskList.Location = new System.Drawing.Point(6, 19);
             this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Name = "unityTaskList";
