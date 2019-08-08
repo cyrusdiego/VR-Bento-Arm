@@ -14,9 +14,13 @@ public class Motor : RotationBase
 
     private float direction;
     private float velocity;
+    private SoftJointLimit min;
+    private SoftJointLimit max;
 
     void Start()
     {
+        Tuple<ushort,ushort> limits; 
+
         axis = ((Axis)Enum.Parse(typeof(Axis),rotationAxis));
 
         cj = gameObject.GetComponent<ConfigurableJoint>();
@@ -24,8 +28,18 @@ public class Motor : RotationBase
         go = gameObject;
 
         configureCJ();
-        configureJointLimits();
         configureRB();
+        limits = configureJointLimits();
+
+        min.limit = limits.Item1;
+        max.limit = limits.Item2;
+
+        cj.lowAngularXLimit = min;
+        cj.highAngularXLimit = max;
+
+        SoftJointLimit minP = new SoftJointLimit();
+        minP.limit = 10;
+        cj.lowAngularXLimit = minP;
     }
 
     void FixedUpdate()
@@ -112,7 +126,7 @@ public class Motor : RotationBase
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
-    private void configureJointLimits()
+    private Tuple<ushort,ushort> configureJointLimits()
     {
         byte lowPMin;
         byte lowPMax;
@@ -120,8 +134,7 @@ public class Motor : RotationBase
         byte hiPMax;
         ushort PMin;
         ushort PMax;
-        SoftJointLimit min;
-        SoftJointLimit max;
+        Tuple<ushort,ushort> limits;
 
         lowPMin = global.jointLimits[(4 * arrayIndex) + 0];
         hiPMin = global.jointLimits[(4 * arrayIndex) + 1];
@@ -131,14 +144,9 @@ public class Motor : RotationBase
         PMin = (ushort)((lowPMin) | (hiPMin << 8));
         PMax = (ushort)((lowPMax) | (hiPMax << 8));
 
-        min = new SoftJointLimit();
-        max = new SoftJointLimit();
+        limits = new Tuple<ushort, ushort>(10, 190);
 
-        min.limit = PMin;
-        max.limit = PMax;
-
-        cj.lowAngularXLimit = min;
-        cj.highAngularXLimit = max;
+        return limits;
     }
 }
 

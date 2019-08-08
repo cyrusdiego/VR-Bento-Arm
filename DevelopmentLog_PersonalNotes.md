@@ -1474,3 +1474,6 @@ brachIOplexus can:
 - comment motor.cs
 - try to use motorCount to make it more extendable
 - go thru all files and clean up style (declraration and definition seperate)
+
+*Documentation*
+- need to do the VR disabled so i can know how to do the documentation!!!

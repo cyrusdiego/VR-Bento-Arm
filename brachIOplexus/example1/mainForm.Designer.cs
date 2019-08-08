@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Game Task", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Next Task", 0);
             this.tg = new MathWorks.xPCTarget.FrameWork.xPCTargetPC(this.components);
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -804,8 +802,6 @@
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
             this.tabUnity = new System.Windows.Forms.TabPage();
-            this.unityShoulderPMin = new System.Windows.Forms.NumericUpDown();
-            this.unityShoulderPMax = new System.Windows.Forms.NumericUpDown();
             this.unityFeedbackBox = new System.Windows.Forms.GroupBox();
             this.unityHandVelocityFeedback = new System.Windows.Forms.Label();
             this.unityHandPositionFeedback = new System.Windows.Forms.Label();
@@ -820,31 +816,33 @@
             this.unityWristExtVelocityFeedback = new System.Windows.Forms.Label();
             this.unityWristExtPositionFeedback = new System.Windows.Forms.Label();
             this.unityRobotParamsBox = new System.Windows.Forms.GroupBox();
-            this.unityHandVMax = new System.Windows.Forms.NumericUpDown();
-            this.unityHandVMin = new System.Windows.Forms.NumericUpDown();
-            this.unityHandPMin = new System.Windows.Forms.NumericUpDown();
-            this.unityHandPMax = new System.Windows.Forms.NumericUpDown();
-            this.unityHandParams = new System.Windows.Forms.Label();
-            this.unityWristRotVMax = new System.Windows.Forms.NumericUpDown();
-            this.unityWristRotVMin = new System.Windows.Forms.NumericUpDown();
-            this.unityWristRotParams = new System.Windows.Forms.Label();
-            this.unityWristRotPMin = new System.Windows.Forms.NumericUpDown();
-            this.unityWristRotPMax = new System.Windows.Forms.NumericUpDown();
-            this.unityElbowVMax = new System.Windows.Forms.NumericUpDown();
-            this.unityElbowVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderPMax = new System.Windows.Forms.NumericUpDown();
             this.unityElbowPMin = new System.Windows.Forms.NumericUpDown();
             this.unityElbowPMax = new System.Windows.Forms.NumericUpDown();
-            this.unityElbowParams = new System.Windows.Forms.Label();
-            this.unityShoulderVMax = new System.Windows.Forms.NumericUpDown();
-            this.unityShoulderVMin = new System.Windows.Forms.NumericUpDown();
-            this.unityShoulderParams = new System.Windows.Forms.Label();
-            this.unityWristExtParams = new System.Windows.Forms.Label();
-            this.unityWristExtVMax = new System.Windows.Forms.NumericUpDown();
-            this.unityWristExtVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristRotPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristRotPMax = new System.Windows.Forms.NumericUpDown();
             this.unityWristExtPMin = new System.Windows.Forms.NumericUpDown();
             this.unityWristExtPMax = new System.Windows.Forms.NumericUpDown();
-            this.unityPMin = new System.Windows.Forms.Label();
+            this.unityHandPMin = new System.Windows.Forms.NumericUpDown();
+            this.unityHandPMax = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityShoulderVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityElbowVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityElbowVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityWristRotVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristRotVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityWristExtVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityWristExtVMax = new System.Windows.Forms.NumericUpDown();
+            this.unityHandVMin = new System.Windows.Forms.NumericUpDown();
+            this.unityHandVMax = new System.Windows.Forms.NumericUpDown();
             this.unityPMax = new System.Windows.Forms.Label();
+            this.unityPMin = new System.Windows.Forms.Label();
+            this.unityHandParams = new System.Windows.Forms.Label();
+            this.unityWristRotParams = new System.Windows.Forms.Label();
+            this.unityElbowParams = new System.Windows.Forms.Label();
+            this.unityShoulderParams = new System.Windows.Forms.Label();
+            this.unityWristExtParams = new System.Windows.Forms.Label();
             this.unityVMin = new System.Windows.Forms.Label();
             this.unityVMax = new System.Windows.Forms.Label();
             this.unityMainControls = new System.Windows.Forms.GroupBox();
@@ -1011,28 +1009,28 @@
             this.biopatrecGroupBox.SuspendLayout();
             this.SLRTgroupBox.SuspendLayout();
             this.tabUnity.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).BeginInit();
             this.unityFeedbackBox.SuspendLayout();
             this.unityRobotParamsBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMax)).BeginInit();
             this.unityMainControls.SuspendLayout();
             this.unityTaskConfiguration.SuspendLayout();
             this.unityTimerInformation.SuspendLayout();
@@ -11116,42 +11114,6 @@
             this.tabUnity.Text = "Unity";
             this.tabUnity.UseVisualStyleBackColor = true;
             // 
-            // unityShoulderPMin
-            // 
-            this.unityShoulderPMin.Location = new System.Drawing.Point(148, 29);
-            this.unityShoulderPMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityShoulderPMin.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.unityShoulderPMin.Name = "unityShoulderPMin";
-            this.unityShoulderPMin.Size = new System.Drawing.Size(48, 20);
-            this.unityShoulderPMin.TabIndex = 131;
-            this.unityShoulderPMin.Value = new decimal(new int[] {
-            146,
-            0,
-            0,
-            0});
-            // 
-            // unityShoulderPMax
-            // 
-            this.unityShoulderPMax.Location = new System.Drawing.Point(203, 28);
-            this.unityShoulderPMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityShoulderPMax.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.unityShoulderPMax.Name = "unityShoulderPMax";
-            this.unityShoulderPMax.Size = new System.Drawing.Size(48, 20);
-            this.unityShoulderPMax.TabIndex = 132;
-            this.unityShoulderPMax.Value = new decimal(new int[] {
-            214,
-            0,
-            0,
-            0});
-            // 
             // unityFeedbackBox
             // 
             this.unityFeedbackBox.Controls.Add(this.unityHandVelocityFeedback);
@@ -11347,232 +11309,38 @@
             this.unityRobotParamsBox.TabStop = false;
             this.unityRobotParamsBox.Text = "Joint Limits (Position, Velocity)";
             // 
-            // unityHandVMax
+            // unityShoulderPMin
             // 
-            this.unityHandVMax.Location = new System.Drawing.Point(314, 124);
-            this.unityHandVMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityHandVMax.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.unityHandVMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityHandVMax.Name = "unityHandVMax";
-            this.unityHandVMax.Size = new System.Drawing.Size(48, 20);
-            this.unityHandVMax.TabIndex = 149;
-            this.unityHandVMax.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            // 
-            // unityHandVMin
-            // 
-            this.unityHandVMin.Location = new System.Drawing.Point(258, 124);
-            this.unityHandVMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityHandVMin.Maximum = new decimal(new int[] {
-            1023,
-            0,
-            0,
-            0});
-            this.unityHandVMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityHandVMin.Name = "unityHandVMin";
-            this.unityHandVMin.Size = new System.Drawing.Size(48, 20);
-            this.unityHandVMin.TabIndex = 148;
-            this.unityHandVMin.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // unityHandPMin
-            // 
-            this.unityHandPMin.Location = new System.Drawing.Point(148, 124);
-            this.unityHandPMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityHandPMin.Maximum = new decimal(new int[] {
+            this.unityShoulderPMin.Location = new System.Drawing.Point(148, 29);
+            this.unityShoulderPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderPMin.Maximum = new decimal(new int[] {
             360,
             0,
             0,
             0});
-            this.unityHandPMin.Name = "unityHandPMin";
-            this.unityHandPMin.Size = new System.Drawing.Size(48, 20);
-            this.unityHandPMin.TabIndex = 146;
-            this.unityHandPMin.Value = new decimal(new int[] {
-            193,
+            this.unityShoulderPMin.Name = "unityShoulderPMin";
+            this.unityShoulderPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderPMin.TabIndex = 131;
+            this.unityShoulderPMin.Value = new decimal(new int[] {
+            146,
             0,
             0,
             0});
             // 
-            // unityHandPMax
+            // unityShoulderPMax
             // 
-            this.unityHandPMax.Location = new System.Drawing.Point(203, 124);
-            this.unityHandPMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityHandPMax.Maximum = new decimal(new int[] {
+            this.unityShoulderPMax.Location = new System.Drawing.Point(203, 28);
+            this.unityShoulderPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderPMax.Maximum = new decimal(new int[] {
             360,
             0,
             0,
             0});
-            this.unityHandPMax.Name = "unityHandPMax";
-            this.unityHandPMax.Size = new System.Drawing.Size(48, 20);
-            this.unityHandPMax.TabIndex = 147;
-            this.unityHandPMax.Value = new decimal(new int[] {
-            263,
-            0,
-            0,
-            0});
-            // 
-            // unityHandParams
-            // 
-            this.unityHandParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.unityHandParams.Location = new System.Drawing.Point(4, 126);
-            this.unityHandParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.unityHandParams.Name = "unityHandParams";
-            this.unityHandParams.Size = new System.Drawing.Size(100, 15);
-            this.unityHandParams.TabIndex = 145;
-            this.unityHandParams.Text = "Hand Open/Close:";
-            // 
-            // unityWristRotVMax
-            // 
-            this.unityWristRotVMax.Location = new System.Drawing.Point(314, 77);
-            this.unityWristRotVMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityWristRotVMax.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.unityWristRotVMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityWristRotVMax.Name = "unityWristRotVMax";
-            this.unityWristRotVMax.Size = new System.Drawing.Size(48, 20);
-            this.unityWristRotVMax.TabIndex = 144;
-            this.unityWristRotVMax.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            // 
-            // unityWristRotVMin
-            // 
-            this.unityWristRotVMin.Location = new System.Drawing.Point(258, 77);
-            this.unityWristRotVMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityWristRotVMin.Maximum = new decimal(new int[] {
-            1023,
-            0,
-            0,
-            0});
-            this.unityWristRotVMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityWristRotVMin.Name = "unityWristRotVMin";
-            this.unityWristRotVMin.Size = new System.Drawing.Size(48, 20);
-            this.unityWristRotVMin.TabIndex = 143;
-            this.unityWristRotVMin.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // unityWristRotParams
-            // 
-            this.unityWristRotParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.unityWristRotParams.Location = new System.Drawing.Point(4, 79);
-            this.unityWristRotParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.unityWristRotParams.Name = "unityWristRotParams";
-            this.unityWristRotParams.Size = new System.Drawing.Size(130, 15);
-            this.unityWristRotParams.TabIndex = 142;
-            this.unityWristRotParams.Text = "Wrist Rotation CCW/CW:";
-            // 
-            // unityWristRotPMin
-            // 
-            this.unityWristRotPMin.Location = new System.Drawing.Point(148, 77);
-            this.unityWristRotPMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityWristRotPMin.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.unityWristRotPMin.Name = "unityWristRotPMin";
-            this.unityWristRotPMin.Size = new System.Drawing.Size(48, 20);
-            this.unityWristRotPMin.TabIndex = 140;
-            this.unityWristRotPMin.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            // 
-            // unityWristRotPMax
-            // 
-            this.unityWristRotPMax.Location = new System.Drawing.Point(203, 77);
-            this.unityWristRotPMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityWristRotPMax.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.unityWristRotPMax.Name = "unityWristRotPMax";
-            this.unityWristRotPMax.Size = new System.Drawing.Size(48, 20);
-            this.unityWristRotPMax.TabIndex = 141;
-            this.unityWristRotPMax.Value = new decimal(new int[] {
-            270,
-            0,
-            0,
-            0});
-            // 
-            // unityElbowVMax
-            // 
-            this.unityElbowVMax.Location = new System.Drawing.Point(314, 52);
-            this.unityElbowVMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityElbowVMax.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.unityElbowVMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityElbowVMax.Name = "unityElbowVMax";
-            this.unityElbowVMax.Size = new System.Drawing.Size(48, 20);
-            this.unityElbowVMax.TabIndex = 139;
-            this.unityElbowVMax.Value = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            // 
-            // unityElbowVMin
-            // 
-            this.unityElbowVMin.Location = new System.Drawing.Point(258, 53);
-            this.unityElbowVMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityElbowVMin.Maximum = new decimal(new int[] {
-            1023,
-            0,
-            0,
-            0});
-            this.unityElbowVMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityElbowVMin.Name = "unityElbowVMin";
-            this.unityElbowVMin.Size = new System.Drawing.Size(48, 20);
-            this.unityElbowVMin.TabIndex = 138;
-            this.unityElbowVMin.Value = new decimal(new int[] {
-            1,
+            this.unityShoulderPMax.Name = "unityShoulderPMax";
+            this.unityShoulderPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderPMax.TabIndex = 132;
+            this.unityShoulderPMax.Value = new decimal(new int[] {
+            214,
             0,
             0,
             0});
@@ -11613,124 +11381,38 @@
             0,
             0});
             // 
-            // unityElbowParams
+            // unityWristRotPMin
             // 
-            this.unityElbowParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.unityElbowParams.Location = new System.Drawing.Point(4, 55);
-            this.unityElbowParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.unityElbowParams.Name = "unityElbowParams";
-            this.unityElbowParams.Size = new System.Drawing.Size(128, 15);
-            this.unityElbowParams.TabIndex = 135;
-            this.unityElbowParams.Text = "Elbow Extension/Flexion:";
-            // 
-            // unityShoulderVMax
-            // 
-            this.unityShoulderVMax.Location = new System.Drawing.Point(314, 30);
-            this.unityShoulderVMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityShoulderVMax.Maximum = new decimal(new int[] {
-            255,
+            this.unityWristRotPMin.Location = new System.Drawing.Point(148, 77);
+            this.unityWristRotPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotPMin.Maximum = new decimal(new int[] {
+            360,
             0,
             0,
             0});
-            this.unityShoulderVMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityShoulderVMax.Name = "unityShoulderVMax";
-            this.unityShoulderVMax.Size = new System.Drawing.Size(48, 20);
-            this.unityShoulderVMax.TabIndex = 134;
-            this.unityShoulderVMax.Value = new decimal(new int[] {
-            67,
+            this.unityWristRotPMin.Name = "unityWristRotPMin";
+            this.unityWristRotPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotPMin.TabIndex = 140;
+            this.unityWristRotPMin.Value = new decimal(new int[] {
+            90,
             0,
             0,
             0});
             // 
-            // unityShoulderVMin
+            // unityWristRotPMax
             // 
-            this.unityShoulderVMin.Location = new System.Drawing.Point(258, 30);
-            this.unityShoulderVMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityShoulderVMin.Maximum = new decimal(new int[] {
-            1023,
+            this.unityWristRotPMax.Location = new System.Drawing.Point(203, 77);
+            this.unityWristRotPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotPMax.Maximum = new decimal(new int[] {
+            360,
             0,
             0,
             0});
-            this.unityShoulderVMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityShoulderVMin.Name = "unityShoulderVMin";
-            this.unityShoulderVMin.Size = new System.Drawing.Size(48, 20);
-            this.unityShoulderVMin.TabIndex = 133;
-            this.unityShoulderVMin.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // unityShoulderParams
-            // 
-            this.unityShoulderParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.unityShoulderParams.Location = new System.Drawing.Point(4, 32);
-            this.unityShoulderParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.unityShoulderParams.Name = "unityShoulderParams";
-            this.unityShoulderParams.Size = new System.Drawing.Size(149, 15);
-            this.unityShoulderParams.TabIndex = 130;
-            this.unityShoulderParams.Text = "Shoulder Rotation CCW/CW:";
-            // 
-            // unityWristExtParams
-            // 
-            this.unityWristExtParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.unityWristExtParams.Location = new System.Drawing.Point(4, 103);
-            this.unityWristExtParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.unityWristExtParams.Name = "unityWristExtParams";
-            this.unityWristExtParams.Size = new System.Drawing.Size(130, 15);
-            this.unityWristExtParams.TabIndex = 129;
-            this.unityWristExtParams.Text = "Wrist Extension/Flexion";
-            // 
-            // unityWristExtVMax
-            // 
-            this.unityWristExtVMax.Location = new System.Drawing.Point(314, 102);
-            this.unityWristExtVMax.Margin = new System.Windows.Forms.Padding(2);
-            this.unityWristExtVMax.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.unityWristExtVMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityWristExtVMax.Name = "unityWristExtVMax";
-            this.unityWristExtVMax.Size = new System.Drawing.Size(48, 20);
-            this.unityWristExtVMax.TabIndex = 128;
-            this.unityWristExtVMax.Value = new decimal(new int[] {
-            67,
-            0,
-            0,
-            0});
-            // 
-            // unityWristExtVMin
-            // 
-            this.unityWristExtVMin.Location = new System.Drawing.Point(258, 102);
-            this.unityWristExtVMin.Margin = new System.Windows.Forms.Padding(2);
-            this.unityWristExtVMin.Maximum = new decimal(new int[] {
-            1023,
-            0,
-            0,
-            0});
-            this.unityWristExtVMin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.unityWristExtVMin.Name = "unityWristExtVMin";
-            this.unityWristExtVMin.Size = new System.Drawing.Size(48, 20);
-            this.unityWristExtVMin.TabIndex = 127;
-            this.unityWristExtVMin.Value = new decimal(new int[] {
-            1,
+            this.unityWristRotPMax.Name = "unityWristRotPMax";
+            this.unityWristRotPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotPMax.TabIndex = 141;
+            this.unityWristRotPMax.Value = new decimal(new int[] {
+            270,
             0,
             0,
             0});
@@ -11771,15 +11453,271 @@
             0,
             0});
             // 
-            // unityPMin
+            // unityHandPMin
             // 
-            this.unityPMin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.unityPMin.Location = new System.Drawing.Point(145, 12);
-            this.unityPMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.unityPMin.Name = "unityPMin";
-            this.unityPMin.Size = new System.Drawing.Size(35, 15);
-            this.unityPMin.TabIndex = 123;
-            this.unityPMin.Text = "Pmin:";
+            this.unityHandPMin.Location = new System.Drawing.Point(148, 124);
+            this.unityHandPMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandPMin.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.unityHandPMin.Name = "unityHandPMin";
+            this.unityHandPMin.Size = new System.Drawing.Size(48, 20);
+            this.unityHandPMin.TabIndex = 146;
+            this.unityHandPMin.Value = new decimal(new int[] {
+            193,
+            0,
+            0,
+            0});
+            // 
+            // unityHandPMax
+            // 
+            this.unityHandPMax.Location = new System.Drawing.Point(203, 124);
+            this.unityHandPMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandPMax.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.unityHandPMax.Name = "unityHandPMax";
+            this.unityHandPMax.Size = new System.Drawing.Size(48, 20);
+            this.unityHandPMax.TabIndex = 147;
+            this.unityHandPMax.Value = new decimal(new int[] {
+            263,
+            0,
+            0,
+            0});
+            // 
+            // unityShoulderVMin
+            // 
+            this.unityShoulderVMin.Location = new System.Drawing.Point(258, 30);
+            this.unityShoulderVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityShoulderVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityShoulderVMin.Name = "unityShoulderVMin";
+            this.unityShoulderVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderVMin.TabIndex = 133;
+            this.unityShoulderVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityShoulderVMax
+            // 
+            this.unityShoulderVMax.Location = new System.Drawing.Point(314, 30);
+            this.unityShoulderVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityShoulderVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityShoulderVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityShoulderVMax.Name = "unityShoulderVMax";
+            this.unityShoulderVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityShoulderVMax.TabIndex = 134;
+            this.unityShoulderVMax.Value = new decimal(new int[] {
+            67,
+            0,
+            0,
+            0});
+            // 
+            // unityElbowVMin
+            // 
+            this.unityElbowVMin.Location = new System.Drawing.Point(258, 53);
+            this.unityElbowVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityElbowVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityElbowVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityElbowVMin.Name = "unityElbowVMin";
+            this.unityElbowVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityElbowVMin.TabIndex = 138;
+            this.unityElbowVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityElbowVMax
+            // 
+            this.unityElbowVMax.Location = new System.Drawing.Point(314, 52);
+            this.unityElbowVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityElbowVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityElbowVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityElbowVMax.Name = "unityElbowVMax";
+            this.unityElbowVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityElbowVMax.TabIndex = 139;
+            this.unityElbowVMax.Value = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            // 
+            // unityWristRotVMin
+            // 
+            this.unityWristRotVMin.Location = new System.Drawing.Point(258, 77);
+            this.unityWristRotVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityWristRotVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristRotVMin.Name = "unityWristRotVMin";
+            this.unityWristRotVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotVMin.TabIndex = 143;
+            this.unityWristRotVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityWristRotVMax
+            // 
+            this.unityWristRotVMax.Location = new System.Drawing.Point(314, 77);
+            this.unityWristRotVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristRotVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityWristRotVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristRotVMax.Name = "unityWristRotVMax";
+            this.unityWristRotVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityWristRotVMax.TabIndex = 144;
+            this.unityWristRotVMax.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
+            // unityWristExtVMin
+            // 
+            this.unityWristExtVMin.Location = new System.Drawing.Point(258, 102);
+            this.unityWristExtVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristExtVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityWristExtVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristExtVMin.Name = "unityWristExtVMin";
+            this.unityWristExtVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityWristExtVMin.TabIndex = 127;
+            this.unityWristExtVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityWristExtVMax
+            // 
+            this.unityWristExtVMax.Location = new System.Drawing.Point(314, 102);
+            this.unityWristExtVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityWristExtVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityWristExtVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityWristExtVMax.Name = "unityWristExtVMax";
+            this.unityWristExtVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityWristExtVMax.TabIndex = 128;
+            this.unityWristExtVMax.Value = new decimal(new int[] {
+            67,
+            0,
+            0,
+            0});
+            // 
+            // unityHandVMin
+            // 
+            this.unityHandVMin.Location = new System.Drawing.Point(258, 124);
+            this.unityHandVMin.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandVMin.Maximum = new decimal(new int[] {
+            1023,
+            0,
+            0,
+            0});
+            this.unityHandVMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityHandVMin.Name = "unityHandVMin";
+            this.unityHandVMin.Size = new System.Drawing.Size(48, 20);
+            this.unityHandVMin.TabIndex = 148;
+            this.unityHandVMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // unityHandVMax
+            // 
+            this.unityHandVMax.Location = new System.Drawing.Point(314, 124);
+            this.unityHandVMax.Margin = new System.Windows.Forms.Padding(2);
+            this.unityHandVMax.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.unityHandVMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.unityHandVMax.Name = "unityHandVMax";
+            this.unityHandVMax.Size = new System.Drawing.Size(48, 20);
+            this.unityHandVMax.TabIndex = 149;
+            this.unityHandVMax.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
             // 
             // unityPMax
             // 
@@ -11790,6 +11728,66 @@
             this.unityPMax.Size = new System.Drawing.Size(51, 15);
             this.unityPMax.TabIndex = 124;
             this.unityPMax.Text = "Pmax:";
+            // 
+            // unityPMin
+            // 
+            this.unityPMin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityPMin.Location = new System.Drawing.Point(145, 12);
+            this.unityPMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityPMin.Name = "unityPMin";
+            this.unityPMin.Size = new System.Drawing.Size(35, 15);
+            this.unityPMin.TabIndex = 123;
+            this.unityPMin.Text = "Pmin:";
+            // 
+            // unityHandParams
+            // 
+            this.unityHandParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityHandParams.Location = new System.Drawing.Point(4, 126);
+            this.unityHandParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityHandParams.Name = "unityHandParams";
+            this.unityHandParams.Size = new System.Drawing.Size(100, 15);
+            this.unityHandParams.TabIndex = 145;
+            this.unityHandParams.Text = "Hand Open/Close:";
+            // 
+            // unityWristRotParams
+            // 
+            this.unityWristRotParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristRotParams.Location = new System.Drawing.Point(4, 79);
+            this.unityWristRotParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristRotParams.Name = "unityWristRotParams";
+            this.unityWristRotParams.Size = new System.Drawing.Size(130, 15);
+            this.unityWristRotParams.TabIndex = 142;
+            this.unityWristRotParams.Text = "Wrist Rotation CCW/CW:";
+            // 
+            // unityElbowParams
+            // 
+            this.unityElbowParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityElbowParams.Location = new System.Drawing.Point(4, 55);
+            this.unityElbowParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityElbowParams.Name = "unityElbowParams";
+            this.unityElbowParams.Size = new System.Drawing.Size(128, 15);
+            this.unityElbowParams.TabIndex = 135;
+            this.unityElbowParams.Text = "Elbow Extension/Flexion:";
+            // 
+            // unityShoulderParams
+            // 
+            this.unityShoulderParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityShoulderParams.Location = new System.Drawing.Point(4, 32);
+            this.unityShoulderParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityShoulderParams.Name = "unityShoulderParams";
+            this.unityShoulderParams.Size = new System.Drawing.Size(149, 15);
+            this.unityShoulderParams.TabIndex = 130;
+            this.unityShoulderParams.Text = "Shoulder Rotation CCW/CW:";
+            // 
+            // unityWristExtParams
+            // 
+            this.unityWristExtParams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.unityWristExtParams.Location = new System.Drawing.Point(4, 103);
+            this.unityWristExtParams.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.unityWristExtParams.Name = "unityWristExtParams";
+            this.unityWristExtParams.Size = new System.Drawing.Size(130, 15);
+            this.unityWristExtParams.TabIndex = 129;
+            this.unityWristExtParams.Text = "Wrist Extension/Flexion";
             // 
             // unityVMin
             // 
@@ -11908,10 +11906,11 @@
             // 
             // unityTaskList
             // 
+            System.Windows.Forms.ListViewItem task0 = new System.Windows.Forms.ListViewItem("Game Task", 0);
+            // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0); 
             this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
+            task0});
             this.unityTaskList.Location = new System.Drawing.Point(6, 19);
             this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Name = "unityTaskList";
@@ -12333,29 +12332,29 @@
             this.biopatrecGroupBox.PerformLayout();
             this.SLRTgroupBox.ResumeLayout(false);
             this.tabUnity.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).EndInit();
             this.unityFeedbackBox.ResumeLayout(false);
             this.unityFeedbackBox.PerformLayout();
             this.unityRobotParamsBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderPMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityElbowPMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotPMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unityWristExtPMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandPMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityShoulderVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityElbowVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristRotVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityWristExtVMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unityHandVMax)).EndInit();
             this.unityMainControls.ResumeLayout(false);
             this.unityMainControls.PerformLayout();
             this.unityTaskConfiguration.ResumeLayout(false);
