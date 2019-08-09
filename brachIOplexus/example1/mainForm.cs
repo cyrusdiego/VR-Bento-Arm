@@ -39,6 +39,8 @@ using Clifton.Collections.Generic;      // For simple moving average
 using Clifton.Tools.Data;               // For simple moving average
 using System.Windows.Input;
 using System.Runtime.Serialization.Formatters.Binary;
+using ThreadState = System.Threading.ThreadState;
+
 namespace brachIOplexus
 {
     public partial class mainForm : Form
@@ -203,6 +205,8 @@ namespace brachIOplexus
         private bool t11Running = false;
         private static System.Timers.Timer unityFeedback = new System.Timers.Timer();
         private byte[] feedback;
+        // Declare a new thread for acknowledgement process 
+        Thread acknowdledge;
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -683,10 +687,11 @@ namespace brachIOplexus
                 // Close Unity communication and thread
                 if(UDPflag3)
                 {
-                    udpClientTX3.Close();
-                    udpClientRX3.Close();
-                    t11.Change(Timeout.Infinite, Timeout.Infinite);
-                    t12.Change(Timeout.Infinite, Timeout.Infinite);
+                    disconnectUnity();
+                    //udpClientTX3.Close();
+                    //udpClientRX3.Close();
+                    //t11.Change(Timeout.Infinite, Timeout.Infinite);
+                    //t12.Change(Timeout.Infinite, Timeout.Infinite);
                 }
             }
             catch (Exception ex)
@@ -5784,28 +5789,28 @@ namespace brachIOplexus
         {
             try
             {
-                //// Stop stopwatch and record how long everything in the main loop took to execute as well as how long it took to retrigger the main loop
-                //stopWatch1.Stop();
-                //milliSec1 = stopWatch1.ElapsedMilliseconds;
-                //delay.Text = Convert.ToString(milliSec1);
+                // Stop stopwatch and record how long everything in the main loop took to execute as well as how long it took to retrigger the main loop
+                stopWatch1.Stop();
+                milliSec1 = stopWatch1.ElapsedMilliseconds;
+                delay.Text = Convert.ToString(milliSec1);
 
-                //// Check to see if the previous delay is the new maximum delay
-                //if (milliSec1 > Convert.ToDecimal(delay_max.Text))
-                //{
-                //    delay_max.Text = Convert.ToString(milliSec1);
-                //}
-
-                //// Reset and start the stop watch
-                //stopWatch1.Reset();
-                //stopWatch1.Start();
-
-
-                if(positionQueue.Count > 0)
+                // Check to see if the previous delay is the new maximum delay
+                if (milliSec1 > Convert.ToDecimal(delay_max.Text))
                 {
-                    float[] position = positionQueue.Dequeue();
-                    unityShoulderPositionFeedback.Text = position[0].ToString();
-       
+                    delay_max.Text = Convert.ToString(milliSec1);
                 }
+
+                // Reset and start the stop watch
+                stopWatch1.Reset();
+                stopWatch1.Start();
+
+                // unity cts feedback
+                //if (positionQueue.Count > 0)
+                //{
+                //    float[] position = positionQueue.Dequeue();
+                //    unityShoulderPositionFeedback.Text = position[0].ToString();
+       
+                //}
 
                 #region "Initialize Input/Output Arrays"
                 // Initialize input mapping array
@@ -8802,9 +8807,6 @@ namespace brachIOplexus
          */
         private void unityConnect_Click(object sender, EventArgs e)
         {
-            // Declare a new thread for acknowledgement process 
-            Thread acknowdledge;
-
             acknowdledge = new Thread(waitForAcknowledge);
             if (!UDPflag3)
             {
@@ -8853,35 +8855,45 @@ namespace brachIOplexus
         {
             if (UDPflag3)
             {
-                // Disables all group boxes in the Unity tab in brachIOplexus 
-                enableUnityTab(false);
-
-                // Stops thread 11 (Send to Unity) 
-                if (t11Running)
-                {
-                    t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
-                }
-
-                // Stops threads 
-                t12.Change(Timeout.Infinite, Timeout.Infinite);
-                t13.Change(Timeout.Infinite, Timeout.Infinite);
-
-                // Closes udp clients
-                udpClientTX3.Close();
-                udpClientRX3.Close();
-
-                // UDP connection flag set to false 
-                UDPflag3 = false;
-
-                // Enables the connect button
-                unityConnect.Enabled = true;
-
-                // Disables disconnect button
-                unityDisconnect.Enabled = false;
-
-                // Resets the acknowledgement flag to allow for re - connection 
-                unityAcknowledge = false;
+                disconnectUnity();
             }
+        }
+
+        private void disconnectUnity()
+        {
+            // If the GUI is closed while the unity connection button is on, stop the acknowledgement thread 
+            if(acknowdledge.ThreadState.Equals(ThreadState.Running))
+            {
+                acknowdledge.Abort();
+            }
+            // Disables all group boxes in the Unity tab in brachIOplexus 
+            enableUnityTab(false);
+
+            // Stops thread 11 (Send to Unity) 
+            if (t11Running)
+            {
+                t11.Change(Timeout.Infinite, Timeout.Infinite);   // Stop the timer object
+            }
+
+            // Stops threads 
+            t12.Change(Timeout.Infinite, Timeout.Infinite);
+            //t13.Change(Timeout.Infinite, Timeout.Infinite);
+
+            // Closes udp clients
+            udpClientTX3.Close();
+            udpClientRX3.Close();
+
+            // UDP connection flag set to false 
+            UDPflag3 = false;
+
+            // Enables the connect button
+            unityConnect.Enabled = true;
+
+            // Disables disconnect button
+            unityDisconnect.Enabled = false;
+
+            // Resets the acknowledgement flag to allow for re - connection 
+            unityAcknowledge = false;
         }
 
         /*
@@ -9228,7 +9240,7 @@ namespace brachIOplexus
             t11 = new System.Threading.Timer(new TimerCallback(sendToUnity), null, 0, 15);
 
             // Starts background thread to process feedback from Unity 
-            t13 = new System.Threading.Timer(new TimerCallback(processFeedback), null, 0, 15);
+            //t13 = new System.Threading.Timer(new TimerCallback(processFeedback), null, 0, 15);
 
             // Flag indicating thread 11 is now running 
             t11Running = true;
@@ -9567,11 +9579,14 @@ namespace brachIOplexus
                 Thread.Sleep(2000);
             }
 
-            // Once the acknowledgement was recieved, enable the task selection group box 
-            this.unityMainControls.Invoke((MethodInvoker)delegate
+            if(unityAcknowledge && UDPflag3)
             {
-                this.unityMainControls.Enabled = true;
-            });
+                // Once the acknowledgement was recieved, enable the task selection group box 
+                this.unityMainControls.Invoke((MethodInvoker)delegate
+                {
+                    this.unityMainControls.Enabled = true;
+                });
+            }
         }
 
         /*
