@@ -5,18 +5,16 @@ public class StartPosition : MonoBehaviour
 
     public Global global = null;
     public GameObject shoulder = null;
-    public GameObject elbow = null;
     private bool shoulderReady;
-    private bool elbowReady;
     private float shoulderAngle;
-    private float elbowAngle;
+    private float shoulderLimit;
+
     void Awake()
     {
         global.startup = true;
         shoulderReady = false;
-        elbowReady = false;
 
-        getLimit();
+        shoulderLimit = getLimit(0) + 360;
 
         global.brachIOplexusControl[0] = new Tuple<float, float>(2,0.7f);
         global.brachIOplexusControl[1] = new Tuple<float, float>(1,0.7f);
@@ -25,43 +23,38 @@ public class StartPosition : MonoBehaviour
         global.brachIOplexusControl[4] = new Tuple<float, float>(0,0);
     }
 
-    private void getLimit()
+    private int getLimit(int arrayIndex)
     {
         byte lowPMin;
-        byte lowPMax;
         byte hiPMin;
-        byte hiPMax;
         ushort PMin;
-        ushort PMax;
+        int actualPMin;
 
         lowPMin = global.jointLimits[(4 * arrayIndex) + 0];
         hiPMin = global.jointLimits[(4 * arrayIndex) + 1];
-        lowPMax = global.jointLimits[(4 * arrayIndex) + 2];
-        hiPMax = global.jointLimits[(4 * arrayIndex) + 3];
 
         PMin = (ushort)((lowPMin) | (hiPMin << 8));
-        PMax = (ushort)((lowPMax) | (hiPMax << 8));
+
+        actualPMin = (180 - PMin) - 90;
+        return actualPMin;
     }
 
     void FixedUpdate()
     {
         shoulderAngle = shoulder.GetComponent<Transform>().rotation.eulerAngles.y;
-        elbowAngle = elbow.GetComponent<Transform>().rotation.eulerAngles.x;
-        if(shoulderAngle <= 325 && shoulderAngle >= 324) 
+        if(shoulderAngle <= shoulderLimit && shoulderAngle >= (shoulderLimit - 1)) 
         {
             global.brachIOplexusControl[0] = new Tuple<float, float>(0,0);
             shoulderReady = true;
         }
-        if(elbowAngle <= 30 && elbowAngle >= 29) 
-        {
-            global.brachIOplexusControl[1] = new Tuple<float, float>(0,0);
-            elbowReady = true;
-        }
 
-        if(elbowReady && shoulderReady) 
+        if(shoulderReady) 
         {
+            // global.timer = true;
             global.startup = false;
         }
+
+        print(global.timer);
     }
 
 }
