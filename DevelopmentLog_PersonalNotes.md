@@ -1485,4 +1485,4 @@ brachIOplexus can:
 *TODO* 
 - Clean up documentation (maybe add pictures) for adding a new task 
 - continue with commenting and code clean up in brachIOplexus and unity side 
-- work on game task: Have bento arm start in specific position
+- work on game task: Have bento arm start in specific position (got working example, need to clean up)

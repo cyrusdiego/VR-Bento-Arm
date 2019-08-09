@@ -29,17 +29,17 @@ public class Motor : RotationBase
 
         configureCJ();
         configureRB();
-        limits = configureJointLimits();
+        // limits = configureJointLimits();
 
-        min.limit = limits.Item1;
-        max.limit = limits.Item2;
+        // min.limit = limits.Item1;
+        // max.limit = limits.Item2;
 
-        cj.lowAngularXLimit = min;
-        cj.highAngularXLimit = max;
+        // cj.lowAngularXLimit = min;
+        // cj.highAngularXLimit = max;
 
-        SoftJointLimit minP = new SoftJointLimit();
-        minP.limit = 10;
-        cj.lowAngularXLimit = minP;
+        // SoftJointLimit minP = new SoftJointLimit();
+        // minP.limit = 10;
+        // cj.lowAngularXLimit = minP;
     }
 
     void FixedUpdate()
@@ -48,6 +48,7 @@ public class Motor : RotationBase
         {
             direction = global.brachIOplexusControl[arrayIndex].Item1;
             velocity = global.brachIOplexusControl[arrayIndex].Item2;
+
         }
         else
         {
@@ -86,7 +87,7 @@ public class Motor : RotationBase
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
 
-        cj.angularXMotion = ConfigurableJointMotion.Limited;
+        cj.angularXMotion = ConfigurableJointMotion.Free;
         cj.angularYMotion = ConfigurableJointMotion.Locked;
         cj.angularZMotion = ConfigurableJointMotion.Locked;
 

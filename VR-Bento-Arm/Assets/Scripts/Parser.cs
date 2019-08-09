@@ -167,7 +167,7 @@ public class Parser : MonoBehaviour
     // Fills global variables to handle controlling the arm (Motor.cs)
     private void Control(ref byte[] packet)
     {
-        if(global.pause)
+        if(global.pause || global.startup)
         {
             return;
         }

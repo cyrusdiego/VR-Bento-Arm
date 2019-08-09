@@ -50,6 +50,8 @@ public class Global : ScriptableObject
     public bool task;
     // Toggle to start / stop timer in brachIOplexus
     public bool timer;
+    // Startup bool that blocks incoming control packets so bento arm can do any initial setup
+    public bool startup;
 
     public Global()
     {
