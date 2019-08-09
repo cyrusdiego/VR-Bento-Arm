@@ -8,13 +8,15 @@ public class StartPosition : MonoBehaviour
     private bool shoulderReady;
     private float shoulderAngle;
     private float shoulderLimit;
-
+    private int timerCounter;
     void Awake()
     {
         global.startup = true;
         shoulderReady = false;
 
         shoulderLimit = getLimit(0) + 360;
+
+        timerCounter = 0; 
 
         global.brachIOplexusControl[0] = new Tuple<float, float>(2,0.7f);
         global.brachIOplexusControl[1] = new Tuple<float, float>(1,0.7f);
@@ -50,11 +52,22 @@ public class StartPosition : MonoBehaviour
 
         if(shoulderReady) 
         {
-            // global.timer = true;
+            triggerTimer();
             global.startup = false;
         }
+    }
 
-        print(global.timer);
+    private void triggerTimer()
+    {
+        if(timerCounter == 0)
+        {
+            global.timer = true;
+            timerCounter++;
+        }
+        else
+        {
+            global.timer = false;
+        }
     }
 
 }

@@ -45,10 +45,10 @@ public class Parser : MonoBehaviour
     {
         task = global.task;
         timer = global.timer;
-        if(task)
-        {
-            sendFeedback();
-        }
+        // if(task)
+        // {
+        //     sendFeedback();
+        // }
         if(timer)
         {
             timerToggle();

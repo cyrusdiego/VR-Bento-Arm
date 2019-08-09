@@ -111,6 +111,11 @@ public class UDPConnection : MonoBehaviour
                 // }
                 if(timer)
                 {
+                    print("sent timer");
+                    foreach(var i in timerFeedback)
+                    {
+                        print(i);
+                    }
                     clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
                     timer = false;
                     packetParser.timer = false;
