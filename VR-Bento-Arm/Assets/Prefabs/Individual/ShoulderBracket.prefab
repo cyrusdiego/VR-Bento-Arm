@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 5785963263724943800, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -376.96487
+      value: -1648.9648
       objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943800, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
@@ -93,31 +93,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -131,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -376.96487
+      value: -1648.9648
       objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
@@ -163,8 +138,32 @@ PrefabInstance:
       propertyPath: m_AngularZMotion
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
 --- !u!4 &6330105824474192661 stripped
 Transform:

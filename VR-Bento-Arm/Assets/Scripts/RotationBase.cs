@@ -51,7 +51,7 @@ public class RotationBase : MonoBehaviour
         // Rotates CW or CCW based on axis values from joystick / button
         if(axisValue >= 0.5)
         {
-            cj.angularXMotion = ConfigurableJointMotion.Free;
+            // cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(speed,0,0);
             
             cj.angularXDrive = motor;
@@ -59,7 +59,7 @@ public class RotationBase : MonoBehaviour
         }
         else if(axisValue <= -0.5)
         {
-            cj.angularXMotion = ConfigurableJointMotion.Free;
+            // cj.angularXMotion = ConfigurableJointMotion.Free;
             cj.targetAngularVelocity = new Vector3(-speed,0,0);
 
             cj.angularXDrive = motor;

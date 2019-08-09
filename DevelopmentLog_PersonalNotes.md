@@ -1468,3 +1468,21 @@ brachIOplexus can:
         - need to make sure when vr is connected, camera cannot be moved!!! 
     - WIll need to either make seperate scene OR delete the steamvr objects 
     
+**August 8**
+*TODO*
+- Implement joint limits
+- comment motor.cs
+- try to use motorCount to make it more extendable
+- go thru all files and clean up style (declraration and definition seperate)
+- Need to go thru shutdown properly...
+    - if connected and try to hit "x" it does error  (DONE)
+*Documentation*
+- need to do the VR disabled so i can know how to do the documentation!!!
+
+**August 9**
+- Documentation on how to create a new scene and adding to brachioplexus works and adding the bento arm also functions well
+
+*TODO* 
+- Clean up documentation (maybe add pictures) for adding a new task 
+- continue with commenting and code clean up in brachIOplexus and unity side 
+- work on game task: Have bento arm start in specific position (got working example, need to clean up)

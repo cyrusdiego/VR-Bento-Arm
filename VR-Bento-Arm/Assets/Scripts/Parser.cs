@@ -167,7 +167,7 @@ public class Parser : MonoBehaviour
     // Fills global variables to handle controlling the arm (Motor.cs)
     private void Control(ref byte[] packet)
     {
-        if(global.pause)
+        if(global.pause || global.startup)
         {
             return;
         }
@@ -178,7 +178,7 @@ public class Parser : MonoBehaviour
         {
             float direction = packet[4*i + 3];
             float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
-            global.brachIOplexusControl[packet[4*i] + 1] = new Tuple<float, float>(direction,velocity);
+            global.brachIOplexusControl[packet[4*i]] = new Tuple<float, float>(direction,velocity);
 
         }
     }
@@ -186,10 +186,16 @@ public class Parser : MonoBehaviour
     // Fills global variables to handle loading the correct task (SceneLoader.cs)
     private void Loader(ref byte[] packet)
     {
-        for(int i = 4; i < packet.Length - 1; i++)
+        for(int i = 4; i < 8; i++)
         {
             global.loaderPacket[i - 4] = (int)packet[i];
         }
+
+        for(int i = 8; i < packet.Length - 1; i++)
+        {
+            global.jointLimits[i - 8] = packet[i];
+        }
+
         global.task = true;
     }
 

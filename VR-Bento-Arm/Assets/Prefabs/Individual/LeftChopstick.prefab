@@ -88,24 +88,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 16, y: 25.5, z: 3.5}
   m_Center: {x: -506.4, y: 120.6, z: 11.48}
---- !u!114 &7913535701496857663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6940818680812774108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbca3ef7891ab5849b36ce860c84d16f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motorTorque: 978000
-  maxSpeedLimit: 1.03
-  bentoControl: {fileID: 11400000, guid: 952c69066c6da484e8ca134fec225e80, type: 2}
-  rotationAxis: y
-  arrayIndex: 5
-  mass: 0
 --- !u!1 &4563129679474783812
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,15 +214,39 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -84.4
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: arrayIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: mass
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: global
+      value: 
+      objectReference: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525,
+        type: 2}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: motorTorque
+      value: 978000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: maxSpeedLimit
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: rotationAxis
+      value: y
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
---- !u!1 &6940818680812774108 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5785963263724943748, guid: 84767e0f650412e45854c07eda9f2d6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3465910506881375064}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6940818680812774112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5785963263724943800, guid: 84767e0f650412e45854c07eda9f2d6c,
