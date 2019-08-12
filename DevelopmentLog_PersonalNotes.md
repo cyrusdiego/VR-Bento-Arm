@@ -1489,3 +1489,22 @@ brachIOplexus can:
 
 **August 12**
 - Continue last weeks todo, and continue with game task
+
+*Things to go over with Ahmed*
+- My last day 
+- Doctor Appointment Aug 28 at 2:15 
+- What I have so far and expect to get done by the project wrap up 
+    - game task will be fully implemented 
+    - need to meet with rory about cts feedback 
+    - documnetation 
+- any kind of formal documentation / write up explaining what i have accomplished / couldnt do (as per proejct doc)
+- ask to be a reference (and ask jacqueline)
+    - may need help summarizing / ask to review what my resume blurb 
+- ask about volunteering? 
+
+
+*Meeting with Quinn / Riley*
+- Meeting with Rory for stl file + cts feedback problems 
+- game task recap 
+- created documentation how to add a new task 
+- the myo armband, does work to move the arm but i cant switch between controls

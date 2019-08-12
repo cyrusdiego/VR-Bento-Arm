@@ -36,26 +36,8 @@ public class Motor : RotationBase
     {
         if(global.controlToggle)
         {
-        // try 
-        // {
-        //     if(global.brachIOplexusControl == null)
-        //     {
-        //         print("null");
-        //         return;
-        //     }
-        //     else
-        //     {
-        //         print("not null");
-        //     }
-        // }
-        // catch(Exception i)
-        // {
-        //     print(i.ToString());
-        // }
-        
             direction = global.brachIOplexusControl[arrayIndex].Item1;
             velocity = global.brachIOplexusControl[arrayIndex].Item2;
-
         }
         else
         {

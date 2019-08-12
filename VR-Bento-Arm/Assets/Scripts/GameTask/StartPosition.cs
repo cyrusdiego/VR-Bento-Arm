@@ -4,13 +4,18 @@ public class StartPosition : MonoBehaviour
 {
 
     public Global global = null;
+    public GameTask_Global _gtLogic = null;
     public GameObject shoulder = null;
     private bool shoulderReady;
     private float shoulderAngle;
     private float shoulderLimit;
     private int timerCounter;
+
     void Awake()
-    {
+    {   
+        _gtLogic.step1 = false;
+        _gtLogic.step2 = false;
+        
         global.startup = true;
         shoulderReady = false;
 

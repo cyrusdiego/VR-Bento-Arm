@@ -115,8 +115,6 @@ public class UDPConnection : MonoBehaviour
                     timer = false;
                     packetParser.timer = false;
                 }
-
-
             }
             catch (Exception err)
             {
