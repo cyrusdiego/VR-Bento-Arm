@@ -1501,10 +1501,15 @@ brachIOplexus can:
 - ask to be a reference (and ask jacqueline)
     - may need help summarizing / ask to review what my resume blurb 
 - ask about volunteering? 
-
+- Acceptance document/compliance matrix - to be completed at the end of the project to summarize which features were implemented in the final version compared to the initial requirements
 
 *Meeting with Quinn / Riley*
 - Meeting with Rory for stl file + cts feedback problems 
 - game task recap 
 - created documentation how to add a new task 
 - the myo armband, does work to move the arm but i cant switch between controls
+
+*Game Task Outcome*
+- Bento arm starts at start position 
+- Timer starts at start 
+- Timer stops when cups and cube is placed properly and arm is in end position 
