@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class EndPosition : MonoBehaviour
 {
-    public GameTask_Global _gtLogic = null;
     public Global global = null;
+    public GameTask_Global _gtLogic = null;
     public GameObject shoulder = null;
     public GameObject elbow = null;
     private Transform shoulderTransform = null;
     private Transform elbowTransform = null;
+    private int timerCounter;
 
     void Awake()
     {
+        timerCounter = 0;
         shoulderTransform = shoulder.GetComponent<Transform>();
         elbowTransform = elbow.GetComponent<Transform>();
     }
@@ -27,7 +29,20 @@ public class EndPosition : MonoBehaviour
 
         if(shoulderAngle == 304 && elbowAngle == 44 && _gtLogic.step1 && _gtLogic.step2)
         {
-            print("done");
+            triggerTimer();
+        }
+    }
+
+    private void triggerTimer()
+    {
+        if(timerCounter == 0)
+        {
+            global.timer = true;
+            timerCounter++;
+        }
+        else
+        {
+            global.timer = false;
         }
     }
 }
