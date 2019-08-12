@@ -19,9 +19,9 @@ public class Motor : RotationBase
 
     void Start()
     {
-        Tuple<ushort,ushort> limits; 
-
         axis = ((Axis)Enum.Parse(typeof(Axis),rotationAxis));
+        min = new SoftJointLimit();
+        max = new SoftJointLimit();
 
         cj = gameObject.GetComponent<ConfigurableJoint>();
         rb = gameObject.GetComponent<Rigidbody>();
@@ -29,17 +29,7 @@ public class Motor : RotationBase
 
         configureCJ();
         configureRB();
-        // limits = configureJointLimits();
-
-        // min.limit = limits.Item1;
-        // max.limit = limits.Item2;
-
-        // cj.lowAngularXLimit = min;
-        // cj.highAngularXLimit = max;
-
-        // SoftJointLimit minP = new SoftJointLimit();
-        // minP.limit = 10;
-        // cj.lowAngularXLimit = minP;
+        configureJointLimits();
     }
 
     void FixedUpdate()
@@ -48,7 +38,6 @@ public class Motor : RotationBase
         {
             direction = global.brachIOplexusControl[arrayIndex].Item1;
             velocity = global.brachIOplexusControl[arrayIndex].Item2;
-
         }
         else
         {
@@ -87,7 +76,7 @@ public class Motor : RotationBase
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
 
-        cj.angularXMotion = ConfigurableJointMotion.Free;
+        cj.angularXMotion = ConfigurableJointMotion.Limited;
         cj.angularYMotion = ConfigurableJointMotion.Locked;
         cj.angularZMotion = ConfigurableJointMotion.Locked;
 
@@ -127,7 +116,7 @@ public class Motor : RotationBase
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
-    private Tuple<ushort,ushort> configureJointLimits()
+    private void configureJointLimits()
     {
         byte lowPMin;
         byte lowPMax;
@@ -135,7 +124,6 @@ public class Motor : RotationBase
         byte hiPMax;
         ushort PMin;
         ushort PMax;
-        Tuple<ushort,ushort> limits;
 
         lowPMin = global.jointLimits[(4 * arrayIndex) + 0];
         hiPMin = global.jointLimits[(4 * arrayIndex) + 1];
@@ -145,9 +133,17 @@ public class Motor : RotationBase
         PMin = (ushort)((lowPMin) | (hiPMin << 8));
         PMax = (ushort)((lowPMax) | (hiPMax << 8));
 
-        limits = new Tuple<ushort, ushort>(10, 190);
+        int actualPMin;
+        int actualPMax;
 
-        return limits;
+        actualPMin = (180 - PMin) - 90;
+        actualPMax = 90 - (PMax - 180);
+
+        min.limit = actualPMin;
+        max.limit = actualPMax;
+
+        cj.lowAngularXLimit = min;
+        cj.highAngularXLimit = max;
     }
 }
 

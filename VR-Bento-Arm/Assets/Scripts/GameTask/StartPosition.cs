@@ -4,15 +4,25 @@ public class StartPosition : MonoBehaviour
 {
 
     public Global global = null;
+    public GameTask_Global _gtLogic = null;
     public GameObject shoulder = null;
-    public GameObject elbow = null;
     private bool shoulderReady;
-    private bool elbowReady;
+    private float shoulderAngle;
+    private float shoulderLimit;
+    private int timerCounter;
+
     void Awake()
-    {
+    {   
+        _gtLogic.step1 = false;
+        _gtLogic.step2 = false;
+        
         global.startup = true;
         shoulderReady = false;
-        elbowReady = false;
+
+        shoulderLimit = getLimit(0) + 360;
+
+        timerCounter = 0; 
+
         global.brachIOplexusControl[0] = new Tuple<float, float>(2,0.7f);
         global.brachIOplexusControl[1] = new Tuple<float, float>(1,0.7f);
         global.brachIOplexusControl[2] = new Tuple<float, float>(0,0);
@@ -20,25 +30,49 @@ public class StartPosition : MonoBehaviour
         global.brachIOplexusControl[4] = new Tuple<float, float>(0,0);
     }
 
+    private int getLimit(int arrayIndex)
+    {
+        byte lowPMin;
+        byte hiPMin;
+        ushort PMin;
+        int actualPMin;
+
+        lowPMin = global.jointLimits[(4 * arrayIndex) + 0];
+        hiPMin = global.jointLimits[(4 * arrayIndex) + 1];
+
+        PMin = (ushort)((lowPMin) | (hiPMin << 8));
+
+        actualPMin = (180 - PMin) - 90;
+        return actualPMin;
+    }
+
     void FixedUpdate()
     {
-        if(shoulder.GetComponent<Transform>().rotation.eulerAngles.y <= 325 && shoulder.GetComponent<Transform>().rotation.eulerAngles.y >= 324) 
+        shoulderAngle = shoulder.GetComponent<Transform>().rotation.eulerAngles.y;
+        if(shoulderAngle <= shoulderLimit && shoulderAngle >= (shoulderLimit - 1)) 
         {
             global.brachIOplexusControl[0] = new Tuple<float, float>(0,0);
             shoulderReady = true;
         }
-        if(elbow.GetComponent<Transform>().rotation.eulerAngles.x <= 30 && elbow.GetComponent<Transform>().rotation.eulerAngles.x >= 29) 
-        {
-            global.brachIOplexusControl[1] = new Tuple<float, float>(0,0);
-            elbowReady = true;
-        }
 
-        if(elbowReady && shoulderReady) 
+        if(shoulderReady) 
         {
+            triggerTimer();
             global.startup = false;
         }
+    }
 
-
+    private void triggerTimer()
+    {
+        if(timerCounter == 0)
+        {
+            global.timer = true;
+            timerCounter++;
+        }
+        else
+        {
+            global.timer = false;
+        }
     }
 
 }
