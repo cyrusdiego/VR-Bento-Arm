@@ -1504,6 +1504,7 @@ brachIOplexus can:
 - Acceptance document/compliance matrix - to be completed at the end of the project to summarize which features were implemented in the final version compared to the initial requirements
 
 *Meeting with Quinn / Riley*
+- maybe ask riley for tips on software design 
 - Meeting with Rory for stl file + cts feedback problems 
 - game task recap 
 - created documentation how to add a new task 
