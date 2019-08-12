@@ -9642,7 +9642,6 @@ namespace brachIOplexus
                     // Fills byte array from Unity 
                     packet = udpClientRX3.Receive(ref ipEndPointRX3);
 
-                    Console.WriteLine("got a packet " + packet.Length);
                     // Parses the packet accordingly 
                     parsePacket(packet);
                 }

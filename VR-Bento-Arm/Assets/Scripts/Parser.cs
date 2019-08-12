@@ -43,6 +43,10 @@ public class Parser : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(global == null)
+        {
+            print("became null");
+        }
         task = global.task;
         timer = global.timer;
         // if(task)

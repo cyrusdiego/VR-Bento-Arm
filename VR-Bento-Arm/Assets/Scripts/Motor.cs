@@ -19,8 +19,6 @@ public class Motor : RotationBase
 
     void Start()
     {
-        Tuple<int, int> limits; 
-
         axis = ((Axis)Enum.Parse(typeof(Axis),rotationAxis));
         min = new SoftJointLimit();
         max = new SoftJointLimit();
@@ -32,62 +30,61 @@ public class Motor : RotationBase
         configureCJ();
         configureRB();
         configureJointLimits();
-        print(global.brachIOplexusControl.Length);
     }
 
     void FixedUpdate()
     {
-        // if(global.controlToggle)
-        // {
-        try 
+        if(global.controlToggle)
         {
-            if(global.brachIOplexusControl == null)
-            {
-                print("null");
-                return;
-            }
-            else
-            {
-                print("not null");
-            }
-        }
-        catch(Exception i)
-        {
-            print(i.ToString());
-        }
-        
-            // direction = global.brachIOplexusControl[arrayIndex].Item1;
-            // velocity = global.brachIOplexusControl[arrayIndex].Item2;
-
-        // }
-        // else
+        // try 
         // {
-        //     float value = global.SteamVRControl[arrayIndex];
-
-        //     if(value != 0)
+        //     if(global.brachIOplexusControl == null)
         //     {
-        //         direction = value / Math.Abs(value) < 0 ? 1 : 2; 
+        //         print("null");
+        //         return;
         //     }
         //     else
         //     {
-        //         direction = 0;
+        //         print("not null");
         //     }
-        //     velocity = Math.Abs(value) * maxSpeedLimit;
         // }
-        // switch(direction)
+        // catch(Exception i)
         // {
-        //     case 0:
-        //         getAxis(0,velocity);
-        //         break;
-
-        //     case 1:
-        //         getAxis(-1,velocity);
-        //         break;
-
-        //     case 2:
-        //         getAxis(1,velocity);
-        //         break;
+        //     print(i.ToString());
         // }
+        
+            direction = global.brachIOplexusControl[arrayIndex].Item1;
+            velocity = global.brachIOplexusControl[arrayIndex].Item2;
+
+        }
+        else
+        {
+            float value = global.SteamVRControl[arrayIndex];
+
+            if(value != 0)
+            {
+                direction = value / Math.Abs(value) < 0 ? 1 : 2; 
+            }
+            else
+            {
+                direction = 0;
+            }
+            velocity = Math.Abs(value) * maxSpeedLimit;
+        }
+        switch(direction)
+        {
+            case 0:
+                getAxis(0,velocity);
+                break;
+
+            case 1:
+                getAxis(-1,velocity);
+                break;
+
+            case 2:
+                getAxis(1,velocity);
+                break;
+        }
         
     }
 
