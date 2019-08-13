@@ -1523,9 +1523,14 @@ brachIOplexus can:
 - Playing with scaling of the gameobjects helps (keep the play area 1x1x1) but scale the bento arm by 1/1000
 - For connecting with bento arm and IMU puck, would require new scripts and different configuration of config joint... 
     - initial guess is that anything for the imu puck would require different / modified motor script (at the very least would be the configurable joint)
+- table top (current scenes) can either change the scaling OR have 1 unit == 1 m and then re-scale everything accordingly 
+- **FIXED** the problem with the scaling and objects not moving properly due to it. Just make the "Origin" the camera rig for any objects being tracked and you dont need to rescale anything except play area which is 1000x1000x1000
+- attached the yellow cube to the tracker and tried having it interact with other objects, did not handle collisions very well 
 *TODO*
 - Update documentation on adding a new scene 
     - will need to split up the SteamVR and play area to its own section as it would require 
     configuration each time a scene is added 
     - the prefab could be used for development 
     - **but** for actual trials, the play area would need to be re-added and configured properly (bento arm and any objects would need to be moved accordingly) 
+- documentation (in unity tutorial) scale of parent is the same for children 
+- If task is ended and timer is running, stop
