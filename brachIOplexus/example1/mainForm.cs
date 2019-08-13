@@ -9193,8 +9193,7 @@ namespace brachIOplexus
 
             // Indices start at 8 and 8 + (BENTO_NUM * 2) respectively 
             idxP = 8;
-            idxV = idxP + (BENTO_NUM * 2);
-
+            idxV = idxP + (BENTO_NUM * 4);
             // Either 1 or 0 if the checkboxes were selected 
             armShell = Convert.ToByte(this.unityArmShellToggle.Checked);
             armControl = Convert.ToByte(this.unityArmControlToggle.Checked);
@@ -9203,7 +9202,7 @@ namespace brachIOplexus
             // Get position and velocity limits for the arm from GUI
             position = positionMinMax();
             velocity = velocityMinMax();
-
+          
             // Builds the Initialization packet to be sent to Unity 
             packet = new byte[49];
             packet[0] = 255;                            // Header
@@ -9220,17 +9219,26 @@ namespace brachIOplexus
             for(int i = 0; i < BENTO_NUM * 2; i++)
             {
                 packet[idxP + 0] = low_byte(position[i]);       
-                packet[idxP + 1] = high_byte(position[i]);      
+                packet[idxP + 1] = high_byte(position[i]);    
                 packet[idxV + 0] = low_byte(velocity[i]);
                 packet[idxV + 1] = high_byte(velocity[i]);
-
+                if (i == 0)
+                {
+                    Console.WriteLine(idxV + 0);
+                    Console.WriteLine(packet[idxV + 0]);
+                    Console.WriteLine(packet[idxV + 1]);
+                    Console.WriteLine("////");
+                }
                 idxP += 2;
                 idxV += 2;
-
             }
-
-            packet[48] = calcCheckSum(packet);           // Checksum 
-
+            Console.WriteLine(idxP);
+            packet[48] = calcCheckSum(packet);           // Checksum
+            Console.WriteLine(velocity[0]);
+            Console.WriteLine(packet[28]);
+            Console.WriteLine(packet[29]);
+            Console.WriteLine(packet[30]);
+            Console.WriteLine(packet[31]);
             // Sends the packet to Unity via UDP 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 

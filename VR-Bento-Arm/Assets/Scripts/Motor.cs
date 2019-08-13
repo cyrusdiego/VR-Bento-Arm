@@ -30,6 +30,7 @@ public class Motor : RotationBase
         configureCJ();
         configureRB();
         configureJointLimits();
+        configureSpeedLimits();
     }
 
     void FixedUpdate()
@@ -138,10 +139,6 @@ public class Motor : RotationBase
 
         actualPMin = (180 - PMin) - 90;
         actualPMax = 90 - (PMax - 180);
-            print("////////////////////////////////////////////////");
-            print("array index: " + arrayIndex);
-            print("Pmin: " + PMin + " actualPMin: " + actualPMin);
-            print("Pmax: " + PMax + " actualPmax: " + actualPMax);
         
         if(PMax == 270 && PMin == 90)
         {
@@ -162,6 +159,32 @@ public class Motor : RotationBase
 
         cj.lowAngularXLimit = min;
         cj.highAngularXLimit = max;
+    }
+
+    private void configureSpeedLimits()
+    {
+        byte lowVMin;
+        byte lowVMax;
+        byte hiVMin;
+        byte hiVMax;
+        ushort VMin;
+        ushort VMax;
+
+        lowVMin = global.jointLimits[(4 * arrayIndex) + 20];
+        hiVMin = global.jointLimits[(4 * arrayIndex) + 21];
+        lowVMax = global.jointLimits[(4 * arrayIndex) + 22];
+        hiVMax = global.jointLimits[(4 * arrayIndex) + 23];
+
+        VMin = (ushort)((lowVMin) | (hiVMin << 8));
+        VMax = (ushort)((lowVMax) | (hiVMax << 8));
+        
+        // int actualVMin;
+        float actualVMax;
+
+        // actualVMin = (180 - VMin) - 90;
+        actualVMax = VMax * 0.114f * 0.1047f;
+
+        maxSpeedLimit = actualVMax;
     }
 }
 

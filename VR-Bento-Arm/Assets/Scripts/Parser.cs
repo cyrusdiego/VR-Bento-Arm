@@ -199,7 +199,6 @@ public class Parser : MonoBehaviour
         {
             global.jointLimits[i - 8] = packet[i];
         }
-
         global.task = true;
     }
 
