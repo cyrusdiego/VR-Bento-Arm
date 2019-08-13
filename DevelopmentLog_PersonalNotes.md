@@ -1508,6 +1508,7 @@ brachIOplexus can:
 - Meeting with Rory for stl file + cts feedback problems 
 - game task recap 
 - created documentation how to add a new task 
+    - Ask if we can set a date to go thru my documentation (probably 2 days maybe; 1 to go thru initially then a 2nd quick one to review a final time?) so they know how to make a new task 
 - the myo armband, does work to move the arm but i cant switch between controls
 
 *Game Task Outcome*
@@ -1534,3 +1535,4 @@ brachIOplexus can:
     - **but** for actual trials, the play area would need to be re-added and configured properly (bento arm and any objects would need to be moved accordingly) 
 - documentation (in unity tutorial) scale of parent is the same for children 
 - If task is ended and timer is running, stop
+- Vmin and Vmax for joints!!!
