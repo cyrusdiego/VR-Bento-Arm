@@ -1514,3 +1514,18 @@ brachIOplexus can:
 - Bento arm starts at start position 
 - Timer starts at start 
 - Timer stops when cups and cube is placed properly and arm is in end position 
+
+**August 13**
+- Testing out IMU Puck 
+- *observation* with the play area prefabs it doesnt work properly unless child of headset camera 
+    - **but** if a new camera rig is placed, the tracker works properly 
+    - most likely should **not** save the camera rig as a prefab and would not to configure each time 
+- Playing with scaling of the gameobjects helps (keep the play area 1x1x1) but scale the bento arm by 1/1000
+- For connecting with bento arm and IMU puck, would require new scripts and different configuration of config joint... 
+    - initial guess is that anything for the imu puck would require different / modified motor script (at the very least would be the configurable joint)
+*TODO*
+- Update documentation on adding a new scene 
+    - will need to split up the SteamVR and play area to its own section as it would require 
+    configuration each time a scene is added 
+    - the prefab could be used for development 
+    - **but** for actual trials, the play area would need to be re-added and configured properly (bento arm and any objects would need to be moved accordingly) 
