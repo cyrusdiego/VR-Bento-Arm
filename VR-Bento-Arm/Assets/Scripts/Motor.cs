@@ -29,8 +29,8 @@ public class Motor : RotationBase
 
         configureCJ();
         configureRB();
-        configureJointLimits();
-        configureSpeedLimits();
+        // configureJointLimits();
+        // configureSpeedLimits();
     }
 
     void FixedUpdate()
@@ -77,7 +77,7 @@ public class Motor : RotationBase
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
 
-        cj.angularXMotion = ConfigurableJointMotion.Limited;
+        cj.angularXMotion = ConfigurableJointMotion.Free;
         cj.angularYMotion = ConfigurableJointMotion.Locked;
         cj.angularZMotion = ConfigurableJointMotion.Locked;
 
@@ -102,8 +102,8 @@ public class Motor : RotationBase
 
         cj.anchor = Vector3.zero;
         cj.enableCollision = true;
-        // cj.projectionMode = JointProjectionMode.PositionAndRotation;
-        // cj.projectionAngle = 0.1f;
+        cj.projectionMode = JointProjectionMode.PositionAndRotation;
+        cj.projectionAngle = 0.1f;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
 

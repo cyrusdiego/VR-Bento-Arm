@@ -1286,6 +1286,7 @@ brachIOplexus can:
     - Also cup kept jittering and later the cube
 - *Solution* **set fixed time step to 0.002 and put solver iterations to 15 -> higher iterations made arm springy**
     - Fixed delta Time: The interval in seconds at which physics and other fixed frame rate updates (like MonoBehaviour's FixedUpdate) are performed.
+    - *aug 14,2019* changed solver iterations to 50
 
 *Observations*
 - Seems like **sometimes** the wrist movement is slow going up but fast downwards 
@@ -1535,7 +1536,7 @@ brachIOplexus can:
     - **but** for actual trials, the play area would need to be re-added and configured properly (bento arm and any objects would need to be moved accordingly) 
 - documentation (in unity tutorial) scale of parent is the same for children 
 - If task is ended and timer is running, stop
-- Vmin and Vmax for joints!!!
+- Vmin and Vmax for joints!!! (DONE)
 
 **August 14**
 
@@ -1544,3 +1545,15 @@ brachIOplexus can:
 -
 *Ahmed*
 - 
+
+
+*Running TODO*
+- If task is ended and timer is running, stop
+- Update documentation on adding a new scene 
+    - will need to split up the SteamVR and play area to its own section as it would require 
+    configuration each time a scene is added 
+    - the prefab could be used for development 
+    - **but** for actual trials, the play area would need to be re-added and configured properly (bento arm and any objects would need to be moved accordingly) 
+- documentation (in unity tutorial) scale of parent is the same for children 
+- scroll up for docs 
+- integrate new bento arm files 
