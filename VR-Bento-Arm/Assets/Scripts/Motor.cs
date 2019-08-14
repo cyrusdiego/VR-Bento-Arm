@@ -29,8 +29,8 @@ public class Motor : RotationBase
 
         configureCJ();
         configureRB();
-        // configureJointLimits();
-        // configureSpeedLimits();
+        configureJointLimits();
+        configureSpeedLimits();
     }
 
     void FixedUpdate()

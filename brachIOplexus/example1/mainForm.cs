@@ -9664,13 +9664,14 @@ namespace brachIOplexus
                     unityAcknowledge = true;
                 }
 
-                //if(packet[2] == 3)
-                //{
-                //    this.feedback = packet;
-                //}
+                if (packet[2] == 3)
+                {
+                    this.feedback = packet;
+                    processFeedback();
+                }
 
                 // Starts / Stops the timer based on "in-task" stimulus (moving the arm or reaching the goal) 
-                if(packet[2] == 7)
+                if (packet[2] == 7)
                 {
                     timerToggle();
                 }
@@ -9760,7 +9761,7 @@ namespace brachIOplexus
         }
         #endregion
 
-        private void processFeedback(object state)
+        private void processFeedback()
         {
             if(feedback != null)
             {
@@ -9777,26 +9778,22 @@ namespace brachIOplexus
 
             position = getPosition(packet);
             velocity = getVelocity(packet);
-            Console.WriteLine(position[0]);
             positionQueue.Enqueue(position);
-            //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
-            //{
-            //    this.unityShoulderPositionFeedback.Text = position[0].ToString();
-            //});
-            //this.Invoke((MethodInvoker)delegate ()
-            //{
-            //    unityShoulderPositionFeedback.Text = position[0].ToString();
-            //    unityElbowPositionFeedback.Text = position[1].ToString();
-            //    unityWristRotPositionFeedback.Text = position[2].ToString();
-            //    unityWristExtPositionFeedback.Text = position[3].ToString();
-            //    unityHandPositionFeedback.Text = position[4].ToString();
 
-            //    unityShoulderVelocityFeedback.Text = velocity[0].ToString();
-            //    unityElbowVelocityFeedback.Text = velocity[1].ToString();
-            //    unityWristRotVelocityFeedback.Text = velocity[2].ToString();
-            //    unityWristExtVelocityFeedback.Text = velocity[3].ToString();
-            //    unityHandVelocityFeedback.Text = velocity[4].ToString();
-            //});
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityShoulderPositionFeedback.Text = position[0].ToString();
+                unityElbowPositionFeedback.Text = position[1].ToString();
+                unityWristRotPositionFeedback.Text = position[2].ToString();
+                unityWristExtPositionFeedback.Text = position[3].ToString();
+                unityHandPositionFeedback.Text = position[4].ToString();
+
+                //unityShoulderVelocityFeedback.Text = velocity[0].ToString();
+                //unityElbowVelocityFeedback.Text = velocity[1].ToString();
+                //unityWristRotVelocityFeedback.Text = velocity[2].ToString();
+                //unityWristExtVelocityFeedback.Text = velocity[3].ToString();
+                //unityHandVelocityFeedback.Text = velocity[4].ToString();
+            });
         }
 
         private float[] getPosition(byte[] packet)
