@@ -9222,23 +9222,11 @@ namespace brachIOplexus
                 packet[idxP + 1] = high_byte(position[i]);    
                 packet[idxV + 0] = low_byte(velocity[i]);
                 packet[idxV + 1] = high_byte(velocity[i]);
-                if (i == 0)
-                {
-                    Console.WriteLine(idxV + 0);
-                    Console.WriteLine(packet[idxV + 0]);
-                    Console.WriteLine(packet[idxV + 1]);
-                    Console.WriteLine("////");
-                }
+
                 idxP += 2;
                 idxV += 2;
             }
-            Console.WriteLine(idxP);
             packet[48] = calcCheckSum(packet);           // Checksum
-            Console.WriteLine(velocity[0]);
-            Console.WriteLine(packet[28]);
-            Console.WriteLine(packet[29]);
-            Console.WriteLine(packet[30]);
-            Console.WriteLine(packet[31]);
             // Sends the packet to Unity via UDP 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 

@@ -1536,3 +1536,11 @@ brachIOplexus can:
 - documentation (in unity tutorial) scale of parent is the same for children 
 - If task is ended and timer is running, stop
 - Vmin and Vmax for joints!!!
+
+**August 14**
+
+*Meeting Results*
+*Quinn and Riley*
+-
+*Ahmed*
+- 
