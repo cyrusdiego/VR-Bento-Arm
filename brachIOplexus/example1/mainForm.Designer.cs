@@ -12007,6 +12007,7 @@
             // 
             // unityCameraPosition
             // 
+            this.unityCameraPosition.Enabled = false;
             this.unityCameraPosition.Controls.Add(this.unityCameraPositionNumber);
             this.unityCameraPosition.Controls.Add(this.unityCameraPositionTitle);
             this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);
