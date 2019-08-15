@@ -173,40 +173,61 @@ namespace brachIOplexus
         int TaskTimerState = 0;     // 0 = disabled, 1 = reset(and ready to go), 2 = running, 3 = resetting
 
         #region Unity Initialization
-        // Unity UDP connection 
+        // TX Thread 
         static System.Threading.Timer t11;
+        // RX Thread 
         static System.Threading.Timer t12;
+        // CTS Feedback Processing Thread
         static System.Threading.Timer t13;
-        static Int32 portTX3;  // Send
-        static Int32 portRX3;  // Recieve 
-        static IPAddress localAddr3;  // Local address
+        // Sending port 
+        static Int32 portTX3; 
+        // Recieving port
+        static Int32 portRX3; 
+        // Local Address
+        static IPAddress localAddr3;
+        // Sending udp client object
         UdpClient udpClientTX3;
+        // Recieving udp client object
         UdpClient udpClientRX3;
+        // Sending endpoint
         IPEndPoint ipEndPointTX3;
+        // Recieving endpoint
         IPEndPoint ipEndPointRX3;
+        // TX stopwatch object
         Stopwatch stopWatch11 = new Stopwatch();
+        // RX stopwatch object
         Stopwatch stopWatch12 = new Stopwatch();
+        // stopwatch object for tasks 
         Stopwatch taskTimer = new Stopwatch();
+        // TX running time 
         long milliSec11;
+        // RX running time
         long milliSec12;
+        // Elapsed time from task timer 
         TimeSpan taskElapsed;
+        // is Task timer on?
         bool unityTimerFlag = false;
+        // is the udp connection established?
         bool UDPflag3 = false;
-        Process UnityProc = new Process();  // Process to launch VR project 
-        bool armShells = false;
+        // Variables used for saving camera positions (not currently implemented)
         public static List<string> unityCameraPositions = new List<string>();  // list to hold the names of the camera positions
         public static int cameraPositionIdx = 0;
         private string unitySavedCameraPositions = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityCameraPositions";
         private string unityCameraProfiles = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityCameraPositions\Profiles";
+        // Path to store saved timer data 
         private string unityTimerData = @"C:\Users\Trillian\Documents\VRBentoArm\brachIOplexus\Example1\resources\unityTaskTimer";
-        private int armControl = 1;
+        // did unity send an acknowledgement?
         private bool unityAcknowledge = false;
+        // holds the selected task from the task list 
         private int sceneIndex = 255;
+        // is the TX thread running?
         private bool t11Running = false;
-        private static System.Timers.Timer unityFeedback = new System.Timers.Timer();
+        // Holds feedback packet from Unity
         private byte[] feedback;
         // Declare a new thread for acknowledgement process 
         Thread acknowdledge;
+        // Queue holding the feedback packets recieved from Unity
+        private Queue<float[]> positionQueue = new Queue<float[]>();
         #endregion
 
         #region "Dynamixel SDK Initilization"
@@ -9761,6 +9782,7 @@ namespace brachIOplexus
         }
         #endregion
 
+        #region CTS Feedback
         private void processFeedback()
         {
             if(feedback != null)
@@ -9769,7 +9791,6 @@ namespace brachIOplexus
             }
         }
 
-        private Queue<float[]> positionQueue = new Queue<float[]>();
 
         private void printFeedback(byte[] packet)
         {
@@ -9788,11 +9809,11 @@ namespace brachIOplexus
                 unityWristExtPositionFeedback.Text = position[3].ToString();
                 unityHandPositionFeedback.Text = position[4].ToString();
 
-                //unityShoulderVelocityFeedback.Text = velocity[0].ToString();
-                //unityElbowVelocityFeedback.Text = velocity[1].ToString();
-                //unityWristRotVelocityFeedback.Text = velocity[2].ToString();
-                //unityWristExtVelocityFeedback.Text = velocity[3].ToString();
-                //unityHandVelocityFeedback.Text = velocity[4].ToString();
+                unityShoulderVelocityFeedback.Text = velocity[0].ToString();
+                unityElbowVelocityFeedback.Text = velocity[1].ToString();
+                unityWristRotVelocityFeedback.Text = velocity[2].ToString();
+                unityWristExtVelocityFeedback.Text = velocity[3].ToString();
+                unityHandVelocityFeedback.Text = velocity[4].ToString();
             });
         }
 
@@ -9846,5 +9867,7 @@ namespace brachIOplexus
             return velocity;
         }
         #endregion
+
+#endregion
     }
 }
