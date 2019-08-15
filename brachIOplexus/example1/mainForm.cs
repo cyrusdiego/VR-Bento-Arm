@@ -9193,8 +9193,7 @@ namespace brachIOplexus
 
             // Indices start at 8 and 8 + (BENTO_NUM * 2) respectively 
             idxP = 8;
-            idxV = idxP + (BENTO_NUM * 2);
-
+            idxV = idxP + (BENTO_NUM * 4);
             // Either 1 or 0 if the checkboxes were selected 
             armShell = Convert.ToByte(this.unityArmShellToggle.Checked);
             armControl = Convert.ToByte(this.unityArmControlToggle.Checked);
@@ -9203,7 +9202,7 @@ namespace brachIOplexus
             // Get position and velocity limits for the arm from GUI
             position = positionMinMax();
             velocity = velocityMinMax();
-
+          
             // Builds the Initialization packet to be sent to Unity 
             packet = new byte[49];
             packet[0] = 255;                            // Header
@@ -9220,17 +9219,14 @@ namespace brachIOplexus
             for(int i = 0; i < BENTO_NUM * 2; i++)
             {
                 packet[idxP + 0] = low_byte(position[i]);       
-                packet[idxP + 1] = high_byte(position[i]);      
+                packet[idxP + 1] = high_byte(position[i]);    
                 packet[idxV + 0] = low_byte(velocity[i]);
                 packet[idxV + 1] = high_byte(velocity[i]);
 
                 idxP += 2;
                 idxV += 2;
-
             }
-
-            packet[48] = calcCheckSum(packet);           // Checksum 
-
+            packet[48] = calcCheckSum(packet);           // Checksum
             // Sends the packet to Unity via UDP 
             udpClientTX3.Send(packet, packet.Length, ipEndPointTX3);
 
@@ -9668,13 +9664,14 @@ namespace brachIOplexus
                     unityAcknowledge = true;
                 }
 
-                //if(packet[2] == 3)
-                //{
-                //    this.feedback = packet;
-                //}
+                if (packet[2] == 3)
+                {
+                    this.feedback = packet;
+                    processFeedback();
+                }
 
                 // Starts / Stops the timer based on "in-task" stimulus (moving the arm or reaching the goal) 
-                if(packet[2] == 7)
+                if (packet[2] == 7)
                 {
                     timerToggle();
                 }
@@ -9764,7 +9761,7 @@ namespace brachIOplexus
         }
         #endregion
 
-        private void processFeedback(object state)
+        private void processFeedback()
         {
             if(feedback != null)
             {
@@ -9781,26 +9778,22 @@ namespace brachIOplexus
 
             position = getPosition(packet);
             velocity = getVelocity(packet);
-            Console.WriteLine(position[0]);
             positionQueue.Enqueue(position);
-            //this.unityShoulderPositionFeedback.Invoke((MethodInvoker)delegate
-            //{
-            //    this.unityShoulderPositionFeedback.Text = position[0].ToString();
-            //});
-            //this.Invoke((MethodInvoker)delegate ()
-            //{
-            //    unityShoulderPositionFeedback.Text = position[0].ToString();
-            //    unityElbowPositionFeedback.Text = position[1].ToString();
-            //    unityWristRotPositionFeedback.Text = position[2].ToString();
-            //    unityWristExtPositionFeedback.Text = position[3].ToString();
-            //    unityHandPositionFeedback.Text = position[4].ToString();
 
-            //    unityShoulderVelocityFeedback.Text = velocity[0].ToString();
-            //    unityElbowVelocityFeedback.Text = velocity[1].ToString();
-            //    unityWristRotVelocityFeedback.Text = velocity[2].ToString();
-            //    unityWristExtVelocityFeedback.Text = velocity[3].ToString();
-            //    unityHandVelocityFeedback.Text = velocity[4].ToString();
-            //});
+            this.Invoke((MethodInvoker)delegate ()
+            {
+                unityShoulderPositionFeedback.Text = position[0].ToString();
+                unityElbowPositionFeedback.Text = position[1].ToString();
+                unityWristRotPositionFeedback.Text = position[2].ToString();
+                unityWristExtPositionFeedback.Text = position[3].ToString();
+                unityHandPositionFeedback.Text = position[4].ToString();
+
+                //unityShoulderVelocityFeedback.Text = velocity[0].ToString();
+                //unityElbowVelocityFeedback.Text = velocity[1].ToString();
+                //unityWristRotVelocityFeedback.Text = velocity[2].ToString();
+                //unityWristExtVelocityFeedback.Text = velocity[3].ToString();
+                //unityHandVelocityFeedback.Text = velocity[4].ToString();
+            });
         }
 
         private float[] getPosition(byte[] packet)

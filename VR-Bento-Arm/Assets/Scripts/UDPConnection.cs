@@ -27,7 +27,8 @@ public class UDPConnection : MonoBehaviour
     private UdpClient clientRX;
     private UdpClient clientTX;
     private Thread threadRX;
-    private Thread threadTX;
+    // private Thread threadTX;
+    private System.Threading.Timer threadTX;
     private IPEndPoint endpointRX;
     private IPEndPoint endpointTX;
 
@@ -64,12 +65,13 @@ public class UDPConnection : MonoBehaviour
 
         clientTX = new UdpClient();
         endpointTX = new IPEndPoint(local,portTX);
-        threadTX = new Thread(Send);
+        // threadTX = new Thread(Send);
 
         exitTX = false;
         exitRX = false;
         threadRX.Start();
-        threadTX.Start();
+        // threadTX.Start();
+        threadTX = new System.Threading.Timer(new TimerCallback(Send), null, 0, 15);
     }
 
     void FixedUpdate()
@@ -79,6 +81,10 @@ public class UDPConnection : MonoBehaviour
         task = packetParser.task;
         timerFeedback = packetParser.timerFeedback;
         timer = packetParser.timer;
+        if(exitTX)
+        {
+            threadTX.Change(Timeout.Infinite, Timeout.Infinite);
+        }
     }
 
     /*
@@ -93,10 +99,10 @@ public class UDPConnection : MonoBehaviour
     }
 
     #endregion
-    void Send()
+    void Send(object state)
     {
-        while(!exitTX)
-        {
+        // while(!exitTX)
+        // {
             try
             {
                 if(outgoing != null)
@@ -105,10 +111,11 @@ public class UDPConnection : MonoBehaviour
                     outgoing = null;
                     packetParser.outgoing = null;
                 }
-                // if(task)
-                // {
-                //     clientTX.Send(feedback, feedback.Length,endpointTX);
-                // }
+                if(task)
+                {
+                    print("sending feedback!!");
+                    clientTX.Send(feedback, feedback.Length,endpointTX);
+                }
                 if(timer)
                 {
                     clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
@@ -120,7 +127,7 @@ public class UDPConnection : MonoBehaviour
             {
                 print(err.ToString());            
             }
-        }
+        // }
     }
 
     /*

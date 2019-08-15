@@ -30,6 +30,7 @@ public class Motor : RotationBase
         configureCJ();
         configureRB();
         configureJointLimits();
+        configureSpeedLimits();
     }
 
     void FixedUpdate()
@@ -101,8 +102,8 @@ public class Motor : RotationBase
 
         cj.anchor = Vector3.zero;
         cj.enableCollision = true;
-        // cj.projectionMode = JointProjectionMode.PositionAndRotation;
-        // cj.projectionAngle = 0.1f;
+        cj.projectionMode = JointProjectionMode.PositionAndRotation;
+        cj.projectionAngle = 0.1f;
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
 
@@ -138,12 +139,52 @@ public class Motor : RotationBase
 
         actualPMin = (180 - PMin) - 90;
         actualPMax = 90 - (PMax - 180);
+        
+        if(PMax == 270 && PMin == 90)
+        {
+            cj.angularXMotion = ConfigurableJointMotion.Free;
+            return;
+        }
+
+        if(actualPMax < actualPMin)
+        {
+            int temp;
+            temp = actualPMin;
+            actualPMin = actualPMax;
+            actualPMax = temp;
+        }
 
         min.limit = actualPMin;
         max.limit = actualPMax;
 
         cj.lowAngularXLimit = min;
         cj.highAngularXLimit = max;
+    }
+
+    private void configureSpeedLimits()
+    {
+        byte lowVMin;
+        byte lowVMax;
+        byte hiVMin;
+        byte hiVMax;
+        ushort VMin;
+        ushort VMax;
+
+        lowVMin = global.jointLimits[(4 * arrayIndex) + 20];
+        hiVMin = global.jointLimits[(4 * arrayIndex) + 21];
+        lowVMax = global.jointLimits[(4 * arrayIndex) + 22];
+        hiVMax = global.jointLimits[(4 * arrayIndex) + 23];
+
+        VMin = (ushort)((lowVMin) | (hiVMin << 8));
+        VMax = (ushort)((lowVMax) | (hiVMax << 8));
+        
+        // int actualVMin;
+        float actualVMax;
+
+        // actualVMin = (180 - VMin) - 90;
+        actualVMax = VMax * 0.114f * 0.1047f;
+
+        maxSpeedLimit = actualVMax;
     }
 }
 
