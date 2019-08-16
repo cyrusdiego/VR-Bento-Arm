@@ -1,5 +1,5 @@
 # Virtual Prosthesis Systems Simulator
-![](https://github.com/Gnarlywhale/VR-Bento-Arm/blob/master/img/logo.png)
+<p align="center"><img src="https://github.com/Gnarlywhale/VR-Bento-Arm/blob/master/img/logo.png"></img></p>
 ## Description
 Implementation of a simulated [Bento Arm](https://blincdev.ca/the-bento-arm/overview/) to carry 
 out tasks in a virtual reality environment. 
