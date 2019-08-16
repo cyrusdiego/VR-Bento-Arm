@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Obselete/VIPER_NoShells.unity
     guid: 60ea280a203ef114fbc47508d5d4d9d1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/testTask.unity
     guid: b2f7fcf17021d71448a098537db720eb
+  - enabled: 1
+    path: Assets/Scenes/VIPER_Box_And_Blocks.unity
+    guid: 661f123de646673428f014d7729723aa
   m_configObjects: {}
