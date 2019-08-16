@@ -6,19 +6,15 @@
 
 ## Description
 Implementation of a simulated [Bento Arm](https://blincdev.ca/the-bento-arm/overview/) to carry 
-out tasks in a virtual reality environment. 
+out tasks in a virtual reality environment. This project is still a work in progress and will require further development to implement more tasks and to add more functionality prior to releasing an official build. 
 
-## Table of Contents 
-[Installation](#installation)<br/>
-[Usage](#usage)<br/>
-[Credits](#credits)<br/>
-[License](#licesne)<br/>
 ## Installation
 **Required Software:**
 - Steam
 - SteamVR
 - UnityHub
 - Visual Studio (for development) 
+
 ## Usage 
 ### Startup
 1) Launch the VIPER Project in Unity 
