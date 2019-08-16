@@ -230,6 +230,52 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 18.699951
       objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.653
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: motorTorque
+      value: 1319000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: maxSpeedLimit
+      value: 0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: rotationAxis
+      value: y
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: arrayIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: mass
+      value: 0.653
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: global
+      value: 
+      objectReference: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
 --- !u!4 &4248319593009847947 stripped

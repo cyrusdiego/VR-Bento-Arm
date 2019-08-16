@@ -158,7 +158,7 @@ PrefabInstance:
     - target: {fileID: 5785963263724943748, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_Name
-      value: RightChopstick Variant
+      value: RightChopstick
       objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943800, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
@@ -218,18 +218,49 @@ PrefabInstance:
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.07513428
+      value: 688.075
       objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -122.751465
+      value: -822.2347
       objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 285.54706
+      value: 1774.9727
       objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: motorTorque
+      value: 733000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: maxSpeedLimit
+      value: 0.771
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: rotationAxis
+      value: x
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: arrayIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: mass
+      value: 0.127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: global
+      value: 
+      objectReference: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84767e0f650412e45854c07eda9f2d6c, type: 3}
 --- !u!4 &1440934256355506428 stripped
