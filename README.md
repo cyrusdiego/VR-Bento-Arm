@@ -1,5 +1,5 @@
 # Virtual Prosthesis Systems Simulator
-<p>
+<p align="center">
     <img width="225" height="120" src="https://github.com/Gnarlywhale/VR-Bento-Arm/blob/master/img/logo.png"></img>
     <img width="225" height="80" src="https://github.com/Gnarlywhale/VR-Bento-Arm/blob/master/img/blinclogo.png">
 </p>
