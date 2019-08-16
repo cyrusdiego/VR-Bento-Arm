@@ -158,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motorTorque: 0
   maxSpeedLimit: 0
-  bentoControl: {fileID: 0}
+  global: {fileID: 0}
   rotationAxis: 
   arrayIndex: 255
+  mass: 0

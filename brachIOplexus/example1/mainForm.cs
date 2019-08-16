@@ -9304,7 +9304,7 @@ namespace brachIOplexus
         private void unityEndTask_Click(object sender, EventArgs e)
         {
             sendSceneCtrl(endTask: 1);
-            timerToggle();
+            resetTimer();
         }
 
         /*
