@@ -140,6 +140,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: cart_rev2
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 7ec2b52053e3b9847a6d0cf5da021a42,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 7ec2b52053e3b9847a6d0cf5da021a42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -195,6 +200,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6499941436161086898, guid: 7ec2b52053e3b9847a6d0cf5da021a42,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d4b7265271d9f254ca5abe3b955c91db, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ec2b52053e3b9847a6d0cf5da021a42, type: 3}
 --- !u!4 &5169995722534367071 stripped
@@ -215,6 +225,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Desktop_Workspace
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1e493e884b6fbd3439f3c4c60fb5c9c1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 1e493e884b6fbd3439f3c4c60fb5c9c1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,6 +285,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6499941436161086898, guid: 1e493e884b6fbd3439f3c4c60fb5c9c1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d4b7265271d9f254ca5abe3b955c91db, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e493e884b6fbd3439f3c4c60fb5c9c1, type: 3}
 --- !u!4 &5772797327264010063 stripped
@@ -289,6 +309,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cartPlatform_NoLegs
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073406166608881745, guid: bcd94bb794c506c47a246227db6f7b2b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7066793650096003650, guid: bcd94bb794c506c47a246227db6f7b2b,
         type: 3}
@@ -349,7 +374,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7bdc2d6cee623b448a0d4b4bc50bd62e, type: 2}
+      objectReference: {fileID: 2100000, guid: d4b7265271d9f254ca5abe3b955c91db, type: 2}
     - target: {fileID: 7383393222338740282, guid: bcd94bb794c506c47a246227db6f7b2b,
         type: 3}
       propertyPath: m_Mass
@@ -374,6 +399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Table
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 28d73ea4d343fae46aa9f940a28019df,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 28d73ea4d343fae46aa9f940a28019df,
         type: 3}
@@ -430,6 +460,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6499941436161086898, guid: 28d73ea4d343fae46aa9f940a28019df,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d4b7265271d9f254ca5abe3b955c91db, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28d73ea4d343fae46aa9f940a28019df, type: 3}
 --- !u!4 &242248715937463101 stripped
