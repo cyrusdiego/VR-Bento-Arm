@@ -8,6 +8,10 @@
 Implementation of a simulated [Bento Arm](https://blincdev.ca/the-bento-arm/overview/) to carry 
 out tasks in a virtual reality environment. This project is still a work in progress and will require further development to implement more tasks and to add more functionality prior to releasing an official build. 
 
+Further Documentation can be found in the wiki section of this repository. Below provides a quick overview on the current (August 16, 2019) usage of the project. 
+
+For questions on the project implementation (regarding future development) contact: cdiego@ualberta.ca 
+
 ## Installation
 **Required Software:**
 - Steam
