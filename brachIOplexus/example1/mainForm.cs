@@ -8922,7 +8922,6 @@ namespace brachIOplexus
             for (int i = 0; i < unityCheckList.Items.Count; i++)
             {
                 unityCheckList.SetItemChecked(i, true);
-
             }
         }
 
@@ -9305,6 +9304,7 @@ namespace brachIOplexus
         private void unityEndTask_Click(object sender, EventArgs e)
         {
             sendSceneCtrl(endTask: 1);
+            timerToggle();
         }
 
         /*
