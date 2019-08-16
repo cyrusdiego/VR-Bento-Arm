@@ -705,14 +705,10 @@ namespace brachIOplexus
                     dynamixel.closePort(port_num);
                 }
 
-                // Close Unity communication and thread
+                // Close Unity communication and threads
                 if(UDPflag3)
                 {
                     disconnectUnity();
-                    //udpClientTX3.Close();
-                    //udpClientRX3.Close();
-                    //t11.Change(Timeout.Infinite, Timeout.Infinite);
-                    //t12.Change(Timeout.Infinite, Timeout.Infinite);
                 }
             }
             catch (Exception ex)
@@ -8898,7 +8894,7 @@ namespace brachIOplexus
 
             // Stops threads 
             t12.Change(Timeout.Infinite, Timeout.Infinite);
-            //t13.Change(Timeout.Infinite, Timeout.Infinite);
+            t13.Change(Timeout.Infinite, Timeout.Infinite);
 
             // Closes udp clients
             udpClientTX3.Close();
