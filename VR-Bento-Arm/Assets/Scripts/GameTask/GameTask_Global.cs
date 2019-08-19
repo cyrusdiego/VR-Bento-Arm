@@ -5,7 +5,7 @@
  */
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Global", menuName = "brachIOplexus/GameTask_Global")]
+[CreateAssetMenu(fileName = "GameTask_Global", menuName = "brachIOplexus/GameTask_Global")]
 public class GameTask_Global : ScriptableObject
 {
     // Cube on top of blue cup

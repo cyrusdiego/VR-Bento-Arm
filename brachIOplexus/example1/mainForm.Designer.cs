@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Game Task", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Box and Blocks", 0);
             this.tg = new MathWorks.xPCTarget.FrameWork.xPCTargetPC(this.components);
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -11906,17 +11908,14 @@
             // 
             // unityTaskList
             // 
-            System.Windows.Forms.ListViewItem task0 = new System.Windows.Forms.ListViewItem("Game Task", 0);
-            System.Windows.Forms.ListViewItem task1 = new System.Windows.Forms.ListViewItem("Box and Blocks", 0); 
-            // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0); 
             this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            task0,
-            task1});
+            listViewItem1,
+            listViewItem2});
             this.unityTaskList.Location = new System.Drawing.Point(6, 19);
             this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Name = "unityTaskList";
-            this.unityTaskList.Size = new System.Drawing.Size(202, 252);
+            this.unityTaskList.Size = new System.Drawing.Size(202, 263);
             this.unityTaskList.TabIndex = 7;
             this.unityTaskList.UseCompatibleStateImageBehavior = false;
             this.unityTaskList.View = System.Windows.Forms.View.List;
@@ -12007,7 +12006,6 @@
             // 
             // unityCameraPosition
             // 
-            this.unityCameraPosition.Enabled = false;
             this.unityCameraPosition.Controls.Add(this.unityCameraPositionNumber);
             this.unityCameraPosition.Controls.Add(this.unityCameraPositionTitle);
             this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);

@@ -9658,8 +9658,6 @@ namespace brachIOplexus
                     // Parses the packet accordingly 
                     parsePacket(packet);
                 }
-
-                //udpClientRX3.BeginReceive(new AsyncCallback(recv), null);
             }
             catch (Exception ex)
             {
@@ -9681,11 +9679,11 @@ namespace brachIOplexus
                     unityAcknowledge = true;
                 }
 
-                if (packet[2] == 3)
-                {
-                    this.feedback = packet;
-                    processFeedback();
-                }
+                //if (packet[2] == 3)
+                //{
+                //    this.feedback = packet;
+                //    processFeedback();
+                //}
 
                 // Starts / Stops the timer based on "in-task" stimulus (moving the arm or reaching the goal) 
                 if (packet[2] == 7)

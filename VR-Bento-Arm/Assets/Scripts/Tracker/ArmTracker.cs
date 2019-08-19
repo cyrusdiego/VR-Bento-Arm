@@ -7,7 +7,7 @@ public class ArmTracker : MonoBehaviour
     const float dY = 0;
     const float dZ = -0.20f;
     const float roll = 0;
-    const float yaw = 45;
+    const float yaw = 260;
     const float pitch = 0;
 
     public GameObject capsule = null;
