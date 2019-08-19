@@ -3,20 +3,15 @@ using Valve.VR;
 
 public class ArmTracker : MonoBehaviour 
 {
-    const float dX = 0;
+    const float dX = 0.08f;
     const float dY = 0;
-    const float dZ = -0.20f;
+    const float dZ = 0;
     const float roll = 0;
-    const float yaw = 260;
+    const float yaw = 90;
     const float pitch = 0;
 
     public GameObject capsule = null;
     public SteamVR_TrackedObject Tracker;
-
-    void Awake()
-    {
-        Tracker = capsule.GetComponent<SteamVR_TrackedObject>();
-    }
 
     void Update () 
     {
