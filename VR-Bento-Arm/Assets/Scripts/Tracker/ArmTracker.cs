@@ -18,11 +18,11 @@ public class ArmTracker : MonoBehaviour
         //Collect delta rotation and displacement between Tracker and Accessory
         Vector3 delta_displacement = new Vector3(dX, dY, dZ);
         Quaternion delta_rotation = Quaternion.Euler(roll, yaw, pitch);
-        print("printing delta displacement");
-        print("dx: " + delta_displacement.x + " dy: " + delta_displacement.y + " dz: " + delta_displacement.z);
-        print("printing delta rotation");
-        print(delta_rotation);
-        print(delta_rotation.w);
+        // print("printing delta displacement");
+        // print("dx: " + delta_displacement.x + " dy: " + delta_displacement.y + " dz: " + delta_displacement.z);
+        // print("printing delta rotation");
+        // print(delta_rotation);
+        // print(delta_rotation.w);
         //Get current Tracker pose
         Vector3 tracker_position = Tracker.transform.position;
         Quaternion tracker_rotation = Tracker.transform.rotation;
