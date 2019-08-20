@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Game Task", 0);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Box and Blocks", 0);
             this.tg = new MathWorks.xPCTarget.FrameWork.xPCTargetPC(this.components);
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -11908,10 +11906,15 @@
             // 
             // unityTaskList
             // 
+            System.Windows.Forms.ListViewItem task0 = new System.Windows.Forms.ListViewItem("Game Task", 0);
+            System.Windows.Forms.ListViewItem task1 = new System.Windows.Forms.ListViewItem("Box and Blocks", 0);
+            System.Windows.Forms.ListViewItem task2 = new System.Windows.Forms.ListViewItem("Tracker", 0);
+            // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0
             this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
+            task0,
+            task1,
+            task2});
             this.unityTaskList.Location = new System.Drawing.Point(6, 19);
             this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Name = "unityTaskList";

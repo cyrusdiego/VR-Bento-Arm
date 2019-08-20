@@ -32,7 +32,6 @@ public class TrackerRotationBase : MonoBehaviour
     */
     protected void getAxis(float axisValue, float speed)
     {
-        cj.angularXMotion = ConfigurableJointMotion.Free;
         // determines the damp value based on which axis
         switch(axis)
         {

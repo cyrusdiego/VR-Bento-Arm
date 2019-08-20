@@ -54,11 +54,7 @@ public class TrackerMotor : TrackerRotationBase
             }
             velocity = Math.Abs(value) * maxSpeedLimit;
         }
-        if(arrayIndex == 1)
-        {
-            print(direction);
-            print(velocity);
-        }
+
         switch(direction)
         {
             case 0:
@@ -82,7 +78,7 @@ public class TrackerMotor : TrackerRotationBase
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
 
-        cj.angularXMotion = ConfigurableJointMotion.Locked;
+        cj.angularXMotion = ConfigurableJointMotion.Free;
         cj.angularYMotion = ConfigurableJointMotion.Locked;
         cj.angularZMotion = ConfigurableJointMotion.Locked;
 
@@ -120,7 +116,7 @@ public class TrackerMotor : TrackerRotationBase
         rb.useGravity = false;
         rb.isKinematic = false;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-        rb.constraints = RigidbodyConstraints.FreezePosition;
+        // rb.constraints = RigidbodyConstraints.FreezePosition;
     }
 
     private void configureJointLimits()
