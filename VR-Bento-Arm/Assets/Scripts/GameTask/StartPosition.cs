@@ -2,7 +2,6 @@
 using System;
 public class StartPosition : MonoBehaviour
 {
-
     public Global global = null;
     public GameTask_Global _gtLogic = null;
     public GameObject shoulder = null;

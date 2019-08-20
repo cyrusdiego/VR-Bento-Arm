@@ -12,9 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/VIPER_Game.unity
     guid: e3845c8641e6f354d95d99baf434f0f3
   - enabled: 0
-    path: Assets/Scenes/Obselete/VIPER_NoShells.unity
-    guid: 60ea280a203ef114fbc47508d5d4d9d1
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/testTask.unity
-    guid: b2f7fcf17021d71448a098537db720eb
+    path: Assets/Scenes/VIPER_Box_And_Blocks.unity
+    guid: 661f123de646673428f014d7729723aa
+  - enabled: 1
+    path: Assets/Scenes/VIPER_Tracker.unity
+    guid: 1b62b37663f1b5c47a3d2249a134beac
   m_configObjects: {}

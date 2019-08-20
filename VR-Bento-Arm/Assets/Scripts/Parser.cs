@@ -45,10 +45,10 @@ public class Parser : MonoBehaviour
     {
         task = global.task;
         timer = global.timer;
-        if(task)
-        {
-            sendFeedback();
-        }
+        // if(task)
+        // {
+        //     sendFeedback();
+        // }
         if(timer)
         {
             timerToggle();
@@ -224,6 +224,8 @@ public class Parser : MonoBehaviour
         timerFeedback[5] = calcCheckSum(ref timerFeedback);
 
         global.timer = false;
+
+        print("timerrrrr");
     }
     #region Utilities
 

@@ -11907,16 +11907,18 @@
             // unityTaskList
             // 
             System.Windows.Forms.ListViewItem task0 = new System.Windows.Forms.ListViewItem("Game Task", 0);
-            System.Windows.Forms.ListViewItem task1 = new System.Windows.Forms.ListViewItem("Box and Blocks", 0); 
-            // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0); 
+            System.Windows.Forms.ListViewItem task1 = new System.Windows.Forms.ListViewItem("Box and Blocks", 0);
+            System.Windows.Forms.ListViewItem task2 = new System.Windows.Forms.ListViewItem("Tracker", 0);
+            // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0
             this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             task0,
-            task1});
+            task1,
+            task2});
             this.unityTaskList.Location = new System.Drawing.Point(6, 19);
             this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Name = "unityTaskList";
-            this.unityTaskList.Size = new System.Drawing.Size(202, 252);
+            this.unityTaskList.Size = new System.Drawing.Size(202, 263);
             this.unityTaskList.TabIndex = 7;
             this.unityTaskList.UseCompatibleStateImageBehavior = false;
             this.unityTaskList.View = System.Windows.Forms.View.List;
@@ -12007,7 +12009,6 @@
             // 
             // unityCameraPosition
             // 
-            this.unityCameraPosition.Enabled = false;
             this.unityCameraPosition.Controls.Add(this.unityCameraPositionNumber);
             this.unityCameraPosition.Controls.Add(this.unityCameraPositionTitle);
             this.unityCameraPosition.Controls.Add(this.unityClearCameraPosition);
