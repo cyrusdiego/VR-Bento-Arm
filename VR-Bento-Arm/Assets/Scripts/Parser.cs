@@ -112,7 +112,7 @@ public class Parser : MonoBehaviour
         feedback[0] = 255;
         feedback[1] = 255;
         feedback[2] = 3;
-        feedback[3] = (byte)(25);
+        feedback[3] = (byte)(20);
 
         startIdx = 4;
 

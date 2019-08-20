@@ -1,8 +1,20 @@
-﻿using UnityEngine;
+﻿/* 
+    BLINC LAB VIPER Project 
+    UDPConection.cs 
+    Created by: Cyrus Diego August 15, 2019 
+
+    Takes the Position and Pose of the IMU Tracker and offsets the 
+    virtual Bento Arm by a certain differential position and rotation so that
+    the virtual Bento Arm appears to be attached to the subjects body. 
+
+    Credit to: https://dl.vive.com/Tracker/Guideline/HTC_Vive_Tracker(2018)_Developer+Guidelines_v1.0.pdf
+ */
+using UnityEngine;
 using Valve.VR;
 
 public class ArmTracker : MonoBehaviour 
 {
+    // Positional and Rotational offset
     const float dX = 0.08f;
     const float dY = 0;
     const float dZ = 0;
