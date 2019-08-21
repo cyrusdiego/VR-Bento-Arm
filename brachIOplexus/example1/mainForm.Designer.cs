@@ -11116,6 +11116,7 @@
             // 
             // unityFeedbackBox
             // 
+            this.unityFeedbackBox.Enabled = false;
             this.unityFeedbackBox.Controls.Add(this.unityHandVelocityFeedback);
             this.unityFeedbackBox.Controls.Add(this.unityHandPositionFeedback);
             this.unityFeedbackBox.Controls.Add(this.unityWristRotVelocityFeedback);
@@ -11128,7 +11129,6 @@
             this.unityFeedbackBox.Controls.Add(this.label269);
             this.unityFeedbackBox.Controls.Add(this.unityWristExtVelocityFeedback);
             this.unityFeedbackBox.Controls.Add(this.unityWristExtPositionFeedback);
-            this.unityFeedbackBox.Enabled = false;
             this.unityFeedbackBox.Location = new System.Drawing.Point(376, 295);
             this.unityFeedbackBox.Margin = new System.Windows.Forms.Padding(2);
             this.unityFeedbackBox.Name = "unityFeedbackBox";
@@ -11491,6 +11491,7 @@
             // 
             // unityShoulderVMin
             // 
+            this.unityShoulderVMin.Enabled = false;
             this.unityShoulderVMin.Location = new System.Drawing.Point(258, 30);
             this.unityShoulderVMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityShoulderVMin.Maximum = new decimal(new int[] {
@@ -11537,6 +11538,7 @@
             // 
             // unityElbowVMin
             // 
+            this.unityElbowVMin.Enabled = false;
             this.unityElbowVMin.Location = new System.Drawing.Point(258, 53);
             this.unityElbowVMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityElbowVMin.Maximum = new decimal(new int[] {
@@ -11583,6 +11585,7 @@
             // 
             // unityWristRotVMin
             // 
+            this.unityWristRotVMin.Enabled = false;
             this.unityWristRotVMin.Location = new System.Drawing.Point(258, 77);
             this.unityWristRotVMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityWristRotVMin.Maximum = new decimal(new int[] {
@@ -11629,6 +11632,7 @@
             // 
             // unityWristExtVMin
             // 
+            this.unityWristExtVMin.Enabled = false;
             this.unityWristExtVMin.Location = new System.Drawing.Point(258, 102);
             this.unityWristExtVMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityWristExtVMin.Maximum = new decimal(new int[] {
@@ -11675,6 +11679,7 @@
             // 
             // unityHandVMin
             // 
+            this.unityHandVMin.Enabled = false;
             this.unityHandVMin.Location = new System.Drawing.Point(258, 124);
             this.unityHandVMin.Margin = new System.Windows.Forms.Padding(2);
             this.unityHandVMin.Maximum = new decimal(new int[] {
@@ -11849,6 +11854,7 @@
             this.unityHeadsetModeToggle.Size = new System.Drawing.Size(83, 17);
             this.unityHeadsetModeToggle.TabIndex = 12;
             this.unityHeadsetModeToggle.Text = "VR Enabled";
+            this.unityHeadsetModeToggle.Enabled = false;
             this.unityHeadsetModeToggle.UseVisualStyleBackColor = true;
             // 
             // unityArmToggleInfo
@@ -12021,6 +12027,7 @@
             this.unityCameraPosition.TabIndex = 2;
             this.unityCameraPosition.TabStop = false;
             this.unityCameraPosition.Text = "Scene - Camera Position";
+            this.unityCameraPosition.Enabled = false;
             // 
             // unityCameraPositionNumber
             // 

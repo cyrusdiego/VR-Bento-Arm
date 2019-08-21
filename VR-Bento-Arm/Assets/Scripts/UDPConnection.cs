@@ -112,7 +112,7 @@ public class UDPConnection : MonoBehaviour
             {
                 clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
                 timer = false;
-                packetParser.timer = false;
+                packetParser.timerSent = true;
             }
         }
         catch (Exception err)

@@ -9257,8 +9257,8 @@ namespace brachIOplexus
 
             // Enables all other group boxes in Unity Tab 
             unityTaskConfiguration.Enabled = true;
-            unityCameraPosition.Enabled = true;
-            unityFeedbackBox.Enabled = true;
+            //unityCameraPosition.Enabled = true;
+            //unityFeedbackBox.Enabled = true;
             unityRobotParamsBox.Enabled = true;
         }
 
@@ -9523,7 +9523,7 @@ namespace brachIOplexus
             packet[0] = 255;                    // Header
             packet[1] = 255;                    // Header
             packet[2] = 5;                      // Type: 5
-            packet[3] = 8;                      // Length
+            packet[3] = 3;                      // Length
             packet[4] = camNext;                // Next camera position
             packet[5] = camClear;               // Clear saved camera positions
             packet[6] = camSave;                // Save current camera position
@@ -9613,14 +9613,14 @@ namespace brachIOplexus
             {
                 unityTaskConfiguration.Enabled = state;
             });
-            this.unityMainControls.Invoke((MethodInvoker)delegate
-            {
-                unityCameraPosition.Enabled = state;
-            });
-            this.unityMainControls.Invoke((MethodInvoker)delegate
-            {
-                unityFeedbackBox.Enabled = state;
-            });
+            //this.unityMainControls.Invoke((MethodInvoker)delegate
+            //{
+            //    unityCameraPosition.Enabled = state;
+            //});
+            //this.unityMainControls.Invoke((MethodInvoker)delegate
+            //{
+            //    unityFeedbackBox.Enabled = state;
+            //});
             this.unityMainControls.Invoke((MethodInvoker)delegate
             {
                 unityRobotParamsBox.Enabled = state;

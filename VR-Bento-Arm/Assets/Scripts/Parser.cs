@@ -30,6 +30,8 @@ public class Parser : MonoBehaviour
     public bool timer;
     // byte array to send timer feedback
     public byte[] timerFeedback;
+    // Flag indicating Unity sent the timer packet
+    public bool timerSent;
 
     // Array's to hold positions and velocity of bento arm
     private float[] currentPosition = new float[5];
@@ -39,16 +41,24 @@ public class Parser : MonoBehaviour
     {
         outgoing = null;
         task = global.task;
+        timer = global.timer;
+        timerSent = false;
     }
 
     void FixedUpdate()
     {
+        if(timerSent)
+        {
+            global.timer = false;
+            timerSent = false;
+        }
         task = global.task;
         timer = global.timer;
         // if(task)
         // {
         //     sendFeedback();
         // }
+
         if(timer)
         {
             timerToggle();
@@ -223,9 +233,7 @@ public class Parser : MonoBehaviour
         timerFeedback[4] = 1;
         timerFeedback[5] = calcCheckSum(ref timerFeedback);
 
-        global.timer = false;
-
-        print("timerrrrr");
+        // global.timer = false;
     }
     #region Utilities
 
