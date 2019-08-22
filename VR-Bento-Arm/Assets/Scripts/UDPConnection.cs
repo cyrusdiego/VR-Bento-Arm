@@ -110,6 +110,7 @@ public class UDPConnection : MonoBehaviour
             // }
             if(timer)
             {
+                print("helloooo");
                 clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
                 timer = false;
                 packetParser.timerSent = true;
