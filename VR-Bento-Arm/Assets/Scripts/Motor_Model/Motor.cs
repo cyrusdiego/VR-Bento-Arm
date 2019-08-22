@@ -54,6 +54,12 @@ public class Motor : RotationBase
             }
             velocity = Math.Abs(value) * maxSpeedLimit;
         }
+
+        if(global.maxTorque)
+        {
+            return;
+        }
+        
         switch(direction)
         {
             case 0:
