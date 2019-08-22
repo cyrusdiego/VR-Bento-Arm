@@ -189,7 +189,6 @@ public class Parser : MonoBehaviour
             float direction = packet[4*i + 3];
             float velocity = getVelocity(packet[4*i + 1],packet[4*i + 2]);
             global.brachIOplexusControl[packet[4*i]] = new Tuple<float, float>(direction,velocity);
-
         }
     }
 

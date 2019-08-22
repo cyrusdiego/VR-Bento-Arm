@@ -8894,7 +8894,7 @@ namespace brachIOplexus
 
             // Stops threads 
             t12.Change(Timeout.Infinite, Timeout.Infinite);
-            t13.Change(Timeout.Infinite, Timeout.Infinite);
+            //t13.Change(Timeout.Infinite, Timeout.Infinite);
 
             // Closes udp clients
             udpClientTX3.Close();

@@ -94,8 +94,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -214,6 +214,11 @@ MonoBehaviour:
   global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
   VRHeadset: {fileID: 0}
   outgoing: 
+  feedback: 
+  task: 0
+  timer: 0
+  timerFeedback: 
+  timerSent: 0
 --- !u!1 &1327295370
 GameObject:
   m_ObjectHideFlags: 0

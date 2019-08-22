@@ -11915,12 +11915,14 @@
             System.Windows.Forms.ListViewItem task0 = new System.Windows.Forms.ListViewItem("Game Task", 0);
             System.Windows.Forms.ListViewItem task1 = new System.Windows.Forms.ListViewItem("Box and Blocks", 0);
             System.Windows.Forms.ListViewItem task2 = new System.Windows.Forms.ListViewItem("Tracker", 0);
-            // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0
+            System.Windows.Forms.ListViewItem task3 = new System.Windows.Forms.ListViewItem("Example", 0);
+            // System.Windows.Forms.ListViewItem task# = new System.Windows.Forms.ListViewItem("Task Name", 0);
             this.unityTaskList.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.unityTaskList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             task0,
             task1,
-            task2});
+            task2,
+            task3});
             this.unityTaskList.Location = new System.Drawing.Point(6, 19);
             this.unityTaskList.MultiSelect = false;
             this.unityTaskList.Name = "unityTaskList";

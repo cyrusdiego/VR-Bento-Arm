@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VIPER_Tracker.unity
     guid: 1b62b37663f1b5c47a3d2249a134beac
+  - enabled: 1
+    path: Assets/Scenes/VIPER_Example.unity
+    guid: 720ce79968e32324ea1277b0b6a46bd5
   m_configObjects: {}
