@@ -57,9 +57,16 @@ public class Motor : RotationBase
 
         if(global.maxTorque)
         {
-            return;
+            if((arrayIndex == 1 || arrayIndex == 3) && direction != 1)
+            {
+                return;
+            }
+            else
+            {
+                global.maxTorque = true;
+            }
         }
-        
+
         switch(direction)
         {
             case 0:

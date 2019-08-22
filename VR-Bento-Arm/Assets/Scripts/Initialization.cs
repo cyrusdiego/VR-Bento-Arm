@@ -32,6 +32,4 @@ public class Initialization : MonoBehaviour
         global.timer = false;
         global.maxTorque = false;
     }
-
-
 }
