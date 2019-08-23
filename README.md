@@ -13,12 +13,15 @@ Further Documentation can be found in the wiki section of this repository. Below
 For questions on the project implementation (regarding future development) contact: cdiego@ualberta.ca 
 
 ## Installation
+The following softwares are required to use and improve this project. Refer to [Required Software](https://github.com/Gnarlywhale/VR-Bento-Arm/wiki/Required-Software) in the [Wiki](https://github.com/Gnarlywhale/VR-Bento-Arm/wiki) for more information. All executables are also in the `incldue` folder of this repository. 
 **Required Software:**
-- Steam
-- SteamVR
-- UnityHub
+- Steam [download](https://store.steampowered.com/about/)
+- SteamVR 
+- UnityHub [download](https://unity3d.com/get-unity/download?_ga=2.245589127.2041372532.1566495625-1427329471.1558556305)
+    - Unity (as of 08/23/2019 Unity version: 2019.2.0f1) 
 - Visual Studio (for development) 
-
+    - Refer to [Required Software](https://github.com/Gnarlywhale/VR-Bento-Arm/wiki/Required-Software) for using brachIOplexus for this project as there were considerable problems in the begining of the project concerning brachIOplexus and Visual Studio 
+- Viveport [download](https://enterprise.vive.com/eu/setup/vive-pro/?_ga=2.78552724.1052732723.1562775602-1965376001.1562186905)
 ## Usage 
 ### Startup
 1) Launch the VIPER Project in Unity 
