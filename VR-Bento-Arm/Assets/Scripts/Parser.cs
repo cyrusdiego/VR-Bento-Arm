@@ -61,7 +61,6 @@ public class Parser : MonoBehaviour
 
         if(timer)
         {
-            print("yo");
             timerToggle();
         }
     }
