@@ -27,6 +27,8 @@ public class EndPosition : MonoBehaviour
         shoulderAngle = (int)shoulderTransform.rotation.eulerAngles.y;
         elbowAngle = (int)elbowTransform.rotation.eulerAngles.x;
 
+        // Hard coded in, 304 and 44 are the angular limits of the shoulder and elbow respectively 
+        // measured by rotating the arm to its limits
         if(shoulderAngle == 304 && elbowAngle == 44 && _gtLogic.step1 && _gtLogic.step2)
         {
             triggerTimer();

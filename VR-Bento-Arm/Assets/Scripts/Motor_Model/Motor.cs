@@ -152,7 +152,14 @@ public class Motor : RotationBase
 
         actualPMin = (180 - PMin) - 90;
         actualPMax = 90 - (PMax - 180);
-        
+
+        print("////////////////////////////////");
+        print("array index: " + arrayIndex);
+        print("Sent PMin: " + PMin);
+        print("Sent PMax: " + PMax);
+        print("Actual PMin: " + actualPMin);
+        print("Actual PMax: " + actualPMax);
+
         if(PMax == 270 && PMin == 90)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
@@ -165,6 +172,12 @@ public class Motor : RotationBase
             temp = actualPMin;
             actualPMin = actualPMax;
             actualPMax = temp;
+        }
+
+        if(arrayIndex == 3)
+        {
+            actualPMin = -90;
+            actualPMax = 90;
         }
 
         min.limit = actualPMin;
