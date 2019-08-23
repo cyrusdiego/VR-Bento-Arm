@@ -51,9 +51,13 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <dsig:DigestValue>zvXEy7JXOFz9B8u+Y8em2BLN0G0=</dsig:DigestValue>
 =======
         <dsig:DigestValue>MtlYM40BIMRs2vcoC3HTRghHp+Q=</dsig:DigestValue>
+>>>>>>> bentoArmTorques
+=======
+        <dsig:DigestValue>yIC0gMNIOXZpNA3sWHMipxuwXgg=</dsig:DigestValue>
 >>>>>>> bentoArmTorques
       </hash>
     </dependentAssembly>

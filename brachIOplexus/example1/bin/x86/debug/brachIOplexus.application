@@ -15,9 +15,13 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <dsig:DigestValue>vcpaFsgGZV+eDf4CPJMV3C88JX4=</dsig:DigestValue>
 =======
         <dsig:DigestValue>qnMxg6nuoj+aEPkyy5QYUaYDmVc=</dsig:DigestValue>
+>>>>>>> bentoArmTorques
+=======
+        <dsig:DigestValue>3FsFlY7WDw+IkiqKxgYTe1B4IkE=</dsig:DigestValue>
 >>>>>>> bentoArmTorques
       </hash>
     </dependentAssembly>

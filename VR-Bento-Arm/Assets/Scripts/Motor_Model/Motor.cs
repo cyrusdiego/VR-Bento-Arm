@@ -63,7 +63,7 @@ public class Motor : RotationBase
             }
             else
             {
-                global.maxTorque = true;
+                global.maxTorque = true; // double check 
             }
         }
 
