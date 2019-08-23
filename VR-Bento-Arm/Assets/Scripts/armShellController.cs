@@ -12,7 +12,7 @@ public class armShellController : MonoBehaviour
     // Array that holds the arm shells
     public GameObject[] armShells = new GameObject[3];
     // Array that hold the metal structure under the arm shell
-    public GameObject[] armStructure = new GameObject[3];
+    public GameObject[] armSkeleton = new GameObject[3];
     public Global global = null;
 
     void FixedUpdate()
