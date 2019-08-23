@@ -121,11 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< HEAD
 --- !u!43 &66645005
-=======
---- !u!43 &191556205
->>>>>>> bentoArmTorques
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1271,11 +1267,7 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 1879663172}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!21 &2131520856
-=======
---- !u!21 &2085742017
->>>>>>> bentoArmTorques
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1562,20 +1554,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-<<<<<<< HEAD
       objectReference: {fileID: 2131520856}
-=======
-      objectReference: {fileID: 2085742017}
->>>>>>> bentoArmTorques
     - target: {fileID: 4831059254532692433, guid: 78e90bf37a598c34e95fc035db8c9ff6,
         type: 3}
       propertyPath: m_Mesh
       value: 
-<<<<<<< HEAD
       objectReference: {fileID: 66645005}
-=======
-      objectReference: {fileID: 191556205}
->>>>>>> bentoArmTorques
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78e90bf37a598c34e95fc035db8c9ff6, type: 3}
 --- !u!1001 &5524922100590959969
