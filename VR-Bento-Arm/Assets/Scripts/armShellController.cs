@@ -26,10 +26,10 @@ public class armShellController : MonoBehaviour
                 armShells[i].SetActive(true);
             }
             // disabled box colliders under arm shells 
-            for(int i = 0; i < armStructure.Length; i++)
+            for(int i = 0; i < armSkeleton.Length; i++)
             {
                 BoxCollider[] boxes;
-                boxes = armStructure[i].GetComponents<BoxCollider>();
+                boxes = armSkeleton[i].GetComponents<BoxCollider>();
                 for(int j = 0; j < boxes.Length; j++)
                 {
                     boxes[j].enabled = false;
@@ -44,10 +44,10 @@ public class armShellController : MonoBehaviour
                 armShells[i].SetActive(false);
             }
             // enables box colliders under arm shells
-            for(int i = 0; i < armStructure.Length; i++)
+            for(int i = 0; i < armSkeleton.Length; i++)
             {
                 BoxCollider[] boxes;
-                boxes = armStructure[i].GetComponents<BoxCollider>();
+                boxes = armSkeleton[i].GetComponents<BoxCollider>();
                 for(int j = 0; j < boxes.Length; j++)
                 {
                     boxes[j].enabled = true;
