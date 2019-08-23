@@ -121,7 +121,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 --- !u!43 &66645005
+=======
+--- !u!43 &191556205
+>>>>>>> bentoArmTorques
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -371,6 +375,11 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 18.699951
       objectReference: {fileID: 0}
+    - target: {fileID: 8465001264973003388, guid: ae6b2eddda7fdc046980e15bce82e986,
+        type: 3}
+      propertyPath: motorTorque
+      value: 1319000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6b2eddda7fdc046980e15bce82e986, type: 3}
 --- !u!4 &193008374 stripped
@@ -558,6 +567,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -39.670166
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050817706952023641, guid: abfe759d730bfc04e99072a52a849f32,
+        type: 3}
+      propertyPath: motorTorque
+      value: 733000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abfe759d730bfc04e99072a52a849f32, type: 3}
@@ -757,6 +771,11 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: -3.4870605
       objectReference: {fileID: 0}
+    - target: {fileID: 4885857512059154813, guid: e51aa9a4b4e44a54e9ba2a2d170b2264,
+        type: 3}
+      propertyPath: motorTorque
+      value: 978000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e51aa9a4b4e44a54e9ba2a2d170b2264, type: 3}
 --- !u!1 &1130809191 stripped
@@ -856,6 +875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -155.80005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7864467816396252314, guid: 0a39cffba2a7d0340b49d8895da0966c,
+        type: 3}
+      propertyPath: motorTorque
+      value: 611000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a39cffba2a7d0340b49d8895da0966c, type: 3}
@@ -969,6 +993,25 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4781887274057517055, guid: e3d9f96a80e6c47438a950bb9d2ebcf6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e3d9f96a80e6c47438a950bb9d2ebcf6, type: 3}
+--- !u!1 &1378751291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3566077080531678873, guid: e3d9f96a80e6c47438a950bb9d2ebcf6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1378751290}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1378751292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378751291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e6b2d6b7dbce64fa3c6d5096e22473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
 --- !u!1 &1378751293 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4781887274057517053, guid: e3d9f96a80e6c47438a950bb9d2ebcf6,
@@ -1075,6 +1118,11 @@ PrefabInstance:
       propertyPath: m_ConnectedBody
       value: 
       objectReference: {fileID: 193008375}
+    - target: {fileID: 3003561381570940318, guid: 216de5262f35c6440b9299d07856e59c,
+        type: 3}
+      propertyPath: motorTorque
+      value: 2463000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216de5262f35c6440b9299d07856e59c, type: 3}
 --- !u!4 &1403919111 stripped
@@ -1119,18 +1167,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1403919110}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1403919118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403919117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fb21d9254d8f7e43b9cf0450befeeb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1488176602 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4481896301673303492, guid: e51aa9a4b4e44a54e9ba2a2d170b2264,
@@ -1235,7 +1271,11 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 1879663172}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 --- !u!21 &2131520856
+=======
+--- !u!21 &2085742017
+>>>>>>> bentoArmTorques
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1522,12 +1562,20 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
+<<<<<<< HEAD
       objectReference: {fileID: 2131520856}
+=======
+      objectReference: {fileID: 2085742017}
+>>>>>>> bentoArmTorques
     - target: {fileID: 4831059254532692433, guid: 78e90bf37a598c34e95fc035db8c9ff6,
         type: 3}
       propertyPath: m_Mesh
       value: 
+<<<<<<< HEAD
       objectReference: {fileID: 66645005}
+=======
+      objectReference: {fileID: 191556205}
+>>>>>>> bentoArmTorques
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78e90bf37a598c34e95fc035db8c9ff6, type: 3}
 --- !u!1001 &5524922100590959969
@@ -1694,6 +1742,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4191425cbcf78c846aad8bcd57bee046, type: 3}
+--- !u!1 &5524922100590959970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1571784116726052234, guid: 4191425cbcf78c846aad8bcd57bee046,
+    type: 3}
+  m_PrefabInstance: {fileID: 5524922100590959969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5524922100590959971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5524922100590959970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e6b2d6b7dbce64fa3c6d5096e22473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
 --- !u!1001 &6982443566771143882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1884,7 +1951,7 @@ PrefabInstance:
     - target: {fileID: 3282276369539521175, guid: 22abb169eef8f8347b1bb0013f6aacb3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 725.7
+      value: 732.8
       objectReference: {fileID: 0}
     - target: {fileID: 3282276369539521175, guid: 22abb169eef8f8347b1bb0013f6aacb3,
         type: 3}
@@ -1948,6 +2015,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22abb169eef8f8347b1bb0013f6aacb3, type: 3}
+--- !u!1 &7563312035991416740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2006253781013571716, guid: 22abb169eef8f8347b1bb0013f6aacb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7563312035991416739}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7563312035991416741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7563312035991416740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e6b2d6b7dbce64fa3c6d5096e22473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}
 --- !u!1 &8296172668500736616 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3566077080531678873, guid: e3d9f96a80e6c47438a950bb9d2ebcf6,
@@ -1970,3 +2056,16 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &8296172668500736618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172668500736616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e6b2d6b7dbce64fa3c6d5096e22473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  global: {fileID: 11400000, guid: 15f80ed56f699d34ba147f684e81c525, type: 2}

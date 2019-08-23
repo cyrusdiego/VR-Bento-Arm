@@ -52,7 +52,8 @@ public class Global : ScriptableObject
     public bool timer;
     // Startup bool that blocks incoming control packets so bento arm can do any initial setup
     public bool startup;
-
+    // Flag to indicate that a servo motor is applying too much torque / force on an object
+    public bool maxTorque;
     public Global()
     {
         // This value needs to be changed if more motors were to be added 

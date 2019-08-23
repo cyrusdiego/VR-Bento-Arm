@@ -9688,6 +9688,7 @@ namespace brachIOplexus
                 // Starts / Stops the timer based on "in-task" stimulus (moving the arm or reaching the goal) 
                 if (packet[2] == 7)
                 {
+                    Console.WriteLine("hello wtf");
                     timerToggle();
                 }
             }
