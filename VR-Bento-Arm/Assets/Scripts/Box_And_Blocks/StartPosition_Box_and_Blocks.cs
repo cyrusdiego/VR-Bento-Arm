@@ -49,7 +49,7 @@ public class StartPosition_Box_and_Blocks : MonoBehaviour
     void FixedUpdate()
     {
         elbowAngle = elbow.GetComponent<Transform>().rotation.eulerAngles.x;
-        if(elbowAngle >= 44) 
+        if(elbowAngle >= 43 && elbowAngle <= 44) 
         {
             global.brachIOplexusControl[1] = new Tuple<float, float>(0,0);
             elbowReady = true;

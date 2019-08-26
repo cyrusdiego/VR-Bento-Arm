@@ -18,7 +18,6 @@ public class TorqueLimit : MonoBehaviour
 
             Vector3 force;
             force = impulse / Time.fixedDeltaTime;
-            print(force);
             if(force.y >= maximum)
             {
                 global.maxTorque = true;

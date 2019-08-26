@@ -19,6 +19,31 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  controlToggle: 1
-  timerTrigger: 255
   cameraArray: ffffffff
+  motorCount: 5
+  loaderPacket: ff000000ff000000ff000000ff000000
+  jointLimits: 9200d6009c00e2005a000e0146002b01c10007010100430001002d0001005a000100430001005a00
+  sent: 1
+  outgoing: 
+  controlToggle: 1
+  armShell: 1
+  VREnabled: 1
+  pause: 0
+  end: 0
+  reset: 0
+  position:
+  - -0.000007889077
+  - -1.7505771e-11
+  - 0.0000049650466
+  - -0.0000002134425
+  - 0.0000007948891
+  velocity:
+  - 2.7919786e-11
+  - 1.0390014e-10
+  - -0.0000000010458772
+  - 2.6333882e-10
+  - -0.000000087555115
+  task: 1
+  timer: 0
+  startup: 0
+  maxTorque: 0
