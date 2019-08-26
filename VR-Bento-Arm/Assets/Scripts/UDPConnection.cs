@@ -28,7 +28,8 @@ public class UDPConnection : MonoBehaviour
     private UdpClient clientTX;
     private Thread threadRX;
     // private Thread threadTX;
-    private System.Threading.Timer threadTX;
+    // private System.Threading.Timer threadTX;
+    private Thread threadTX;
     private IPEndPoint endpointRX;
     private IPEndPoint endpointTX;
 
@@ -62,14 +63,15 @@ public class UDPConnection : MonoBehaviour
         clientRX = new UdpClient(portRX);
         endpointRX = new IPEndPoint(local,portRX);
         threadRX = new Thread(Recieve);
-
+        threadTX = new Thread(Send);
         clientTX = new UdpClient();
         endpointTX = new IPEndPoint(local,portTX);
 
         exitTX = false;
         exitRX = false;
         threadRX.Start();
-        threadTX = new System.Threading.Timer(new TimerCallback(Send), null, 0, 15);
+        threadTX.Start();
+        // threadTX = new System.Threading.Timer(new TimerCallback(Send), null, 0, 15);
     }
 
     void FixedUpdate()
@@ -88,7 +90,7 @@ public class UDPConnection : MonoBehaviour
     {
         exitRX = true;
         exitTX = true;
-        threadTX.Change(Timeout.Infinite, Timeout.Infinite);
+        // threadTX.Change(Timeout.Infinite, Timeout.Infinite);
         clientRX.Close();
         clientTX.Close();
     }
@@ -96,28 +98,31 @@ public class UDPConnection : MonoBehaviour
     #endregion
     void Send(object state)
     {
-        try
+        while(!exitTX)
         {
-            if(outgoing != null)
+            try
             {
-                clientTX.Send(outgoing, outgoing.Length,endpointTX);
-                outgoing = null;
-                packetParser.outgoing = null;
+                if(outgoing != null)
+                {
+                    clientTX.Send(outgoing, outgoing.Length,endpointTX);
+                    outgoing = null;
+                    packetParser.outgoing = null;
+                }
+                // if(task)
+                // {
+                //     clientTX.Send(feedback, feedback.Length,endpointTX);
+                // }
+                if(timer)
+                {
+                    clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
+                    timer = false;
+                    packetParser.timerSent = true;
+                }
             }
-            // if(task)
-            // {
-            //     clientTX.Send(feedback, feedback.Length,endpointTX);
-            // }
-            if(timer)
+            catch (Exception err)
             {
-                clientTX.Send(timerFeedback, timerFeedback.Length,endpointTX);
-                timer = false;
-                packetParser.timerSent = true;
+                print(err.ToString());            
             }
-        }
-        catch (Exception err)
-        {
-            print(err.ToString());            
         }
     }
 
