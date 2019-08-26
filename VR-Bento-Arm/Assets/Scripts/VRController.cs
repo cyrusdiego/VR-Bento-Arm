@@ -36,7 +36,7 @@ public class VRController : MonoBehaviour
         Right = SteamVR_Input_Sources.RightHand;
 
         // Clears the VR control array 
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < global.SteamVRControl.Length; i++)
         {
             global.SteamVRControl[i] = 0;
         }
@@ -44,6 +44,10 @@ public class VRController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(global.startup)
+        {
+            return;
+        }
         // Will only use VR Controller input if the control toggle from brachIOplexus is disabled
         if(!global.controlToggle)
         {
@@ -54,22 +58,21 @@ public class VRController : MonoBehaviour
             single = (SteamVR_Action_Single)trigger;  // Gets a float 0 to 1
             boolean = (SteamVR_Action_Boolean)push;  // Gets a bool (if button is pressed or not)
             vector2 = (SteamVR_Action_Vector2)joystick;  // Get a 2-D vector (0 to 1)
-
             // Determines if the end effectors should open or not 
             // Will need to be expanded for future end effectors (only created for chopsticks)
 
             // if both triggers are pressed OR if neither triggers are pressed, don't move
             if(single.GetAxis(Left) != 0 && single.GetAxis(Right) != 0 || (single.GetAxis(Left) == 0 && single.GetAxis(Right) == 0))
             {
-                global.SteamVRControl[5] = 0;
+                global.SteamVRControl[4] = 0;
             }
             else if(single.GetAxis(Left) != 0 && single.GetAxis(Right) == 0)
             {   
-                global.SteamVRControl[5] = single.GetAxis(Left);
+                global.SteamVRControl[4] = single.GetAxis(Left);
             }
             else if(single.GetAxis(Left) == 0 && single.GetAxis(Right) != 0)
             {
-                global.SteamVRControl[5] = -1 * single.GetAxis(Right);
+                global.SteamVRControl[4] = -1 * single.GetAxis(Right);
             }
 
             
@@ -82,8 +85,8 @@ public class VRController : MonoBehaviour
                     // Gets values from the Left trackpad
                     leftJoy = vector2.GetAxis(Left);
                     // Only fills array if the value is above the threshold 
-                    global.SteamVRControl[1] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
-                    global.SteamVRControl[2] =  Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
+                    global.SteamVRControl[0] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
+                    global.SteamVRControl[1] =  Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
                 }
                 // Checks first if the trackpad is pressed down
                 if(boolean.GetState(Right))
@@ -91,8 +94,8 @@ public class VRController : MonoBehaviour
                     // Gets value from Right trackpad
                     rightJoy = vector2.GetAxis(Right);
                     // Only fills array if tyhe value is above the threshold
-                    global.SteamVRControl[3] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
-                    global.SteamVRControl[4] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
+                    global.SteamVRControl[2] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
+                    global.SteamVRControl[3] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
                 }
 
             }
@@ -101,14 +104,14 @@ public class VRController : MonoBehaviour
                 // Gets values from the Left trackpad
                 leftJoy = vector2.GetAxis(Left);
                 // Only fills array if the value is above the threshold 
-                global.SteamVRControl[1] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
-                global.SteamVRControl[2] = Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
+                global.SteamVRControl[0] = Math.Abs(leftJoy.x) >= 0.15 ? -1 * leftJoy.x : 0;
+                global.SteamVRControl[1] = Math.Abs(leftJoy.y) >= 0.15 ? -1 * leftJoy.y : 0;
 
                 // Gets value from Right trackpad
                 rightJoy = vector2.GetAxis(Right);
                 // Only fills array if tyhe value is above the threshold
-                global.SteamVRControl[3] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
-                global.SteamVRControl[4] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
+                global.SteamVRControl[2] = Math.Abs(rightJoy.x) >= 0.15 ? -1 * rightJoy.x : 0;
+                global.SteamVRControl[3] = Math.Abs(rightJoy.y) >= 0.15 ? -1 * rightJoy.y : 0;
             
             }
         }

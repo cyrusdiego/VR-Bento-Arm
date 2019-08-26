@@ -22,11 +22,22 @@ public class StartPosition : MonoBehaviour
 
         timerCounter = 0; 
 
-        global.brachIOplexusControl[0] = new Tuple<float, float>(2,0.7f);
-        global.brachIOplexusControl[1] = new Tuple<float, float>(1,0.7f);
-        global.brachIOplexusControl[2] = new Tuple<float, float>(0,0);
-        global.brachIOplexusControl[3] = new Tuple<float, float>(0,0);
-        global.brachIOplexusControl[4] = new Tuple<float, float>(0,0);
+        if(global.controlToggle)
+        {
+            global.brachIOplexusControl[0] = new Tuple<float, float>(2,0.7f);
+            global.brachIOplexusControl[1] = new Tuple<float, float>(1,0.7f);
+            global.brachIOplexusControl[2] = new Tuple<float, float>(0,0);
+            global.brachIOplexusControl[3] = new Tuple<float, float>(0,0);
+            global.brachIOplexusControl[4] = new Tuple<float, float>(0,0);
+        }
+        else 
+        {
+            global.SteamVRControl[0] = 1;
+            global.SteamVRControl[1] = -1;
+            global.SteamVRControl[2] = 0;
+            global.SteamVRControl[3] = 0;
+            global.SteamVRControl[4] = 0;
+        }
     }
 
     private int getLimit(int arrayIndex)
@@ -50,7 +61,14 @@ public class StartPosition : MonoBehaviour
         shoulderAngle = shoulder.GetComponent<Transform>().rotation.eulerAngles.y;
         if(shoulderAngle <= shoulderLimit && shoulderAngle >= (shoulderLimit - 1)) 
         {
-            global.brachIOplexusControl[0] = new Tuple<float, float>(0,0);
+            if(global.controlToggle)
+            {
+                global.brachIOplexusControl[0] = new Tuple<float, float>(0,0);
+            }
+            else
+            {
+                global.SteamVRControl[0] = 0;
+            }
             shoulderReady = true; 
             global.armActive = false;
         }

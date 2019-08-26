@@ -13,6 +13,9 @@ public class SceneControl : MonoBehaviour
 {
     public Global global = null;
 
+    /*
+        @brief: function runs at a fixed rate of 1 / fixed time step
+    */
     void FixedUpdate()
     {
         if(global.pause)
@@ -22,6 +25,7 @@ public class SceneControl : MonoBehaviour
         }
         else
         {
+            // resumes game
             Time.timeScale = 1;
         }
 

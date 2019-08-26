@@ -15,7 +15,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Global", menuName = "brachIOplexus/GlobalVariables")]
 public class Global : ScriptableObject
 {
-    public float[] SteamVRControl = new float[6];
+    public float[] SteamVRControl = new float[5];
     public byte[] cameraArray = new byte[4];
 
     // Number of motors in virtual bento arm (Feedback.cs)
