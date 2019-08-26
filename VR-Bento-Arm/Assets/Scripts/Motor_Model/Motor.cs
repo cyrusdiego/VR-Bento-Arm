@@ -1,6 +1,10 @@
 /* 
     BLINC LAB VIPER Project 
+    Motor.cs
+    Created by Cyrus Diego 
 
+    Attached to each joint of the Bento Arm to simulate the servo motor applying a 
+    torque to each joint.
  */
 using UnityEngine;
 using System;
@@ -12,14 +16,23 @@ public class Motor : RotationBase
     public int arrayIndex = 255;
     public float mass;
 
+    // Temp variables to store the direction and velocity 
     private float direction;
     private float velocity;
+
+    // Angular limits for the joint
     private SoftJointLimit min;
     private SoftJointLimit max;
 
-    void Start()
+    /*
+        @brief: function called when script instance is being loaded
+    */
+    void Awake()
     {
+        // Gets specified rotational axis from inspector 
         axis = ((Axis)Enum.Parse(typeof(Axis),rotationAxis));
+
+        // Init new joint limit classes 
         min = new SoftJointLimit();
         max = new SoftJointLimit();
 
@@ -33,17 +46,24 @@ public class Motor : RotationBase
         configureSpeedLimits();
     }
 
+    /*
+        @brief: function runs at a fixed rate of 1 / fixed time step
+    */
     void FixedUpdate()
     {
+        // Checks which input method to read from
         if(global.controlToggle)
         {
+            // Read input from brachIOplexus
             direction = global.brachIOplexusControl[arrayIndex].Item1;
             velocity = global.brachIOplexusControl[arrayIndex].Item2;
         }
         else
         {
+            //read input from vr controllers
             float value = global.SteamVRControl[arrayIndex];
 
+            // determine direction of the joint
             if(value != 0)
             {
                 direction = value / Math.Abs(value) < 0 ? 1 : 2; 
@@ -52,9 +72,11 @@ public class Motor : RotationBase
             {
                 direction = 0;
             }
+            // determine velocity using percentage of the max speed limit 
             velocity = Math.Abs(value) * maxSpeedLimit;
         }
-
+        
+        // stops applying torque if max has been reached 
         if(global.maxTorque)
         {
             if((arrayIndex == 1 || arrayIndex == 3) && direction != 1)
@@ -63,9 +85,12 @@ public class Motor : RotationBase
             }
             else
             {
-                global.maxTorque = true; // double check 
+                // persists the state
+                global.maxTorque = true; 
             }
         }
+
+        // Moves the joint with specified direction and velocity 
         switch(direction)
         {
             case 0:
@@ -85,8 +110,12 @@ public class Motor : RotationBase
         
     }
 
+    /*
+        @brief: configures the configurable joint of the module 
+    */
     private void configureCJ()
     {
+        // Restricts all degrees of freedom except for the joint's x axis 
         cj.xMotion = ConfigurableJointMotion.Locked;
         cj.yMotion = ConfigurableJointMotion.Locked;
         cj.zMotion = ConfigurableJointMotion.Locked;
@@ -95,7 +124,11 @@ public class Motor : RotationBase
         cj.angularYMotion = ConfigurableJointMotion.Locked;
         cj.angularZMotion = ConfigurableJointMotion.Locked;
 
+        // auto determine the anchor point for the joint 
         cj.autoConfigureConnectedAnchor = true;
+
+        // Configure the primary and secondary axis depending on rotational axis
+        // Uses right hand rule 
         switch(axis)
         {
             case Axis.x:
@@ -114,6 +147,7 @@ public class Motor : RotationBase
             break;
         }
 
+        
         cj.anchor = Vector3.zero;
         cj.enableCollision = true;
         cj.projectionMode = JointProjectionMode.PositionAndRotation;

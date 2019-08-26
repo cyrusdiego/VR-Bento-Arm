@@ -15,8 +15,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Global", menuName = "brachIOplexus/GlobalVariables")]
 public class Global : ScriptableObject
 {
-    public float[] SteamVRControl = new float[5];
-    public byte[] cameraArray = new byte[4];
+    // unused until camera positon saving has been implemeneted
+    // public byte[] cameraArray = new byte[4];
 
     // Number of motors in virtual bento arm (Feedback.cs)
     public int motorCount;
@@ -56,6 +56,8 @@ public class Global : ScriptableObject
     public bool maxTorque;
     // Flag to indicate if brachIOplexus is sending signals to move the arm
     public bool armActive;
+    // Array that controls Bento ARm using VR Controller input 
+    public float[] SteamVRControl = new float[5];
     public Global()
     {
         // This value needs to be changed if more motors were to be added 

@@ -12,18 +12,30 @@ using System;
 public class VRController : MonoBehaviour
 {
     public Global global = null;
+
+    // Left and Right Controller handles
     private SteamVR_Input_Sources Left;
     private SteamVR_Input_Sources Right;
+    
+    // Action handles
     private SteamVR_Action joystick;
     private SteamVR_Action trigger;
     private SteamVR_Action push;
+
+    // Data Types handles 
+    // float 0 to 1
     private SteamVR_Action_Single single;
+    // bool 0 or 1
     private SteamVR_Action_Boolean boolean;
+    // 2D Vector of floats 0 to 1
     private SteamVR_Action_Vector2 vector2;
 
     private Vector2 rightJoy;
     private Vector2 leftJoy;
 
+    /*
+        @brief: function called when script instance is being loaded
+    */
     void Awake()
     {
         // Attatch the correct action to each variable to track values from VR controllers 
@@ -42,6 +54,9 @@ public class VRController : MonoBehaviour
         }
     }
 
+    /*
+        @brief: function runs at a fixed rate of 1 / fixed time step
+    */
     void FixedUpdate()
     {
         if(global.startup)
@@ -117,6 +132,9 @@ public class VRController : MonoBehaviour
         }
     }
 
+    /*
+        @breif: resets the control array for the Bento Arm
+    */
     void clearRotationArray()
     {
         for(int i = 0; i < global.SteamVRControl.Length; i++)
@@ -124,6 +142,5 @@ public class VRController : MonoBehaviour
             global.SteamVRControl[i] = 0;
         }
     }
-
 }
 

@@ -36,6 +36,7 @@ public class UDPConnection : MonoBehaviour
     private bool exitTX;
     private bool exitRX;
 
+    // Class that deals with parsing incoming packets and making outgoing packets
     public Parser packetParser = null;    
 
     private byte[] outgoing;
@@ -73,6 +74,9 @@ public class UDPConnection : MonoBehaviour
         // threadTX = new System.Threading.Timer(new TimerCallback(Send), null, 0, 15);
     }
 
+    /*
+        @brief: function runs at a fixed rate of 1 / fixed time step
+    */
     void FixedUpdate()
     {
         outgoing = packetParser.outgoing;
@@ -95,6 +99,10 @@ public class UDPConnection : MonoBehaviour
     }
 
     #endregion
+
+    /*
+        @brief: Sends stored packets to brachIOplexus then resets the packet array
+    */
     void Send(object state)
     {
         while(!exitTX)
