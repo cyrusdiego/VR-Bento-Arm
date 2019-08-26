@@ -66,7 +66,6 @@ public class Motor : RotationBase
                 global.maxTorque = true; // double check 
             }
         }
-
         switch(direction)
         {
             case 0:
@@ -74,10 +73,12 @@ public class Motor : RotationBase
                 break;
 
             case 1:
+                global.armActive = true;
                 getAxis(-1,velocity);
                 break;
 
             case 2:
+                global.armActive = true;
                 getAxis(1,velocity);
                 break;
         }

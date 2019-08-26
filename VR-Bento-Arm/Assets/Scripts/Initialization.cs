@@ -31,5 +31,6 @@ public class Initialization : MonoBehaviour
         global.task = false;
         global.timer = false;
         global.maxTorque = false;
+        global.armActive = false;
     }
 }

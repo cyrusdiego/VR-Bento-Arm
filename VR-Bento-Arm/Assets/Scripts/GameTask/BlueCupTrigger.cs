@@ -8,7 +8,7 @@ public class BlueCupTrigger : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if(other.name == "Cube")
+        if(other.name == "Ball")
         {
             _gtLogic.step1 = true;
         }
@@ -16,7 +16,7 @@ public class BlueCupTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if(other.name == "Cube")
+        if(other.name == "Ball")
         {
             _gtLogic.step1 = false;
         }
