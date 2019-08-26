@@ -8,8 +8,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Box_And_Blocks_Global", menuName = "brachIOplexus/Box_And_Blocks_Global")]
 public class Box_And_Blocks_Global : ScriptableObject
 {
-    // Cube on top of blue cup
-    public bool step1;
-    // Red cup on top of cube
-    public bool step2;
+    public int ballCounter;
 }

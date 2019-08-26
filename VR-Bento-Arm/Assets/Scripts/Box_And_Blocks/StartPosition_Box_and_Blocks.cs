@@ -13,9 +13,7 @@ public class StartPosition_Box_and_Blocks : MonoBehaviour
 
     void Awake()
     {   
-        _BaBLogic.step1 = false;
-        _BaBLogic.step2 = false;
-        
+        _BaBLogic.ballCounter = 0;
         global.startup = true;
         elbowReady = false;
 

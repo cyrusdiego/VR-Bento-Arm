@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &168672306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4587385885072488161}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 100, y: 40, z: 88}
+  m_Center: {x: -105.2, y: 225, z: 0}
+--- !u!65 &168672303
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5018364492608847598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 65.1, y: 45, z: 46}
+  m_Center: {x: -110.44643, y: 127, z: 0}
 --- !u!65 &168672304
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26,32 +52,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 80, y: 30, z: 80}
   m_Center: {x: -101, y: 232, z: 0}
---- !u!65 &168672303
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5018364492608847598}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 65.1, y: 45, z: 46}
-  m_Center: {x: -110.44643, y: 127, z: 0}
---- !u!65 &168672306
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4587385885072488161}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 100, y: 40, z: 88}
-  m_Center: {x: -105.2, y: 225, z: 0}
 --- !u!1001 &2116665114038812942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ PrefabInstance:
     - target: {fileID: 5785963263724943748, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_Name
-      value: Bicep 1
+      value: Bicep
       objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943800, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
@@ -199,6 +199,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.653
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943802, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -218,21 +238,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedBody
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.653
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5785963263724943803, guid: 84767e0f650412e45854c07eda9f2d6c,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5785963263724943749, guid: 84767e0f650412e45854c07eda9f2d6c,
         type: 3}
