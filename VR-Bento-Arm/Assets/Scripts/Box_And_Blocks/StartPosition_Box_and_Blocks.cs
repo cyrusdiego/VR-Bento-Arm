@@ -53,7 +53,7 @@ public class StartPosition_Box_and_Blocks : MonoBehaviour
             elbowReady = true;
         }
 
-        if(elbowReady) 
+        if(elbowReady && global.armActive) 
         {
             triggerTimer();
             global.startup = false;

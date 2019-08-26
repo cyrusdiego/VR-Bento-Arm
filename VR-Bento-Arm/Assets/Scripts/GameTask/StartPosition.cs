@@ -51,10 +51,11 @@ public class StartPosition : MonoBehaviour
         if(shoulderAngle <= shoulderLimit && shoulderAngle >= (shoulderLimit - 1)) 
         {
             global.brachIOplexusControl[0] = new Tuple<float, float>(0,0);
-            shoulderReady = true;
+            shoulderReady = true; 
+            global.armActive = false;
         }
 
-        if(shoulderReady) 
+        if(shoulderReady && global.armActive == true) 
         {
             triggerTimer();
             global.startup = false;

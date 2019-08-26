@@ -54,6 +54,8 @@ public class Global : ScriptableObject
     public bool startup;
     // Flag to indicate that a servo motor is applying too much torque / force on an object
     public bool maxTorque;
+    // Flag to indicate if brachIOplexus is sending signals to move the arm
+    public bool armActive;
     public Global()
     {
         // This value needs to be changed if more motors were to be added 
