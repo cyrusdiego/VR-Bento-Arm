@@ -37,6 +37,9 @@ public class Parser : MonoBehaviour
     private float[] currentPosition = new float[5];
     private float[] currentVelocity = new float[5];
 
+    /*
+        @brief: function called when script instance is being loaded
+    */
     void Awake()
     {
         outgoing = null;
@@ -45,15 +48,23 @@ public class Parser : MonoBehaviour
         timerSent = false;
     }
 
+    /*
+        @brief: function runs at a fixed rate of 1 / fixed time step
+    */
     void FixedUpdate()
     {
+        // Resets timer flags if the timer packet has been sent 
         if(timerSent)
         {
             global.timer = false;
             timerSent = false;
         }
+
+        // Constantly updates the task and timer flag from global class
         task = global.task;
         timer = global.timer;
+
+        // Currently cts feedback is not working and requires further development
         // if(task)
         // {
         //     sendFeedback();
@@ -114,7 +125,9 @@ public class Parser : MonoBehaviour
         }
     }
 
-    // Using global position and velocity array's fills feedback byte array to send to brachIOplexus
+    /*
+        @brief: Using global position and velocity array's fills feedback byte array to send to brachIOplexus
+    */
     private void sendFeedback()
     {
         int startIdx;
@@ -153,12 +166,17 @@ public class Parser : MonoBehaviour
         feedback[feedback.Length - 1] = calcCheckSum(ref feedback);
     }
 
+    /*
+        Method to cycle, save, and clear saved camera positions 
+    */
     private void Camera(ref byte[] packet)
     {
 
     }
 
-    // Fills global variables to handle scene control (SceneControl.cs)
+    /*
+        Fills global variables to handle scene control (SceneControl.cs)
+    */
     private void SceneControl(ref byte[] packet)
     {
         bool pause;
@@ -174,7 +192,9 @@ public class Parser : MonoBehaviour
         global.reset = reset;
     }
 
-    // Fills global variables to handle controlling the arm (Motor.cs)
+    /*
+        Fills global variables to handle controlling the arm (Motor.cs)
+    */
     private void Control(ref byte[] packet)
     {
         if(global.pause || global.startup)
@@ -207,7 +227,9 @@ public class Parser : MonoBehaviour
         global.task = true;
     }
 
-    // Fills acknowledgement packet to send to brachIOplexus 
+    /*
+        Fills acknowledgement packet to send to brachIOplexus 
+    */
     private void Startup()
     {
         outgoing = new byte[6];
@@ -222,6 +244,9 @@ public class Parser : MonoBehaviour
 
     }
 
+    /*
+        Creates timer packet to be sent to brachIOplexus 
+    */
     private void timerToggle()
     {
         timerFeedback = new byte[6];
@@ -231,9 +256,8 @@ public class Parser : MonoBehaviour
         timerFeedback[3] = 1;
         timerFeedback[4] = 1;
         timerFeedback[5] = calcCheckSum(ref timerFeedback);
-
-        // global.timer = false;
     }
+    
     #region Utilities
 
     /*

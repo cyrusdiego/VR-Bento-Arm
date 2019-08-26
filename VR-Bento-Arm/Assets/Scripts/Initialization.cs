@@ -3,7 +3,7 @@
     Initialization.cs
     Created by: Cyrus Diego July 12, 2019
 
-    This class reset the values for all the global variables. Removes 
+    This class reset the values for all the global variables. Removes having to set the variables in
     Awake() in multiple files and makes it easy to initialize global varaibles 
     in a single place
  */
@@ -12,6 +12,10 @@ using UnityEngine;
 public class Initialization : MonoBehaviour
 {
     public Global global = null;
+
+    /*
+        @brief: function called when script instance is being loaded
+    */
     void Awake()
     {
         for(int i = 0; i < 4; i++)

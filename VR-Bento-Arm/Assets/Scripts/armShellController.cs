@@ -4,6 +4,7 @@
     Created by: Cyrus Diego July 22, 2019
 
     This class toggles the arm shells for the bento arm upon task launch
+    BrachIOplexus will send a signal that will toggle the arm shells on or off
  */
 using UnityEngine;
 
@@ -28,7 +29,10 @@ public class armShellController : MonoBehaviour
             // disabled box colliders under arm shells 
             for(int i = 0; i < armSkeleton.Length; i++)
             {
+                // Array to hold box collider components 
                 BoxCollider[] boxes;
+                
+                // Assigns the array to the array of box colliders for each game object
                 boxes = armSkeleton[i].GetComponents<BoxCollider>();
                 for(int j = 0; j < boxes.Length; j++)
                 {
@@ -46,7 +50,10 @@ public class armShellController : MonoBehaviour
             // enables box colliders under arm shells
             for(int i = 0; i < armSkeleton.Length; i++)
             {
+                // Array to hold box collider components 
                 BoxCollider[] boxes;
+
+                // Assigns the array to the array of box colliders for each game object
                 boxes = armSkeleton[i].GetComponents<BoxCollider>();
                 for(int j = 0; j < boxes.Length; j++)
                 {
