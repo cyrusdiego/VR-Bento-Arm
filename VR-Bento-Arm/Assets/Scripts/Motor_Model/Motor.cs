@@ -99,12 +99,26 @@ public class Motor : RotationBase
 
             case 1:
                 global.armActive = true;
-                getAxis(-1,velocity);
+                if(arrayIndex == 4)
+                {
+                    getAxis(1, velocity);
+                }
+                else
+                {
+                    getAxis(-1,velocity);
+                }
                 break;
 
             case 2:
                 global.armActive = true;
-                getAxis(1,velocity);
+                if(arrayIndex == 4)
+                {
+                    getAxis(-1, velocity);
+                }
+                else
+                {
+                    getAxis(1,velocity);
+                }
                 break;
         }
         
@@ -155,6 +169,11 @@ public class Motor : RotationBase
         cj.rotationDriveMode = RotationDriveMode.XYAndZ;
     }
 
+    /*
+        @brief: set parameters for the rigidbody for the bento arm
+        to allow for highest scrutiny for collisions and to set physical properties 
+        like mass.
+    */
     private void configureRB()
     {
         rb.drag = 0;
@@ -165,8 +184,17 @@ public class Motor : RotationBase
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
+    /*
+        @brief: configures joint limits for each motor using the input from 
+        brachIOplexus. Needed to map values from brachIOplexus's values using 
+        the servo doc to the joint's coordinate space. 
+
+        Requires more work as the mapping between servo values and to the joint 
+        coordinate space is not consistent across motors 
+    */
     private void configureJointLimits()
     {
+        // Temp values to store values from the packet from brachIOplexus
         byte lowPMin;
         byte lowPMax;
         byte hiPMin;
@@ -174,26 +202,31 @@ public class Motor : RotationBase
         ushort PMin;
         ushort PMax;
 
+        // Get low and high bytes for joint limits from the packet from brachIOplexus 
         lowPMin = global.jointLimits[(4 * arrayIndex) + 0];
         hiPMin = global.jointLimits[(4 * arrayIndex) + 1];
         lowPMax = global.jointLimits[(4 * arrayIndex) + 2];
         hiPMax = global.jointLimits[(4 * arrayIndex) + 3];
 
+        // Combine low and high byte to form the min and max positions 
         PMin = (ushort)((lowPMin) | (hiPMin << 8));
         PMax = (ushort)((lowPMax) | (hiPMax << 8));
 
+        // Variables to store the mapped position limits to the joint coordinate space
         int actualPMin;
         int actualPMax;
 
         actualPMin = (180 - PMin) - 90;
         actualPMax = 90 - (PMax - 180);
 
+        // Needed to hard code this case for now 
         if(PMax == 270 && PMin == 90)
         {
             cj.angularXMotion = ConfigurableJointMotion.Free;
             return;
         }
 
+        // Switch the min and max values if required
         if(actualPMax < actualPMin)
         {
             int temp;
@@ -202,21 +235,30 @@ public class Motor : RotationBase
             actualPMax = temp;
         }
 
+        // Hard-coded values for the wrist 
         if(arrayIndex == 3)
         {
             actualPMin = -90;
             actualPMax = 90;
         }
 
+        // Set min and max limits for joint limit objects 
         min.limit = actualPMin;
         max.limit = actualPMax;
 
+        // sets the configurable joint limits to the joint limit objects 
         cj.lowAngularXLimit = min;
         cj.highAngularXLimit = max;
     }
 
+    /*
+        @brief: sets max angular velocity for the joint. 
+        Requires more work as minimum velocity does not do anything 
+        and have not tested if the max velocity has been actually set properly
+    */
     private void configureSpeedLimits()
     {
+        // Temp values to store values from the packet from brachIOplexus
         byte lowVMin;
         byte lowVMax;
         byte hiVMin;
@@ -224,11 +266,13 @@ public class Motor : RotationBase
         ushort VMin;
         ushort VMax;
 
+        // Get low and high bytes for joint limits from the packet from brachIOplexus 
         lowVMin = global.jointLimits[(4 * arrayIndex) + 20];
         hiVMin = global.jointLimits[(4 * arrayIndex) + 21];
         lowVMax = global.jointLimits[(4 * arrayIndex) + 22];
         hiVMax = global.jointLimits[(4 * arrayIndex) + 23];
 
+        // Combine low and high byte to form the min and max velocities 
         VMin = (ushort)((lowVMin) | (hiVMin << 8));
         VMax = (ushort)((lowVMax) | (hiVMax << 8));
         
@@ -238,6 +282,7 @@ public class Motor : RotationBase
         // actualVMin = (180 - VMin) - 90;
         actualVMax = VMax * 0.114f * 0.1047f;
 
+        // set max speed limit 
         maxSpeedLimit = actualVMax;
     }
 }

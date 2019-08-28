@@ -16,7 +16,7 @@ using UnityEngine;
 public class Global : ScriptableObject
 {
     // unused until camera positon saving has been implemeneted
-    // public byte[] cameraArray = new byte[4];
+    public byte[] cameraArray = new byte[4];
 
     // Number of motors in virtual bento arm (Feedback.cs)
     public int motorCount;

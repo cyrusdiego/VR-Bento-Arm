@@ -18,8 +18,7 @@ public class StartPosition : MonoBehaviour
         global.startup = true;
         shoulderReady = false;
 
-        shoulderLimit = getLimit(0) + 360;
-
+        shoulderLimit = getLimit(0) + 180;
         timerCounter = 0; 
 
         if(global.controlToggle)

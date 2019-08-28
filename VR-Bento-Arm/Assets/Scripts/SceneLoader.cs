@@ -9,6 +9,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -47,6 +48,15 @@ public class SceneLoader : MonoBehaviour
         // Note: scene index in Unity is + 1 from brachIOplexus because VIPER_INIT is the first scene in the build 
         SceneManager.LoadScene(scene + 1);
 
+        // The tracker scene cannot have too high have a refresh rate
+        if((scene + 1) == 3)
+        {
+            SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency = true;
+        }
+        else
+        {
+            SteamVR.settings.lockPhysicsUpdateRateToRenderFrequency = false;
+        }
         // Sets global states
         global.armShell = armShell;
         global.controlToggle = armControl;

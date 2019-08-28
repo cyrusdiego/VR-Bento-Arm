@@ -25,7 +25,7 @@ public class ArmTracker : MonoBehaviour
     public GameObject bentoArm = null;
     public SteamVR_TrackedObject Tracker;
 
-    void Update () 
+    void FixedUpdate () 
     {
         //Collect delta rotation and displacement between Tracker and Accessory
         Vector3 delta_displacement = new Vector3(dX, dY, dZ);
