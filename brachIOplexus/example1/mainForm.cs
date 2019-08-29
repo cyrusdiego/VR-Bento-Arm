@@ -9260,6 +9260,7 @@ namespace brachIOplexus
             //unityCameraPosition.Enabled = true;
             //unityFeedbackBox.Enabled = true;
             unityRobotParamsBox.Enabled = true;
+            unityLaunchTask.Enabled = false;
         }
 
         private List<ushort> positionMinMax()
@@ -9305,6 +9306,7 @@ namespace brachIOplexus
         {
             sendSceneCtrl(endTask: 1);
             resetTimer();
+            unityLaunchTask.Enabled = true;
         }
 
         /*
